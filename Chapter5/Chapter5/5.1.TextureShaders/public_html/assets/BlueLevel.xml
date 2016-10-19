@@ -1,0 +1,28 @@
+<MyGameLevel>
+
+<!--  *** be careful!! comma (,) is not a supported syntax!!  -->
+<!--  make sure there are no comma in between attributes -->
+<!--  e.g., do NOT do:  PosX="20", PosY="30" -->
+<!--  notice the "comma" between PosX and PosY: Syntax error! -->
+  
+    <!-- cameras -->
+                <!-- Viewport: x, y, w, h -->
+    <Camera CenterX="20" CenterY="60" Width="20" 
+            Viewport="20 40 600 300"   
+            BgColor="0 0 1 1.0"/>
+              
+ 
+    <!-- The red rectangle --> 
+    <Square PosX="20" PosY="60" Width="2" Height="3" Rotation="0"  Color="1 0 0 1" />
+ 
+    <!-- Textures Square -->
+    <TextureSquare PosX="15" PosY="60" Width="3" Height="3" Rotation="-5" 
+        Color="1 0 0 0.3" 
+        Texture="assets/minion_portal.jpg" />
+        
+    <TextureSquare PosX="25" PosY="60" Width="3" Height="3" Rotation="5"  
+        Color="0 0 0 0" 
+        Texture="assets/minion_collector.jpg"/>
+        <!-- without tinting, alpha should be 0 -->
+   
+</MyGameLevel>
