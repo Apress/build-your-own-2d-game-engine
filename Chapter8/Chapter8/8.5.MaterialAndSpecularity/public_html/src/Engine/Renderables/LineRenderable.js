@@ -52,7 +52,7 @@ LineRenderable.prototype.draw = function (aCamera) {
     if (this.mShowLine) {
         gl.drawArrays(gl.LINE_STRIP, 0, 2);
     }
-    if (!this.mShowLine || this.mdrawVertices) {
+    if (!this.mShowLine || this.mDrawVertices) {
         gl.drawArrays(gl.POINTS, 0, 2);
     }
 };
