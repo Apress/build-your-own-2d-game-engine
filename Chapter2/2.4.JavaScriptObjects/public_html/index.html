@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example 2.4: The JavaScript Objects Project</title>
+        <link rel ="icon" type ="image/x-icon" href="./favicon.png">
+    
+        <!-- everything in-between the <script> tag is javascript -->
+        <script type="x-shader/x-vertex" id="VertexShader">
+            // this is the vertex shader 
+            attribute vec3 aSquareVertexPosition;  // Vertex shader expects one vertex position
+            void main(void) {
+            // Convert the vec3 into vec4 for scan conversion and
+            // assign to gl_Position to pass the vertex to the fragment shader
+            gl_Position = vec4(aSquareVertexPosition, 1.0); 
+            }
+            // End of vertex shader
+        </script>
+
+        <script type="x-shader/x-fragment" id="FragmentShader">
+            // this is the fragment (or pixel) shader
+            void main(void) {
+            // for every pixel called (within the square) sets
+            // constant color white with alpha-channel value of 1.0
+            gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+            }
+            // End of fragment/pixel shader
+        </script>   
+
+        <!-- the following says there are javascript source code contained in 
+             the external source files
+        -->
+        <!-- Engine code -->
+        <script type="text/javascript" src="src/Engine/Engine_Core.js"></script>
+        <script type="text/javascript" src="src/Engine/Engine_VertexBuffer.js"></script>
+        <script type="text/javascript" src="src/Engine/SimpleShader.js"></script>
+
+        <!-- Client game code -->
+        
+        <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
+        <!--Use embedded shader code for now, in order to remove async loading complexity.-->
+    </head>
+    
+    <body onload="new MyGame('GLCanvas');">
+        <canvas id="GLCanvas" width="640" height="480">
+            <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
+            Your browser does not support the HTML5 canvas.
+            <!-- this message will show only if WebGL clearing failed -->
+        </canvas>
+    </body>
+</html>

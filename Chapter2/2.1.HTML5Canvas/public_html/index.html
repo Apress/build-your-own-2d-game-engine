@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example 2.1: The HTML5 Canvas Project</title>
+        <link rel ="icon" type ="image/x-icon" href="./favicon.png">
+    </head>
+    <!--Use embedded shader code for now, in order to remove async loading complexity.-->
+
+    <body>
+        <canvas id="GLCanvas" width="640" height="480">
+            <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
+            Your browser does not support the HTML5 canvas.
+            <!-- this message will show only if WebGL clearing failed -->
+        </canvas>
+
+        <!-- everything in-between the <script> tag is javascript -->
+        <script type="text/javascript">
+            "use strict";  // Operate in Strict mode such that variables must be declared before used!
+
+            // Begin of code execution
+            var canvas = document.getElementById("GLCanvas");
+
+            // Get standard webgl, or experimental
+            // binds webgl to the Canvas area on the web-page to the variable "gl"
+            // "gl" will be the context upon which we access all webGL functionality
+            var gl = canvas.getContext("webgl") ||
+                canvas.getContext("experimental-webgl");
+
+            if (gl !== null) {
+                gl.clearColor(0.0, 0.8, 0.0, 1.0);  // set the color to be cleared
+                gl.clear(gl.COLOR_BUFFER_BIT);      // clear the colors
+            }
+            document.write("<br><b>The above is WebGL draw area!</b>");
+        </script>
+    </body>
+</html>
