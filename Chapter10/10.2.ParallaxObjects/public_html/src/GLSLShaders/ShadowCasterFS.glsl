@@ -72,7 +72,7 @@ float LightStrength() {
     float aAtten = 1.0, dAtten = 1.0;
     vec3 lgtDir = -normalize(uLights[0].Direction.xyz);
     vec3 L; // light vector
-    float dist; // distant to light
+    float dist; // distance to light
     if (uLights[0].LightType == eDirectionalLight) {
         L = lgtDir;
     } else {
@@ -85,7 +85,7 @@ float LightStrength() {
         aAtten = AngularDropOff(lgtDir, L);
     }
     if (uLights[0].LightType != eDirectionalLight) {
-        // both spot and point light has distant dropoff
+        // both spot and point light has distance dropoff
         dAtten = DistanceDropOff(dist);
     }
     float result = aAtten * dAtten;

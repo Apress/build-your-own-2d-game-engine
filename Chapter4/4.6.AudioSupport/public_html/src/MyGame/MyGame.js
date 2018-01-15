@@ -46,24 +46,6 @@ MyGame.prototype.unloadScene = function() {
     gEngine.Core.startScene(nextLevel);
 };
 
-MyGame.prototype.draw = function () {
-    // Step A: Game loop not running, unload all assets
-    // stop the background audio
-    gEngine.AudioClips.stopBackgroundAudio();
-
-    // unload the scene resources
-    // gEngine.AudioClips.unloadAudio(this.kBgClip);
-    //      The above line is commented out on purpose because
-    //      you know this clip will be used elsewhere in the game
-    //      So you decide to not unload this clip!!
-    gEngine.AudioClips.unloadAudio(this.kCue);
-
-    // Step B: starts the next level
-    // starts the next level
-    var nextLevel = new BlueLevel();  // next level to be loaded
-    gEngine.Core.startScene(nextLevel);
-};
-
 MyGame.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
