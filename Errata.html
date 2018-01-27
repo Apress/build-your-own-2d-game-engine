@@ -655,6 +655,24 @@
 			</ul><br>
 			</li>
 					
+        <li>Pdf page 42/Book page 168: item-2 (middle of page)<ul>
+			<li>512, 0, // first element position: top-<em>right</em>, 512 is top, 0 is <em> right </em>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				should be</li>
+			<li> 512, 0, // first element position: top-<strong>left</strong>, 512 is top, 0 is <strong>left</strong> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				(replace "right" with "left", two occurrences)</li>
+		</ul><br>
+		</li>
+        <li>Pdf page 43/Book page 169: item-2 continue (top of page)<ul>
+			<li>348, 0, // first element: top-<em>right</em>, 164 from 512 is top, 0 is <em> right </em>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				should be</li>
+			<li>348, 0, // first element: top-<strong>left</strong>, 164 from 512 is top, 0 is <strong>left</strong> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				(replace "right" with "left", two occurrences)</li>
+		</ul><br>
+		</li>
 	
 		<li>Pdf page 46/Book page 172: item-2, code comment:<ul>
 				<li><em>// ... the entier image...</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
