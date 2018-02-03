@@ -20,8 +20,8 @@ TextureRenderable.prototype.pixelTouches = function(other, wcTouchPos) {
             if (this._pixelAlphaValue(xIndex, yIndex) > 0) {
                 this._indexToWCPosition(wcTouchPos, xIndex, yIndex);
                 other._wcPositionToIndex(otherIndex, wcTouchPos);
-                if ((otherIndex[0] > 0) && (otherIndex[0] < other.mTexWidth) &&
-                    (otherIndex[1] > 0) && (otherIndex[1] < other.mTexHeight)) {
+                if ((otherIndex[0] >= 0) && (otherIndex[0] < other.mTexWidth) &&
+                    (otherIndex[1] >= 0) && (otherIndex[1] < other.mTexHeight)) {
                     pixelTouch = other._pixelAlphaValue(otherIndex[0], otherIndex[1]) > 0;
                 }
             }

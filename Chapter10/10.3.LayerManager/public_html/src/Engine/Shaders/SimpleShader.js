@@ -16,13 +16,14 @@
 function SimpleShader(vertexShaderPath, fragmentShaderPath) {
     // instance variables
     // Convention: all instance variables: mVariables
-    this.mCompiledShader = null;  // reference to the compiled shader in webgl context  
-    this.mShaderVertexPositionAttribute = null; // reference to SquareVertexPosition within the shader
-    this.mPixelColor = null;                    // reference to the pixelColor uniform in the fragment shader
-    this.mModelTransform = null;                // reference to model transform matrix in vertex shader
-    this.mViewProjTransform = null;             // reference to the View/Projection matrix in the vertex shader
-    this.mGlobalAmbientColor = null;
-    this.mGlobalAmbientIntensity = null;
+    this.mCompiledShader = null; // reference to the compiled shader in webgl context.
+    this.mShaderVertexPositionAttribute = null; // reference to SquareVertexPosition within the shader.
+    this.mPixelColor = null; // reference to the pixelColor uniform in the fragment shader.
+    this.mModelTransform = null; // reference to model transform matrix in vertex shader.
+    this.mViewProjTransform = null; // reference to the View/Projection matrix in the vertex shader.
+    this.mGlobalAmbientColor = null; // refrence to the globalAmbientColor uniform in the fragment shader.
+    this.mGlobalAmbientIntensity = null; // refrence to the globalAmbientIntensity uniform in the fragment shader.
+
     var gl = gEngine.Core.getGL();
 
     // start of constructor code
