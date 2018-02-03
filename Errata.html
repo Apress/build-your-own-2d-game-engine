@@ -804,7 +804,7 @@
 		</ul><br>
 		</li>
 
-		<li><strong>Bug:</strong> Pdf page 33/Book page 219: item 3:<ul>
+		<li><strong>Bug:</strong> Project 6.4: Pdf page 33/Book page 219: item 3:<ul>
 			<li>when computing <strong>x</strong>, and <strong>y</strong> values: <br>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			    var x = i * this.mXform.getWidth() / (<strong>this.mTexWidth – 1</strong>); <br>
@@ -816,6 +816,23 @@
 			    var x = i * this.mXform.getWidth() / <strong>this.mTexWidth</strong>; <br>
    				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				var y = j * this.mXform.getHeight() / <strong>this.mTexHeight</strong>;
+				</li>
+		</ul><br>
+		</li>
+        
+        <li><strong>Bug:</strong> Project 6.4: Pdf page 33/Book page 219: item 5:<ul>
+			<li>when checking for lower bound of valid texel index <strong>i</strong>, and <strong>j</strong> values:   
+                <br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    if (<strong>(otherIndex[0] > 0)</strong> && (otherIndex[0] < other.mTexWidth) && <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <strong>(otherIndex[1] > 0)</strong> && (otherIndex[1] < other.mTexHeight)) {
+				</li>
+			<li>it is important to include index position [0, 0]: <br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    if (<strong>(otherIndex[0] >= 0)</strong> && (otherIndex[0] < other.mTexWidth) && <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <strong>(otherIndex[1] >= 0)</strong> && (otherIndex[1] < other.mTexHeight)) {
 				</li>
 		</ul><br>
 		</li>
