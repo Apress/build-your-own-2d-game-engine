@@ -837,12 +837,39 @@
 		</ul><br>
 		</li>
 
-
 		<li>Pdf page 34/Book page 220: bottom of page, should explain <strong>TextureObject</strong> 
 		is defined to support user interaction with the <em>mCollector </em>and <em>mPortal</em> 
 		objects.
 		</li>
 		<br>
+             
+        <li>Pdf page 39/Book page 225: comments to the function _wcPositionToIndex() showed under item-2<ul>
+            <li> When referring to the position returned from xForm: the <strong>lower-left corner</strong>
+                <br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    // recall that xForm.getPosition() returns <strong>lower-left corner</strong>, yet <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                // Texture origin is at lower-left corner!<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                returnIndex[0] += this.mTexWidth / 2; <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                returnIndex[1] += this.mTexHeight / 2; <br>
+				</li>
+			<li>Should be replaced with <strong>center</strong> <br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    // recall that xForm.getPosition() returns <strong>center</strong>, yet <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                // Texture origin is at lower-left corner!<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                returnIndex[0] += this.mTexWidth / 2; <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                returnIndex[1] += this.mTexHeight / 2; <br>
+				</li>
+				</li>
+		</ul><br>
+		</li>
+		<br>
+
 		
 
 	</ul>
@@ -878,8 +905,6 @@
 					var bBbox = this.mBrain.getBBox();
 		</li>
 		<br>
-		<br>
-		
 		
 		<li>Pdf page 40/Book page 226: middle of page (bold fonts):
 			<ul>
