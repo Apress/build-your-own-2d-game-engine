@@ -1,0 +1,6 @@
+# ignore 
+# ** matches anything
+# ignore folder name: private
+
+# ignore .bak files
+*.bak

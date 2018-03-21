@@ -5,9 +5,6 @@
         <group name="Chapter4"/>
         <group name="BookChapters"/>
         <group name="AllBookProjects"/>
-        <group name="Apress-2d-game-engine">
-            <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/Chapter4/Chapter4/4.5.SceneObjects/public_html/src/Engine/Core/Engine_Core.js</file>
-            <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/Chapter4/Chapter4/4.5.SceneObjects/public_html/src/Engine/Core/Engine_GameLoop.js</file>
-        </group>
+        <group name="Apress-2d-game-engine"/>
     </open-files>
 </project-private>
