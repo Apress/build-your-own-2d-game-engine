@@ -1,0 +1,31 @@
+body {
+	margin: 40px auto;
+	max-width: 1000px;
+	line-height: 1.6;
+	font-size: 18px;
+	font-family: monospace;
+	color: beige;
+	padding: 0 10px;
+	background-color: cornflowerblue
+}
+h1, h2, h3 {
+	line-height: 1.2
+}
+canvas {
+	background-color: white
+}
+hr {
+	border: 0;
+	height: 3px;
+	border-top: 3px dashed;
+	border-color: beige
+}
+a:link {
+	color: white
+}
+a:visited {
+	color: beige
+}
+a:hover, a:focus, a:active {
+	color: tomato
+}

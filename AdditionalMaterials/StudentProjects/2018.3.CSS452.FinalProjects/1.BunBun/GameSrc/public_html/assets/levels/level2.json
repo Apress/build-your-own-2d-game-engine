@@ -1,0 +1,993 @@
+{
+    "name": "Level 0",
+    "description": "A BunBun beta level",
+    "ambientColor": [1, 1, 1, 1],
+    "ambientIntensity": 0.0,
+    "assetList": [
+        {
+            "name":   "assets/textures/carrotPickup.png",
+            "type":   "texture"
+        }, {
+            "name": "assets/textures/Overlay0.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay0p.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay4.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay5.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay6.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay1.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay2.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay3.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/carrotSlice.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/flareStrip.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Bun_animated.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Spaceship.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/SpaceshipNormal.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/indicator.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills0.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills1.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills2.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills3.png",
+            "type": "texture"
+        }, {
+            "name": "assets/fonts/Consolas-32",
+            "type": "font"
+        }
+    ],
+    "cameraList": [
+        {
+            "name": "main",
+            "center": [50, 37.5],
+            "width": 100,
+            "pixelPosition": [0, 0],
+            "pixelSize": [800, 600],
+            "color": [0.38, 0.78, 1.0, 1]
+        }, {
+            "name": "minimap",
+            "center": [50, 37.5],
+            "width": 200,
+            "pixelPosition": [620, 460],
+            "pixelSize": [160, 120],
+            "color": [0.1, 0.1, 0.1, 1]
+        }
+    ],
+    "objectList": {
+        "TerrainBlock": [
+            {
+                "__hasPhysics": true,
+                "position": [
+                    57.60020065307617,
+                    32.40004348754883
+                ],
+                "size": [
+                    28.732234954833984,
+                    14.799989700317383
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    242.99771118164062,
+                    52.000099182128906
+                ],
+                "size": [
+                    51.782325744628906,
+                    3.0000007152557373
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    233.9978790283203,
+                    82.19982147216797
+                ],
+                "size": [
+                    8.849996566772461,
+                    21.800010681152344
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    116.39948272705078,
+                    30.800018310546875
+                ],
+                "size": [
+                    14.182191848754883,
+                    8.399996757507324
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    16.800073623657227,
+                    7.199997901916504
+                ],
+                "size": [
+                    11.382194519042969,
+                    17.199993133544922
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    402.6061706542969,
+                    84.59993743896484
+                ],
+                "size": [
+                    5.050000190734863,
+                    15.599989891052246
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    507.2121887207031,
+                    144.59912109375
+                ],
+                "size": [
+                    59.250152587890625,
+                    10.799994468688965
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    202.7982940673828,
+                    46.60004806518555
+                ],
+                "size": [
+                    5.249999523162842,
+                    40.60008239746094
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    579.21630859375,
+                    167.39883422851562
+                ],
+                "size": [
+                    43.05009078979492,
+                    15.599989891052246
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    216.99810791015625,
+                    62.000099182128906
+                ],
+                "size": [
+                    5.249999523162842,
+                    20.600006103515625
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    194.9984130859375,
+                    69.8000259399414
+                ],
+                "size": [
+                    29.382240295410156,
+                    10.399994850158691
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    112.19951629638672,
+                    38.400054931640625
+                ],
+                "size": [
+                    7.582198143005371,
+                    9.399995803833008
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    24.400094985961914,
+                    4.400002479553223
+                ],
+                "size": [
+                    8.182197570800781,
+                    6.599998474121094
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    188.79849243164062,
+                    61.25010681152344
+                ],
+                "size": [
+                    28.182235717773438,
+                    11.799993515014648
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    61.600250244140625,
+                    2.200000047683716
+                ],
+                "size": [
+                    83.58207702636719,
+                    3
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    0.400066077709198,
+                    86.30030822753906
+                ],
+                "size": [
+                    2.9999983310699463,
+                    124.75001525878906
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    30.800111770629883,
+                    25.00002670288086
+                ],
+                "size": [
+                    7.08220100402832,
+                    9.749978065490723
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    221.59803771972656,
+                    77.59993743896484
+                ],
+                "size": [
+                    25.7822265625,
+                    12.399992942810059
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    540.4140625,
+                    155.19898986816406
+                ],
+                "size": [
+                    41.8500862121582,
+                    15.599989891052246
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    247.1977081298828,
+                    80.3998794555664
+                ],
+                "size": [
+                    10.049995422363281,
+                    7.599997520446777
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    344.2026062011719,
+                    100.39969635009766
+                ],
+                "size": [
+                    24.85002326965332,
+                    15.199990272521973
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    125.79937744140625,
+                    54.20009994506836
+                ],
+                "size": [
+                    14.38219165802002,
+                    5.59999942779541
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    361.0036315917969,
+                    76.40006256103516
+                ],
+                "size": [
+                    79.24993896484375,
+                    5.799999237060547
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    320.8013000488281,
+                    83.79991912841797
+                ],
+                "size": [
+                    9.249996185302734,
+                    11.599993705749512
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    9.200075149536133,
+                    14.599989891052246
+                ],
+                "size": [
+                    17.982196807861328,
+                    21.00000762939453
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    95.29975128173828,
+                    42.200077056884766
+                ],
+                "size": [
+                    31.632259368896484,
+                    15.54998779296875
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    279.3988952636719,
+                    95.5997085571289
+                ],
+                "size": [
+                    58.650150299072266,
+                    8.799996376037598
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    268.7982482910156,
+                    75.60001373291016
+                ],
+                "size": [
+                    2.8500008583068848,
+                    33.20005416870117
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    259.5977783203125,
+                    58.400108337402344
+                ],
+                "size": [
+                    18.44999885559082,
+                    14.999990463256836
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    599.617431640625,
+                    206.5982666015625
+                ],
+                "size": [
+                    2.849998950958252,
+                    67.80010986328125
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    263.7980651855469,
+                    70.60005950927734
+                ],
+                "size": [
+                    10.649994850158691,
+                    15.199990272521973
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    314.2010192871094,
+                    94.59972381591797
+                ],
+                "size": [
+                    12.449993133544922,
+                    10.799994468688965
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    100.6002197265625,
+                    18.949996948242188
+                ],
+                "size": [
+                    1.5820770263671875,
+                    30.850040435791016
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    356.4033508300781,
+                    104.5996322631836
+                ],
+                "size": [
+                    13.249992370605469,
+                    24.000019073486328
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    502.8119201660156,
+                    132.19931030273438
+                ],
+                "size": [
+                    5.649997711181641,
+                    16.199989318847656
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    144.99911499023438,
+                    56.65010070800781
+                ],
+                "size": [
+                    39.582279205322266,
+                    10.399994850158691
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    173.398681640625,
+                    25.59998321533203
+                ],
+                "size": [
+                    104.78175354003906,
+                    5.59999942779541
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    439.8083190917969,
+                    107.9996109008789
+                ],
+                "size": [
+                    135.04908752441406,
+                    34.000057220458984
+                ],
+                "angle": 0
+            }
+        ],
+        "CarrotPickup": [
+            {
+                "__depth": 51,
+                "position":     [55, 41.5]
+            }, {
+                "__depth": 51,
+                "position":     [60, 41.5]
+            }, {
+                "__depth": 51,
+                "position":     [70, 41.5]
+            }, {
+                "__depth": 51,
+                "position":     [83.77497100830078, 51.07074737548828]
+            }, {
+                "__depth": 51,
+                "position":     [90.77497100830078, 51.07074737548828]
+            }, {
+                "__depth": 51,
+                "position":     [97.89997100830078, 50.94574737548828]
+            }, {
+                "__depth": 51,
+                "position":     [106.39997100830078, 51.19574737548828]
+            }, {
+                "__depth": 51,
+                "position":     [130.40984344482422, 41.82074737548828]
+            }, {
+                "__depth": 51,
+                "position":     [138.78484344482422, 41.94574737548828]
+            }, {
+                "__depth": 51,
+                "position":     [122.90984344482422, 67.69574737548828]
+            }, {
+                "__depth": 51,
+                "position":     [137.90984344482422, 67.57074737548828]
+            }, {
+                "__depth": 51,
+                "position":     [130.28484344482422, 67.69574737548828]
+            }, {
+                "__depth": 51,
+                "position":     [146.03484344482422, 67.69574737548828]
+            }, {
+                "__depth": 51,
+                "position":     [151.39300537109375, 67.24161529541016]
+            }, {
+                "__depth": 51,
+                "position":     [161.64300537109375, 67.36661529541016]
+            }, {
+                "__depth": 51,
+                "position":     [173.64300537109375, 67.24161529541016]
+            }, {
+                "__depth": 51,
+                "position":     [158.01800537109375, 29.491615295410156]
+            }, {
+                "__depth": 51,
+                "position":     [146.26800537109375, 29.491615295410156]
+            }, {
+                "__depth": 51,
+                "position":     [173.63671875, 29.27610969543457]
+            },{
+                "__depth": 51,
+                "position":     [194.01171875, 29.65110969543457]
+            },{
+                "__depth": 51,
+                "position":     [187.5030975341797, 75.87797546386719]
+            },{
+                "__depth": 51,
+                "position":     [200.0446319580078, 76.50297546386719]
+            },{
+                "__depth": 51,
+                "position":     [226.56764221191406, 54.29167175292969]
+            },{
+                "__depth": 51,
+                "position":     [237.56764221191406, 55.04167175292969]
+            },{
+                "__depth": 51,
+                "position":     [247.06764221191406, 55.04167175292969]
+            },{
+                "__depth": 51,
+                "position":     [225.2592315673828, 84.29167175292969]
+            },{
+                "__depth": 51,
+                "position":     [217.0841827392578, 85.04167175292969]
+            },{
+                "__depth": 51,
+                "position":     [233.9341278076172, 93.66667175292969]
+            },{
+                "__depth": 51,
+                "position":     [247.10768127441406, 85.46292114257812]
+            },{
+                "__depth": 51,
+                "position":     [253.77932739257812, 67.08792114257812]
+            },{
+                "__depth": 51,
+                "position":     [262.9043273925781, 79.21292114257812]
+            },{
+                "__depth": 51,
+                "position":     [256.7793273925781, 101.21292114257812]
+            },{
+                "__depth": 51,
+                "position":     [263.725830078125, 101.64317321777344]
+            },{
+                "__depth": 51,
+                "position":     [278.39434814453125, 101.26815032958984]
+            },{
+                "__depth": 51,
+                "position":     [292.5873107910156, 104.26815032958984]
+            },{
+                "__depth": 51,
+                "position":     [303.0304870605469, 101.89315032958984]
+            },{
+                "__depth": 51,
+                "position":     [313.83172607421875, 102.76815032958984]
+            },{
+                "__depth": 51,
+                "position":     [324.0504150390625, 89.89315032958984]
+            },{
+                "__depth": 51,
+                "position":     [334.8450012207031, 80.14315032958984]
+            },{
+                "__depth": 51,
+                "position":     [351.6828918457031, 81.49970245361328]
+            },{
+                "__depth": 51,
+                "position":     [333.5108947753906, 110.91498565673828]
+            },{
+                "__depth": 51,
+                "position":     [345.47808837890625, 111.09552764892578]
+            },{
+                "__depth": 51,
+                "position":     [354.7786865234375, 118.72330474853516]
+            },{
+                "__depth": 51,
+                "position":     [367.7634582519531, 81.83136749267578]
+            },{
+                "__depth": 51,
+                "position":     [383.09381103515625, 79.04339599609375]
+            },{
+                "__depth": 51,
+                "position":     [394.84381103515625, 79.54363250732422]
+            },{
+                "__depth": 51,
+                "position":     [377.5025634765625, 126.45819091796875]
+            },{
+                "__depth": 51,
+                "position":     [395.3038024902344, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [406.5061950683594, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [419.77569580078125, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [429.77783203125, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [439.7132873535156, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [447.4482727050781, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [456.4501953125, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [466.05224609375, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [470.6532287597656, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [451.11248779296875, 140.90823364257812]
+            },{
+                "__depth": 51,
+                "position":     [456.4467468261719, 141.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [463.98919677734375, 141.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [468.4315185546875, 141.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [484.2072448730469, 126.28323364257812]
+            },{
+                "__depth": 51,
+                "position":     [496.85003662109375, 126.03323364257812]
+            },{
+                "__depth": 51,
+                "position":     [482.1420593261719, 151.37417602539062]
+            },{
+                "__depth": 51,
+                "position":     [493.44287109375, 153.2474365234375]
+            },{
+                "__depth": 51,
+                "position":     [509.52734375, 150.6918487548828]
+            },{
+                "__depth": 51,
+                "position":     [527.3426513671875, 163.96197509765625]
+            },{
+                "__depth": 51,
+                "position":     [537.7742919921875, 164.21197509765625]
+            },{
+                "__depth": 51,
+                "position":     [545.5723876953125, 164.21197509765625]
+            },{
+                "__depth": 51,
+                "position":     [555.4039306640625, 164.33697509765625]
+            },{
+                "__depth": 51,
+                "position":     [567.0164794921875, 176.12393188476562]
+            },{
+                "__depth": 51,
+                "position":     [579.7647705078125, 176.49893188476562]
+            },{
+                "__depth": 51,
+                "position":     [589.2694091796875, 175.9472198486328]
+            },{
+                "__depth": 51,
+                "position":     [592.9161376953125, 179.59901428222656]
+            },{
+                "__depth": 51,
+                "position":     [590.6444091796875, 178.0722198486328]
+            },{
+                "__depth": 51,
+                "position":     [592.0194091796875, 179.9472198486328]
+            },{
+                "__depth": 51,
+                "position":     [593.6444091796875, 181.8222198486328]
+            },{
+                "__depth": 51,
+                "position":     [593.7694091796875, 180.3222198486328]
+            },{
+                "__depth": 51,
+                "position":     [594.6444091796875, 178.3222198486328]
+            },{
+                "__depth": 51,
+                "position":     [595.2694091796875, 177.4472198486328]
+            },{
+                "__depth": 51,
+                "position":     [595.7694091796875, 176.5722198486328]
+            },{
+                "__depth": 51,
+                "position":     [595.8944091796875, 175.8222198486328]
+            },{
+                "__depth": 51,
+                "position":     [594.7694091796875, 175.9472198486328]
+            },{
+                "__depth": 51,
+                "position":     [593.5194091796875, 175.9472198486328]
+            },{
+                "__depth": 51,
+                "position":     [592.7694091796875, 175.9472198486328]
+            },{
+                "__depth": 51,
+                "position":     [591.6444091796875, 175.9472198486328]
+            },{
+                "__depth": 51,
+                "position":     [590.5194091796875, 175.8222198486328]
+            },{
+                "__depth": 51,
+                "position":     [589.5194091796875, 175.8222198486328]
+            }
+        ],
+        "Player": [
+            {
+                "__hasPhysics": true,
+                "__depth":      -2,
+                "position":     [50, 40]
+            }
+        ],
+        "Water": [
+            {
+                "__depth":      -100,
+                "__hasPhysics": false,
+                "waterSpeed":   0.04,
+                "waterLevel":   -20
+            }
+        ],
+        "Facade": [
+            {
+                "__comment":  "Left, start of level",
+                "__depth":    51,
+                "position":   [-100, -225],
+                "size":       [100, 300],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, start of level",
+                "__depth":    51,
+                "position":   [0, -200],
+                "size":       [100, 200],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, second step of level",
+                "__depth":    51,
+                "position":   [100, -200],
+                "size":       [100, 225],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, third step of level",
+                "__depth":    51,
+                "position":   [200, -200],
+                "size":       [100, 225],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, fourth step of level",
+                "__depth":    51,
+                "position":   [300, -200],
+                "size":       [100, 250],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, fifth step of level",
+                "__depth":    51,
+                "position":   [400, -200],
+                "size":       [100, 325],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, sixth step of level",
+                "__depth":    51,
+                "position":   [500, -200],
+                "size":       [100, 350],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, seventh step of level",
+                "__depth":    51,
+                "position":   [600, -200],
+                "size":       [100, 375.4],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, 
+            
+            
+            {
+                "__depth":    50,
+                "position":   [0, -25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay4.png"
+            }, {
+                "__depth":    50,
+                "position":   [100, 0],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay5.png"
+            }, {
+                "__depth":    50,
+                "position":   [200, 25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay6.png"
+            }, {
+                "__depth":    50,
+                "position":   [300, 50],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay1.png"
+            }, {
+                "__depth":    50,
+                "position":   [400, 75],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay2.png"
+            }, {
+                "__depth":    50,
+                "position":   [500, 100],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay3.png"
+            }
+            
+        ],
+        "Editor": [
+            {
+                "__depth": -1000,
+                "isEnabled": false                
+            }
+        ],
+        "Spaceship": [
+            {
+                "__hasPhysics": true,
+                "__depth":      -1,
+                "position":     [500, 190]
+            }, {
+                "__hasPhysics": true,
+                "__depth":      -1,
+                "position":     [300, 150]
+            }, {
+                "__hasPhysics": true,
+                "__depth":      -1,
+                "position":     [180, 120]
+            }, {
+                "__hasPhysics": true,
+                "__depth":      -1,
+                "position":     [20, 85]
+            }
+        ],
+        "WinPoint": [
+            {
+                "boundary": 590,
+                "nextLevelFile": "assets/levels/intro.json"
+            }
+        ],
+        "HeadsUpDisplay": [
+            {}
+        ],
+        "Background": [
+            {
+                "__depth":    52,
+                "position":   [50, 25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureList": [
+                    "assets/textures/bg_hills0.png",
+                    "assets/textures/bg_hills1.png",
+                    "assets/textures/bg_hills2.png",
+                    "assets/textures/bg_hills3.png"
+                ]
+            }
+        ],
+        "JukeBox": [
+            {
+                "audioFile": "assets/sounds/BunBun_Level_1_Short.wav",
+                "isLooped": true
+            }
+        ]
+    }
+}

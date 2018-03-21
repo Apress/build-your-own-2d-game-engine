@@ -1,0 +1,488 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../assets/coding.css">
+		<title>Tutorial 6</title>
+	</head>
+
+	<body>
+	<div id="main-content">
+		<h1> GTCS Game Engine: <br>
+		Tutorial 6: Shadows and Parallax</h1>
+		<p align="center"><a href="../tutorial5/tutorial5.html">Tutorial 5</a> &lt;-- Tutorial 6<br>
+		  <a href="../index.html">Main tutorial guide page</a><br></p>
+		
+		
+		<hr>
+		<h2>Introduction</h2>
+		<p>In this tutorial, we are going to continue our understanding of lighting by working with shadow affects. To add more depth to our environment, we are going to also look at layering with parallax effects and end with parallax using camera panning.</p>
+		
+		<p><strong>Covered Topics</strong>: <a href="#shadows">Shadows</a> • <a href="#parallax">Parallax</a> • <a href="#moreparallax">Panning &amp; Parallax</a></p>
+	  <p><strong>Demonstrations</strong>: <a href="../tutorial_source/index6a.html " target="_blank">Casting Shadows</a>• <a href="../tutorial_source/index6b.html" target="_blank">Parallax Effect</a> • <a href="../tutorial_source/index6c.html" target="_blank">Camera Panning</a></p>
+	  <p>Complete source code for all tutorials can be downloaded from <a href="../assets/tutorials.zip">here</a>.</p>
+		
+
+
+	<hr>
+		<h2><a id="shadows"></a>Shadows</h2>
+		<p>Much like lighting, in order for shadow to be rendered, we have to register each renderable to actively draw shadows. A renderable can be a shadow caster, a shadow receiver or both. We can use a LightRenderable or an IllumRenderable object as a source of shadow. To do this, we will need to use a <strong>ShadowReceiver</strong> object. The ShadowReceiver  encapsulates a GameObject to provide shadow functionality. We then use this object for  drawing.</p>
+		<p>The general process is as follows...</p>
+	  <ol>
+	    <li>We create LightRenderable or IllumRenderable objects for the caster and receiver. But also define a Z position for the caster  to indicate a depth offset. This value is used to calculate shadows. As usual, we encapsulate the Renderable into GameObjects.</li>
+	    <li>We create our light source making sure to activate the calculation of shadows with the source using the <code>setLightCastShadowTo()</code> function. We apply the light source to the caster and receiver renderables.</li>
+	    <li>We initialize a new ShadowReceiver object with the receiver's GameObject.</li>
+	    <li>For every GameObject that we wish to be able to cast shadows onto the receiver, we call the receiver's <code>addShadowCaster()</code> function with a references to the caster GameObject.</li>
+	    <li>During the draw phase, we draw with the ShadowReceiver object. It will calculate all shadows for its renderable during drawing.	We	need to make sure that we draw the ShadowReceivers before other GameObjects.</li>
+	  </ol>
+		<p>We can view our next example <a href="../tutorial_source/index6a.html" target="_blank">here</a>. The WASD keys control the position of the point light. Though we do not define direction for a point light, the light is emanating from a single point 10 units up the Z-axis. The virtual radial &quot;light rays&quot; provide direction that causes the shadow to move opposing the light source.</p>
+		<figure><img src="assets/tutorial6-img1.png" width="501" height="400" alt=""/><figcaption>Figure 6-1: Minion Casting a Shadow</figcaption></figure>
+		<p>Declare variables and load resources.</p>
+		
+	<figure><pre>function MyGameScene() {
+	this.mCamera = null;
+	this.mRenderable = null;
+	<strong>this.mBgObject = null;</strong>
+	this.mGameObject = null;
+	this.mLight = null;
+	<strong>this.mShadow = null;</strong>
+	
+	this.kBG = "assets/bg.png";
+	<strong>this.kBGNormal = "assets/bg_normal.png";</strong>
+	this.kTexture = "assets/minion_sprite.png"
+};
+gEngine.Core.inheritPrototype(MyGameScene, Scene);
+
+MyGameScene.prototype.loadScene = function () {
+	gEngine.Textures.loadTexture(this.kBG);
+	<strong>gEngine.Textures.loadTexture(this.kBGNormal);</strong>
+	gEngine.Textures.loadTexture(this.kTexture);
+};
+
+MyGameScene.prototype.unloadScene = function () {
+	gEngine.Textures.unloadTexture(this.kBG);
+	<strong>gEngine.Textures.unloadTexture(this.kBGNormal);</strong>
+	gEngine.Textures.unloadTexture(this.kTexture);
+};</pre>
+		<figcaption class="codecaption">Code snippet 6-1: Constructor, Load, Unload</figcaption>
+	  </figure>
+	  <p>In the initialization function, we create a background renderable. We use an IllumRenderable as we have a normal map for this background. It is going to be encapsulated in a GameObject for shadows so we have it as a local variable.</p>
+	  <p>We create our light source as normal making sure to enable the calculation of shadows.</p>
+<figure>
+		<pre>MyGameScene.prototype.initialize = function () {
+	this.mCamera = new Camera(
+		vec2.fromValues(50, 40),	// position of the camera
+		100,						// width of camera
+		[0, 0, 500, 400]			// viewport (orgX, orgY, width, height)
+	);
+	this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+	
+	<b>// create a background for the scene and put it into a GameObject
+	var background;
+	background = new IllumRenderable(this.kBG, this.kBGNormal);
+	background.getXform().setSize(100, 80);
+	background.getXform().setPosition(50, 40);
+	this.mBgObject = new GameObject(background);</b>
+
+	// we use an object type that knows how to render with lights
+	this.mRenderable = new LightRenderable(this.kTexture);
+	this.mRenderable.setElementPixelPositions(130, 310, 0, 180);
+
+	// create the light and setup the parameters we need
+	this.mLight = new Light();
+	this.mLight.setLightType(Light.eLightType.ePointLight);
+	this.mLight.setColor([1.0, 1.0, 1.0, 1]);
+	this.mLight.setXPos(35);
+	this.mLight.setYPos(50);
+	this.mLight.setZPos(10);
+	this.mLight.setNear(18);
+	this.mLight.setFar(20);
+	this.mLight.setIntensity(2);
+	
+	<strong>// make sure to set this to true
+	this.mLight.setLightCastShadowTo(true);</strong>
+	
+	<em>// ... Continued in next snippet ... </em></pre>
+		<figcaption class="codecaption">
+		  <p>Code snippet 6-2: Creating Background and Light Source</p>
+		</figcaption>
+	  </figure>
+		
+	  <p>Next, we add the light source to the renderables. We make sure to apply a Z position to the GameObject that will be casting a shadow. Then we create the ShadowReceiver object sending in the background GameObject. We call <code>addShadowCaster()</code> with the caster's GameObject.</p>
+		
+	  <figure><pre>
+	// associate the light with the renderables
+	background.addLight(this.mLight);
+	this.mRenderable.addLight(this.mLight);
+
+	// create a new game object with the new renderable
+	this.mGameObject = new GameObject(this.mRenderable);
+	this.mGameObject.getXform().setSize(16, 16);
+	this.mGameObject.getXform().setPosition(30, 50);
+	
+	<strong>// provide a Z coordinate for the GameObject
+	this.mGameObject.getXform().setZPos(3);</strong>
+
+	<strong>this.mShadow = new ShadowReceiver(this.mBgObject);
+	this.mShadow.addShadowCaster(this.mGameObject);</strong>
+
+	// we set the ambient light low to emphasize light affect
+	gEngine.DefaultResources.setGlobalAmbientIntensity(0.4);
+};</pre>
+		<figcaption class="codecaption">Code snippet 6-3: Initializing</figcaption>
+	  </figure>
+	  <p>Our draw and update functions are the same as previous examples except, for those GameObjects that must render shadows,  we draw using the ShadowReceiver objects.</p>
+	  <figure>
+		<pre>// This is the draw function, make sure to setup proper drawing environment, and more
+// importantly, make sure to _NOT_ change any state.
+MyGameScene.prototype.draw = function () {
+	// Clear the screen
+	gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
+
+	// Activate our camera
+	this.mCamera.setupViewProjection();
+
+	// Draw our objects
+	<strong>this.mShadow.draw(this.mCamera);</strong>
+	this.mGameObject.draw(this.mCamera);
+};
+
+// The Update function, updates the application state. Make sure to _NOT_ draw
+// anything from this function!
+MyGameScene.prototype.update = function () {
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+		var x = this.mLight.getPosition()[0];
+		this.mLight.setXPos(x - 0.5);
+	}
+
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+		var x = this.mLight.getPosition()[0];
+		this.mLight.setXPos(x + 0.5);
+	}
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+		var y = this.mLight.getPosition()[1];
+		this.mLight.setYPos(y + 0.5);
+	}
+
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+		var y = this.mLight.getPosition()[1];
+		this.mLight.setYPos(y - 0.5);
+	}
+};</pre>
+		<figcaption class="codecaption">Code snippet 6-4: Draw and Update</figcaption>
+	  </figure>
+
+
+	<hr>
+		<h2><a id="parallax"></a>Parallax</h2>
+		<p>Parallax is an animation technique used to create an illusion of depth in a 2D environment. This is particularly common in side-scrolling games and is accomplished by making objects in the background scroll at a slower speed than objects in the foreground. For example, you might have cloud in the sky &quot;in the distance&quot; move very slowly while your characters move very quickly.		</p>
+		<p>In our next example, we implement parallax as shown <a href="../tutorial_source/index6b.html" target="_blank">here</a>. This image is created with eight layers. We will create a LightRenderable for each layer and encapsulate in a <strong>ParallaxGameObject</strong>. We set the layer number motion direction and speed. If the speed were set the same for all layers, the parallax object will automatically adjust the speed based on the layer. We update the objects and draw in order from farthest to nearest.</p>
+		<p>The images composing the layers will be automatically tiled making it appear to be ongoing (if you watch the example long enough, the sun will disappear off the left edge of the screen and eventually reappear on the right).</p>
+		<figure><img src="assets/tutorial6-img2.png"/>
+		<figcaption>Figure 6-2: Background with Parallax (Graphics created by <a href="https://mobilegamegraphics.com/product/free-parallax-backgrounds/">Mobile Game Graphics</a>)</figcaption></figure>
+	  <p>First we declare all variables and constants. We load the resources.</p>
+		<figure>
+		<pre>function MyGameScene() {
+	this.mCamera = null;
+	
+	<strong>this.mBgL1 = null;
+	this.mBgL2 = null;
+	this.mBgL3 = null;
+	this.mBgL4 = null;
+	this.mBgL5 = null;
+	this.mBgL6 = null;
+	this.mBgL7 = null;
+	this.mBgL8 = null;
+
+	// graphics created by Mobile Game Graphics
+	this.kLayer1 = "assets/layer_01.png";
+	this.kLayer2 = "assets/layer_02.png";
+	this.kLayer3 = "assets/layer_03.png";
+	this.kLayer4 = "assets/layer_04.png";
+	this.kLayer5 = "assets/layer_05.png";
+	this.kLayer6 = "assets/layer_06.png";
+	this.kLayer7 = "assets/layer_07.png";
+	this.kLayer8 = "assets/layer_08.png";</strong>
+}
+gEngine.Core.inheritPrototype(MyGameScene, Scene);
+
+MyGameScene.prototype.loadScene = function () {
+	<strong>gEngine.Textures.loadTexture(this.kLayer1);
+	gEngine.Textures.loadTexture(this.kLayer2);
+	gEngine.Textures.loadTexture(this.kLayer3);
+	gEngine.Textures.loadTexture(this.kLayer4);
+	gEngine.Textures.loadTexture(this.kLayer5);
+	gEngine.Textures.loadTexture(this.kLayer6);
+	gEngine.Textures.loadTexture(this.kLayer7);
+	gEngine.Textures.loadTexture(this.kLayer8);</strong>
+};
+
+MyGameScene.prototype.unloadScene = function () {
+	<strong>gEngine.Textures.unloadTexture(this.kLayer1);
+	gEngine.Textures.unloadTexture(this.kLayer2);
+	gEngine.Textures.unloadTexture(this.kLayer3);
+	gEngine.Textures.unloadTexture(this.kLayer4);
+	gEngine.Textures.unloadTexture(this.kLayer5);
+	gEngine.Textures.unloadTexture(this.kLayer6);
+	gEngine.Textures.unloadTexture(this.kLayer7);
+	gEngine.Textures.unloadTexture(this.kLayer8);</strong>
+};</pre>
+		<figcaption class="codecaption">Code snippet 6-4: Constructor</figcaption>
+	  </figure>
+	  <p>Now we initialize.</p>
+	  <figure>
+		<pre>MyGameScene.prototype.initialize  = function () {
+	this.mCamera = new Camera(
+		vec2.fromValues(50, 40),		// position of the camera
+		100,				// width of camera
+		[0, 0, 500, 400]			// viewport (orgX, orgY, width, height)
+	);
+	this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+	
+	<strong>var bg = new LightRenderable(this.kLayer1);
+	bg.getXform().setSize(200, 100);
+	bg.getXform().setPosition(50, 40);
+	bg.getXform().setZPos(0); 
+	this.mBgL1 = new ParallaxGameObject(bg, 1, this.mCamera);
+	this.mBgL1.setCurrentFrontDir([-1, 0, 0]);
+	this.mBgL1.setSpeed(0.06);
+	
+	bg = new LightRenderable(this.kLayer2);
+	bg.getXform().setSize(200, 100);
+	bg.getXform().setPosition(50, 40);
+	bg.getXform().setZPos(0); 
+	this.mBgL2 = new ParallaxGameObject(bg, 1, this.mCamera);
+	this.mBgL2.setCurrentFrontDir([-1, 0, 0]);
+	this.mBgL2.setSpeed(0.06);
+	
+	bg = new LightRenderable(this.kLayer3);
+	bg.getXform().setSize(200, 100);
+	bg.getXform().setPosition(50, 40);
+	bg.getXform().setZPos(0); 
+	this.mBgL3 = new ParallaxGameObject(bg, 3, this.mCamera);
+	this.mBgL3.setCurrentFrontDir([-1, 0, 0]);
+	this.mBgL3.setSpeed(0.06);
+	
+	bg = new LightRenderable(this.kLayer4);
+	bg.getXform().setSize(200, 100);
+	bg.getXform().setPosition(50, 40);
+	bg.getXform().setZPos(0); 
+	this.mBgL4 = new ParallaxGameObject(bg, 4, this.mCamera);
+	this.mBgL4.setCurrentFrontDir([-1, 0, 0]);
+	this.mBgL4.setSpeed(0.06);
+	
+	bg = new LightRenderable(this.kLayer5);
+	bg.getXform().setSize(200, 100);
+	bg.getXform().setPosition(50, 40);
+	bg.getXform().setZPos(0); 
+	this.mBgL5 = new ParallaxGameObject(bg, 5, this.mCamera);
+	this.mBgL5.setCurrentFrontDir([-1, 0, 0]);
+	this.mBgL5.setSpeed(0.06);
+	
+	bg = new LightRenderable(this.kLayer6);
+	bg.getXform().setSize(200, 100);
+	bg.getXform().setPosition(50, 40);
+	bg.getXform().setZPos(0); 
+	this.mBgL6 = new ParallaxGameObject(bg, 6, this.mCamera);
+	this.mBgL6.setCurrentFrontDir([-1, 0, 0]);
+	this.mBgL6.setSpeed(0.06);
+	
+	bg = new LightRenderable(this.kLayer7);
+	bg.getXform().setSize(175, 100);
+	bg.getXform().setPosition(100, 40);
+	bg.getXform().setZPos(0); 
+	this.mBgL7 = new ParallaxGameObject(bg, 7, this.mCamera);
+	this.mBgL7.setCurrentFrontDir([-1, 0, 0]);
+	this.mBgL7.setSpeed(0.06);
+	
+	bg = new LightRenderable(this.kLayer8);
+	bg.getXform().setSize(200, 100);
+	bg.getXform().setPosition(50, 40);
+	bg.getXform().setZPos(0); 
+	this.mBgL8 = new ParallaxGameObject(bg, 8, this.mCamera);
+	this.mBgL8.setCurrentFrontDir([-1, 0, 0]);</strong>
+	
+	gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+};</pre>
+		<figcaption class="codecaption">Code snippet 6-5: Initialize</figcaption>
+	  </figure>
+	  <p>Now we draw and update. We draw the layers with furthest (and slowest) first. Calling <code>update()</code> on each layer handles the animation.</p>
+	  <figure>
+		<pre>// This is the draw function, make sure to setup proper drawing environment, and more
+// importantly, make sure to _NOT_ change any state.
+MyGameScene.prototype.draw = function () {
+	// Clear the screen
+	gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
+	
+	// Activate our camera
+	this.mCamera.setupViewProjection();
+	
+	<strong>// Draw our backgrounds
+	this.mBgL8.draw(this.mCamera);
+	this.mBgL7.draw(this.mCamera);
+	this.mBgL6.draw(this.mCamera);
+	this.mBgL5.draw(this.mCamera);
+	this.mBgL4.draw(this.mCamera);
+	this.mBgL3.draw(this.mCamera);
+	this.mBgL2.draw(this.mCamera);
+	this.mBgL1.draw(this.mCamera);</strong>
+};
+
+// The Update function, updates the application state. Make sure to _NOT_ draw
+// anything from this function!
+MyGameScene.prototype.update = function () {
+	<strong>this.mBgL1.update();
+	this.mBgL2.update();
+	this.mBgL3.update();
+	this.mBgL4.update();
+	this.mBgL5.update();
+	this.mBgL6.update();
+	this.mBgL7.update();
+	this.mBgL8.update();</strong>
+};</pre>
+		<figcaption class="codecaption">Code snippet 6-6: Draw and Update</figcaption>
+	  </figure>
+		
+			<hr>
+		<h2><a name="moreparallax" id="parallax"></a>Camera Panning with Parallax</h2>
+	  <p>Scrolling layers with parallax gives a sense of depth but we can take this further by making the effect more interactive. If we remove the calls to <code>setCurrentFrontDir()</code> and <code>setSpeed()</code> for all of the layers in the <strong>initialize()</strong> function, the layers will not move. We can then have our parallax affect work with the movement of our GameObjects. We can pan the camera  within the <strong>update()</strong> function. Using the camera object's <code>panWith()</code> function will move the camera with the GameObject. We pass in a &quot;subject&quot; GameObject for the camera to focus on  and a tolerance. A tolerance of 0.9 will start the pan affect when the subject gets within 90% of the view bounds. The parallax affect will work as expected during the panning.</p>
+		
+	  <p>Use 'WASD' to move the minion. When the minion gets near the edges of the view, the camera will pan to follow the minion. The background will tile with parallax. See <a href="../tutorial_source/index6c.html" target="_blank">here</a> for a live view.</p>
+		<figure><img src="assets/tutorial6-img3.png"/>
+	  <figcaption>Figure 6-3: Parallax with Camera Panning </figcaption></figure>
+        <p>In the sample , the panning call is found in the last lines of the <strong>update()</strong> function. We also use a directional light and completely disable the ambient light to enhance the images using normal maps for added depth. All other functionality  has been covered in the tutorials and should be familiar. We show the full code below.</p>
+        
+        
+	  <figure>
+		<pre>function MyGameScene() {
+	this.mCamera = null;
+	this.mLight = null;
+	
+	this.kTexture = "assets/minion_spritesheet.png"
+	this.kBgTexture = "assets/bg.png"
+	this.kBgTextureNormal = "assets/bg_normal.png"
+	this.kBg2Texture = "assets/bgLayer.png"
+	this.kBg2TextureNormal = "assets/bgLayer_normal.png"
+}
+gEngine.Core.inheritPrototype(MyGameScene, Scene);
+
+MyGameScene.prototype.loadScene = function () {
+	gEngine.Textures.loadTexture(this.kTexture);
+	gEngine.Textures.loadTexture(this.kBgTexture);
+	gEngine.Textures.loadTexture(this.kBgTextureNormal);
+	gEngine.Textures.loadTexture(this.kBg2Texture);
+	gEngine.Textures.loadTexture(this.kBg2TextureNormal);
+};
+
+MyGameScene.prototype.unloadScene = function () {
+	gEngine.Textures.unloadTexture(this.kTexture);
+	gEngine.Textures.unloadTexture(this.kBgTexture);
+	gEngine.Textures.unloadTexture(this.kBgTextureNormal);
+	gEngine.Textures.unloadTexture(this.kBg2Texture);
+	gEngine.Textures.unloadTexture(this.kBg2TextureNormal);
+};
+
+MyGameScene.prototype.initialize = function () {
+	this.mCamera = new Camera(
+			vec2.fromValues(50, 40), // position of the camera
+			100, 				// width of camera
+			[0, 0, 500, 400]	// viewport (orgX, orgY, width, height)
+			);
+	this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+	
+	<strong>// We use a directional light so the normals will give depth
+	this.mLight = new Light();
+	this.mLight.setLightType(Light.eLightType.eDirectionalLight);
+	this.mLight.setColor([1.0, 1.0, 1.0, 1]);
+	this.mLight.setDirection([0.3, 0, -1]);
+	this.mLight.setIntensity(1);</strong>
+	
+	// we now use a sprite renderable object
+	this.mRenderable = new LightRenderable(this.kTexture);
+	this.mRenderable.setElementPixelPositions(130, 310, 0, 180);
+	this.mRenderable.addLight(this.mLight);
+	
+	// create a new game object with the new renderable
+	this.mGameObject = new GameObject(this.mRenderable);
+	this.mGameObject.getXform().setSize(16, 16);
+	this.mGameObject.getXform().setPosition(30, 50);
+
+	var bg = new IllumRenderable(this.kBgTexture,this.kBgTextureNormal);
+	bg.getXform().setSize(100, 100);
+	bg.getXform().setPosition(50, 40);
+	bg.getXform().setZPos(0);
+	this.mBgL1 = new ParallaxGameObject(bg, 2, this.mCamera);
+	bg.addLight(this.mLight);
+	
+	bg = new IllumRenderable(this.kBg2Texture,this.kBg2TextureNormal);
+	bg.getXform().setSize(100, 100);
+	bg.getXform().setPosition(50, 40);
+	bg.getXform().setZPos(0);
+	this.mBgL2 = new ParallaxGameObject(bg, 1, this.mCamera);
+	bg.addLight(this.mLight);
+	
+	<strong>// We turn off the ambient light entirely
+	gEngine.DefaultResources.setGlobalAmbientIntensity(0);</strong>
+};
+
+MyGameScene.prototype.draw = function () {
+	// Clear the screen
+	gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
+
+	// Activate our camera
+	this.mCamera.setupViewProjection();
+
+	// Draw our background objects
+	this.mBgL1.draw(this.mCamera);
+	this.mBgL2.draw(this.mCamera);
+
+	// Draw out game object
+	this.mGameObject.draw(this.mCamera);
+};
+
+MyGameScene.prototype.update = function () {
+	// Update for the parallax affect to work
+	this.mBgL1.update();
+	this.mBgL2.update();
+
+	// Use WASD keys to control the game object
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+		this.mRenderable.setElementPixelPositions(130, 310, 0, 180);
+		this.mGameObject.getXform().incXPosBy(-0.5);
+	}
+
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+		this.mRenderable.setElementPixelPositions(720, 900, 0, 180);
+		this.mGameObject.getXform().incXPosBy(0.5);
+	}
+
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+		this.mGameObject.getXform().incYPosBy(-0.5);
+	}
+
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+		this.mGameObject.getXform().incYPosBy(0.5);
+	}
+	
+	this.mGameObject.update();
+	<strong>// Make the camera pan so the game object is always in view
+	this.mCamera.panWith(this.mGameObject.getXform(), 0.9);
+	this.mCamera.update();</strong>
+};
+</pre>
+		<figcaption class="codecaption">Code snippet 6-7: Parallax with Camera Panning</figcaption>
+	  </figure>
+		
+		
+	<hr>
+	<h2>Conclusion</h2>
+	  <p>Over the course of this tutorial, we have taken a peek at many aspects of the GTCS Game Engine. For a more in-depth look at the commands, be sure to reference the <a href="../../JSDoc/docs">API documentation.</a></p>
+		
+		
+		<hr>
+	  <p align="center"><a href="../tutorial5/tutorial5.html">Tutorial 5</a> &lt;-- Tutorial 6<a href="../tutorial5/tutorial5.html"></a><br>
+		  <a href="../index.html">Main tutorial guide page</a><br></p>
+	</div>
+	<h4><i>2/16/2016</i> - David Watson, Proofread by Adedayo Odesile</h4>
+	</body>
+</html>

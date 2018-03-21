@@ -1,0 +1,39 @@
+html
+{
+    background: url('../assets/web_background.jpg') no-repeat center center fixed;
+
+    -webkit-background-size: cover;
+    background-size: cover;
+
+    font-family: Consolas, monospace;
+}
+
+#wrapper
+{
+    width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255,255,255, 0.5);
+}
+
+canvas
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#after
+{
+
+}
+
+h1 
+{
+    text-align: center;
+}
+
+#after
+{
+    padding: 20pt;
+}

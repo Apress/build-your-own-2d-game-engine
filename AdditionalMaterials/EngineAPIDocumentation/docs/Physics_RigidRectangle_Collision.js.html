@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Physics/RigidRectangle_Collision.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Physics/RigidRectangle_Collision.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * File: RigidRectangle_Collision.js
+ * Detects RigidRectangle collisions
+ */
+
+/*jslint node: true, vars:true , white: true*/
+/*global RigidShape, RigidRectangle, vec2, LineRenderable */
+/* find out more about jslint: http://www.jslint.com/help.html */
+"use strict";
+
+/**
+ * Check if RigidShape contains position
+ * @param {vec2} pos Position to check
+ * @returns {Boolean} true if position is in RigidShape
+ * @memberOf RigidRectangle
+ */
+RigidRectangle.prototype.containsPos = function (pos) {
+    var rPos = this.getPosition();
+    var rMinX = rPos[0] - this.getWidth() / 2;
+    var rMaxX = rPos[0] + this.getWidth() / 2;
+    var rMinY = rPos[1] - this.getHeight() / 2;
+    var rMaxY = rPos[1] + this.getHeight() / 2;
+
+    return ((rMinX &lt; pos[0]) &amp;&amp; (rMaxX > pos[0]) &amp;&amp; 
+            (rMinY &lt; pos[1] &amp;&amp; rMaxY > pos[1]));
+};
+
+/**
+ * Check for collision between RigidRectangle and RigidRectangle
+ * @param {RigidRectangle} r1 Rectangle object to check for collision status
+ * @param {RigidRectangle} r2 Rectangle object to check for collision status against
+ * @param {CollisionInfo} collisionInfo Collision info of collision
+ * @returns {Boolean} true if collision occurs
+ * @memberOf RigidRectangle
+ */
+RigidRectangle.prototype.collidedRectRect = function(r1, r2, collisionInfo) {
+    var vFrom1to2 = vec2.fromValues(0, 0);
+    vec2.sub(vFrom1to2, r2.getPosition(), r1.getPosition());
+    var xDepth = (r1.getWidth() / 2) + (r2.getWidth() / 2) - Math.abs(vFrom1to2[0]);
+    if (xDepth > 0) {
+        var yDepth = (r1.getHeight() / 2) + (r2.getHeight() / 2) - Math.abs(vFrom1to2[1]);
+        if (yDepth > 0)  {
+            //axis of least penetration
+            if (xDepth &lt; yDepth) {
+                if (vFrom1to2[0] &lt; 0) {
+                    collisionInfo.setNormal([-1, 0]);
+                } else {
+                    collisionInfo.setNormal([1, 0]);
+                }
+                collisionInfo.setDepth(xDepth);
+            } else {
+                if (vFrom1to2[1] &lt; 0) {
+                    collisionInfo.setNormal([0, -1]);
+                } else {
+                    collisionInfo.setNormal([0, 1]);
+                }
+                collisionInfo.setDepth(yDepth);
+            }
+            return true;
+        }
+    }
+    return false;
+};
+
+/**
+ * Check for collision between this and RigidShape
+ * @param {RigidShape} otherShape RigidShape object to check for collision status against
+ * @param {CollisionInfo} collisionInfo Collision info of collision
+ * @returns {Boolean} true if collision occurs
+ * @memberOf RigidRectangle
+ */
+RigidRectangle.prototype.collided = function(otherShape, collisionInfo) {
+    var status = false;
+    collisionInfo.setDepth(0);
+    switch (otherShape.rigidType()) {
+        case RigidShape.eRigidType.eRigidCircle:
+            status = this.collidedRectCirc(this, otherShape, collisionInfo);
+            break;
+        case RigidShape.eRigidType.eRigidRectangle:
+            status = this.collidedRectRect(this, otherShape, collisionInfo);
+            break;
+    }
+    return status;
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.Particle.html">Particle</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.0-dev</a> on Tue Dec 15 2015 13:17:01 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!--
+    Copyright 2017 XieJinChi ChenYiXiu
+ 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+ 
+        http://www.apache.org/licenses/LICENSE-2.0
+ 
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html >
+    <head>
+        <title>furious strike </title>
+        <link rel ="icon" type ="image/x-icon" href="./assets/icon.PNG">
+         <style>
+    ::selection{
+        background-color:#eee;
+    }
+    body{
+        background:linear-gradient(to right, #ffffff, #ffffff);
+        color:aliceblue;
+    }
+  #game{
+        width:1000px;
+        height:auto;
+        margin:50px auto;
+        text-align:center;
+ }
+    #game-contain{
+        display: inline-table;
+        border:20px groove #666666;
+        border-radius: 5px;
+    }
+    #game-name::before,#game-name::after{
+        content:"";
+        display:inline-block;
+        height: 20px;
+        width:400px;
+        background-color:aliceblue;
+    }
+    </style>
+
+        <!-- the following says there are javascript source code contained in 
+             the external source files
+        -->
+        <!-- external library -->
+        <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
+
+        <!-- Engine code -->
+        <!-- Core of Engine --> 
+        <script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
+        <!-- Resource support -->
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_AudioClips.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Textures.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Fonts.js"></script>
+        <script type="text/javascript" src="src/Engine/Scene.js"></script>
+        <!-- Utilities -->
+        <script type="text/javascript" src="src/Engine/Utils/Transform.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/BoundingBox.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/Interpolate.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/InterpolateVec2.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/ShakePosition.js"></script>
+        <!-- Renderables -->
+        <script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteAnimateRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/FontRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/LineRenderable.js"></script>
+        <!-- GameObject -->
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObject_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObjectSet.js"></script>
+        <!-- Shaders -->
+        <script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/SpriteShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/LineShader.js"></script>
+        <!-- Camera -->
+        <script type="text/javascript" src="src/Engine/Cameras/Camera.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Manipulation.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Input.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraState.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraShake.js"></script>
+        
+        <!-- Physics support -->
+        <script type="text/javascript" src="src/Engine/Core/Engine_Physics.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidShape.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidCircle.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangle.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/CollisionInfo.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidCircle_Collision.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangleCircle_Collision.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangle_Collision.js"></script>
+        <!-- Client game code -->
+        <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
+        <script type="text/javascript" src="src/MyGame/StartGame.js"></script>
+        <script type="text/javascript" src="src/MyGame/StartGame2.js"></script>
+        <script type="text/javascript" src="src/MyGame/StartGame3.js"></script>
+        <script type="text/javascript" src="src/MyGame/StartScene.js"></script>
+        <script type="text/javascript" src="src/MyGame/AboutScene.js"></script>
+
+        <script type="text/javascript" src="src/MyGame/AboutScene.js"></script>
+        <script type="text/javascript" src="src/MyGame/Player1ChooseScene.js"></script>
+        <script type="text/javascript" src="src/MyGame/Player2ChooseScene.js"></script>
+        <script type="text/javascript" src="src/MyGame/Player1ChooseCharacter.js"></script>
+        <script type="text/javascript" src="src/MyGame/Player2ChooseCharacter.js"></script>
+        <script type="text/javascript" src="src/MyGame/ChoosePlaygroundScene.js"></script>
+        <script type="text/javascript" src="src/MyGame/RuleScene.js"></script>
+
+
+
+        <script type="text/javascript" src="src/MyGame/EndScene.js"></script>
+        <script type="text/javascript" src="src/MyGame/EndScene2.js"></script>
+        <script type="text/javascript" src="src/MyGame/EndScene3.js"></script>
+
+        <script type="text/javascript" src="src/MyGame/MyGame_Bounds.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/WASDObj.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/DirectionKeyObj.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Hero.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Minion.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Player1.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Player2.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/BoundLine.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/CharacterInfo.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Obstacle.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Skill.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/SkinObjects.js"></script>
+
+        <script type="text/javascript" src="src/Fullscreen.js"></script>
+       
+    </head>
+
+
+    <body id="content" onload="
+        var myGame = new StartScene();
+        gEngine.Core.initializeEngineCore('GLCanvas', myGame);
+     ">
+    <div id="test">
+    <div id="game">
+        <div id="game-contain">
+            <canvas id="GLCanvas" width="1000" height="500">
+                <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
+                Your browser does not support the HTML5 canvas.
+                <!-- this message will show only if WebGL clearing failed -->
+            </canvas>
+        </div>
+     </div>
+    </div>
+    </body>
+ 
+</html>

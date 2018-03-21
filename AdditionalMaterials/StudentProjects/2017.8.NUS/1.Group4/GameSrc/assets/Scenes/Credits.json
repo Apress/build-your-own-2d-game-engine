@@ -1,0 +1,215 @@
+{
+    "Camera": [
+        {
+            "Center": [100, 56.25],
+            "Width": 200,
+            "Viewport": [0, 0, 1280, 720],
+            "BgColor": [0.9, 0.9, 0.9, 1.0]
+        }
+    ],
+    
+    "Hero": {
+        "Position": [15, 10],
+        "Scale": [3, 7.5],
+        "MoveSpeed": 30,
+        "JumpSpeed": 65
+    },
+    
+    "Catherine": {
+        "Position": [184, 10],
+        "Scale": [3, 7.5],
+        "Speed": 0.3,
+        "TriggerDistance": 40
+    },
+    
+
+    "Humans" :[
+      
+    ],
+    
+    "Flower": {
+        "Position": [95, 7.5],
+        "Scale": [8, 8]
+    },
+    
+    "Platforms": [
+        {
+            "Position": [100, 3],
+            "Scale": [200, 2]
+        }
+    ],
+    
+    "Walls": [
+
+    ],
+    
+    "Texts": [
+        {
+            "Content": "Team member: ",
+            "Position": [70, 0],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 6
+        },
+        {
+            "Content": "Dai Zeyu",
+            "Position": [83, -10],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "Wang Yuhui",
+            "Position": [83, -19],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "Zhong Yichen",
+            "Position": [83, -28],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        
+        {
+            "Content": "Background Music:",
+            "Position": [70, -43],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 6
+        },
+        {
+            "Content": "Gentle Jena -Planetarian",
+            "Position": [83, -55],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "River flows in you -Yiruma",
+            "Position": [83, -65],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "Time to Love -October",
+            "Position": [83, -75],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        
+        {
+            "Content": "Special thanks to:",
+            "Position": [70, -90],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 6
+        },
+        {
+            "Content": "Kelvin Sung",
+            "Position": [83, -100],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "Chen Zhenghai",
+            "Position": [83, -110],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "All Players in RI3007",
+            "Position": [83, -120],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        }, 
+        {
+            "Content": "To the summer in NUS, 2017",
+            "Position": [55, -138],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 7
+        }
+    ],
+    
+    "TextsBackup": [
+        {
+            "Content": "Team member: ",
+            "Position": [70, 88],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 6
+        },
+        {
+            "Content": "Dai Zeyu",
+            "Position": [83, 78],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "Wang Yuhui",
+            "Position": [83, 69],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "Zhong Yichen",
+            "Position": [83, 60],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        
+        {
+            "Content": "Background Music:",
+            "Position": [70, 45],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 6
+        },
+        {
+            "Content": "Gentle Jena -Planetarian",
+            "Position": [83, 33],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "River flows in you -Yiruma",
+            "Position": [83, 23],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "Time to Love -October",
+            "Position": [83, 13],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        
+        {
+            "Content": "Special thanks to:",
+            "Position": [70, -2],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 6
+        },
+        {
+            "Content": "Kelvin Sung",
+            "Position": [83, -12],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "Chen Zhenghai",
+            "Position": [83, -22],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "All Players in RI3007",
+            "Position": [83, -32],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        }, 
+        {
+            "Content": "To the summer in NUS, 2017",
+            "Position": [55, -50],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 7
+        }
+    ],
+    
+    "GameStatus": {
+        "DefaultStatus": 0
+    }
+}

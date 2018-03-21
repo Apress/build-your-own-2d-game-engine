@@ -1,0 +1,70 @@
+{
+    "name": "Async Resource Loader",
+    "description": "Loads up resources that will be shared by the game",
+    "assetList": [
+        {
+            "name": "assets/textures/Bun_LoadScreen.png",
+            "type": "texture"
+        }
+    ],
+    "cameraList": [
+        {
+            "name": "main",
+            "center": [50, 37.5],
+            "width": 100,
+            "pixelPosition": [0, 0],
+            "pixelSize": [800, 600],
+            "color": [0.38, 0.78, 1.0, 1]
+        }
+    ],
+    "objectList": {
+        "AsyncLoader": [
+            {
+                "assetList": [
+                    {
+                        "name": "assets/sounds/Bun_Jump.wav",
+                        "type": "sound"
+                    }, {
+                        "name": "assets/sounds/Bun_Land.wav",
+                        "type": "sound"
+                    }, {
+                        "name": "assets/sounds/Bun_Pain.wav",
+                        "type": "sound"
+                    }, {
+                        "name": "assets/sounds/Bun_Powerup.wav",
+                        "type": "sound"
+                    }, {
+                        "name": "assets/sounds/BunBun_Level_1_Short.wav",
+                        "type": "sound"
+                    }, {
+                        "name": "assets/sounds/BunBun_Intro_DrumsAndGtr.wav",
+                        "type": "sound"
+                    }, {
+                        "name": "assets/sounds/Game_Over.wav",
+                        "type": "sound"
+                    }, {
+                        "name": "assets/sounds/Game_Win_new.wav",
+                        "type": "sound"
+                    }, {
+                        "name": "assets/sounds/Spaceship_BeamBun.wav",
+                        "type": "sound"
+                    }, {
+                        "name": "assets/sounds/Spaceship_BeamUse.wav",
+                        "type": "sound"
+                    }
+                ],
+                "nextLevel": "assets/levels/intro.json"
+            }
+        ],
+        "Facade": [
+            {
+                "__depth":    50,
+                "position":   [0, -25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Bun_LoadScreen.png"
+            }
+        ]
+    }
+}

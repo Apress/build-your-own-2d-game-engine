@@ -1,0 +1,108 @@
+<MyGameLevel>
+    <!-- Level 2 scene file -->
+
+    <!--  *** be careful!! comma (,) is not a supported syntax!!  -->
+    <!--  make sure there are no comma in between attributes -->
+    <!--  e.g., do NOT do:  PosX="20", PosY="30" -->
+    <!--  notice the "comma" between PosX and PosY: Syntax error! -->
+  
+    <!-- cameras -->
+    <!-- WC for level 2 is -->
+    <!-- Viewport: x, y, w, h -->
+    <Camera CenterX="6" CenterY="12" Width="32" 
+            Viewport="0 0 1280 720"   
+            BgColor="0 0 1 1.0"
+    />    
+	
+    <Background PosX="0" PosY="0" Width="10" Height="10" ZPos="-20" ParallaxDepth="100" 
+                    LightIndices="2"
+                    ReceiveShadow="false"
+                    Texture="bg.png" NormalMap="bg_normal.png" />
+    
+    <Background PosX="0" PosY="0" Width="10" Height="10" ZPos="-1" ParallaxDepth="10" 
+                LightIndices="-1"
+                ReceiveShadow="true"
+                Texture="bgLayer.png" NormalMap="bgLayer_normal.png" />
+              
+              
+    <!-- Platforms -->
+    <Platform PosX="0" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="10" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="20" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="30" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="40" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="50" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="60" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    
+    <Platform PosX="10" PosY="5" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="20" PosY="9" Velocity="0 1 0" MovementRange="4" />
+    <Platform PosX="2" PosY="10" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="60" PosY="10" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="50" PosY="7.5" Velocity="1 1 0" MovementRange="5" />
+    <Platform PosX="30" PosY="13" Velocity="-1 0 0" MovementRange="3" />
+    <!-- Walls -->
+    <Wall PosX="-4" PosY="2.5" />
+    <Wall PosX="-4" PosY="7.5" />
+    <Wall PosX="-4" PosY="12.5" />
+    <Wall PosX="-4" PosY="17.5" />
+    <Wall PosX="-4" PosY="22.5" />
+    
+    <Wall PosX="64" PosY="2.5" />
+    <Wall PosX="64" PosY="7.5" />
+    <Wall PosX="64" PosY="12.5" />
+    <Wall PosX="64" PosY="17.5" />
+    <Wall PosX="64" PosY="22.5" />
+    
+    <Boss PosX="40" PosY="9" Velocity="1 0 0" MovementRange="2" Type="0"/>
+       
+    <!-- next level -->
+    <NextLevel Next="Level1">
+        <!-- a fold assets/Level1 must exist
+             a file assets/Level1/Level1.xml must exist!
+             -> GameLevel.js: initialize() makes these assumptions
+        -->
+   
+        <!-- Lights -->
+        <!-- starts from index = 0 -->
+        <!-- light type: 0=>Point, 1->Directional, 2=>Spot -->
+<Light 
+            Type="1" 
+            Color="0.3 0.3 1 1" 
+            Pos="0 0 0"
+            Dir="-1 -1 -2" 
+            Near="1"
+            Far="1"
+            Inner="0"
+            Outter="0"
+            DropOff="1"
+            Intensity="1" 
+            CastShadow="false"
+        />
+        <Light 
+            Type="1" 
+            Color="0.1 0.1 0.1 0.5" 
+            Pos="0 0 0"
+            Dir="-0.3 -0.3 -7" 
+            Near="1"
+            Far="1"
+            Inner="0"
+            Outter="0"
+            DropOff="1"
+            Intensity="10" 
+            CastShadow="false"
+        />
+        <!-- index 2 is hero light! -->
+        <Light 
+            Type="0" 
+            Color="1 1 1 1" 
+            Pos="0 0 3"
+            Dir="0 0 0" 
+            Near="5"
+            Far="8"
+            Inner="5"
+            Outter="10"
+            DropOff="1"
+            Intensity="2" 
+            CastShadow="true" 
+        />
+</MyGameLevel>

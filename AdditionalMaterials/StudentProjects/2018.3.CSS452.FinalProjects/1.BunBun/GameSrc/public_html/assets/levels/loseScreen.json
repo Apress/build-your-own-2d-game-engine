@@ -1,0 +1,78 @@
+{
+    "name": "LoseScreen",
+    "description": "A screen that is displayed after the player dies",
+    "assetList": [
+        {
+            "name": "assets/textures/loseScreen.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Bun_animated.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills0.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills1.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills2.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills3.png",
+            "type": "texture"
+        }
+    ],
+    "cameraList": [
+        {
+            "name": "main",
+            "center": [50, 37.5],
+            "width": 100,
+            "pixelPosition": [0, 0],
+            "pixelSize": [800, 600],
+            "color": [0.38, 0.78, 1.0, 1]
+        }
+    ],
+    "objectList": {
+        "Facade": [
+            {
+                "__depth":    50,
+                "position":   [0, -25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/loseScreen.png"
+            }
+        ],
+        "BunBunAnimated": [
+            {
+                "__depth":      51,
+                "position":     [50, 37.5],
+                "size":         [10, 10],
+                "textureId":    "assets/textures/Bun_animated.png"
+            }
+        ],
+        "Background": [
+            {
+                "__depth":    52,
+                "position":   [50, 25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureList": [
+                    "assets/textures/bg_hills1.png",
+                    "assets/textures/bg_hills2.png",
+                    "assets/textures/bg_hills3.png"
+                ]
+            }
+        ],
+        "NextLevelController": [
+            {}
+        ],
+        "JukeBox": [
+            {
+                "audioFile": "assets/sounds/Game_Over.wav",
+                "isLooped": false
+            }
+        ]
+    }
+}

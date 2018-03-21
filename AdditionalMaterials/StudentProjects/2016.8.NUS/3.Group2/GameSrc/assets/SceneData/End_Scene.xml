@@ -1,0 +1,34 @@
+<MyGameLevel>
+
+    <Camera_Num Number="1"/>
+    <Camera_Main CenterX="0" CenterY="0" Width="40" 
+              Viewport="0 0 1200 600"   
+              BgColor="0.8 0.8 0.8 1.0"
+              Type="0"
+              />
+    
+    <GUI_Num Number="4">
+    <GUI_1 SizeX="40" SizeY="20"
+            X="0" Y="0"
+            Rp = "assets/gameover.jpg"
+            Type = "square"/>
+    <GUI_2 SizeX="16" SizeY="4"
+            X="0" Y="4"
+            hX = "0"
+            hY = "16"
+            Rp = "assets/gameoverlabel.png"
+            Type = "animUI"/>
+   <GUI_3 SizeX="4" SizeY="0.5"
+            X="0" Y="-8"
+            hX = "0"
+            hY = "-11"
+            Rp = "assets/restartbtn.png"
+            Type = "animUI"/>
+   <GUI_4 SizeX="4" SizeY="1.5"
+            X="-0.5" Y="0"
+            hX = "0"
+            hY = "15"
+            Rp = ""
+            Type = "score"/>
+           
+</MyGameLevel>

@@ -1,0 +1,241 @@
+{
+    "name": "Levelone",
+
+    "Type" : {
+      "Boundary" : 0,
+      "Platform" : 1,
+      "UDPlatform" : 2,
+      "LRPlatform" : 3,
+      "NailSquare" : 4,
+        "UDNail":5,
+        "LRNail":6,
+        "Hp":7,
+        "Spring":8,
+        "Goal":9
+    },
+
+    "Square": [
+        {
+            "Pos": [-40, 0],
+            "Width": 50,
+            "Height": 1024,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 0
+        },
+
+        {
+            "Pos": [140, 0],
+            "Width": 50,
+            "Height": 1024,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 0
+        },
+
+      {
+            "Pos": [50, 125],
+            "Width": 1024,
+            "Height": 50,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 0
+        },
+
+      {
+            "Pos": [50, -25],
+            "Width": 1024,
+            "Height": 50,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 0
+        },
+          {
+            "Pos": [50,92 ],
+            "Width": 5,
+            "Height": 76,
+            "Rotation": 0,
+            "Start":[110,55],
+            "End":[110,25],
+            "Color": [0, 0, 0, 1],
+            "Tag": 0
+        },
+        {
+            "Pos": [50,53 ],
+            "Width": 5,
+            "Height": 3,
+            "Rotation": 0,
+            "Start":[110,55],
+            "End":[110,25],
+            "Color": [1, 0, 0, 1],
+            "Tag": 4
+        },
+         {
+            "Pos": [70,92 ],
+            "Width": 5,
+            "Height": 76,
+            "Rotation": 0,
+            "Start":[110,55],
+            "End":[110,25],
+            "Color": [0, 0, 0, 1],
+            "Tag": 0
+        },
+        {
+            "Pos": [70,53 ],
+            "Width":5,
+            "Height": 3,
+            "Rotation": 0,
+            "Start":[110,55],
+            "End":[110,25],
+            "Color": [1, 0, 0, 1],
+            "Tag": 4
+        },
+         {
+            "Pos": [90,92 ],
+            "Width": 5,
+            "Height": 76,
+            "Rotation": 0,
+            "Start":[110,55],
+            "End":[110,25],
+            "Color": [0, 0, 0, 1],
+            "Tag": 0
+        },
+        {
+            "Pos": [90,53],
+            "Width": 5,
+            "Height": 3,
+            "Rotation": 0,
+            "Start":[110,55],
+            "End":[110,25],
+            "Color": [1, 0, 0, 1],
+            "Tag": 4
+        },
+
+        {
+            "Pos": [-12,20 ],
+            "Width": 28,
+            "Height": 7,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+           {
+            "Pos": [110,37 ],
+            "Width": 20,
+            "Height": 7,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+         {
+            "Pos": [-10,88],
+            "Width": 20,
+            "Height": 7,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+
+
+
+
+          {
+            "Pos": [25,41 ],
+            "Width": 15,
+            "Height": 5,
+            "Rotation": 0,
+            "High":24,
+            "Dir": true,
+            "Color": [0, 1, 0, 1],
+             "Speed" : 0.2,
+            "Tag": 2
+        },
+
+
+
+           {
+            "Pos": [0,77 ],
+            "Width": 15,
+            "Height": 5,
+            "Rotation": 0,
+            "High":24,
+            "Dir":false,
+            "Color": [0, 1, 0, 1],
+             "Speed":0.2,
+            "Tag": 2
+        },
+
+
+         {
+            "Pos": [47,25 ],
+            "Width": 12,
+            "Height": 5,
+            "Rotation": 0,
+            "Wide":29,
+            "Dir":false,
+            "Color": [0, 0, 1, 1],
+             "Speed":0.3,
+            "Tag": 3
+        },
+
+
+
+
+        {
+            "Pos": [65,25 ],
+            "Width": 12,
+            "Height": 5,
+            "Rotation": 0,
+            "Wide":29,
+            "Dir":true,
+            "Color": [0, 0, 1, 1],
+             "Speed":0.2,
+            "Tag": 3
+        },
+
+
+         {
+            "Pos": [44,46 ],
+            "Width": 15,
+            "Height": 5,
+            "Rotation": 0,
+            "Wide": 49,
+            "Dir":true,
+            "Color": [0, 0, 1, 1],
+             "Speed":0.2,
+            "Tag": 3
+        },
+
+
+           {
+            "Pos": [50,1.5 ],
+            "Width": 130,
+            "Height": 3,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 1],
+            "Tag": 4
+        },
+         {
+            "Pos": [50,100 ],
+            "Width": 130,
+            "Height": 3,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 1],
+            "Tag": 4
+        },
+          {
+            "Pos": [-13.5, 93],
+            "Width": 3,
+            "Height": 3,
+            "Rotation": 0,
+            "Color": [0, 1, 0.8, 1],
+            "Tag": 9
+        }
+
+
+
+
+
+
+    ]
+}

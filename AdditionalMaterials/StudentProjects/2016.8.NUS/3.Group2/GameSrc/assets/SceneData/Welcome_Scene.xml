@@ -1,0 +1,15 @@
+<MyGameLevel>
+
+    <Camera_Num Number="1"/>
+    <Camera_Main CenterX="0" CenterY="0" Width="40" 
+              Viewport="0 0 1200 600"   
+              BgColor="1 1 1 1.0"
+              Type="0"
+              />
+
+    <GUI_Num Number="1">
+    <GUI_1 SizeX="20" SizeY="10"
+           X="0" Y="0"
+           Rp = "assets/logo.png"
+           Type = "square"/>  
+</MyGameLevel>

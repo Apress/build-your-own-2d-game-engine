@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Physics/RigidShape_Collision.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Physics/RigidShape_Collision.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * File: RigidShape_Collision.js
+ * Detects RigidPoint collisions
+ */
+
+/*jslint node: true, vars:true , white: true*/
+/*global RigidShape, vec2, LineRenderable, gEngine, gEngine.Particle */
+/* find out more about jslint: http://www.jslint.com/help.html */
+"use strict";
+
+/**
+ * Clamp value to min and max
+ * @param {Number} value to clamp
+ * @param {Number} min Minimum value to clamp too
+ * @param {Number} max Maximum value to clamp too
+ * @returns {Number} clamped number of value
+ * @memberOf RigidShape
+ */
+RigidShape.prototype.clamp = function (value, min, max) {
+    return Math.min(Math.max(value, min), max);
+};
+
+/**
+ * Check for collision between RigidRectangle and RigidCircle
+ * @param {RigidRectangle} rect1Shape Rectangle object to check for collision status
+ * @param {RigidCircle} circ2Shape Circle object to check for collision status against
+ * @param {CollisionInfo} collisionInfo Collision info of collision
+ * @returns {Boolean} true if collision occurs
+ * @memberOf RigidShape
+ */
+RigidShape.prototype.collidedRectCirc = function(rect1Shape, circ2Shape, collisionInfo) {
+    var rect1Pos = rect1Shape.getXform().getPosition();
+    var circ2Pos = circ2Shape.getXform().getPosition();
+    var vFrom1to2 = [0, 0];
+    vec2.subtract(vFrom1to2, circ2Pos, rect1Pos);
+
+    var vec = vec2.clone(vFrom1to2);
+
+    var alongX = rect1Shape.getWidth() / 2;
+    var alongY = rect1Shape.getHeight() / 2;
+
+    vec[0] = this.clamp(vec[0], -alongX, alongX);
+    vec[1] = this.clamp(vec[1], -alongY, alongY);
+
+    var isInside = false;
+    if (rect1Shape.containsPos(circ2Pos))  {
+        isInside = true;
+        // Find closest axis
+        if (Math.abs(vFrom1to2[0] - alongX) &lt; Math.abs(vFrom1to2[1] - alongY)) {
+            // Clamp to closest side
+            if (vec[0] > 0) {
+                vec[0] = alongX;
+            } else {
+                vec[0] = -alongX;
+            }
+        } else { // y axis is shorter
+            // Clamp to closest side
+            if (vec[1] > 0) {
+                vec[1] = alongY;
+            } else {
+                vec[1] = -alongY;
+            }
+        }
+    }
+
+    var normal = [0, 0];
+    vec2.subtract(normal, vFrom1to2, vec);
+
+    var distSqr = vec2.squaredLength(normal);
+    var rSqr = circ2Shape.getRadius() * circ2Shape.getRadius();
+
+    if (distSqr > rSqr &amp;&amp; !isInside) {
+        return false; //no collision exit before costly square root
+    }
+
+    var len = Math.sqrt(distSqr);
+    var depth;        
+        
+    vec2.scale(normal, normal, 1/len); // normalize normal
+    if (isInside) { //flip normal if inside the rect
+        vec2.scale(normal, normal, -1);
+        depth = circ2Shape.getRadius() + len;
+    } else {
+        depth = circ2Shape.getRadius() - len;
+    }
+    
+    collisionInfo.setNormal(normal);
+    collisionInfo.setDepth(depth);
+    return true;
+};
+
+/**
+ * pushes a Particle out of a RigidCircle or a RigidRectangle.
+ * @param {Particle} aParticle
+ * @returns {Boolean}
+ * @memberOf RigidShape
+ */
+RigidShape.prototype.resolveParticleCollision = function(aParticle) {
+    var status = false;
+    switch (this.rigidType()) {
+        case RigidShape.eRigidType.eRigidCircle:
+            status = gEngine.Particle.resolveCirclePos(this, aParticle);
+            break;
+        case RigidShape.eRigidType.eRigidRectangle:
+            status = gEngine.Particle.resolveRectPos(this, aParticle);
+            break;
+    }
+    return status;
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.Particle.html">Particle</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.0-dev</a> on Tue Dec 15 2015 13:17:01 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

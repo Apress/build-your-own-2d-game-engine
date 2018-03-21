@@ -1,0 +1,27 @@
+Toast Lovers!
+=============
+
+This game is the final project of CSS 452 for team Smile Protection Squad.
+
+We are:
+- Dylan Katz
+- Sam Meyerding
+- Ryan Vichitthavong
+
+This game is a tower defense game where we have a piece of toast that we want to
+protect from a hoard of ants. It will be pretty good.
+
+License Information
+-------------------
+
+There are two files in public_html/src/lib/ that are under the MIT license.
+Check the directory to see more licensing information.
+
+We are licensing everything that we write under the ISC license. See the
+LICENSE file for more information. This includes public_html/src/MyGame/ and all
+other changes that we make to other parts of the code.
+
+However, we are currently not sure what the situation is for most of the code
+outside of that directory. It was written by our professor and was distributed
+without licensing information. We don't think he's going to sue you, but do not
+take this as legal advice.

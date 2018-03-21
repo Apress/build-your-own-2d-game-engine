@@ -1,0 +1,138 @@
+{
+    "Camera": [
+        {
+            "Center": [100, 56.25],
+            "Width": 200,
+            "Viewport": [0, 0, 1280, 720],
+            "BgColor": [0.9, 0.9, 0.9, 1.0]
+        }
+    ],
+    
+    "Hero": {
+        "Position": [20, 10],
+        "Scale": [3, 7.5],
+        "MoveSpeed": 45,
+        "JumpSpeed": 75
+    },
+    
+    "Catherine": {
+        "Position": [180, 82],
+        "Scale": [3, 7.5],
+        "Speed": 0.4,
+        "TriggerDistance": 40
+    },
+    
+    "Humans" :[
+        {
+            "Position": [190, 30],
+            "Scale": [3, 7.5],
+            "Speed": 0.3,
+            "TriggerDistance": 40
+        },
+        {
+            "Position": [160, 10],
+            "Scale": [3, 7.5],
+            "Speed": 0.3,
+            "TriggerDistance": 40
+        },
+        {
+            "Position": [8, 60],
+            "Scale": [3, 7.5],
+            "Speed": 0.3,
+            "TriggerDistance": 40
+        },
+        {
+            "Position": [150, 80],
+            "Scale": [3, 7.5],
+            "Speed": 0.3,
+            "TriggerDistance": 40
+        },
+        {
+            "Position": [8, 80],
+            "Scale": [3, 7.5],
+            "Speed": 0.3,
+            "TriggerDistance": 40
+        }
+    ],
+    
+    "Flower": {
+        "Position": [100, 8],
+        "Scale": [8, 8]
+    },
+    
+    "Platforms": [
+        {
+            "Position": [100, -20],
+            "Scale": [190, 2]
+        },
+        {
+            "Position": [15, 3],
+            "Scale": [20, 2]
+        }, 
+        {
+            "Position": [115, 3],
+            "Scale": [160, 2]
+        },
+        {
+            "Position": [15, 27],
+            "Scale": [20, 2]
+        }, 
+        {
+            "Position": [95, 27],
+            "Scale": [120, 2]
+        },
+        {
+            "Position": [185, 27],
+            "Scale": [20, 2]
+        },
+        
+        {
+            "Position": [15, 52],
+            "Scale": [20, 2]
+        }, 
+
+        {
+            "Position": [115, 52],
+            "Scale": [160, 2]
+        },
+        {
+            "Position": [115, 77],
+            "Scale": [160, 2]
+        },
+        
+        {
+            "Position": [15, 77],
+            "Scale": [20, 2]
+        }
+    ],
+    
+    "Walls": [
+        {
+            "Position": [5, 59],
+            "Scale": [0.5, 160]
+        },
+        {
+            "Position": [195, 59],
+            "Scale": [0.5, 160]
+        }
+    ],
+    
+    "Texts": [
+        {
+            "Content": "I'm angry with people who get in my way",
+            "Position": [47, 107],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        },
+        {
+            "Content": "Unlike them, I won't hurt anyone",
+            "Position": [58, 100],
+            "Color": [0.9, 0.9, 0.9, 1.0],
+            "Height": 5
+        }
+    ],
+    
+    "GameStatus": {
+        "DefaultStatus": 0
+    }
+}

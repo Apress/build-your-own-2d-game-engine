@@ -1,0 +1,40 @@
+<MyGameLevel>
+
+    <Camera_Num Number="1"/>
+    <Camera_Main CenterX="0" CenterY="0" Width="40" 
+              Viewport="0 0 1200 600"   
+              BgColor="1 1 1 1.0"
+              Type="0"
+              />
+    
+    <GUI_Num Number="5">
+    <GUI_1 SizeX="40" SizeY="20"
+           X="0" Y="0"
+           Rp = "assets/startscene.png"
+           Type = "square"/>
+    <GUI_2 SizeX="6" SizeY="0.75"
+           X="-16" Y="-5"
+           hX = "-24" 
+           hY = "-5"
+           Rp = "assets/startbtn.png"
+           Type = "animUI"/>
+    <GUI_3 SizeX="6" SizeY="0.75"
+           X="-16" Y="-6"
+           hX = "-24" 
+           hY = "-6"
+           Rp = "assets/aboutusbtn.png"
+           Type = "animUI"/>
+    <GUI_4 SizeX="20" SizeY="10"
+           X="0" Y="0"
+           hX = "31" 
+           hY = "0"
+           Rp = "assets/aboutuscontent.png"
+           Type = "animUI"/>
+    <GUI_5 SizeX="20" SizeY="5"
+           X="8" Y="5"
+           hX = "31" 
+           hY = "5"
+           Rp = "assets/gamename.png"
+           Type = "animUI"/>         
+   
+</MyGameLevel>

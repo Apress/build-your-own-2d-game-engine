@@ -1,0 +1,240 @@
+<MyGameLevel>
+    <!-- Level scene file -->
+
+    <!--  *** be careful!! comma (,) is not a supported syntax!!  -->
+    <!--  make sure there are no comma in between attributes -->
+    <!--  e.g., do NOT do:  PosX="20", PosY="30" -->
+    <!--  notice the "comma" between PosX and PosY: Syntax error! -->
+  
+    <!-- cameras -->
+    <!-- WC for level 1 is:  -->
+    <!-- Viewport: x, y, w, h -->
+    <Camera CenterX="6" CenterY="12" Width="32" 
+            Viewport="0 0 1280 720"   
+            BgColor="0 0 1 1.0"
+    />
+       
+
+    <Background PosX="0" PosY="-12" Width="15" Height="30" ZPos="-5" ParallaxDepth="100" 
+                LightIndices="2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19"
+                ReceiveShadow="false"
+                Texture="Background.png" NormalMap="bg_normal.png" />
+    
+    <Background PosX="0" PosY="0" Width="12" Height="12" ZPos="-1" ParallaxDepth="2" 
+                LightIndices="-1"
+                ReceiveShadow="true"
+                Texture="bgLayer.png" NormalMap="bgLayer_normal.png" />
+              
+    
+    
+    <!-- Platform floor begining of the level-->
+    <Platform PosX="0" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="10" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="20" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="30" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="40" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="50" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="108" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="128" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="138" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="148" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="205" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="215" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="225" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="245" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="293" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="303" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="313" PosY="0" Velocity="0 0 0" MovementRange="0" Type="0"/>
+
+
+
+    
+    <!-- Platforms of level-->
+    <Platform PosX="0" PosY="6" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="0" PosY="12" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="10" PosY="12" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="20" PosY="12" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="20" PosY="6" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="40" PosY="6" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="25" PosY="12" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="32" PosY="10" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="40" PosY="14" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="40" PosY="20" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="0" PosY="20" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="10" PosY="20" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="20" PosY="20" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="30" PosY="20" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="53" PosY="6" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="47" PosY="10" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="53" PosY="14" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="64" PosY="14" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="68" PosY="14" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="64" PosY="4" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="69" PosY="8" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="76" PosY="12" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="92.35" PosY="4" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="97" PosY="8" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="93" PosY="12" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="97" PosY="16" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="100" PosY="2" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="108" PosY="12" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="118" PosY="12" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="128" PosY="12" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="118" PosY="1" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="157" PosY="6" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="146" PosY="10" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="222" PosY="6" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="220" PosY="6" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="215" PosY="6" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="221" PosY="10" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="226" PosY="10" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="230" PosY="10" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="232" PosY="10" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="255" PosY="2" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="262" PosY="6" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="271" PosY="9" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    <Platform PosX="282" PosY="9" Velocity="0 0 0" MovementRange="0" Type="2"/>
+    
+    <!-- Moving Platform of the level -->
+    <Platform PosX="172" PosY="2" Velocity="0 0 0" MovementRange="12" Type="4"/>
+    <Platform PosX="184" PosY="14" Velocity="0 0 0" MovementRange="-12" Type="4"/>
+    <Platform PosX="196" PosY="2" Velocity="0 0 0" MovementRange="12" Type="4"/>
+
+
+    <!-- Trees -->
+    <Tree PosX="-15" PosY="4" Type="2"/>
+    <Tree PosX="-12" PosY="2" Type="2"/>
+    <Tree PosX="-20" PosY="6" Type="5"/>
+    <Tree PosX="-1" PosY="12" Type="0"/>
+    <Tree PosX="8" PosY="12" Type="4"/>
+    <Tree PosX="30" PosY="12" Type="2"/>
+    <Tree PosX="50" PosY="12" Type="5"/>
+    <Tree PosX="67" PosY="-2" Type="1"/>
+    <Tree PosX="79" PosY="6" Type="3"/>
+    <Tree PosX="92" PosY="-2" Type="2"/>
+    <Tree PosX="128" PosY="12" Type="0"/>
+    <Tree PosX="135" PosY="12" Type="4"/>
+    <Tree PosX="146" PosY="12" Type="0"/>
+    
+    <Tree PosX="160" PosY="6" Type="0"/>
+    <Tree PosX="170" PosY="4" Type="3"/>
+    <Tree PosX="185" PosY="6" Type="2"/>
+    <Tree PosX="190" PosY="2" Type="1"/>
+    <Tree PosX="220" PosY="12" Type="5"/>
+    <Tree PosX="290" PosY="12" Type="1"/>
+    <Tree PosX="300" PosY="12" Type="4"/>
+    <Tree PosX="305" PosY="12" Type="2"/>
+    <Tree PosX="310" PosY="12" Type="3"/>
+    
+    
+    
+    <!-- Walls -->
+    <Wall PosX="-7" PosY="2.5" Type="0"/>
+    <Wall PosX="-7" PosY="7.5" Type="0"/>
+    <Wall PosX="-7" PosY="12.5" Type="0"/>
+    <Wall PosX="-7" PosY="17.5" Type="0"/>
+    
+    <Wall PosX="15" PosY="9.5" Type="1"/>
+    <Wall PosX="25" PosY="9.5" Type="1"/>
+    <Wall PosX="45" PosY="9.5" Type="1"/>
+    <Wall PosX="45" PosY="14" Type="1"/>
+    <Wall PosX="45" PosY="17.5" Type="1"/>
+    <Wall PosX="54.5" PosY="4" Type="1"/>
+    <Wall PosX="54.5" PosY="8" Type="1"/>
+    <Wall PosX="54.5" PosY="11" Type="1"/>
+    <Wall PosX="133" PosY="10" Type="1"/>
+    <Wall PosX="133" PosY="15" Type="1"/>
+    <Wall PosX="210" PosY="11" Type="1"/>
+    <Wall PosX="210" PosY="16" Type="1"/>
+    
+    <Wall PosX="232" PosY="4" Type="0"/>
+    <Wall PosX="232" PosY="7" Type="0"/>
+    
+    <Wall PosX="255" PosY="-1" Type="0"/>
+    <Wall PosX="262" PosY="3" Type="0"/>
+    <Wall PosX="271" PosY="4" Type="0"/>
+    <Wall PosX="271" PosY="6" Type="0"/>
+    <Wall PosX="282" PosY="6" Type="0"/>
+    <Wall PosX="282" PosY="4" Type="0"/>
+    <Wall PosX="297" PosY="11" Type="1"/>
+    <Wall PosX="297" PosY="15" Type="1"/>
+    <Wall PosX="297" PosY="19" Type="1"/>
+    
+    
+    
+    <!-- Doors -->
+    <Door PosX="25" PosY="3.0" />
+    <Door PosX="45" PosY="3.0" />
+    <Door PosX="133" PosY="3.0" />
+    <Door PosX="210" PosY="3.0" />
+    <Door PosX="297" PosY="3.0" />
+    
+    <!-- Buttons -->
+    <Button PosX="0" PosY="7.5" Type="0"/>
+    <Button PosX="10" PosY="13.5" Type="0"/>
+    <Button PosX="128" PosY="13.5" Type="0"/>
+    <Button PosX="145" PosY="11.5" Type="0"/>
+    <Button PosX="232" PosY="11.5" Type="0"/>
+    
+     <!-- Minions -->
+     <!-- minion type: 0=>shooter, 1->brain, 2=>beetle /// 30 18 55 50-->
+    <Minion PosX="68" PosY="15" Width="1" Height="1.5" Velocity="1 0 0" MovementRange="2" Type="1"/> 
+    <Minion PosX="118" PosY="3" Width="1" Height="1.5" Velocity="1 0 0" MovementRange="2" Type="1"/>
+    <Minion PosX="185" PosY="15" Width="1" Height="1.5" Velocity="1 0 0" MovementRange="2" Type="1"/> 
+    <Minion PosX="205" PosY="8" Width="1" Height="1.5" Velocity="1 0 0" MovementRange="2" Type="1"/>
+    <Minion PosX="227" PosY="12.5" Width="1" Height="1.5" Velocity="1 0 0" MovementRange="2" Type="1"/>
+    <Minion PosX="300" PosY="6" Width="1" Height="1.5" Velocity="1 0 0" MovementRange="2" Type="1"/>
+
+    <!-- next level -->
+    <NextLevel Next="Level2">
+        <!-- a fold assets/Level2 must exist
+             a file assets/Level2/Level2.xml must exist!
+             -> GameLevel.js: initialize() makes these assumptions
+        -->
+   
+        <!-- Lights -->
+        <!-- starts from index = 0 -->
+        <!-- light type: 0=>Point, 1->Directional, 2=>Spot -->
+        <Light 
+            Type="1" 
+            Color="0.3 0.3 1 1" 
+            Pos="0 0 0"
+            Dir="-1 -1 -2" 
+            Near="1"
+            Far="1"
+            Inner="0"
+            Outter="0"
+            DropOff="1"
+            Intensity="1" 
+            CastShadow="false"
+        />
+        <Light 
+            Type="1" 
+            Color="0.1 0.1 0.1 0.5" 
+            Pos="0 0 0"
+            Dir="-0.3 -0.3 -7" 
+            Near="1"
+            Far="1"
+            Inner="0"
+            Outter="0"
+            DropOff="1"
+            Intensity="3" 
+            CastShadow="false"
+        />
+        <!-- index 2 is hero light! -->
+        <Light 
+            Type="0" 
+            Color="1 1 1 1" 
+            Pos="0 0 3"
+            Dir="0 0 3" 
+            Near="2"
+            Far="5"
+            Inner="2"
+            Outter="5"
+            DropOff="10"
+            Intensity="0.75" 
+            CastShadow="true" 
+        />
+        
+        
+</MyGameLevel>

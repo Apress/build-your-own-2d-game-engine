@@ -1,0 +1,31 @@
+{
+	"source": {
+		"include": [ 
+				"../BookChapters/FinalGame/public_html/src/Engine/Cameras", 
+				"../BookChapters/FinalGame/public_html/src/Engine/Core", 
+				"../BookChapters/FinalGame/public_html/src/Engine/Core/Resources", 
+				"../BookChapters/FinalGame/public_html/src/Engine/GameObjects", 
+				"../BookChapters/FinalGame/public_html/src/Engine/Lights", 
+				"../BookChapters/FinalGame/public_html/src/Engine/Particles", 
+				"../BookChapters/FinalGame/public_html/src/Engine/Physics", 
+				"../BookChapters/FinalGame/public_html/src/Engine/Renderables", 
+				"../BookChapters/FinalGame/public_html/src/Engine/Shaders", 
+				"../BookChapters/FinalGame/public_html/src/Engine/Material.js", 
+				"../BookChapters/FinalGame/public_html/src/Engine/Scene.js"],
+		"exclude": [ /* array of paths to exclude */ ],
+		"includePattern": ".+\\.js(doc)?$",
+		"excludePattern": "(^|\\/|\\\\)_"
+	},
+    "plugins": [],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    },
+	"opts": {
+		"template": "templates/default",  // same as -t templates/default
+		"encoding": "utf8",               // same as -e utf8
+		"destination": "docs/",          // same as -d ./out/
+		"recurse": true,                  // same as -r
+		"readme": "README.me"
+	}
+}

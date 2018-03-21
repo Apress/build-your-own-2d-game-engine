@@ -1,0 +1,85 @@
+<MyGameLevel>
+    <!-- SplashScreen scene file -->
+
+    <!--  *** be careful!! comma (,) is not a supported syntax!!  -->
+    <!--  make sure there are no comma in between attributes -->
+    <!--  e.g., do NOT do:  PosX="20", PosY="30" -->
+    <!--  notice the "comma" between PosX and PosY: Syntax error! -->
+  
+    <!-- cameras -->
+    <!-- WC for level 1 is:  -->
+    <!-- Viewport: x, y, w, h -->
+    <Camera CenterX="6" CenterY="12" Width="32" 
+            Viewport="0 0 1280 720"   
+            BgColor="0 0 1 1.0"
+    />
+       
+
+    <Background PosX="0" PosY="-12" Width="15" Height="30" ZPos="-5" ParallaxDepth="100" 
+                LightIndices="2 3 4"
+                ReceiveShadow="false"
+                Texture="Background.png" NormalMap="bg_normal.png" />
+    
+<!--    <Background PosX="0" PosY="0" Width="12" Height="12" ZPos="-1" ParallaxDepth="2" 
+                LightIndices="-1"
+                ReceiveShadow="true"
+                Texture="bgLayer.png" NormalMap="bgLayer_normal.png" />-->
+
+    <!-- Platform floor begining of the level-->
+    <Platform PosX="-5" PosY="3" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="5" PosY="3" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="15" PosY="3" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    <Platform PosX="25" PosY="3" Velocity="0 0 0" MovementRange="0" Type="0"/>
+    
+    <Platform PosX="-9" PosY="12" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    <Platform PosX="21" PosY="12" Velocity="0 0 0" MovementRange="0" Type="1"/>
+    
+      <!-- Buttons -->
+    <Button PosX="-7" PosY="13.5" Type="0"/>
+    <Button PosX="19" PosY="13.5" Type="0"/>
+
+        <!-- Lights -->
+        <!-- starts from index = 0 -->
+        <!-- light type: 0=>Point, 1->Directional, 2=>Spot -->
+        <Light 
+            Type="1" 
+            Color="0.3 0.3 1 1" 
+            Pos="0 0 0"
+            Dir="-1 -1 -2" 
+            Near="1"
+            Far="1"
+            Inner="0"
+            Outter="0"
+            DropOff="1"
+            Intensity="1" 
+            CastShadow="false"
+        />
+        <Light 
+            Type="1" 
+            Color="0.1 0.1 0.1 0.5" 
+            Pos="0 0 0"
+            Dir="-0.3 -0.3 -7" 
+            Near="1"
+            Far="1"
+            Inner="0"
+            Outter="0"
+            DropOff="1"
+            Intensity="3" 
+            CastShadow="false"
+        />
+        <!-- index 2 is hero light! -->
+        <Light 
+            Type="0" 
+            Color="1 1 1 1" 
+            Pos="0 0 3"
+            Dir="0 0 3" 
+            Near="2"
+            Far="5"
+            Inner="2"
+            Outter="5"
+            DropOff="10"
+            Intensity="0.75" 
+            CastShadow="true" 
+        />
+        
+</MyGameLevel>

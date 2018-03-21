@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Grading Guide</title>
+        <link rel ="icon" type ="image/x-icon" href="./assets/favicon.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Grading Guide</h1>
+        <p>This page describes our implemented features, engine changes, and requirements for the final project.</p>
+        
+        <h2>Requirements</h2>
+        <ul>
+        <li>Supports 3 Scenes:</li>
+        <ul><li>We have a total of five scenes, see <a href="/src/MyGame/Scenes/"> GameSrc/src/MyGame/Scenes</a></li>
+            <ul><li>Splash screen features navigation to other scenes</li>
+                <li>Boss Battle contains our game</li>
+                <li>Credits has information about the game creation</li>
+                <li>Controls displays some of the basic controls</li>
+                <li>Results has multiple states for victory and defeat depending on the results in Boss Battle</li>
+            </ul>
+        </ul>
+        <li>Appropriate Game Complexity</li>
+            <ul><li>We have implemented over a dozen game objects and objects for managing sets of game objects, UI elements, game state, and more</li>
+                <ul><li>Terrain, Platform, Arrow, FireArrow, Hero, Golem, ...</li>
+                    <li>See <a href="/src/MyGame/Objects/">/GameSrc/src/MyGame/Objects</a> for more </li>
+                </ul>
+                <li>Our main scene initialization function creates more than 50 instances of objects tracked in the Layer Manager</li>
+                    <ul><li>Even more are created dynamically with the Hero & Boss attacks.</li></ul>
+                <li>Per-pixel accurate Collisions</li>
+                <ul><li>We took out per-pixel accurate collisions for the final product due to performance issues.</li>
+                    <li>We created our assets with tight rigid bodies in mind to remove the need for the more expensive pixel collision.</li>
+                    <li>We consulted Professor Sung to implement additional features in exchange for dropping per-pixel collisions.</li>
+                </ul>
+            </ul>
+        <li>At least 2 camera views</li>
+            <ul><li>We feature only one camera view.</li>
+                <ul><li>Multiple cameras did not have a particularly useful place in our game.</li>
+                    <li>We consulted with Professor Sung to implement additional features in exchange for dropping multiple camera views.</li>
+                </ul>
+            </ul>
+        <li>Object Behavior:</li>
+            <ul><li>Interpolation</li>
+                <ul><li>Our boss makes use of interpolation with its movements.</li>
+                </ul>
+            </ul>
+            <ul><li>ShakePosition</li>
+                <ul><li>When our character is hit by an attack we implement camera shake.</li>
+                </ul>
+            </ul>
+            <ul><li>Pseudo autonomous</li>
+                <ul><li>The boss features a complex set of states to interact with the hero in a psuedo autonomous manner.</li>
+                    <li>The boss' purple attack implements chase behavior.
+                </ul>
+            </ul>
+        <li>Physics:</li>
+            <ul><li>Most of our objects feature rigid bodies and can be physics enabled.</li>
+                <li>Prominent uses of physics include our arrows, the hero jumping, knock back from the boss melee attack.</li>
+            </ul>
+        <li>Game World:</li>
+            <ul><li>We support up to 25 active lights at a time in our main game scene.</li>
+                <ul><li>Two directional lights, one for providing a base light level and another for illuminating our UI.</li>
+                    <li>22 possible Point lights use by toches, boss projectiles, fire arrows, & ice arrows.</li>
+                    <li>We do not feature a spot light, we found that it did not enhance our game and consulted Professor Kelvin to add other features in exchange for dropping it.</li>
+                </ul>
+                <li>We have multiple lights with animated parameters.</li>
+                <ul><li>Torches have flicking radius and color</li>
+                    <li>Multiple types of lights change their position following projectiles.</li>
+                </ul>
+                <li>Most of our objects are illuminated by lights</li>
+                <ul><li>Even our UI has a dedicated directional light to make it not be as dark as the rest of the Boss Battle scene</li>                  
+                </ul>
+                <li>Our platforms, midbackground, hero, boss, & torches all feature normal map illumination.</li>
+            </ul>
+        <li>Four Person Group:</li>
+            <ul><li>We implemented shadows and particles.</li></ul>
+                <ul><li>Ice arrows, Fire arrows, & torches all emit particles</li>
+                    <li>Most of our objects cast shadows. The main exceptions are dynamically created objects like projectiles</li>
+                </ul>
+        </ul>
+        <h1>Additional Features:</h1>
+        <h2>Engine Work:</h2>
+        <h3>Physics engine modifications:</h3>
+        <p style="width: 75%;"> Modified the Physics engine to support a feature similar to onCollisionEnter2D
+            from Unity. Each time there is a collision between two Physics objects,
+            each object will call the userCollisionHandling function, passing the other object
+            as a parameter.</p>
+        <p>
+            Example:<br>
+            &emsp;i.userCollisionHandling(j);<br>
+            &emsp;j.userCollisionHandling(i);<br>
+        </p>
+        <p style="width: 75%;">   These functions have a default implementation in the GameObject.js file which
+        simply returns false. The user has the option of returning nothing, or returning
+        true from these functions, along with handling the collision in any way they
+        wish. If they return true from either function, the Physics engine will skip
+        the positionalCorrection and resolveCollision calls. We use this to have
+        certain physics-enabled objects (such as the Golem projectiles) ignore all
+        collisions with objects other than the Hero (and IceArrow in the case of the
+        Homing projectile).
+        </p>
+        <h3>Game objects with multiple rigid bodies:</h3>
+        <p style="width: 75%;">Created a RigidSet which facilitates the use of multiple Rigidbodies for a
+        single GameObject. This is related to the EmptyGameObject file as well.
+        EmptyGameObject serves as a GameObject with no Renderable, and just a Rigidbody,
+        as well as a reference to its parent object & x/y offsets so that it can be
+        properly positioned with respect to its parent.
+        </p>
+        <h3>Lighting Modifications:</h3>
+        <p style="width: 75%;">We added support for up to 25 lights.</p>
+        <h3>Modifiable Audio levels:</h3>
+        <p style="width: 75%;">Background audio and audio cues can both be passed a float parameter from 0-1 to control their volume. A lot of our feedback focused on
+        the audio being too loud, so we sent the audio through a gain node to be able to modify volume. This should probably be a default feature of the engine.</p>
+        <h3>Camera modifications:</h3>
+        <p style="width: 75%;">We added a relative positioning system for UI elements to be able to translate to and from world coordinates.</p>
+        <h3>Layer Manager Modifications:</h3>
+        <p style="width: 75%;">We modified the shadow receiver layer to use a new type of set. Since shadow receivers are not game objects we ran into issues</p>
+        <h3>Line Renderable Modifications:</h3>
+        <p style="width: 75%;">We modified the Line Renderables to have additional utilty functions for moving vertices relative to their previous positions.</p>
+        <h3>Parallax Game Objects:</h3>
+        <p style="width: 75%;">Added support for parallax game objects to move on their own. This functionality appears to have been lost with the new physics engine.</p>
+        <br>
+        <h2>Game Implementation:</h2>
+        <h3>The Golem:</h3>
+        <p style="width: 75%;">
+        <ul><li>Features more than 10 different states</li>
+            <li>Has a set of 7 rigid bodies making up its hitbox. These are configured to move with the animations.</li>
+            <li>Has a melee attack that will knock back the hero and demonstrates the set of rigid bodies moving with the animations.</li>
+            <li>Currently features two types of projectile attacks (Homing and Blast), additional attacks were scrapped due to time constraints</li>
+            <ul><li>  The Homing projectile generates a spinning magical symbol above the boss. It 
+                        grows in size as it spins and then chases the Hero, guaranteeing a hit. The 
+                        Hero can prevent this by firing an IceArrow at the projectile. Upon hitting 
+                        it, the projectile will be stunned briefly, and then will fly in a linear path, 
+                        no longer tracking the Hero. </li>
+                <li>  Also, the "Blast" attack is the green ring that encircles the Golem,
+                        similar to the purple one, and then fires at the Hero's current location, but
+                        does not track.</li>
+            </ul>
+            <li>Check out the Golem_Rigidbodies and Golem_Animation files to see how the RigidSet is animated/created.</li>
+        </ul> 
+        </p>
+        <h3>The Arrows:</h3>
+        <p style="width: 75%;">
+        <ul><li>Three different types of arrows featuring different behaviors & appearances</li>
+            <li>Adjust rotation while in flight to replicate real arrow behavior.</li>
+            <li>Are followed by lights that turn on and off dynamically with arrow creation and deletion.</li>
+            <li>Emit particles, depending on type of arrow.</li>
+            <li>Remember state on collision to appear like they are sticking.</li>
+            <li>Are managed with a specific set to allow for modifiable cooldowns and time that they stay "alive."</li>
+            <li>Controled with an arrow vector to allow the player to easily control the strength and angle of shooting an arrow.</li>
+            <ul><li>Can be controlled from tail to head ("pushing" the arrows forward) or head to tail ("pulling" the bow back)</li></ul></ul>
+        </p>
+        <h3>Config:</h3>
+        <p style="width: 75%;"> While there are still a few hard-coded values, we generally tried to keep as
+                                much of them as possible in our Config files (in the Config folder). This is
+                                just a system of constants that is referenced through the Global variable
+                                "Config", but it allows us to keep our code extremely readable and organized.</p>
+        <h3>Lighting:</h3>
+        <p style="width: 75%;">We feature a lot of lights to emphasize our dungeon like game environment. They are used extensively
+        to emphasize projectiles and to light torches. We also have a light dedicated to lighting our UI elements so that we can maintain
+        our dark background and still have the UI standout. Modifications to lights were made to support variable number of lights and not having
+        to create every light possible.</p>
+    </body>
+</html>

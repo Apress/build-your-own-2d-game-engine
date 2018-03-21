@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../assets/coding.css">
+		<title>Tutorial 3</title>
+	</head>
+
+	<body>
+    	<div id="main-content">
+		<h1> GTCS Game Engine: <br>
+		Tutorial 3: Sprites, Animation &amp; Collision&nbsp;Detection</h1>
+		<p align="center"><a href="../tutorial2/tutorial2.html">Tutorial 2</a> &lt;-- Tutorial 3 --&gt; <a href="../tutorial4/tutorial4.html">Tutorial 4</a><br>
+		  <a href="../index.html">Main tutorial guide page</a><br></p>
+		
+		
+		<hr>
+		<h2>Introduction</h2>
+		<p>In this tutorial, we are going to look at another renderable type that implements animation of the image. We will also expand our understanding of game object behavior by using collision detection to determine when GameObjects overlap.</p>
+        
+		<p><strong>Covered Topics</strong>: <a href="#sprites">Sprites</a> • <a href="#animation">Animation</a> • <a href="#collision_detection">Collision Detection</a></p>
+        <p><strong>Demonstrations</strong>: <a href="../tutorial_source/index3a.html" target="_blank">Using a Spritesheet</a> • <a href="../tutorial_source/index3b.html" target="_blank">Animated Sprites</a> • <a href="../tutorial_source/index3c.html" target="_blank">Detecting Collisions</a></p>
+        <p>Complete source code for all tutorials can be downloaded from <a href="../assets/tutorials.zip">here</a>.</p>
+        
+        
+	<hr>
+		<h2><a id="sprites"></a>Sprites</h2>
+
+
+		<p>TextureRenderables have a big advantage over Renderables in that they are able to render a bitmap. However, they do have a few significant limitations. Our texture must have dimensions that are powers of 2 and they are static. While this may work fine for backgrounds or static visual elements, we typically want something more dynamic the enhance the &quot;action&quot; of the graphics in our game. A <strong>SpriteRenderable</strong> allows us to use a spritesheet and define the portion of the sheet we want to display for the renderable.</p>
+        <p><figure>
+        	<img src="assets/minion_sprite.png" width="512" height="256" alt=""/>
+            	<figcaption>figure 3-1: Spritesheet</figcaption>
+            </figure>
+        </p>
+        <p>With this, we can store many if not all of our graphics in a single resource. In figure 3-1, we see a sample spritesheet. You will notice that the top row has variations of the same image and in the bottom row (second from the left), we have the same image we used in tutorial 2 and a reverse facing copy in the far right. We can use these types of images to simulate motion and infer direction. Figure 3-2 provides more details about our spritesheet.</p>
+        <p>        
+        <figure><img src="assets/sprite_sheet.png" width="471" height="276" alt=""/>
+        <figcaption>Figure 3-2: Spritesheet in detail</figcaption>
+            </figure>
+        </p>
+		<p> With coordinate location (0,0) being the bottom left of the entire sprite page, the bottom left coordinate of our texture from tutorial 2 is at (130,0). The size of this sub-image is 180 pixels wide by 180 pixels tall. Using the call <code>setElementPixelPositions(<em>left-x, right-x, lower-y, upper-y</em>);</code> we can define the specific portion of the sheet we want to render without worrying about the dimensions being powers of 2.</p>
+        <figure>
+		<pre>function MyGameScene() {
+	this.mCamera = null;
+	this.mRenderable = null;
+	this.mGameObject = null;
+    
+	<b>this.kTexture = "assets/minion_spritesheet.png"</b>
+};
+gEngine.Core.inheritPrototype(MyGameScene, Scene);
+
+MyGameScene.prototype.loadScene = function () {
+	gEngine.Textures.loadTexture(this.kTexture);
+};
+   
+MyGameScene.prototype.unloadScene = function () {
+	gEngine.Textures.unloadTexture(this.kTexture);
+};
+
+MyGameScene.prototype.initialize = function () {
+	this.mCamera = new Camera(
+		vec2.fromValues(50, 40),    // position of the camera
+		100,                        // width of camera
+		[0, 0, 500, 400]            // viewport (orgX, orgY, width, height)
+	);
+	// set the background color of our view to medium grey
+	this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    
+	<b>// we now use a sprite renderable object
+	this.mRenderable = new SpriteRenderable(this.kTexture);
+	this.mRenderable.setElementPixelPositions(130, 310, 0, 180);</b>
+    
+	// create a new game object with the new renderable
+	this.mGameObject = new GameObject(this.mRenderable);
+	this.mGameObject.getXform().setSize(16, 16);
+	this.mGameObject.getXform().setPosition(30, 50);
+    
+	gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+};
+</pre>
+		<figcaption class="codecaption">Code snippet 3-1: Adding a SpriteRenderable</figcaption>
+        </figure>
+        <p>If you make the above changes to your code, you will notice that the scene looks exactly the same. So far, this doesn't seem very useful until we consider that we can consolidate all of our textures onto a single spritesheet and that our renderable textures can be of arbitrary dimensions.</p>
+        <p>Unlike a TextureRenderable, SpriteRenderable allows us to change the renderable being shown by changing the element pixel position of the spritesheet. There is an identical minion facing the opposite direction at (720,0). The size is still 180x180 so calling <code>this.mRenderable.setElementPixelPositions(720, 900, 0, 180);</code> will allow our sprite to appear to change direction.</p>
+        <p>Our <strong>draw()</strong> function is going to be identical to our previous samples.</p>
+        <figure><pre>MyGameScene.prototype.draw = function () {
+	<b>// Clear the screen
+	gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
+    
+	// Activate our camera
+	this.mCamera.setupViewProjection();
+    
+	// Draw our objects
+	this.mGameObject.draw(this.mCamera);</b>
+};</pre>
+		<figcaption class="codecaption">Code snippet 3-2: Draw (same as code snippet 1-5)</figcaption>
+        </figure>
+        <p>Below, we modify our <strong>update()</strong> function to make the sprite change directions based on the keyboard controls.</p>
+        
+        <figure><pre>MyGameScene.prototype.update = function () {
+	// Check for user keyboard input to control GameObject
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+		<b>this.mRenderable.setElementPixelPositions(130, 310, 0, 180);</b>
+		this.mGameObject.getXform().incXPosBy(-0.5);
+	}
+        
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+		<b>this.mRenderable.setElementPixelPositions(720, 900, 0, 180);</b>
+		this.mGameObject.getXform().incXPosBy(0.5);
+	}
+     
+	if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
+		gEngine.GameLoop.stop();
+	}</b>
+};</pre>
+		<figcaption class="codecaption">Code snippet 3-3: Update</figcaption>
+        </figure>
+       <p>You can see the scene <a href="../tutorial_source/index3a.html" target="_blank">here</a>.</p>
+
+
+	<hr>
+		<h2><a id="animation"></a>Sprite Animation</h2>
+		<p>We can take our SpriteRenderable concept another step forward by defining how to implement automatic animation. First, we create a variables for a second renderable and game object.</p>
+		<p>In our next example, we are going to setup two renderables. Our original renderable will still respond to keyboard input and our second renderable will follow the mouse location. The second renderable will also animate with a sprite sequence. You can see the results <a href="../tutorial_source/index3b.html" target="_blank">here</a>.</p>
+        <figure><img src="assets/tutorial3-img2.png" width="513" height="414" alt=""/>
+            	<figcaption>Figure 3-3: Two sprites</figcaption></figure>
+                <p>First, we declare constants and load our resources.</p>
+        <figure>
+          <pre>function MyGameScene() {
+	this.mCamera = null;
+	this.mRenderable = null;
+	this.mGameObject = null;
+	<strong>this.mAnimatedRenderable = null;
+	this.mAnimatedGameObject = null;</strong>
+    
+	this.kTexture = "assets/minion_spritesheet.png"
+};</pre>
+		<figcaption class="codecaption">Code snippet 3-4: Adding a second GameObject</figcaption>
+        </figure>
+        
+        <p>During initialization, we will use a new renderable object type, <strong>SpriteAnimateRenderable</strong>. This  provides the function <code>setSpriteSequence(348, 0, 204, 164, 5,	0)</code> to define an animation sequence. Each of the parameters are defined as follows...
+        <ul>
+        	<li>384 - Top Y-coordinate of image (164 pixels down from 512)</li>
+            <li>0 - Left X-Coordinate of image</li>
+			<li>	204 - Width in pixels</li>
+            <li>164 - Height in pixels </li>
+			<li>	5 - Number of elements in this sequence</li>
+			<li>	0 - Horizontal padding in between</li>
+        </ul>
+        <p>After creating renderable, we define what direction the engine should cycle through the images with <code>setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight)</code> and how fast the cycle should move with <code>setAnimationSpeed(50)</code>. As previously mentioned, the engine calls update and draw 60 times per second. These calls will cycle through 5 images every 50 calls. To have the sequence cycle every second, we make the call with a value of 60.</p>
+        <figure>
+<pre>MyGameScene.prototype.initialize = function () {
+	this.mCamera = new Camera(
+		vec2.fromValues(50, 40),    // position of the camera
+		100,                        // width of camera
+		[0, 0, 500, 400]            // viewport (orgX, orgY, width, height)
+	);
+	// set the background color of our view to medium grey
+	this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    
+	// we now use a sprite renderable object
+	this.mRenderable = new SpriteRenderable(this.kTexture);
+	this.mRenderable.setElementPixelPositions(130, 310, 0, 180);
+    
+	// create a new game object with the new renderable
+	this.mGameObject = new GameObject(this.mRenderable);
+	this.mGameObject.getXform().setSize(16, 16);
+	this.mGameObject.getXform().setPosition(30, 50);
+    
+	<b>// we create a second renderable
+	this.mAnimatedRenderable = new SpriteAnimateRenderable(this.kTexture);
+	this.mAnimatedRenderable.setSpriteSequence(348, 0, 204, 164, 5,	0);
+	this.mAnimatedRenderable.setAnimationType(
+    				SpriteAnimateRenderable.eAnimationType.eAnimateRight);
+	this.mAnimatedRenderable.setAnimationSpeed(50);
+    
+	this.mAnimatedGameObject = new GameObject(this.mAnimatedRenderable);
+	this.mAnimatedGameObject.getXform().setSize(16, 12.8);
+	this.mAnimatedGameObject.getXform().setPosition(80, 50);</b>	
+
+	gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+};</pre>		<figcaption class="codecaption">Code snippet 3-5: Initialize with Animated Renderables</figcaption>
+        </figure>
+        
+        <p>In the <b>update</b> function, we are going to control the motion of the second renderable using the mouse location. The engine's input routines can be used to get the mouse location but the coordinates will be in pixel space. To convert to WC, we need to take information from the camera object and perform math. Fortunately, this is very common so the camera object provides <code>mouseWCX()</code> and <code>mouseWCY()</code> to get the location in the proper coordinate system.</p>
+        <p>We also need to tell the renderable to update the animation with a call to <code>updateAnimation()</code>.</p>
+        
+        <figure><pre>MyGameScene.prototype.update = function () {
+	this.mCamera.update();
+       
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+		this.mRenderable.setElementPixelPositions(130, 310, 0, 180);
+		this.mGameObject.getXform().incXPosBy(-0.5);
+	}
+
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+		this.mRenderable.setElementPixelPositions(720, 900, 0, 180);
+		this.mGameObject.getXform().incXPosBy(0.5);
+	}
+
+	<b>// set the location for this GameObject to the current mouse position
+	this.mAnimatedGameObject.getXform().setXPos(this.mCamera.mouseWCX());
+	this.mAnimatedGameObject.getXform().setYPos(this.mCamera.mouseWCY());</b>
+     
+	if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
+		gEngine.GameLoop.stop();
+	}
+    
+    this.mGameObject.update();
+    <b>this.mAnimatedRenderable.updateAnimation();</b>
+};</pre>
+		<figcaption class="codecaption">Code snippet 3-6: Updating Animation</figcaption>
+        </figure>
+        
+        <p>In the draw routine, of course, we draw our second renderable.</p>
+        
+        <figure><pre>MyGameScene.prototype.draw = function () {
+	// Clear the screen
+	gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
+    
+	// Activate our camera
+	this.mCamera.setupViewProjection();
+    
+	// Draw our objects
+	this.mGameObject.draw(this.mCamera);
+	<b>this.mAnimatedGameObject.draw(this.mCamera);</b>
+};</pre>
+		<figcaption class="codecaption">Code snippet 3-7: Drawing Two Renderables</figcaption>
+        </figure>
+        <p>As long as the mouse is within the canvas area and the browser is in the foreground, the canvas will draw the the second GameObject at the mouse location.</p>
+                
+                
+<hr>
+    <h2><a id="collision_detection"></a>Collision Detection</h2>
+        <p>The code we have created in this tutorial has set us up for looking at collision detection (after all, we need at least two objects to touch to see this in action). We call GameObject's <code>pixelTouches()</code> function to determine if the game object is in contact with another game object. The function returns a boolean and provides the WC coordinates of the point where the collision occurred.</p>
+        
+        <figure>
+          <pre>MyGameScene.prototype.update = function () {
+	this.mCamera.update();
+       
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+		this.mRenderable.setElementPixelPositions(130, 310, 0, 180);
+		this.mGameObject.getXform().incXPosBy(-0.5);
+	}
+
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+		this.mRenderable.setElementPixelPositions(720, 900, 0, 180);
+		this.mGameObject.getXform().incXPosBy(0.5);
+	}
+
+	this.mAnimatedGameObject.getXform().setXPos(this.mCamera.mouseWCX());
+	this.mAnimatedGameObject.getXform().setYPos(this.mCamera.mouseWCY());
+     
+	if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
+		gEngine.GameLoop.stop();
+	}
+    
+	<b>// we declare an array to store the point of intersection (not used by us)
+	var h = [];
+	if (this.mAnimatedGameObject.pixelTouches(this.mGameObject,h)) {
+		this.mAnimatedRenderable.getXform().incRotationByDegree(2);
+	}</b>
+    
+    this.mGameObject.update();
+    this.mAnimatedRenderable.updateAnimation();
+};</pre>
+		<figcaption class="codecaption">Code snippet 3-8: Update with Collision Detection</figcaption>
+        </figure>
+        
+        <p>As we can see <a href="../tutorial_source/index3c.html" target="_blank">here</a>, we check to see if there is overlap between the two GameObjects and cause rotation of the animated renderable when overlapping. Notice that our renderable continues to animate while it is rotating.</p>
+
+    <hr>
+    <h2>Conclusion</h2>
+        <p>With the spritesheet and SpriteAnimateRenderable, there is a great deal of potential in customizing the look of our game elements. Collision detection gives us a tool for working with behavior.</p>
+        <p>In <a href="tutorial4.html">tutorial 4</a>, we will take a further look at behavior using rigid bodies to resolve GameObject overlap after collisions. This will simulate GameObjects acting as solid objects when interacting with eachother. We will also look at creating particle affects.</p>
+        
+        
+        <hr>
+        <p align="center"><a href="../tutorial2/tutorial2.html">Tutorial 2</a> &lt;-- Tutorial 3 --&gt; <a href="../tutorial4/tutorial4.html">Tutorial 4</a><br>
+		  <a href="../index.html">Main tutorial guide page</a><br></p>
+	</div>
+    <h4><i>2/11/2016</i> - David Watson, Proofread by Adedayo Odesile</h4>
+    </body>
+</html>

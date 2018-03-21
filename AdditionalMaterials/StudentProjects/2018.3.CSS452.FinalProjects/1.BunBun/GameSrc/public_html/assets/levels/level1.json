@@ -1,0 +1,553 @@
+{
+    "name": "Tutorial",
+    "description": "A BunBun beta level",
+    "ambientColor": [1, 1, 1, 1],
+    "ambientIntensity": 0.0,
+    "assetList": [
+        {
+            "name":   "assets/textures/carrotPickup.png",
+            "type":   "texture"
+        }, {
+            "name": "assets/textures/Overlay0.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay0p.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay7.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay8.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Overlay9.png",
+            "type": "texture"
+        }, {         
+            "name": "assets/textures/carrotSlice.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/flareStrip.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Bun_animated.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Spaceship.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/SpaceshipNormal.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/indicator.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills0.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills1.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills2.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills3.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/tutorial_instructions.png",
+            "type": "texture"
+        }, {
+            "name": "assets/fonts/Consolas-32",
+            "type": "font"
+        }
+    ],
+    "cameraList": [
+        {
+            "name": "main",
+            "center": [50, 37.5],
+            "width": 100,
+            "pixelPosition": [0, 0],
+            "pixelSize": [800, 600],
+            "color": [0.38, 0.78, 1.0, 1]
+        }, {
+            "name": "minimap",
+            "center": [50, 37.5],
+            "width": 200,
+            "pixelPosition": [620, 460],
+            "pixelSize": [160, 120],
+            "color": [0.1, 0.1, 0.1, 1]
+        }
+    ],
+    "objectList": {
+        "TerrainBlock": [
+            {
+                "__hasPhysics": true,
+                "position": [
+                    18.600250244140625,
+                    14.699999809265137
+                ],
+                "size": [
+                    46.58207702636719,
+                    3
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    141.20025634765625,
+                    32.20000076293945
+                ],
+                "size": [
+                    30.882076263427734,
+                    12
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    178.79971313476562,
+                    32.399993896484375
+                ],
+                "size": [
+                    30.882076263427734,
+                    11.200000762939453
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    220.1991424560547,
+                    41.600013732910156
+                ],
+                "size": [
+                    15.482020378112793,
+                    2.0000081062316895
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    241.3988800048828,
+                    46.00001525878906
+                ],
+                "size": [
+                    15.482020378112793,
+                    6.200006484985352
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    262.79913330078125,
+                    53.400028228759766
+                ],
+                "size": [
+                    7.482028007507324,
+                    7.800004959106445
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    287.20037841796875,
+                    62.20004653930664
+                ],
+                "size": [
+                    27.082061767578125,
+                    8.000004768371582
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    300.00103759765625,
+                    73.39990234375
+                ],
+                "size": [
+                    1.2820305824279785,
+                    38.60008239746094
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    204.39935302734375,
+                    43.20002746582031
+                ],
+                "size": [
+                    23.682048797607422,
+                    20.20001220703125
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    231.3990020751953,
+                    44.00001525878906
+                ],
+                "size": [
+                    15.482020378112793,
+                    5.800006866455078
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    130.30006408691406,
+                    24.799999237060547
+                ],
+                "size": [
+                    74.18197631835938,
+                    12
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    253.99871826171875,
+                    48.00001525878906
+                ],
+                "size": [
+                    22.082042694091797,
+                    6.200006484985352
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    -1.5999336242675781,
+                    73.80030822753906
+                ],
+                "size": [
+                    2.9999983310699463,
+                    124.75001525878906
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    265.399169921875,
+                    58.20003890991211
+                ],
+                "size": [
+                    23.882049560546875,
+                    4.200008392333984
+                ],
+                "angle": 0
+            },
+            {
+                "__hasPhysics": true,
+                "position": [
+                    69.60025024414062,
+                    18.200000762939453
+                ],
+                "size": [
+                    69.58207702636719,
+                    12
+                ],
+                "angle": 0
+            }
+        ],
+        "CarrotPickup": [
+            {
+                "__depth": 51,
+                "position":     [55, 41.5]
+            }, {
+                "__depth": 51,
+                "position":     [60, 41.5]
+            }, {
+                "__depth": 51,
+                "position":     [65, 41.5]
+            }, {
+                "__depth": 51,
+                "position":     [70, 41.5]
+            }, {
+                "__depth": 51,
+                "position":     [75, 41.5]
+            }, {
+                "__depth": 51,
+                "position":     [80, 41.5]
+            }, {
+                    "__depth": 51,
+                "position":     [85, 41.5]
+            }, {
+                    "__depth": 51,
+                "position":     [90, 41.5]
+            }, {
+                "__depth": 51,
+                "position":     [68, 26]
+            }, {
+                "__depth": 51,
+                "position":     [74, 26]
+            }, {
+                "__depth": 51,
+                "position":     [80, 26]
+            }, {
+                "__depth": 51,
+                "position":     [86, 26]
+            }, {
+                "__depth": 51,
+                "position":     [154, 40]
+            }, {
+                "__depth": 51,
+                "position":     [165, 40]
+            }, {
+                "__depth": 51,
+                "position":     [170, 40]
+            }, {
+                "__depth": 51,
+                "position":     [175, 40]
+            }, {
+                "__depth": 51,
+                "position":     [180, 40]
+            }, {
+                "__depth": 51,
+                "position":     [185, 40]
+            }, {
+                "__depth": 51,
+                "position":     [293, 72]
+           }, {
+                "__depth": 51,
+                "position":     [294, 72]
+            }, {
+                "__depth": 51,
+                "position":     [292, 72]
+            }, {
+               "__depth": 51,
+                "position":     [293, 68]
+            }, {
+                "__depth": 51,
+                "position":     [294, 68]
+            }, {
+                "__depth": 51,
+                "position":     [292, 68]
+            }
+        ],
+        "Player": [
+            {
+                "__hasPhysics": true,
+                "__depth":      -2,
+                "position":     [1, 40]
+            }
+        ],
+        "Water": [
+            {
+                "__depth":      -100,
+                "__hasPhysics": false,
+                "waterSpeed":   0.03,
+                "waterLevel":   -20
+            }
+        ],
+        "Facade": [
+            {
+                "__comment":  "Left, start of level",
+                "__depth":    50,
+                "position":   [-100, -225],
+                "size":       [100, 300],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, start of level",
+                "__depth":    50,
+                "position":   [0, -200],
+                "size":       [100, 200],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, second step of level",
+                "__depth":    50,
+                "position":   [100, -200],
+                "size":       [100, 225],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "Bottom, third step of level",
+                "__depth":    50,
+                "position":   [200, -200],
+                "size":       [100, 225],
+                "lowerLeft":  [0, 0],
+                "upperRight": [128, 128],
+                "textureId":  "assets/textures/Overlay0.png"
+            }, {
+                "__comment":  "End level wall",
+                "__depth":    50,
+                "position":   [300, -200],
+                "size":       [100, 266.24],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay0.png"
+            },
+            
+            
+            {
+                "__comment":  "Instructions 1",
+                "__depth":    49,
+                "position":   [5, 0],
+                "size":       [25.5, 12.7],
+                "lowerLeft":  [0, 136],
+                "upperRight": [255, 268],
+                "textureId":  "assets/textures/tutorial_instructions.png",
+                "unlit":      true
+            },{
+                "__comment":  "Instructions 2",
+                "__depth":    49,
+                "position":   [20, 30],
+                "size":       [25.6, 13.6],
+                "lowerLeft":  [0, 403],
+                "upperRight": [255, 539],
+                "textureId":  "assets/textures/tutorial_instructions.png",
+                "unlit":      true
+            },{
+                "__comment":  "Instructions 3",
+                "__depth":    49,
+                "position":   [42, 8],
+                "size":       [25.5, 13.3],
+                "lowerLeft":  [0, 0],
+                "upperRight": [255, 133],
+                "textureId":  "assets/textures/tutorial_instructions.png",
+                "unlit":       true
+            },{
+                "__comment":  "Instructions 4",
+                "__depth":    49,
+                "position":   [60, 45],
+                "size":       [25.6, 13.6],
+                "lowerLeft":  [255, 403],
+                "upperRight": [512, 539],
+                "textureId":  "assets/textures/tutorial_instructions.png",
+                "unlit":       true
+            },{
+                "__comment":  "Instructions 5 (comes after 6, for some reason)",
+                "__depth":    49,
+                "position":   [128, 23],
+                "size":       [25.6, 13.3],
+                "lowerLeft":  [0, 270],
+                "upperRight": [255, 402],
+                "textureId":  "assets/textures/tutorial_instructions.png",
+                "unlit":      true
+            },{
+                "__comment":  "Instructions 6",
+                "__depth":    49,
+                "position":   [97, 16],
+                "size":       [25.6, 13.9],
+                "lowerLeft":  [0, 538],
+                "upperRight": [255, 677],
+                "textureId":  "assets/textures/tutorial_instructions.png",
+                "unlit":      true
+            }, {
+                "__comment":  "Instructions 7",
+                "__depth":    49,
+                "position":   [172, 20],
+                "size":       [25.6, 13.3],
+                "lowerLeft":  [256, 135],
+                "upperRight": [512, 266.5],
+                "textureId":  "assets/textures/tutorial_instructions.png",
+                "unlit":      true
+            }, {
+                "__comment":  "Instructions 8",
+                "__depth":    49,
+                "position":   [229, 33],
+                "size":       [25.6, 13.1],
+                "lowerLeft":  [256, 269],
+                "upperRight": [512, 400],
+                "textureId":  "assets/textures/tutorial_instructions.png",
+                "unlit":      true
+            }, {
+                "__comment":  "Instructions 9",
+                "__depth":    49,
+                "position":   [272, 78],
+                "size":       [25.6, 13.3],
+                "lowerLeft":  [256, 0],
+                "upperRight": [512, 133],
+                "textureId":  "assets/textures/tutorial_instructions.png",
+                "unlit":      true
+            },
+            
+            
+            {
+                "__depth":    50,
+                "position":   [0, -25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay7.png"
+            }, {
+                "__depth":    50,
+                "position":   [100, -25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay8.png"
+            }, {
+                "__depth":    50,
+                "position":   [200, -25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Overlay9.png"
+            }
+            
+        ],
+        "Editor": [
+            {
+                "__depth": -1000,
+                "isEnabled": false               
+            }
+        ],
+        "Spaceship": [
+            {
+                "__hasPhysics": true,
+                "__depth":      -1,
+                "position":     [160, 70]
+            }, {
+                "__hasPhysics": true,
+                "__depth":      -1,
+                "position":     [200, 80]
+            }
+        ],
+        "WinPoint": [
+            {
+                "boundary": 290,
+                "nextLevelFile": "assets/levels/level2.json"
+            }
+        ],
+        "HeadsUpDisplay": [
+            {}
+        ],
+        "Background": [
+            {
+                "__depth":    52,
+                "position":   [50, 25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureList": [
+                    "assets/textures/bg_hills0.png",
+                    "assets/textures/bg_hills1.png",
+                    "assets/textures/bg_hills2.png",
+                    "assets/textures/bg_hills3.png"
+                ]
+            }
+        ],
+        "JukeBox": [
+            {
+                "audioFile": "assets/sounds/BunBun_Level_1_Short.wav",
+                "isLooped": true
+            }
+        ]
+    }
+}

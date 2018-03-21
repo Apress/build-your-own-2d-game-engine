@@ -1,0 +1,103 @@
+{
+    "name": "Intro",
+    "description": "An introductory scene for logos and copyrights",
+    "ambientColor": [1, 1, 1, 1],
+    "ambientIntensity": 0.0,
+    "assetList": [
+        {
+            "name": "assets/textures/Bun_TitleScreen.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/Bun_TitleScreenTerrain.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/BunSprite1.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills0.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills1.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills2.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/bg_hills3.png",
+            "type": "texture"
+        }, {
+            "name": "assets/textures/credits.png",
+            "type": "texture"
+        }
+    ],
+    "cameraList": [
+        {
+            "name": "main",
+            "center": [50, 37.5],
+            "width": 100,
+            "pixelPosition": [0, 0],
+            "pixelSize": [800, 600],
+            "color": [0.38, 0.78, 1.0, 1]
+        }
+    ],
+    "objectList": {
+        "Facade": [
+            {
+                "__depth":    50,
+                "position":   [0, -25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Bun_TitleScreen.png",
+                "unlit":      true
+            }, {
+                "__depth":    50,
+                "position":   [0, -25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureId":  "assets/textures/Bun_TitleScreenTerrain.png"
+            }, {
+                "__depth":    0,
+                "position":   [69, 2],
+                "size":       [30, 30],
+                "lowerLeft":  [0, 0],
+                "upperRight": [512, 512],
+                "textureId":  "assets/textures/credits.png",
+                "unlit":        true
+            }
+        ],
+        "BunAnimation": [
+            {
+                "__depth":      51,
+                "position":     [50, 35],
+                "size":         [5, 13.2]
+            }
+        ],
+        "Background": [
+            {
+                "__depth":    52,
+                "position":   [50, 25],
+                "size":       [100, 100],
+                "lowerLeft":  [0, 0],
+                "upperRight": [1024, 1024],
+                "textureList": [
+                    "assets/textures/bg_hills1.png",
+                    "assets/textures/bg_hills2.png",
+                    "assets/textures/bg_hills3.png"
+                ]
+            }
+        ],
+        "NextLevelController": [
+            {
+                "levelFile": "assets/levels/level1.json"
+            }
+        ],
+        "JukeBox": [
+            {
+                "audioFile": "assets/sounds/BunBun_Intro_DrumsAndGtr.wav",
+                "isLooped": true
+            }
+        ]
+    }
+}

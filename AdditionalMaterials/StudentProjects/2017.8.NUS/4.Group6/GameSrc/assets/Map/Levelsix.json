@@ -1,0 +1,391 @@
+
+{
+    "name": "Levelsix",
+
+    "Type" : {
+      "Boundary" : 0,
+      "Platform" : 1,
+      "UDPlatform" : 2,
+      "LRPlatform" : 3,
+      "NailSquare" : 4,
+        "UDNail":5,
+        "LRNail":6,
+        "Hp":7,
+        "Spring":8,
+        "Goal":9,
+            "Portal":10,
+         "Enimy" :11,
+            "LREnimy":12
+    },
+
+    "Square": [
+        {
+            "Pos": [-40, 0],
+            "Width": 50,
+            "Height": 1024,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+
+        {
+            "Pos": [140, 0],
+            "Width": 50,
+            "Height": 1024,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+
+      {
+            "Pos": [50, 125],
+            "Width": 1024,
+            "Height": 50,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+
+      {
+            "Pos": [50, -25],
+            "Width": 1024,
+            "Height": 50,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+
+
+
+
+        {
+            "Pos": [50,33 ],
+            "Width": 130,
+            "Height": 7,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+
+           {
+            "Pos": [50,66 ],
+            "Width": 130,
+            "Height": 7,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+           {
+            "Pos": [28,50 ],
+            "Width":7,
+            "Height": 120,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+         {
+            "Pos": [72,50 ],
+            "Width": 7,
+            "Height": 120,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+
+         {
+            "Pos": [110,83],
+            "Width": 20,
+            "Height": 7,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+        {
+            "Pos": [28,15],
+            "Width": 26,
+            "Height": 4,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+               {
+            "Pos": [72,15],
+            "Width": 26,
+            "Height": 4,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+            "Tag": 1
+        },
+         {
+            "Pos": [15,85],
+            "Width": 20,
+            "Height": 3,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+
+            "Tag":1
+        },
+        {
+            "Pos": [6.5,76],
+            "Width": 3,
+            "Height": 20,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+
+            "Tag":1
+        },
+          {
+            "Pos": [50,50],
+            "Width": 2,
+            "Height": 2,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+
+            "Tag":1
+        },
+            {
+            "Pos": [40,85],
+            "Width": 2,
+            "Height": 2,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+
+            "Tag":1
+        },
+               {
+            "Pos": [60,85],
+            "Width": 2,
+            "Height": 2,
+            "Rotation": 0,
+            "Color": [0, 0, 0, 1],
+
+            "Tag":1
+        },
+
+
+        {
+            "Pos": [-12.5,2.5],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[0,75],
+            "Tag": 10
+        },
+           {
+            "Pos": [22,27],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[40,0],
+            "Tag": 10
+        },
+        {
+            "Pos": [50,2.5],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[0,0],
+            "Tag": 10
+        },
+           {
+            "Pos": [50,27],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[100,0],
+            "Tag": 10
+        },
+         {
+            "Pos": [112.5,2.5],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[100,40],
+            "Tag": 10
+        },
+           {
+            "Pos": [78,27],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[40,0],
+            "Tag": 10
+        },
+          {
+            "Pos": [-12.5,50],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[40,75],
+            "Tag": 10
+        },
+          {
+            "Pos": [22,50],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[40,40],
+            "Tag": 10
+        },
+         {
+            "Pos": [34,50],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[0,40],
+            "Tag":10
+        },
+          {
+            "Pos": [66,50],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[40,0],
+            "Tag": 10
+        },
+        {
+            "Pos": [50,39],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[40,75],
+            "Tag": 10
+        },
+          {
+            "Pos": [50,60],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[100,40],
+            "Tag": 10
+        },
+        {
+            "Pos": [78,50],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[40,40],
+            "Tag": 10
+        },
+          {
+            "Pos": [112.5,50],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[100,75],
+            "Tag": 10
+        },
+            {
+            "Pos": [-12.5,72],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[0,0],
+            "Tag": 10
+        },
+          {
+            "Pos": [22,97.5],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[40,75],
+            "Tag": 10
+        },
+           {
+            "Pos": [50,72],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[0,40],
+            "Tag": 10
+        },
+          {
+            "Pos": [50,97.5],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[40,40],
+            "Tag": 10
+        },
+          {
+            "Pos": [78,72],
+            "Width": 5,
+            "Height": 5,
+            "Rotation": 0,
+            "Color": [1, 0, 0, 0],
+            "End":[0,0],
+            "Tag": 10
+        },
+
+             {
+            "Pos": [5,62],
+            "Width": 24,
+            "Height": 3,
+            "Rotation": 0,
+            "Color": [0, 1, 0, 1],
+            "High":22,
+            "Dir":false,
+            "Speed":1,
+            "Tag": 5
+        },
+           {
+            "Pos": [95,38],
+            "Width": 24,
+            "Height": 3,
+            "Rotation": 0,
+            "Color": [0, 1, 0, 1],
+            "High":22,
+            "Dir":true,
+            "Speed":1,
+            "Tag": 5
+        },
+
+
+
+
+          {
+            "Pos": [101, 28],
+            "Width": 3,
+            "Height": 3,
+            "Rotation": 0,
+            "Color": [0, 1, 0.8, 1],
+            "Tag": 7
+        },
+
+
+
+
+          {
+            "Pos": [114, 88],
+            "Width": 3,
+            "Height": 3,
+            "Rotation": 0,
+            "Color": [0, 1, 0.8, 1],
+            "Tag": 9
+        }
+
+
+
+
+
+
+    ]
+}

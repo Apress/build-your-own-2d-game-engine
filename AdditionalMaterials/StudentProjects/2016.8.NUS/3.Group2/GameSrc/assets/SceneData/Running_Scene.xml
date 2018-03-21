@@ -1,0 +1,49 @@
+<MyGameLevel>
+
+    <Camera_Num Number="1"/>
+    <Camera_Main CenterX="0" CenterY="0" Width="40" 
+              Viewport="0 0 1200 600"   
+              BgColor="0.8 0.8 0.8 1.0"
+              Type="0"
+              />
+    
+    <BG_Num Number="2"/>
+    <BG_1 SizeX="80" SizeY="20"
+          Layer = "1"
+          Rp = "assets/BG_1.jpg"/>
+    
+    <BG_2 SizeX="40" SizeY="20"
+          Layer = "1"
+          Rp = "assets/FG_1.png"/>
+    
+    <FGP_1 Rp = "assets/FGP_1.png">
+    
+    <GUI_Num Number="3">
+    <GUI_1 SizeX="8" SizeY="2"
+           X="0" Y="9"
+           hX = "0"
+           hY = "13"
+           Rp = "assets/UIrunning.png"
+           Type = "animUI"/>
+    <GUI_2 SizeX="16" SizeY="8"
+           X="0" Y="0"
+           hX = "0"
+           hY = "-16"
+           Rp = "assets/control.png"
+           Type = "animUI"/>
+    <GUI_3 SizeX="1" SizeY="0.6"
+            X="0" Y="9.05"
+            hX = "0"
+            hY = "15"
+            Rp = ""
+            Type = "score"/>
+        
+
+    <LAND_Num Number="1"/>
+    <LAND_1 SizeX="20" SizeY="20"
+          Layer = "1"
+          Rp = "assets/LAND_01.jpg"/>
+
+              
+   
+</MyGameLevel>

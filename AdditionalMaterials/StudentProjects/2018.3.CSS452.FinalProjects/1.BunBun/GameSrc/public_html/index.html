@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BunBun The Bunny</title>
+        <link rel ="icon" type ="image/x-icon" href="./assets/favicon.ico">
+
+        <!-- the following says there are javascript source code contained in 
+             the external source files
+        -->
+        <!-- external library -->
+        <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
+
+        <!-- Engine code -->
+        <!-- Core of Engine --> 
+        <script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_Particle.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_LayerManager.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_Global.js"></script>
+        <!-- Resource support -->
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_AudioClips.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Textures.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Fonts.js"></script>
+        <script type="text/javascript" src="src/Engine/Scene.js"></script>
+        <script type="text/javascript" src="src/Engine/Material.js"></script>
+        <!--Lights -->
+        <script type="text/javascript" src="src/Engine/Lights/Light.js"></script>
+        <script type="text/javascript" src="src/Engine/Lights/LightSet.js"></script>
+        <!-- Utilities -->
+        <script type="text/javascript" src="src/Engine/Utils/Transform.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/BoundingBox.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/Interpolate.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/InterpolateVec2.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/ShakePosition.js"></script>
+        <!-- Renderables -->
+        <script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteAnimateRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/FontRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/LineRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/LightRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/IllumRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/ParticleRenderable.js"></script>
+        <!-- Shadows -->
+        <script type="text/javascript" src="src/Engine/Shadows/ShadowCaster.js"></script>
+        <script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver.js"></script>
+        <script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver_Stencil.js"></script>
+        <!-- GameObject -->
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObject_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObjectSet.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/TiledGameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/ParallaxGameObject.js"></script>
+        <!-- Particles -->
+        <script type="text/javascript" src="src/Engine/Particles/Particle.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleGameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleGameObjectSet.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleEmitter.js"></script>
+        <!-- Shaders -->
+        <script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/SpriteShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/LineShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/LightShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShaderLightAtIndex.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/IllumShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShaderMaterial.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShadowCasterShader.js"></script>
+        <!-- Camera -->
+        <script type="text/javascript" src="src/Engine/Cameras/Camera.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Manipulation.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Input.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Xform.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraState.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraShake.js"></script>
+        
+        <!-- Physics support -->
+        <script type="text/javascript" src="src/Engine/Core/Engine_Physics.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidShape.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidCircle.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangle.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/CollisionInfo.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidCircle_Collision.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangleCircle_Collision.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangle_Collision.js"></script>
+        
+        <!-- Scenes -->
+        <script type="text/javascript" src="src/MyGame/GameLevel.js"></script>
+        
+        <!-- Game objects -->
+        <script type="text/javascript" src="src/MyGame/Objects/Player.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Carrot.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/CarrotPickup.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Water.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/TerrainBlock.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Facade.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Spaceship.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/BunAnimation.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/BunBunAnimated.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Background.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/WinPoint.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/HeadsUpDisplay.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/AsyncLoader.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/NextLevelController.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/JukeBox.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Editor.js"></script>
+        
+        
+    </head>
+
+    <body onload="
+        var thisGame = new GameLevel('assets/levels/asyncLoad.json');
+        gEngine.Core.initializeEngineCore('GLCanvas', thisGame);
+    ">
+        <canvas id="GLCanvas" width="800" height="600">
+            Your browser does not support the HTML5 canvas.
+        </canvas>
+        <script>
+            var showingElm = false;
+            function showHide()
+            {
+                var domElm = document.getElementById("showhide");
+                if (showingElm)
+                    domElm.style.display = "none";
+                else
+                    domElm.style.display = "block";
+                showingElm = !showingElm;
+            }
+        </script>
+        <br/>
+        <a href="#" onclick="showHide()">Show/hide details</a>
+        <div id="showhide" style="width: 800px; display: none;">
+        <p>
+            <b>Control Keys</b><br/>
+			<ul>
+				<li>Press WAD to move and jump (S does nothing)
+            	<li>Press Space to jump
+            	<li>Move mouse to aim laser
+            	<li>Left click to fire laser
+			</ul>
+            
+            <b>Grader Notes</b><br/>
+			<ul>
+				<li>No spotlight, because it doesn't fit with the design (Approved)
+            	<li>Press 1 to toggle displaying rigid body platforms
+            	<li>Press 2 to simulate lose scren
+            	<li>Press 3 to simulate win screen
+			</ul>
+            
+            <b>Bonus Features</b><br/>
+			<ul>
+				<li>All levels defined by JSON level files
+				<li>Added an extra level (tutorial level)
+				<li>Added a 4-layer parallax background
+				<li>Added a terrain editor
+			</ul>
+            
+            <b>Using The Terrain Editor</b><br/>
+			<ul>
+				<li><b>First</b> you must enable the editor in the respective map file
+					<ul>
+						<li>Find the desired map file under 'assets/levels'
+						<li>Find the entry for 'Editor' in the 'objectList'
+						<li>Set 'isEnabled' to true
+					</ul>
+				<li>Toggle terrain visibility by pressing 1
+				<li>Use left mouse click to select terrain blocks
+				<li>Use TFGH (next to WASD) to move terrain
+				<li>Use IJKL (next to TFGH) to scale terrain
+				<li>Use arrow keys to rotate terrain
+				<li>Use shift to slow terrain operations
+				<li>Shift + E exports level file data to console
+				<li>Shift + X deleted the selected terrain block
+				<li>Shift + C clones the selected terrain block
+				<li>Use O and P keys to zoom in and out respectively
+			</ul>
+        </p>
+        </div>
+    </body>
+</html>

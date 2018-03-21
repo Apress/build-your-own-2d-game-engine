@@ -1,0 +1,46 @@
+<MyGameLevel>
+
+    <Camera_Num Number="1"/>
+    <Camera_Main CenterX="0" CenterY="0" Width="40" 
+              Viewport="0 0 1200 600"   
+              BgColor="0.8 0.8 0.8 1.0"
+              Type="0"
+              />
+    
+    <Object_Num Number = ""/>
+    <Object_1 X="" Y=""
+          Type = ""
+          SizeX="" SizeY=""
+          Rp = ""/>
+    
+    <BG_Num Number="2"/>
+    <BG_1 SizeX="80" SizeY="20"
+          Layer = "1"
+          Rp = "assets/BG_1.jpg"/>
+    
+    <BG_2 SizeX="40" SizeY="20"
+          Layer = "1"
+          Rp = "assets/FG_1.png"/>
+    
+    <FGP_1 Rp = "assets/FGP_1.png">
+    
+    <GUI_Num Number="2">
+    <GUI_1 SizeX="40" SizeY="1.5"
+           X="0" Y="9.25"
+           Rp = "assets/UIBanner.png"
+           Type = "square"/>
+    
+    <GUI_2 SizeX="40" SizeY="-1.5"
+           X="0" Y="-9.25"
+           Rp = "assets/UIBanner.png"
+           Type = "square"/>
+        
+
+    <LAND_Num Number="1"/>
+    <LAND_1 SizeX="20" SizeY="20"
+          Layer = "1"
+          Rp = "assets/LAND_01.jpg"/>
+
+              
+   
+</MyGameLevel>

@@ -1,0 +1,45 @@
+<MyGameLevel>
+    <!-- Level 1 scene file -->
+
+    <!--  *** be careful!! comma (,) is not a supported syntax!!  -->
+    <!--  make sure there are no comma in between attributes -->
+    <!--  e.g., do NOT do:  PosX="20", PosY="30" -->
+    <!--  notice the "comma" between PosX and PosY: Syntax error! -->
+  
+    <!-- cameras -->
+    <!-- WC for level 1 is:  -->
+    <!-- Viewport: x, y, w, h -->
+    <Camera CenterX="64" CenterY="36" Width="128" 
+            Viewport="0 0 1280 720"   
+            BgColor="1 1 1 1.0"
+    />    
+
+    <Background PosX="64" PosY="32" Width="128" Height="72" 
+                Texture="BlueSky.png"/>
+            
+    
+     <!-- Minions -->
+     <!-- minion type: 0=>shooter, 1->brain, 2=>beetle -->
+    <DevilMove PosX="120" PosY="62" />
+    <DevilMove PosX="8" PosY="62" />
+    
+    <Hero1 PosX="68" PosY="6.5" />
+    
+    <Hero2 PosX="56" PosY="6.5" />
+    
+    <FinishLine PosX="64" PosY="56" Width="128"/>
+    
+    <Switcher PosX="30" PosY="45" />
+    
+    <!-- next level -->
+    <NextLevel Next="Level2">
+        <!-- a fold assets/Level2 must exist
+             a file assets/Level2/Level2.xml must exist!
+             -> GameLevel.js: initialize() makes these assumptions
+        -->
+   
+        <!-- Lights -->
+        <!-- starts from index = 0 -->
+        <!-- light type: 0=>Point, 1->Directional, 2=>Spot -->
+        
+</MyGameLevel>

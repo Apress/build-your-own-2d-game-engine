@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<head>
+    <title>Final Project: Cave Escape</title>
+</head>
+<!--Use embedded shader code for now, in order to remove async loading complexity.-->
+
+<body onload="
+        var game = new CaveEscape();
+        gEngine.Core.initializeEngineCore('GLCanvas', game);
+        " style="background-color: lightslategrey;">
+    
+    <!-- the following says there are javascript source code contained in 
+         the external source files
+    -->
+    
+    <!-- style sheets -->
+    <link rel="stylesheet" type="text/css" href="css/game.css" media="screen">    
+    
+    <!-- external library -->
+    <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
+     
+    <!-- Engine code -->
+    <!-- Core of Engine --> 
+    <script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Engine_Physics.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Engine_Particle.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Engine_LayerManager.js"></script>
+
+    <!-- Resource support -->
+    <script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Resources/Engine_AudioClips.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Textures.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Fonts.js"></script>
+    <script type="text/javascript" src="src/Engine/Scene.js"></script>
+    <script type="text/javascript" src="src/Engine/Material.js"></script>
+
+    <!--Lights -->
+    <script type="text/javascript" src="src/Engine/Lights/Light.js"></script>
+    <script type="text/javascript" src="src/Engine/Lights/LightSet.js"></script>
+
+    <!-- Utilities -->
+    <script type="text/javascript" src="src/Engine/Utils/Transform.js"></script>
+    <script type="text/javascript" src="src/Engine/Utils/BoundingBox.js"></script>
+    <script type="text/javascript" src="src/Engine/Utils/Interpolate.js"></script>
+    <script type="text/javascript" src="src/Engine/Utils/InterpolateVec2.js"></script>
+    <script type="text/javascript" src="src/Engine/Utils/ShakePosition.js"></script>
+    <script type="text/javascript" src="src/Engine/Utils/CollisionInfo.js"></script>
+
+    <!-- Renderables -->
+    <script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable_PixelCollision.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable_PixelCollision.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/SpriteAnimateRenderable.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/FontRenderable.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/LineRenderable.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/LightRenderable.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/IllumRenderable.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderables/ParticleRenderable.js"></script>
+
+    <!-- Shadows -->
+    <script type="text/javascript" src="src/Engine/Shadows/ShadowCaster.js"></script>
+    <script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver.js"></script>
+    <script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver_Stencil.js"></script>
+
+    <!-- GameObject -->
+    <script type="text/javascript" src="src/Engine/GameObjects/GameObject.js"></script>
+    <script type="text/javascript" src="src/Engine/GameObjects/GameObject_PixelCollision.js"></script>
+    <script type="text/javascript" src="src/Engine/GameObjects/GameObjectSet.js"></script>
+    <script type="text/javascript" src="src/Engine/GameObjects/TiledGameObject.js"></script>
+    <script type="text/javascript" src="src/Engine/GameObjects/ParallaxGameObject.js"></script>
+
+    <!-- Particles -->
+    <script type="text/javascript" src="src/Engine/Particles/Particle.js"></script>
+    <script type="text/javascript" src="src/Engine/Particles/ParticleGameObject.js"></script>
+    <script type="text/javascript" src="src/Engine/Particles/ParticleGameObjectSet.js"></script>
+    <script type="text/javascript" src="src/Engine/Particles/ParticleEmitter.js"></script>
+
+    <!-- Physics -->
+    <script type="text/javascript" src="src/Engine/Physics/RigidShape.js"></script>
+    <script type="text/javascript" src="src/Engine/Physics/RigidShape_Collision.js"></script>
+    <script type="text/javascript" src="src/Engine/Physics/RigidShape_Behavior.js"></script>
+    <script type="text/javascript" src="src/Engine/Physics/RigidCircle.js"></script>
+    <script type="text/javascript" src="src/Engine/Physics/RigidCircle_Collision.js"></script>
+    <script type="text/javascript" src="src/Engine/Physics/RigidRectangle.js"></script>
+    <script type="text/javascript" src="src/Engine/Physics/RigidRectangle_Collision.js"></script>
+
+    <!-- Shaders -->
+    <script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
+    <script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
+    <script type="text/javascript" src="src/Engine/Shaders/SpriteShader.js"></script>
+    <script type="text/javascript" src="src/Engine/Shaders/LineShader.js"></script>
+    <script type="text/javascript" src="src/Engine/Shaders/LightShader.js"></script>
+    <script type="text/javascript" src="src/Engine/Shaders/ShaderLightAtIndex.js"></script>
+    <script type="text/javascript" src="src/Engine/Shaders/IllumShader.js"></script>
+    <script type="text/javascript" src="src/Engine/Shaders/ShaderMaterial.js"></script>
+    <script type="text/javascript" src="src/Engine/Shaders/ShadowCasterShader.js"></script>
+
+    <!-- Camera -->
+    <script type="text/javascript" src="src/Engine/Cameras/Camera.js"></script>
+    <script type="text/javascript" src="src/Engine/Cameras/Camera_Manipulation.js"></script>
+    <script type="text/javascript" src="src/Engine/Cameras/Camera_Input.js"></script>
+    <script type="text/javascript" src="src/Engine/Cameras/Camera_Xform.js"></script>
+    <script type="text/javascript" src="src/Engine/Cameras/CameraState.js"></script>
+    <script type="text/javascript" src="src/Engine/Cameras/CameraShake.js"></script>
+
+    <!-- Client game code -->
+    <script type="text/javascript" src="src/CaveEscape/CaveEscape.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/LostScene.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/WonScene.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/GameLevel.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/GameLevel_Update.js"></script>
+        
+    <!-- Objects -->
+    <script type="text/javascript" src="src/CaveEscape/Objects/Hero.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/PowerUp.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/PowerUpSet.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/Terrain.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/TerrainSet.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/Turret.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/TurretSet.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/Explosion.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/ExplosionSet.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/Weapon.js"></script>
+    <script type="text/javascript" src="src/CaveEscape/Objects/GameMessage.js"></script>
+        <!-- Projectiles -->
+        <script type="text/javascript" src="src/CaveEscape/Objects/Projectiles/Projectile.js"></script>
+        <script type="text/javascript" src="src/CaveEscape/Objects/Projectiles/ProjectileSet.js"></script>
+        <script type="text/javascript" src="src/CaveEscape/Objects/Projectiles/Missile.js"></script>
+        <script type="text/javascript" src="src/CaveEscape/Objects/Projectiles/Beam.js"></script>
+        <script type="text/javascript" src="src/CaveEscape/Objects/Projectiles/EnemyBeam.js"></script>
+
+    <!-- Util -->
+    <script type="text/javascript" src="src/CaveEscape/Util/SceneFileParser.js"></script>
+    
+    <div style="margin: 0; padding: 0; width: 100%; height: 100%; display: table; text-align: center; color: cornsilk;">
+        <h3 style="margin-bottom: 0px;">Final Project: Cave Escape</h3>
+        <h5 style="margin-top: 0px; margin-bottom: 5px;">Team: NoName (Jason Herold, Matt Lindquist, Matt Stewart)</h5>
+
+        <canvas id="GLCanvas" width="1280" height="720" style="border-width: 1px; border-style: solid; border-color: black; margin-top: 5px;">
+        <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
+            Your browser does not support the HTML5 canvas.
+            <!-- this message will show only if WebGL clearing failed -->
+        </canvas>    
+        
+        <table id="gridtable" class="gridtable">
+            <tr>
+            <th>Command</th>
+            <th>Action</th>
+            </tr>
+          <tr>
+            <td>W, A, S, D</td>
+            <td>Move the ship</td>		
+          </tr>
+          <tr>
+            <td>Up, Down, Right</td>
+            <td>Fire the ship's weapons</td>		
+          </tr>
+        </table>           
+         
+        <h3>Credits</h3>
+        Audio from <a href="http://opengameart.org/content/100-plus-game-sound-effects-wavoggm4a"> here</a>.
+        <br>Background from <a href="http://opengameart.org/content/tiling-background-pack-sky"> here</a>.
+        <br>Ship/Turrets from <a href="http://millionthvector.blogspot.com/p/free-sprites.html"> here</a>.
+    </div>
+</body>

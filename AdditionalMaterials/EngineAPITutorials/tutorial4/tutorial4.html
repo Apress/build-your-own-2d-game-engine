@@ -1,0 +1,320 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../assets/coding.css">
+		<title>Tutorial 4</title>
+	</head>
+
+	<body>
+    	<div id="main-content">
+		<h1> GTCS Game Engine: <br>
+		Tutorial 4: Rigid&nbsp;Bodies &amp; Particle&nbsp;Systems</h1>
+		<p align="center"><a href="../tutorial3/tutorial3.html">Tutorial 3</a> &lt;-- Tutorial 4 --&gt; <a href="../tutorial5/tutorial5.html">Tutorial 5</a><br>
+		  <a href="../index.html">Main tutorial guide page</a><br></p>
+		
+		
+		<hr>
+		<h2>Introduction</h2>
+		<p>As we have already mentioned, GameObjects allow us to control the behavior of the elements in our game as well as the interactions between them. In this tutorial, we look at using rigid bodies to apply physics to our GameObjects and creating particles.</p>
+        
+		<p><strong>Covered Topics</strong>: <a href="#resolution">Collision Resolution</a> • <a href="#particles">Particles</a></p>
+        <p><strong>Demonstrations</strong>: <a href="../tutorial_source/index4a.html" target="_blank">Rigid Bodies</a> • <a href="../tutorial_source/index4b.html" target="_blank">Particle System</a></p>
+        <p>Complete source code for all tutorials can be downloaded from <a href="../assets/tutorials.zip">here</a>.</p>
+        
+
+
+	<hr>
+		<h2><a id="resolution"></a>Collision Resolution</h2>
+		<p>In tutorial 3, we looked at detecting collisions between game elements. With per-pixel collision detection, we checked to determine if one element overlaps another. While this is very useful, for most games we need more than to just detect collisions. We need to look at collision resolution where the engine will detect a collision through overlap and "undo" the overlap before it is drawn to the screen.</p>
+		<p> To do this, we will apply an &quot;invisible shape&quot; over our GameObject where physics calculations will occur to simulate objects having mass and not being able to pass through each other. The game engine supports the use of rectangles and circles as rigid shapes. While these shapes are not as precise as the per-pixel collision detection we saw previously, for determining locations of objects for collision resolution, these shapes work very well. By setting a virtual mass  to these shapes, the engine will calculate what happens when these objects collide.</p>
+		<p>We create a new rigid bodies object, set its size and apply it to a GameObject using the <code>setPhysicsComponent()</code> function. To simulate the physics of the game, we call the engine's physics processing functions such as <code>gEngine.Physics.processObjObj()</code>for resolving the physics interactions between two bodies.</p>
+        <h3>Using Rigid Bodies</h3>
+        <p>In the next example, we will create two renderables, a minion and a platform. We will place the platform in the center of our scene and allow keys to control movement of the minion. Using rigid bodies, we will make it so the minion cannot pass through the platform.</p>
+        <p>You can see the running example <a href="../tutorial_source/index4a.html" target="_blank">here</a>. The WASD keys move the minion around the screen. The 'C' key will show/hide the rigid rectangles for the GameObjects so you can view  the locations of our &quot;rigid&quot; boundaries.</p>
+        
+        <figure><img src="assets/tutorial4-img1.png" width="500" height="400">
+       	  <figcaption>Figure 4-1: GameObjects Using Rigid Bodies</figcaption>
+      	</figure>
+        
+        <p>First, we declare our instance variables and constants. Next, we load in our assets. In this example, we load in graphics for the minion (as part of our minion spritesheet from previous examples), the platform and a background image (to see something more interesting than a  grey background). We also write our parallel unload calls.</p>
+        <p>Though rigid bodies are an abstract representation for behavior, there is an area of effect associated with them called the bounding region. For demonstration purposes, we create a variable, <code>this.mShowBounds</code>, to allow us to control drawing the bounding region.</p>
+		<figure><pre>function MyGameScene() {
+	this.mCamera = null;
+	<strong>this.mBg = null;</strong>
+	this.mMinionRenderable = null;
+	this.mMinionObject = null;
+	<strong>this.mPlatformRenderable = null;
+	this.mPlatformObject = null;
+	this.mShowBounds = false;	// we use this to control drawing bounds</strong>
+	
+	<strong>this.kBG = "assets/bg.png";</strong>
+	this.kTexture = "assets/minion_spritesheet.png";
+	this.kPlatform = "assets/platform.png";
+}
+gEngine.Core.inheritPrototype(MyGameScene, Scene);
+
+MyGameScene.prototype.loadScene = function () {
+	<strong>gEngine.Textures.loadTexture(this.kBG);
+	gEngine.Textures.loadTexture(this.kPlatform);</strong>
+	gEngine.Textures.loadTexture(this.kTexture);
+};
+
+MyGameScene.prototype.unloadScene = function () {
+	<strong>gEngine.Textures.unloadTexture(this.kBG);
+	gEngine.Textures.unloadTexture(this.kPlatform);</strong>
+	gEngine.Textures.unloadTexture(this.kTexture);
+};
+      		</pre>
+        	<figcaption><p>Code snippet 4-1: Loading Assets</p></figcaption>
+      	</figure>
+        <p>In the initialization function, we create our camera as we have done before. We create a background renderable, a minion renderable from the spritessheet and we create a platform renderable. We embed the minion and platform renderables into GameObjects. We do not need to embed the background renderable as it will not be interacting with any other game element.</p>
+		<figure>
+	  <pre>
+MyGameScene.prototype.initialize = function () {
+	// Setup the camera and background color
+	this.mCamera = new Camera(
+		vec2.fromValues(50, 40),	// position of the camera
+		100,						// width of camera
+		[0, 0, 500, 400]			// viewport (orgX, orgY, width, height)
+	);
+	this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+   
+	<strong>// create a renderable for our background
+	this.mBg = new SpriteAnimateRenderable(this.kBG);
+	this.mBg.setElementPixelPositions(0, 1024, 0, 1024);
+	this.mBg.getXform().setSize(100, 80);
+	this.mBg.getXform().setPosition(50, 40);</strong>
+    
+	// create a renderable for our minion object
+	this.mMinionRenderable = new SpriteAnimateRenderable(this.kTexture);
+	this.mMinionRenderable.setElementPixelPositions(130, 310, 0, 180);
+    
+	// create a renderable for our platform object
+	this.mPlatformRenderable = new TextureRenderable(this.kPlatform);
+    
+	// embed the minion renderable in a GameObject
+	this.mMinionObject = new GameObject(this.mMinionRenderable);
+	this.mMinionObject.getXform().setSize(16, 16);
+	this.mMinionObject.getXform().setPosition(30, 50);
+    
+	// emded the platform renderable in a GameObject
+	this.mPlatformObject = new GameObject(this.mPlatformRenderable);
+	this.mPlatformObject.getXform().setSize(30, 3.75);
+	this.mPlatformObject.getXform().setPosition(50, 20)
+    
+	<em>// ... Continued in next snippet ... </em>
+    </pre>
+		<figcaption class="codecaption">
+		  <p>Code snippet 4-2: Creating Renderables and GameObjects</p>
+		</figcaption>
+        </figure>
+        <p>We continue our initialization by creating our rigid bodies. We create a rigid rectangle with the GameObject's transform and a size for the rigid body. Notice, for the platform, we set a mass of zero. This makes it so that collision with other bodies will not transfer motion (momentum) to this body.</p>
+		<figure>
+	  <pre>
+	<strong>// create a rigid body physics component for the minion
+	var r = new RigidRectangle(this.mMinionObject.getXform(), 11, 15);
+	r.setColor([0, 1, 0, 1]);		// set a bounding rectangle color
+	r.setDrawBounds(this.mShowBounds);
+	this.mMinionObject.setPhysicsComponent(r);
+
+	// create a rigid body physics component for the platform
+	r = new RigidRectangle(this.mPlatformObject.getXform(), 30, 3);
+	r.setMass(0);				// ensures no movement!
+	r.setColor([1, 0.2, 0.2, 1]);		// set a bounding rectangle color
+	r.setDrawBounds(this.mShowBounds);
+	this.mPlatformObject.setPhysicsComponent(r);</strong>
+    
+	gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+};</pre>
+		<figcaption class="codecaption">
+		  <p>Code snippet 4-3: Creating Rigid Bodies</p>
+		</figcaption>
+        </figure>
+        <p>Our draw function is straightforward. We clear the canvas, setup our camera, draw our background first and then all of our GameObjects.</p>
+		<figure>
+		<pre>MyGameScene.prototype.draw = function () {
+	// Clear the screen
+	gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
+	
+	this.mCamera.setupViewProjection();
+    
+	<strong>this.mBg.draw(this.mCamera);
+	this.mPlatformObject.draw(this.mCamera);</strong>
+	this.mMinionObject.draw(this.mCamera);
+};</pre>
+		<figcaption class="codecaption">
+		  <p>Code snippet 4-4: Draw Function</p>
+		</figcaption>
+        </figure>
+        <p>In the update function, we move our minion around based on the WASD keys. We also have the ability to toggle the viewing of our rigid body bounding regions by pressing the C key. Then we call <code>gEngine.PhysicsprocessObjObj()</code> to check for and resolve collisions between GameObjects.</p>
+		<figure>
+		<pre>MyGameScene.prototype.update = function () {
+	// minion control WASD	
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+		this.mMinionObject.getXform().incXPosBy(-0.5);
+	}
+
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+		this.mMinionObject.getXform().incXPosBy(0.5);
+	}
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+		this.mMinionObject.getXform().incYPosBy(0.5);
+	}
+
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+		this.mMinionObject.getXform().incYPosBy(-0.5);
+	}
+	
+	<strong>// toggle the drawing of the bounding regions
+	if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
+		if (this.mShowBounds) {
+			this.mMinionObject.getPhysicsComponent().setDrawBounds(false);
+			this.mPlatformObject.getPhysicsComponent().setDrawBounds(false);
+		}
+		else {
+			this.mMinionObject.getPhysicsComponent().setDrawBounds(true);
+			this.mPlatformObject.getPhysicsComponent().setDrawBounds(true);
+		}
+		this.mShowBounds = !this.mShowBounds;
+	}
+	
+	// resolve collisions between our two GameObjects
+	gEngine.Physics.processObjObj(this.mPlatformObject, this.mMinionObject);</strong>
+};
+</pre>
+		<figcaption class="codecaption">
+		  <p>Code snippet 4-5: Update Function</p>
+		</figcaption>
+        </figure>
+	<p>A call to <code>gEngine.Physics.processObjObj()</code> checks our GameObject with another object and will resolve collisions between them. If we were dealing with more than two objects that can possible cross-collide (like balls on a billiard table) that need to be resolved simulataneously with respect to eachother, we need to have a means of handling collisions on a bigger scale. For this, we create a set or sets of game objects and use <code>gEngine.Physics.processObjSet()</code> or <code>gEngine.Physics.processSetSet()</code> to resolve collisions with one call. The <em>ObjSet</em> call would handle a single object against a set of objects while <em>SetSet</em> would check the objects in a set against the objects in another set.</p>
+		
+    
+
+	<hr>
+		<h2><a id="particles"></a>Particles</h2>
+		<p>Particles are small objects that emit from a point. Over time, the particle will move further away from the emitter and change in size, color and/or opacity until it eventually dissipates. Emitters can be used to simulate smoke, explosions and rain. In the game engine, particles are implemented by another type of game object, <strong>ParticleGameObject</strong>. Since we could be handling hundreds of particle objects, we will group them in a <strong>ParticleGameObjectSet</strong> to ease the task of tracking and manipulating them.</p>
+        <p>In this next example, we are going to create a particle emitter. The particles will emit from our current mouse location and will fall as if under the influence of gravity. We retain all of our code from before and add particle functionality. </p>
+        <p>You can view this example <a href="../tutorial_source/index4b.html" target="_blank">here</a> for a demonstration. The WASD keys move the minion around the screen. The 'Z' key will emit particles from the current mouse location. The 'C' key will show/hide the rigid rectangles for the GameObjects.</p>
+        <figure><img src="assets/tutorial4-img2.png">
+       	  <figcaption>Figure 4-2: Generating Particles</figcaption>
+      	</figure>
+        <p>In our constructor, we identify the texture and load/unload it. We also allocate a new ParticleGameObjectSet object. We can do this here as opposed to the initialize function because it's allocation does not depend on any loaded resources. The set will store all of our particles so that we can treat them as one object rather than dozens or hundreds.</p>
+		<figure>
+	  <pre>function MyGameScene() {
+<em>... Same code as in the previous example ...</em>
+	<strong>this.kParticleTexture = "assets/particle.png";
+    
+	this.mAllParticles = new ParticleGameObjectSet();</strong>
+};
+gEngine.Core.inheritPrototype(MyGameScene, Scene);
+
+MyGameScene.prototype.loadScene = function () {
+<em>... Same code as in the previous example ...</em>
+	<strong>gEngine.Textures.loadTexture(this.kParticleTexture);</strong>
+};
+
+MyGameScene.prototype.unloadScene = function () {
+<em>... Same code as in the previous example ...</em>
+	<strong>gEngine.Textures.unloadTexture(this.kParticleTexture)</strong>;
+};</pre>
+		<figcaption class="codecaption">
+		  <p>Code snippet 4-6: Constructor, Load and Unload</p>
+		</figcaption>
+        </figure>
+		<p>Our initialization does not need any special code for handling particles. Unlike other renderables, particle renderables will be created and destroyed on the fly during the running of the game.</p>
+		<p>We now set our particle set to draw. All objects inside will draw with a single call.</p>
+<figure>
+		<pre>MyGameScene.prototype.draw = function () {
+	// Clear the screen
+	gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
+	
+	this.mCamera.setupViewProjection();
+    
+	this.mBg.draw(this.mCamera);
+	this.mPlatformObject.draw(this.mCamera);
+	this.mGameObject.draw(this.mCamera);
+	<strong>this.mAllParticles.draw(this.mCamera);</strong>
+};</pre>
+		<figcaption class="codecaption">
+		  <p>Code snippet 4-7: Drawing Particles</p>
+		</figcaption>
+        </figure>
+		<p>In our update function, we update all particles and check to see if the Z key is pressed. When pressed, we get the mouse location and spawn a particle at that location using the <code>_createParticle()</code> private method. We get the ParticleGameObject and store it in our set.</p>
+<figure>
+  <pre>MyGameScene.prototype.update = function () {
+<em>... Same code as in the previous example ...</em>
+	<strong>// update particle information
+	this.mAllParticles.update();
+    
+	// create particles when Z key is pressed
+	if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
+		if (this.mCamera.isMouseInViewport()) {
+			var p = this._createParticle(this.mCamera.mouseWCX(),
+				this.mCamera.mouseWCY());
+			this.mAllParticles.addToSet(p);
+		}
+	}</strong>
+    
+	// resolve collisions between our two GameObjects
+	gEngine.Physics.processObjObj(this.mPlatformObject, this.mMinionObject);
+    
+	<strong>// check for and resolve collisions against our other GameObjects
+	gEngine.Particle.processObjSet(this.mMinionObject, this.mAllParticles);
+	gEngine.Particle.processObjSet(this.mPlatformObject, this.mAllParticles);</strong>
+};</pre>
+		<figcaption class="codecaption">
+		  <p>Code snippet 4-8: Updating Particles</p>
+		</figcaption>
+        </figure>
+		<p>Our <code>_createParticle()</code> function takes in an X and Y location for where to spawn the new particle. We do these tasks...</p>
+		<ul>
+		  <li>Create the ParticleGameObject with the texture, screen coordinates, life value and initial color value. In this example, we set the life to a random range from 30 - 230 frames before it expires (don't forget, the game engine runs at 60 frames per second so a particle can last from 0.5 seconds to almost 4 seconds). The initial color is red.</li>
+		  <li>Set up an initial size from 5.5 to 6 units in world coordinate space</li>
+		  <li>Setup the final color at <strong>red</strong> = 3.5-4.5, <strong>blue</strong> = 0.4 - 0.5 and <strong>green</strong> = 0.3 - 0.4. The red is oversaturated and will give a very bright flamelike effect. The <strong>alpha</strong> component will end at 0.6 so it will appear to become translucent.</li>
+		  <li>Setup the velocity of the particle. The X component will be -10 to +10 units. The Y component will be 0 - 10. By default, the engine  implements a drag on these velocities of 5% per update. It also increases the downward Y velocity to simulate gravitational acceleration.</li>
+		  <li>Setup the size delta. In this case, the particles will reduce in size by 2% every update.</li>
+		  </ul>
+<figure>
+  <pre><strong>MyGameScene.prototype._createParticle = function(atX, atY) {
+	var life = 30 + Math.random() * 200;
+	var p = new ParticleGameObject(this.kParticleTexture, atX, atY, life);
+	p.getRenderable().setColor([1, 0, 0, 1]);
+    
+	// size of the particle
+	var r = 5.5 + Math.random() * 0.5;
+	p.getXform().setSize(r, r);
+    
+	// final color
+	var fr = 3.5 + Math.random();
+	var fg = 0.4 + 0.1 * Math.random();
+	var fb = 0.3 + 0.1 * Math.random();
+	p.setFinalColor([fr, fg, fb, 0.6]);
+    
+	// velocity on the particle
+	var fx = 10 - 20 * Math.random();
+	var fy = 10 * Math.random();
+	p.getPhysicsComponent().setVelocity([fx, fy]);
+    
+	// size delta
+	p.setSizeDelta(0.98);
+    
+	return p;
+};</strong></pre>
+		<figcaption class="codecaption">
+		  <p>Code snippet 4-9: Creating Particles</p>
+		</figcaption>
+        </figure>
+<hr>
+    <h2>Conclusion</h2>
+        <p>Rigid bodies  have a many uses in games. They can be used to simulate floor and walls so that GameObjects can be constrained in their movement. They can also be used to make interactions between GameObjects more realistic. Particles give us impressive visual affects. Aside from explosions, we could simulate smoke or weather affects with particles.</p>
+        <p>In <a href="tutorial5.html">tutorial 5</a>, we will take a look at more visual affects by illuminating renderables with custom lighting.</p>
+        
+        
+        <hr>
+        <p align="center"><a href="../tutorial3/tutorial3.html">Tutorial 3</a> &lt;-- Tutorial 4 --&gt; <a href="../tutorial5/tutorial5.html">Tutorial 5</a><br>
+		  <a href="../index.html">Main tutorial guide page</a><br></p>
+	</div>
+    <h4><i>2/11/2016</i> - David Watson, Proofread by Adedayo Odesile &amp; Jeb Pavleas</h4>
+    </body>
+</html>
