@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<head>
+    <title>Game Engine GUI</title>
+
+	<style>
+		#panelRight {
+			//margin-top: 50px;
+			float: right;
+			width: 234px;
+		}
+
+		#panelBottom {
+			position: fixed;
+			bottom: 0;
+			height: 234px;
+			width: 100%;
+		}
+
+		#panelLeft {
+			//margin-top: 50px;
+			float: left;
+			width: 234px;
+		}
+
+		#panelFloater {
+			position: fixed;
+			width: 234px;
+			height: 234px;
+		}
+
+		#GLCanvasDiv {
+			float:left;
+			padding: 0px;
+		}
+		
+		.disable-scroll {
+			overflow: hidden;
+		}
+
+		.nav-menu {
+			/* A screenwide brown line for header bars */
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			background-color: #FFFFFF;
+			height: 48px;
+			border-bottom: 2px solid #AAAAAA;
+			float: top;
+		}
+		
+		.nav-menu li:not(.menu-item):not(.panel-list-item) {
+			/* Any text in the nav bar that's also not a dropdown item */
+			float: left;
+			background-color: #FFFFFF;
+			border-bottom: 2px solid #AAAAAA;
+		}
+
+		.nav-menu li a {
+			/* Any text in the nav bar */
+			display: block;
+			color: black;
+			padding: 12px;
+			text-decoration: none;
+			font-size: 110%
+		}
+
+		.nav-menu li a:hover:not(.active):not(.current-tab) {
+			/* What happens when you hover over items in the nav bar */
+			background-color: #E4E4E4;
+			text-decoration: none;
+			color: black;
+		}
+	
+		.floating-nav-menu {
+			/* nav menu but 800 pixels wide */
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			background-color: #E4E4E4;
+			height: 48px;
+			width: 800px;
+			border-bottom: 4px solid #E4E4E4;
+		}
+		
+		.floating-panel-body {
+			/* panel body but 800 pixels wide */
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			background-color: #E4E4E4;
+			width: 800px;
+			border-bottom: 4px solid #E4E4E4;
+		}
+		
+		#uploadCodeObject {
+			background-color: #8d807d;
+		}
+		
+		.menu-item {
+			/* Nothing but a flag -- can be used assigned to dropdown items or right-click menu items */
+		}
+
+		.header-text-only {
+			/* A class given to any li (not li a) to give it the proper appearance in a nav menu,
+			but without any interaction; i.e. for headers */
+			display: block;
+			color: black;
+			padding: 12px;
+			text-decoration: none;
+			border-bottom: 2px solid #8d807d;
+		}
+	</style>
+
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+</head>
+
+<body>
+
+	<ul class="nav-menu">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li class="menu-item"><a id="menuFileNew"><span class="glyphicon glyphicon-plus"></span>&nbsp New</a></li>
+                <!--<li role="separator" class="divider"></li>-->
+                <li class="menu-item"><a id="menuFileOpen"><span class="glyphicon glyphicon-folder-open"></span>&nbsp Open</a><input type="file" id="menuFileOpenInput" name="files[]" onchange="gGuiBase.SaveLoadSupport.fileOpen()"></li>
+                <!--<li role="separator" class="divider"></li>-->
+                <li class="menu-item"><a id="menuFileSave"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp Save</a></li>
+            </ul>
+        </li>
+        <li><a id="menuRun">Run</a></li>
+		<!--<li><input id ="fileUpload" type="file"/></li>-->
+        <!--<li><input type="file" id="uploadCodeObject" name="files[]" onchange="uploadJS()"/></li> (Use me to show File to String)-->
+    </ul>
+	
+	<div id="panelLeft" class="hasmenu">
+		<ul id="panelLeftSortable" class="connectedSortable">
+		</ul>
+	</div>
+	<div id="GLCanvasDiv">
+		<canvas id="GLCanvas" width="640" height="480">
+			Your browser does not support the HTML5 canvas.
+		</canvas>
+	</div>
+	<div id="panelBottom" class="hasmenu">
+		<ul id="panelBottomSortable" class="connectedSortable"> </ul>
+	</div>
+
+	<div id="panelRight">
+		<ul id="panelRightSortable" class="connectedSortable"> </ul>
+	</div>
+
+</body>
+
+<!-- external library -->
+<script type="text/javascript" src="src/lib/gl-matrix.js"></script>
+
+<!-- Client external library -->
+<script src="src/Client/externalLib/jquery.js"></script>
+<script src="src/Client/externalLib/jquery-ui.js"></script>
+<script src="src/Client/externalLib/jszip.js"></script>
+<script src="src/Client/externalLib/FileSaver.js"></script>
+
+<!-- css for the jquery widget-->
+<link rel="stylesheet" media="screen" type="text/css" href="src/JQueryWidgets/bootstrapcolorpicker/dist/css/bootstrap-colorpicker.css" />
+
+<!--    Bootstrap (CSS) lib-->
+<script src="src/Client/externalLib/bootstrap.min.js"> </script>
+
+<!--    JQuery Widgets-->
+<script src="src/JQueryWidgets/bootstrapcolorpicker/dist/js/bootstrap-colorpicker.js"></script>
+
+<!--    Ace -->
+<script src="src/Client/externalLib/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="src/Client/externalLib/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
+<script src="src/Client/externalLib/theme-monokai.js" type="text/javascript" charset="utf-8"></script>
+<script src="src/Client/externalLib/worker-javascript.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Engine code -->
+<!-- View of Engine -->
+<script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Engine_Physics.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Engine_Particle.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Engine_LayerManager.js"></script>
+<!-- Resource support -->
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_AudioClips.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_Textures.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_Fonts.js"></script>
+<script type="text/javascript" src="src/Engine/Scene.js"></script>
+<script type="text/javascript" src="src/Engine/Material.js"></script>
+<!--Lights -->
+<script type="text/javascript" src="src/Engine/Lights/Light.js"></script>
+<script type="text/javascript" src="src/Engine/Lights/LightSet.js"></script>
+<!-- Utilities -->
+<script type="text/javascript" src="src/Engine/Utils/Transform.js"></script>
+<script type="text/javascript" src="src/Engine/Utils/BoundingBox.js"></script>
+<script type="text/javascript" src="src/Engine/Utils/Interpolate.js"></script>
+<script type="text/javascript" src="src/Engine/Utils/InterpolateVec2.js"></script>
+<script type="text/javascript" src="src/Engine/Utils/ShakePosition.js"></script>
+<script type="text/javascript" src="src/Engine/Utils/CollisionInfo.js"></script>
+<!-- Renderables -->
+<script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/TextureRenderable.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/TextureRenderable_PixelCollision.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable_PixelCollision.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/SpriteAnimateRenderable.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/FontRenderable.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/LineRenderable.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/LightRenderable.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/IllumRenderable.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/ParticleRenderable.js"></script>
+<!-- Shadows -->
+<script type="text/javascript" src="src/Engine/Shadows/ShadowCaster.js"></script>
+<script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver.js"></script>
+<script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver_Stencil.js"></script>
+<!-- GameObject -->
+<script type="text/javascript" src="src/Engine/GameObjects/GameObject.js"></script>
+<script type="text/javascript" src="src/Engine/GameObjects/GameObject_PixelCollision.js"></script>
+<script type="text/javascript" src="src/Engine/GameObjects/GameObjectSet.js"></script>
+<script type="text/javascript" src="src/Engine/GameObjects/TiledGameObject.js"></script>
+<script type="text/javascript" src="src/Engine/GameObjects/ParallaxGameObject.js"></script>
+<!-- Particles -->
+<script type="text/javascript" src="src/Engine/Particles/Particle.js"></script>
+<script type="text/javascript" src="src/Engine/Particles/ParticleGameObject.js"></script>
+<script type="text/javascript" src="src/Engine/Particles/ParticleGameObjectSet.js"></script>
+<script type="text/javascript" src="src/Engine/Particles/ParticleEmitter.js"></script>
+<!-- Physics -->
+<script type="text/javascript" src="src/Engine/Physics/RigidShape.js"></script>
+<script type="text/javascript" src="src/Engine/Physics/RigidShape_Collision.js"></script>
+<script type="text/javascript" src="src/Engine/Physics/RigidShape_Behavior.js"></script>
+<script type="text/javascript" src="src/Engine/Physics/RigidCircle.js"></script>
+<script type="text/javascript" src="src/Engine/Physics/RigidCircle_Collision.js"></script>
+<script type="text/javascript" src="src/Engine/Physics/RigidRectangle.js"></script>
+<script type="text/javascript" src="src/Engine/Physics/RigidRectangle_Collision.js"></script>
+<!-- Shaders -->
+<script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/SpriteShader.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/LineShader.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/LightShader.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/ShaderLightAtIndex.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/IllumShader.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/ShaderMaterial.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/ShadowCasterShader.js"></script>
+<!-- Camera -->
+<script type="text/javascript" src="src/Engine/Cameras/Camera.js"></script>
+<script type="text/javascript" src="src/Engine/Cameras/Camera_Manipulation.js"></script>
+<script type="text/javascript" src="src/Engine/Cameras/Camera_Input.js"></script>
+<script type="text/javascript" src="src/Engine/Cameras/Camera_Xform.js"></script>
+<script type="text/javascript" src="src/Engine/Cameras/CameraState.js"></script>
+<script type="text/javascript" src="src/Engine/Cameras/CameraShake.js"></script>
+
+<!-- Client -->
+<script type="text/javascript" src="GUI_Scripts/ClientScene.js"></script>
+<!--<script type="text/javascript" src="GUI_Scripts/Old_Scripts/Old_View.js"></script>-->
+
+<!-- GUI OBJECT FILES -->
+<!--TODO: Repeats, Can remove some of these scripts-->
+<script src="jquery-ui.js"></script>
+<script src="jquery.ui-contextmenu.js"></script>
+
+<script src="GUI_Scripts/ViewObjects/GuiPanel.js"></script>
+<script src="GUI_Scripts/ViewObjects/GuiPanelTab.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_View.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_ObjectSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_SceneSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_CameraSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_InstanceSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_EditorSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_SaveLoadSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_DirectManipulationSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_LightSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_TextureSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_MaterialSupport.js"></script>
+<script src="GUI_Scripts/GuiBase/GuiBase_Core.js"></script>
+
+<script src="GUI_Scripts/view.js"></script>
+
+<script src="GUI_Scripts/ContentObjects/GuiTabContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/ObjectContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/TransformContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/Camera/CameraTransformContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/Camera/ColorCameraContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/Camera/CameraInterpolateContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/Camera/CameraShakeContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/SceneInfo.js"></script>
+<script src="GUI_Scripts/ContentObjects/ColorTextureContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/ScenesContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/Camera/CamerasContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/InstanceContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/AddTextureContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/OrderInLayerContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/LightsContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/LightTransformContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/ColorLightContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/MaterialContent.js"></script>
+<script src="GUI_Scripts/ContentObjects/MaterialInfoContent.js"></script>
+
+<script src="GUI_Scripts/ContentObjects/Widgets/GuiContentWidget.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/Button.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/SelectList.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/TextField.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/Slider.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/Text.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/DropdownList.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/FileInputButton.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/ImageSelectList.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/TextureSelectDialog.js"></script>
+<script src="GUI_Scripts/ContentObjects/Widgets/Checkbox.js"></script>
+
+<script src="GUI_Scripts/GuiBase/DirectManipulationObjects/SelectionObject.js"></script>
+<script src="GUI_Scripts/GuiBase/DirectManipulationObjects/RotationObject.js"></script>
+<script src="GUI_Scripts/GuiBase/DirectManipulationObjects/CameraObject.js"></script>
+<script src="GUI_Scripts/GuiBase/DirectManipulationObjects/LightObject.js"></script>
+<script src="GUI_Scripts/GuiBase/DirectManipulationObjects/LineBox.js"></script>
+<script src="GUI_Scripts/GuiBase/DirectManipulationObjects/DragSelector.js"></script>
+<script src="GUI_Scripts/GuiBase/DirectManipulationObjects/ControlArm.js"></script>
+
+<link rel="stylesheet" href="jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+</html>
