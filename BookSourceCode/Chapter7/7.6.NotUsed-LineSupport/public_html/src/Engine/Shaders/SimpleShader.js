@@ -42,7 +42,7 @@ function SimpleShader(vertexShaderPath, fragmentShaderPath) {
         return null;
     }
 
-    // Step D: gets a reference to the aSquareVertexPosition attribute within the shaders.
+    // Step D: Gets a reference to the aSquareVertexPosition attribute within the shaders.
     this.mShaderVertexPositionAttribute = gl.getAttribLocation(
         this.mCompiledShader,
         "aSquareVertexPosition"

@@ -42,7 +42,7 @@ function SimpleShader(vertexShaderPath, fragmentShaderPath) {
         return null;
     }
 
-    // Step D: gets a reference to the aSquareVertexPosition attribute within the shaders.
+    // Step D: Gets a reference to the aSquareVertexPosition attribute within the shaders.
     this.mShaderVertexPositionAttribute = gl.getAttribLocation(
         this.mCompiledShader,
         "aSquareVertexPosition"
@@ -59,7 +59,7 @@ function SimpleShader(vertexShaderPath, fragmentShaderPath) {
         0,              // number of bytes to skip in between elements
         0);             // offsets to the first element
 
-    // Step G: gets references to the uniform variables: uPixelColor, uModelTransform, and uViewProjTransform
+    // Step G: Gets references to the uniform variables: uPixelColor, uModelTransform, and uViewProjTransform
     this.mPixelColor = gl.getUniformLocation(this.mCompiledShader, "uPixelColor");
     this.mModelTransform = gl.getUniformLocation(this.mCompiledShader, "uModelTransform");
     this.mViewProjTransform = gl.getUniformLocation(this.mCompiledShader, "uViewProjTransform");
@@ -77,6 +77,13 @@ SimpleShader.prototype.activateShader = function (pixelColor, aCamera) {
     var gl = gEngine.Core.getGL();
     gl.useProgram(this.mCompiledShader);
     gl.uniformMatrix4fv(this.mViewProjTransform, false, aCamera.getVPMatrix());
+    gl.bindBuffer(gl.ARRAY_BUFFER, gEngine.VertexBuffer.getGLVertexRef());
+    gl.vertexAttribPointer(this.mShaderVertexPositionAttribute,
+        3,              // each element is a 3-float (x,y.z)
+        gl.FLOAT,       // data type is FLOAT
+        false,          // if the content is normalized vectors
+        0,              // number of bytes to skip in between elements
+        0);             // offsets to the first element
     gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
     gl.uniform4fv(this.mPixelColor, pixelColor);
 };
