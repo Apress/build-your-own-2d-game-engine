@@ -53,8 +53,9 @@ gEngine.Physics = (function () {
     var getRelaxationCount = function() {
         return mRelaxationCount;
     };
-    
-    var positionalCorrection = function (s1, s2, collisionInfo) {
+    //added changes: s1Change, a variable used if one of the shapes is a particle
+    //this makes sure that the particle doesn't affect the position of the other shape
+    var positionalCorrection = function (s1, s2, collisionInfo, s1Change) {
         if (!mCorrectPosition)
             return;
         
@@ -64,8 +65,10 @@ gEngine.Physics = (function () {
         var num = collisionInfo.getDepth() / (s1InvMass + s2InvMass) * mPosCorrectionRate;
         var correctionAmount = [0, 0];
         vec2.scale(correctionAmount, collisionInfo.getNormal(), num);
-
-        s1.adjustPositionBy(correctionAmount, -s1InvMass);
+        //to make sure that particles won't adjust the position of the shape that it's colliding with
+        if(s1Change===1){
+            s1.adjustPositionBy(correctionAmount, -s1InvMass);
+        }
         s2.adjustPositionBy(correctionAmount, s2InvMass);
     };
     
@@ -176,7 +179,7 @@ gEngine.Physics = (function () {
                                 if (vec2.dot(iToj, info.getNormal()) < 0)
                                     info.changeDir();
                                 // infoSet.push(info);
-                                positionalCorrection(objI, objJ, info);
+                                positionalCorrection(objI, objJ, info,1);
                                 resolveCollision(objI, objJ, info);
                                 // info = new CollisionInfo();
                             }
@@ -187,6 +190,30 @@ gEngine.Physics = (function () {
         }
     };
     
+    /**
+     * ResourceMap node containing name and refrence count of resource
+     * @memberOf gEngine.Physics
+     * @param {RigidRectangle} objI
+     * @param {RigidCircle} objJ
+     * @param {CollisionInfo} iToj
+     * @returns {CollisionResult}
+     */
+    var particleCollisionResult = function(objI, objJ, iToj){
+        if (objI.boundTest(objJ)) {
+            var info = new CollisionInfo();
+            if (objI.collisionTest(objJ, info)) {
+                // make sure info is always from i towards j
+                vec2.subtract(iToj, objJ.getCenter(), objI.getCenter());
+                if (vec2.dot(iToj, info.getNormal()) < 0)
+                    info.changeDir();
+                positionalCorrection(objI, objJ, info,0);
+                resolveCollision(objI, objJ, info);
+                return true;
+            }
+        }
+        return false;
+    };
+    
     var mPublic = {
         getSystemAcceleration: getSystemtAcceleration,
         processCollision: processCollision,
@@ -195,7 +222,8 @@ gEngine.Physics = (function () {
         incRelaxationCount: incRelaxationCount,
         getRelaxationCount: getRelaxationCount,
         getHasMotion: getHasMotion,
-        toggleHasMotion: toggleHasMotion
+        toggleHasMotion: toggleHasMotion,
+        particleCollisionResult: particleCollisionResult
     };
     return mPublic;
 }());

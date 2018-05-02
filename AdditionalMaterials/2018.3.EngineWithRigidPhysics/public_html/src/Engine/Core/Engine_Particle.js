@@ -25,9 +25,8 @@ gEngine.Particle = (function () {
     var mSystemtAcceleration = [0, -50.0];
     
     // the follows are scratch workspace for vec2
-    var mFrom1to2 = [0, 0];  
-    var mVec = [0, 0];
-    var mNormal = [0, 0];
+    var mFrom1to2 = [0, 0];
+    var circleCollision=0;
     
     /**
      * 
@@ -39,7 +38,7 @@ gEngine.Particle = (function () {
     var resolveCirclePos = function (circShape, particle) {
         var collided = false;
         var pos = particle.getPosition();
-        var cPos = circShape.getPosition();
+        var cPos = circShape.getCenter();
         vec2.subtract(mFrom1to2, pos, cPos);
         var dist = vec2.length(mFrom1to2);
         if (dist < circShape.getRadius()) {
@@ -51,58 +50,21 @@ gEngine.Particle = (function () {
     };
 
     /**
-     * 
+     * particle collision of 
      * @memberOf gEngine.Particle
      * @param {type} rectShape
-     * @param {type} particle
+     * @param {type} xf
      * @returns {Boolean}
      */
-    var resolveRectPos = function (rectShape, particle) {
-        var collided = false;
-        var alongX = rectShape.getWidth() / 2;
-        var alongY = rectShape.getHeight() / 2;
-
-        var pos = particle.getPosition();
-        var rPos = rectShape.getPosition();
-        
-        var rMinX = rPos[0] - alongX;
-        var rMaxX = rPos[0] + alongX;
-        var rMinY = rPos[1] - alongY;
-        var rMaxY = rPos[1] + alongY;
-        
-        collided = ((rMinX<pos[0]) && (rMinY<pos[1]) &&
-                    (rMaxX>pos[0]) && (rMaxY>pos[1]));
-        
-        if (collided) {
-            vec2.subtract(mFrom1to2, pos, rPos);
-            mVec[0] = mFrom1to2[0];
-            mVec[1] = mFrom1to2[1];
-
-            // Find closest axis
-            if (Math.abs(mFrom1to2[0] - alongX) < Math.abs(mFrom1to2[1] - alongY))  {
-                // Clamp to closest side
-                mNormal[0] = 0;
-                mNormal[1] = 1;
-                if (mVec[0] > 0) {
-                    mVec[0] = alongX;
-                } else {
-                    mVec[0] = -alongX;
-                }
-            } else { // y axis is shorter
-                mNormal[0] = 1;
-                mNormal[1] = 0;
-                // Clamp to closest side
-                if (mVec[1] > 0) {
-                    mVec[1] = alongY;
-                } else {
-                    mVec[1] = -alongY;
-                }
-            }
-
-            vec2.subtract(mVec, mVec, mFrom1to2);
-            vec2.add(pos, pos, mVec);  // remember pos is particle position
+    var resolveRectPos = function (rectShape, xf) {
+        if(circleCollision === 0){
+            circleCollision=new RigidCircle(xf,0.3);
         }
-        return collided;
+        else{
+            circleCollision.setTransform(xf);
+        }
+        return gEngine.Physics.particleCollisionResult(rectShape,circleCollision,mFrom1to2);
+        
     };
     
     /**
@@ -113,11 +75,12 @@ gEngine.Particle = (function () {
      * @returns {undefined}
      */
     var processObjSet = function(obj, pSet) {
-        var s1 = obj.getPhysicsComponent();  // a RigidShape
+        var s1 = obj.getRigidBody();  // a RigidShape
         var i, p;
         for (i=0; i<pSet.size(); i++) {
-            p = pSet.getObjectAt(i).getPhysicsComponent();  // a Particle
-            s1.resolveParticleCollision(p);
+            var x = pSet.getObjectAt(i).getX();
+            p = pSet.getObjectAt(i).getParticle();  // a Particle
+            s1.resolveParticleCollision(p,x);
         }
     };
     

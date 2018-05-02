@@ -64,6 +64,9 @@ gEngine.ResourceMap = (function () {
         }
         mResourceMap[rName].mAsset = loadedAsset;
         --mNumOutstandingLoads;
+        if(gEngine.LoadingIconConfig.isLevelSet()){
+            gEngine.LoadingIconConfig.loadingUpdate();
+        }
         _checkForAllLoadCompleted();
     };
 
@@ -143,6 +146,10 @@ gEngine.ResourceMap = (function () {
         }
         return c;
     };
+    
+    var getNumOutstandingLoads = function() {
+        return mNumOutstandingLoads;
+    };
     //</editor-fold>
 
     // Public interface for this object. Anything not in here will
@@ -157,7 +164,8 @@ gEngine.ResourceMap = (function () {
         retrieveAsset: retrieveAsset,
         unloadAsset: unloadAsset,
         isAssetLoaded: isAssetLoaded,
-        incAssetRefCount: incAssetRefCount
+        incAssetRefCount: incAssetRefCount,
+        getNumOutstandingLoads: getNumOutstandingLoads
         //</editor-fold>
     };
     return mPublic;
