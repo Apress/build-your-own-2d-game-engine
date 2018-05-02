@@ -11,6 +11,7 @@ function RigidShape(xf) {
     this.mXform = xf;
     this.mAcceleration = gEngine.Physics.getSystemAcceleration();
     this.mVelocity = vec2.fromValues(0, 0);
+    this.mType = "";
     
     this.mInvMass = 1;
     this.mInertia = 0;
@@ -202,4 +203,23 @@ RigidShape.prototype.getCurrentState = function() {
            "(I=" + this.mInertia.toFixed(kPrecision) + ")" +
            " F=" + this.mFriction.toFixed(kPrecision) +
            " R=" + this.mRestitution.toFixed(kPrecision);
+};
+
+RigidShape.prototype.getType = function() { return this.mType; };
+
+RigidShape.prototype.resolveParticleCollision = function(aParticle, xf) {
+    var status = false;
+    if (this.getType()==="RigidCircle"){
+        status = gEngine.Particle.resolveCirclePos(this, aParticle);
+        return status;
+    }
+    else if( this.getType()==="RigidRectangle"){
+        status = gEngine.Particle.resolveRectPos(this, xf,);
+        return status;
+    }
+    else{return status;}
+};
+
+RigidShape.prototype.setTransform = function(xf){
+    this.mXform=xf;
 };

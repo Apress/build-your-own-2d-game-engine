@@ -16,6 +16,7 @@ function MyGame() {
     this.kPlatformTexture = "assets/platform.png";
     this.kWallTexture = "assets/wall.png";
     this.kTargetTexture = "assets/target.png";
+    this.kParticleTexture = "assets/particle.png";
     
     // The camera to view the scene
     this.mCamera = null;
@@ -27,6 +28,7 @@ function MyGame() {
     this.mBounds = null;
     this.mCollisionInfos = [];
     this.mHero = null;
+    this.mAllParticles = new ParticleGameObjectSet();
     
     this.mCurrentObj = 0;
     this.mTarget = null;
@@ -39,7 +41,7 @@ MyGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kPlatformTexture);
     gEngine.Textures.loadTexture(this.kWallTexture);
     gEngine.Textures.loadTexture(this.kTargetTexture);
-            
+    gEngine.Textures.loadTexture(this.kParticleTexture);   
 };
 
 MyGame.prototype.unloadScene = function () {
@@ -47,6 +49,7 @@ MyGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kPlatformTexture);
     gEngine.Textures.unloadTexture(this.kWallTexture);
     gEngine.Textures.unloadTexture(this.kTargetTexture);
+    gEngine.Textures.unloadTexture(this.kParticleTexture);
 };
 
 MyGame.prototype.initialize = function () {
@@ -105,6 +108,7 @@ MyGame.prototype.draw = function () {
     this.mTarget.draw(this.mCamera);
     this.mMsg.draw(this.mCamera);   // only draw status in the main camera
     this.mShapeMsg.draw(this.mCamera);
+    this.mAllParticles.draw(this.mCamera);
 };
 
 MyGame.prototype.increasShapeSize = function(obj, delta) {
@@ -116,6 +120,7 @@ MyGame.prototype.increasShapeSize = function(obj, delta) {
 // anything from this function!
 MyGame.kBoundDelta = 0.1;
 MyGame.prototype.update = function () {
+    this.mAllParticles.update();
     var msg = "";   
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
@@ -126,6 +131,14 @@ MyGame.prototype.update = function () {
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
         this.radomizeVelocity();
+    }
+    
+    // create particles
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+        if (this.mCamera.isMouseInViewport()) {
+            var p = this.createParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
+            this.mAllParticles.addToSet(p);
+        }
     }
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
@@ -161,6 +174,7 @@ MyGame.prototype.update = function () {
     this.mAllObjs.update(this.mCamera);
     
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
+    gEngine.Particle.processSetSet(this.mAllObjs, this.mAllParticles);
 
     var p = obj.getXform().getPosition();
     this.mTarget.getXform().setPosition(p[0], p[1]);
@@ -170,4 +184,30 @@ MyGame.prototype.update = function () {
     this.mMsg.setText(msg);
     
     this.mShapeMsg.setText(obj.getRigidBody().getCurrentState());
+};
+
+MyGame.prototype.createParticle = function(atX, atY) {
+    var life = 30 + Math.random() * 200;
+    var p = new ParticleGameObject("assets/particle.png", atX, atY, life);
+    p.getRenderable().setColor([1, 0, 0, 1]);
+    
+    // size of the particle
+    var r = 3.5 + Math.random() * 2.5;
+    p.getXform().setSize(r, r);
+    
+    // final color
+    var fr = 3.5 + Math.random();
+    var fg = 0.4 + 0.1 * Math.random();
+    var fb = 0.3 + 0.1 * Math.random();
+    p.setFinalColor([fr, fg, fb, 0.6]);
+    
+    // velocity on the particle
+    var fx = 10 * Math.random() - 20 * Math.random();
+    var fy = 10 * Math.random();
+    p.getParticle().setVelocity([fx, fy]);
+    
+    // size delta
+    p.setSizeDelta(0.98);
+    
+    return p;
 };

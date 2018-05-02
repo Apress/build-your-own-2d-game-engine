@@ -102,3 +102,8 @@ RigidRectangle.prototype.update = function () {
     this.setVertices();
     this.rotateVertices();
 };
+
+RigidRectangle.prototype.getWidth = function () { return this.mXform.getWidth(); };
+RigidRectangle.prototype.getHeight = function () { return this.mXform.getHeight(); };
+RigidRectangle.prototype.getFaces = function () { return this.mFaceNormal; };
+RigidRectangle.prototype.getRad = function () { return this.mXform.getRotationInRad(); };
