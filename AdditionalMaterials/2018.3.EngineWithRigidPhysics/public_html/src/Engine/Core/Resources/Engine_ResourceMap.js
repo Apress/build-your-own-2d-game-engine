@@ -67,11 +67,6 @@ gEngine.ResourceMap = (function () {
         if(gEngine.LoadingIconConfig.isLevelSet()){
             gEngine.LoadingIconConfig.loadingUpdate();
         }
-        for(var i=0; i<10000; i++){
-            for(var j=0; j<40000; j++){
-                
-            }
-        }
         _checkForAllLoadCompleted();
     };
 
