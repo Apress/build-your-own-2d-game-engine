@@ -69,9 +69,9 @@ gEngine.Core = (function () {
      * @returns {void}
      */
     var startScene = function (scene) {
-        gEngine.LoadingConfig.start();
+        gEngine.LoadingIconConfig.start();
         scene.loadScene.call(scene); // Called in this way to keep correct context
-        gEngine.LoadingConfig.loadCountSet();
+        gEngine.LoadingIconConfig.loadCountSet();
         gEngine.GameLoop.start(scene); // will wait until async loading is done and call scene.initialize()
     };
 

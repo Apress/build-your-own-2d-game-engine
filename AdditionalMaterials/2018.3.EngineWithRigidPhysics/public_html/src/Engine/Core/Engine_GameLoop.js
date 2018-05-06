@@ -3,7 +3,7 @@
  * Implements the game loop functionality of gEngine
  */
 /*jslint node: true, vars: true, white: true */
-/*global gEngine: false, requestAnimationFrame: false, LoadingConfig: false */
+/*global gEngine: false, requestAnimationFrame: false, LoadingIconConfig: false */
 /* find out more about jslint: http://www.jslint.com/help.html */
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
@@ -87,7 +87,7 @@ gEngine.GameLoop = (function () {
         mMyGame = myGame;
         gEngine.ResourceMap.setLoadCompleteCallback(
             function () {
-                gEngine.LoadingConfig.stop();
+                gEngine.LoadingIconConfig.stop();
                 mMyGame.initialize();
                 _startLoop();
             }

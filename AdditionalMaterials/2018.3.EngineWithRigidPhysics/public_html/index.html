@@ -35,9 +35,8 @@
         <script type="text/javascript" src="src/Engine/Utils/BoundingBox.js"></script>
         <script type="text/javascript" src="src/Engine/Utils/Interpolate.js"></script>
         <script type="text/javascript" src="src/Engine/Utils/InterpolateVec2.js"></script>
-        <script type="text/javascript" src="src/Engine/Utils/LoadingConfig.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/LoadingIconConfig.js"></script>
         <script type="text/javascript" src="src/Engine/Utils/ShakePosition.js"></script>
-        <script type="text/javascript" src="src/Engine/Utils/LoadingConfig.js"></script>
         <!-- Renderables -->
         <script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
         <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable.js"></script>
@@ -108,13 +107,13 @@
         var myGame = new MyGame();
         gEngine.Core.initializeEngineCore('GLCanvas', myGame);
      ">
-        <div id="LoadingIconParent" style="position: relative; top: 0px; left: 0px; width: 980px; height:1000px;">
-                <canvas id="GLCanvas" style="position: absolute; z-index: 0;">
+        <div id="LoadingIconParent" style="width: 980px; height:1000px;">
+                <canvas id="GLCanvas">
         <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
         Your browser does not support the HTML5 canvas.
         <!-- this message will show only if WebGL clearing failed -->
         </canvas>
-        <script type="text/javascript"> gEngine.LoadingConfig.setup(); </script>
+        <script type="text/javascript"> gEngine.LoadingIconConfig.setup(); </script>
         </div>
         <div style="display: table" >
             <div style="float: left; padding-left: 10px">
