@@ -88,14 +88,3 @@ and open the template in the editor.
         top:calc(50% + 20px);
         left:calc(50% - 65px);
     }
-    
-    #LoadingIconParent{
-        position: relative;
-        top: 0px;
-        left: 0px;
-    }
-    
-    #GLCanvas{
-        position: absolute;
-        z-index: 0;
-    }

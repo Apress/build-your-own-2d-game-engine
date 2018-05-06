@@ -63,7 +63,7 @@ gEngine.Particle = (function () {
         else{
             circleCollision.setTransform(xf);
         }
-        return gEngine.Physics.particleCollisionResult(rectShape,circleCollision,mFrom1to2);
+        return gEngine.Physics.particleProcessCollision(rectShape,circleCollision,mFrom1to2);
         
     };
     

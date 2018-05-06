@@ -64,8 +64,13 @@ gEngine.ResourceMap = (function () {
         }
         mResourceMap[rName].mAsset = loadedAsset;
         --mNumOutstandingLoads;
-        if(gEngine.LoadingIconConfig.isLevelSet()){
-            gEngine.LoadingIconConfig.loadingUpdate();
+        if(gEngine.LoadingConfig.isLevelSet()){
+            gEngine.LoadingConfig.loadingUpdate();
+        }
+        for(var i=0; i<10000; i++){
+            for(var j=0; j<40000; j++){
+                
+            }
         }
         _checkForAllLoadCompleted();
     };
@@ -147,7 +152,7 @@ gEngine.ResourceMap = (function () {
         return c;
     };
     
-    var getNumOutstandingLoads = function() {
+    var getCurrentLoad = function() {
         return mNumOutstandingLoads;
     };
     //</editor-fold>
@@ -165,7 +170,7 @@ gEngine.ResourceMap = (function () {
         unloadAsset: unloadAsset,
         isAssetLoaded: isAssetLoaded,
         incAssetRefCount: incAssetRefCount,
-        getNumOutstandingLoads: getNumOutstandingLoads
+        getCurrentLoad: getCurrentLoad
         //</editor-fold>
     };
     return mPublic;
