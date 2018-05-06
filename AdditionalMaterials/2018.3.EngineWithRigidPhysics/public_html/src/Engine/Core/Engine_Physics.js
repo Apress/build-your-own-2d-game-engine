@@ -53,8 +53,7 @@ gEngine.Physics = (function () {
     var getRelaxationCount = function() {
         return mRelaxationCount;
     };
-    //added changes: s1Change, a variable used if one of the shapes is a particle
-    //this makes sure that the particle doesn't affect the position of the other shape
+    
     var positionalCorrection = function (s1, s2, collisionInfo) {
         if (!mCorrectPosition)
             return;
@@ -65,18 +64,8 @@ gEngine.Physics = (function () {
         var num = collisionInfo.getDepth() / (s1InvMass + s2InvMass) * mPosCorrectionRate;
         var correctionAmount = [0, 0];
         vec2.scale(correctionAmount, collisionInfo.getNormal(), num);
-        s1.adjustPositionBy(correctionAmount, -s1InvMass);
-        s2.adjustPositionBy(correctionAmount, s2InvMass);
-    };
-    
-    var particlePositionalCorrection = function (s1, s2, collisionInfo) {
-        var s1InvMass = s1.getInvMass();
-        var s2InvMass = s2.getInvMass();
 
-        var num = collisionInfo.getDepth() / (s1InvMass + s2InvMass) * mPosCorrectionRate;
-        var correctionAmount = [0, 0];
-        vec2.scale(correctionAmount, collisionInfo.getNormal(), num);
-        //to make sure that particles won't adjust the position of the shape that it's colliding with
+        s1.adjustPositionBy(correctionAmount, -s1InvMass);
         s2.adjustPositionBy(correctionAmount, s2InvMass);
     };
     
@@ -198,30 +187,6 @@ gEngine.Physics = (function () {
         }
     };
     
-    /**
-     * ResourceMap node containing name and refrence count of resource
-     * @memberOf gEngine.Physics
-     * @param {RigidRectangle} objI
-     * @param {RigidCircle} objJ
-     * @param {CollisionInfo} iToj
-     * @returns {CollisionResult}
-     */
-    var particleProcessCollision = function(objI, objJ, iToj){
-        if (objI.boundTest(objJ)) {
-            var info = new CollisionInfo();
-            if (objI.collisionTest(objJ, info)) {
-                // make sure info is always from i towards j
-                vec2.subtract(iToj, objJ.getCenter(), objI.getCenter());
-                if (vec2.dot(iToj, info.getNormal()) < 0)
-                    info.changeDir();
-                particlePositionalCorrection(objI, objJ, info);
-                resolveCollision(objI, objJ, info);
-                return true;
-            }
-        }
-        return false;
-    };
-    
     var mPublic = {
         getSystemAcceleration: getSystemtAcceleration,
         processCollision: processCollision,
@@ -230,8 +195,7 @@ gEngine.Physics = (function () {
         incRelaxationCount: incRelaxationCount,
         getRelaxationCount: getRelaxationCount,
         getHasMotion: getHasMotion,
-        toggleHasMotion: toggleHasMotion,
-        particleProcessCollision: particleProcessCollision
+        toggleHasMotion: toggleHasMotion
     };
     return mPublic;
 }());

@@ -5,7 +5,7 @@
  */
 /*jslint node: true, vars: true, evil: true, bitwise: true */
 "use strict";
-/* global RigidRectangle, vec2, collisionInfo */
+/* global RigidRectangle, vec2 */
 
 RigidRectangle.prototype.checkCircRecVertex = function(v, circPt, r, info) {
     //the center of circle is in corner region of mVertex[nearestEdge]
@@ -20,7 +20,7 @@ RigidRectangle.prototype.checkCircRecVertex = function(v, circPt, r, info) {
     vec2.add(ptAtCirc, circPt, radiusVec);
     info.setInfo(r - dis, v, ptAtCirc);
     return true;
-};
+}
 
 /**
  * Check for collision between RigidRectangle and Circle

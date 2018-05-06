@@ -85,5 +85,4 @@ ParticleGameObject.prototype.update = function () {
     xf.setSize(s, s);
 };
 
-ParticleGameObject.prototype.getParticle = function () { return this.mParticle; };
-ParticleGameObject.prototype.getX = function () { return this.getXform(); };
+ParticleGameObject.prototype.getParticle = function () { return this.mParticle; }

@@ -55,5 +55,3 @@ RigidCircle.prototype.draw = function (aCamera) {
 RigidCircle.prototype.update = function () {
     RigidShape.prototype.update.call(this);
 };
-
-RigidCircle.prototype.getRadius = function () { return this.mRadius; }

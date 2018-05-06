@@ -64,8 +64,8 @@ gEngine.ResourceMap = (function () {
         }
         mResourceMap[rName].mAsset = loadedAsset;
         --mNumOutstandingLoads;
-        if(gEngine.LoadingConfig.isLevelSet()){
-            gEngine.LoadingConfig.loadingUpdate();
+        if(gEngine.LoadingIconConfig.isLevelSet()){
+            gEngine.LoadingIconConfig.loadingUpdate();
         }
         for(var i=0; i<10000; i++){
             for(var j=0; j<40000; j++){
@@ -152,7 +152,7 @@ gEngine.ResourceMap = (function () {
         return c;
     };
     
-    var getCurrentLoad = function() {
+    var getNumOutstandingLoads = function() {
         return mNumOutstandingLoads;
     };
     //</editor-fold>
@@ -170,7 +170,7 @@ gEngine.ResourceMap = (function () {
         unloadAsset: unloadAsset,
         isAssetLoaded: isAssetLoaded,
         incAssetRefCount: incAssetRefCount,
-        getCurrentLoad: getCurrentLoad
+        getNumOutstandingLoads: getNumOutstandingLoads
         //</editor-fold>
     };
     return mPublic;
