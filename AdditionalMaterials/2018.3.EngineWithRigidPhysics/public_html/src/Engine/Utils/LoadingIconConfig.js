@@ -61,8 +61,8 @@ var stop = function(){
      * @memberOf gEngine.LoadingIconConfig
      */
 var loadingUpdate = function() {
-    document.getElementById("LoadingScreenBar").style.width=((levelLoadCount - gEngine.ResourceMap.getCurrentLoad())/levelLoadCount)*100+"%";
-    document.getElementById("LoadingScreenBar").innerHTML = ((levelLoadCount - gEngine.ResourceMap.getCurrentLoad())/levelLoadCount)*100+"%";
+    document.getElementById("LoadingScreenBar").style.width=((levelLoadCount - gEngine.ResourceMap.getNumOutstandingLoads())/levelLoadCount)*100+"%";
+    document.getElementById("LoadingScreenBar").innerHTML = ((levelLoadCount - gEngine.ResourceMap.getNumOutstandingLoads())/levelLoadCount)*100+"%";
 };
 
 var loadCountReset = function() {
@@ -90,7 +90,7 @@ var loadCountReset = function() {
      * @memberOf gEngine.LoadingIconConfig
      */
     var loadCountSet = function() {
-        levelLoadCount = gEngine.ResourceMap.getCurrentLoad();
+        levelLoadCount = gEngine.ResourceMap.getNumOutstandingLoads();
     };
 
 var mPublic = {

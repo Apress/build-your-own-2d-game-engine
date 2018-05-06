@@ -152,7 +152,7 @@ gEngine.ResourceMap = (function () {
         return c;
     };
     
-    var getCurrentLoad = function() {
+    var getNumOutstandingLoads = function() {
         return mNumOutstandingLoads;
     };
     //</editor-fold>
@@ -170,7 +170,7 @@ gEngine.ResourceMap = (function () {
         unloadAsset: unloadAsset,
         isAssetLoaded: isAssetLoaded,
         incAssetRefCount: incAssetRefCount,
-        getCurrentLoad: getCurrentLoad
+        getNumOutstandingLoads: getNumOutstandingLoads
         //</editor-fold>
     };
     return mPublic;
