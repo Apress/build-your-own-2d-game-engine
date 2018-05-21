@@ -25,10 +25,10 @@ function MyGame() {
     this.mShapeMsg = null;
 
     this.mAllObjs = null;
+    this.mAllParticles = null;
     this.mBounds = null;
     this.mCollisionInfos = [];
     this.mHero = null;
-    this.mAllParticles = new ParticleGameObjectSet();
     
     this.mCurrentObj = 0;
     this.mTarget = null;
@@ -41,7 +41,7 @@ MyGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kPlatformTexture);
     gEngine.Textures.loadTexture(this.kWallTexture);
     gEngine.Textures.loadTexture(this.kTargetTexture);
-    gEngine.Textures.loadTexture(this.kParticleTexture);   
+    gEngine.Textures.loadTexture(this.kParticleTexture);
 };
 
 MyGame.prototype.unloadScene = function () {
@@ -65,6 +65,7 @@ MyGame.prototype.initialize = function () {
       
     this.mHero = new Hero(this.kMinionSprite);
     this.mAllObjs = new GameObjectSet();
+    this.mAllParticles = new ParticleGameObjectSet();
     
     this.createBounds();
     this.mFirstObject = this.mAllObjs.size();
@@ -120,9 +121,15 @@ MyGame.prototype.increasShapeSize = function(obj, delta) {
 // anything from this function!
 MyGame.kBoundDelta = 0.1;
 MyGame.prototype.update = function () {
-    this.mAllParticles.update();
     var msg = "";   
     
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+        if (this.mCamera.isMouseInViewport()) {
+            var p = this.createParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
+            this.mAllParticles.addToSet(p);
+        }
+    }
+    gEngine.ParticleSystem.update(this.mAllParticles);
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
         gEngine.Physics.togglePositionalCorrection();
     }
@@ -131,14 +138,6 @@ MyGame.prototype.update = function () {
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
         this.radomizeVelocity();
-    }
-    
-    // create particles
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
-        if (this.mCamera.isMouseInViewport()) {
-            var p = this.createParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
-            this.mAllParticles.addToSet(p);
-        }
     }
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
@@ -174,7 +173,7 @@ MyGame.prototype.update = function () {
     this.mAllObjs.update(this.mCamera);
     
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
-    gEngine.Particle.processSetSet(this.mAllObjs, this.mAllParticles);
+    gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mAllParticles);
 
     var p = obj.getXform().getPosition();
     this.mTarget.getXform().setPosition(p[0], p[1]);

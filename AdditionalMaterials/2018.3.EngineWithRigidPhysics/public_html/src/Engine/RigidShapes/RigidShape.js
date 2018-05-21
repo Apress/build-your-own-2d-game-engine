@@ -26,6 +26,13 @@ function RigidShape(xf) {
     this.mDrawBounds = false;
 }
 
+/**
+ * Returns
+ * @param {Particle} aParticle, the particle to check for collisison
+ * @param {Transform} xf, the transform of the particle
+ * @returns {boolean} status, whether the rigid shape collided with a particle
+ * @memberOf RigidShape
+ */
 RigidShape.prototype.getInvMass = function() { return this.mInvMass; };
 RigidShape.prototype.getInertia = function() { return this.mInertia; };
 RigidShape.prototype.getFriction = function() { return this.mFriction; };
@@ -207,19 +214,32 @@ RigidShape.prototype.getCurrentState = function() {
 
 RigidShape.prototype.getType = function() { return this.mType; };
 
+/**
+ * Handles collision between 
+ * @param {Particle} aParticle, the particle to check for collisison
+ * @param {Transform} xf, the transform of the particle
+ * @returns {boolean} status, whether the rigid shape collided with a particle
+ * @memberOf RigidShape
+ */
 RigidShape.prototype.resolveParticleCollision = function(aParticle, xf) {
     var status = false;
     if (this.getType()==="RigidCircle"){
-        status = gEngine.Particle.resolveCirclePos(this, aParticle);
+        status = gEngine.ParticleSystem.resolveCirclePos(this, aParticle);
         return status;
     }
     else if( this.getType()==="RigidRectangle"){
-        status = gEngine.Particle.resolveRectPos(this, xf,);
+        status = gEngine.ParticleSystem.resolveRectPos(this, xf,);
         return status;
     }
     else{return status;}
 };
 
+/**
+ * Return's the transform of the RigigdShape
+ * @param {Transform} xf, the transfomrm that you want to set the shape to
+ * @returns {void}
+ * @memberOf RigidShape
+ */
 RigidShape.prototype.setTransform = function(xf){
     this.mXform=xf;
 };

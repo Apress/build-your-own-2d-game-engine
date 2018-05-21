@@ -40,7 +40,7 @@ var start = function(){
     document.getElementById("LoadingDots").style.display="block";
     document.getElementById("LoadingScreenBar").style.display="block";
     document.getElementById("LoadingScreenProgress").style.display="block";
-    gEngine.Core.clearCanvas(1);
+    gEngine.Core.clearCanvas([0,0,0,1]);
 };
 /**
      * Resets the loading bar and exits the loading screen

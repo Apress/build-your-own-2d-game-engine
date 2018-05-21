@@ -56,4 +56,4 @@ RigidCircle.prototype.update = function () {
     RigidShape.prototype.update.call(this);
 };
 
-RigidCircle.prototype.getRadius = function () { return this.mRadius; }
+RigidCircle.prototype.getRadius = function () { return this.mRadius; };

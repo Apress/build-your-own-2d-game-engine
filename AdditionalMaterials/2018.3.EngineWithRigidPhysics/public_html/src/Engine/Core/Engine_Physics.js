@@ -53,8 +53,7 @@ gEngine.Physics = (function () {
     var getRelaxationCount = function() {
         return mRelaxationCount;
     };
-    //added changes: s1Change, a variable used if one of the shapes is a particle
-    //this makes sure that the particle doesn't affect the position of the other shape
+    
     var positionalCorrection = function (s1, s2, collisionInfo) {
         if (!mCorrectPosition)
             return;

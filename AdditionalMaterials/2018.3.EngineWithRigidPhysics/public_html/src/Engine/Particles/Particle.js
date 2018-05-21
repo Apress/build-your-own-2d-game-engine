@@ -21,7 +21,7 @@ function Particle(pos) {
     
     this.mPosition = pos;  // this is likely to be a reference to xform.mPosition
     this.mVelocity = vec2.fromValues(0, 0);
-    this.mAcceleration = gEngine.Particle.getSystemtAcceleration();
+    this.mAcceleration = gEngine.ParticleSystem.getSystemtAcceleration();
     this.mDrag = 0.95; 
     
     this.mPositionMark = new LineRenderable();
