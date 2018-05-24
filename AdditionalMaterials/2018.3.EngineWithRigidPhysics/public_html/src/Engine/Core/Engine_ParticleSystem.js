@@ -1,5 +1,5 @@
 /*
- * File: Engine_ParticleSystem.js 
+ * File: Engine_Particle.js 
  * Particle System support
  */
 /*jslint node: true, vars: true, white: true */
@@ -16,17 +16,17 @@ var gEngine = gEngine || { };
     // initialize the variable while ensuring it is not redefined
 
 /**
- * 
- * @class gEngine.ParticleSystem
+ * Default Constructor
+ * Particle System support
  * @type gEngine.ParticleSystem
+ * @class gEngine.ParticleSystem
  */
 gEngine.ParticleSystem = (function () {
-    var mSystemtAcceleration = [0, -1.1];
+    var mSystemtAcceleration = [0, -50.0];
     
     // the follows are scratch workspace for vec2
-    var mFrom1to2 = [0, 0];  
-    var mVec = [0, 0];
-    var mNormal = [0, 0];
+    var mFrom1to2 = [0, 0];
+    var circleCollision=0;
     
     /**
      * 
@@ -38,7 +38,7 @@ gEngine.ParticleSystem = (function () {
     var resolveCirclePos = function (circShape, particle) {
         var collided = false;
         var pos = particle.getPosition();
-        var cPos = circShape.getPosition();
+        var cPos = circShape.getCenter();
         vec2.subtract(mFrom1to2, pos, cPos);
         var dist = vec2.length(mFrom1to2);
         if (dist < circShape.getRadius()) {
@@ -50,86 +50,48 @@ gEngine.ParticleSystem = (function () {
     };
 
     /**
-     * 
+     * particle collision of 
      * @memberOf gEngine.ParticleSystem
      * @param {type} rectShape
-     * @param {type} particle
+     * @param {type} xf
      * @returns {Boolean}
      */
-    var resolveRectPos = function (rectShape, particle) {
-        var collided = false;
-        var alongX = rectShape.getWidth() / 2;
-        var alongY = rectShape.getHeight() / 2;
-
-        var pos = particle.getPosition();
-        var rPos = rectShape.getPosition();
-        
-        var rMinX = rPos[0] - alongX;
-        var rMaxX = rPos[0] + alongX;
-        var rMinY = rPos[1] - alongY;
-        var rMaxY = rPos[1] + alongY;
-        
-        collided = ((rMinX<pos[0]) && (rMinY<pos[1]) &&
-                    (rMaxX>pos[0]) && (rMaxY>pos[1]));
-        
-        if (collided) {
-            vec2.subtract(mFrom1to2, pos, rPos);
-            mVec[0] = mFrom1to2[0];
-            mVec[1] = mFrom1to2[1];
-
-            // Find closest axis
-            if (Math.abs(mFrom1to2[0] - alongX) < Math.abs(mFrom1to2[1] - alongY))  {
-                // Clamp to closest side
-                mNormal[0] = 0;
-                mNormal[1] = 1;
-                if (mVec[0] > 0) {
-                    mVec[0] = alongX;
-                } else {
-                    mVec[0] = -alongX;
-                }
-            } else { // y axis is shorter
-                mNormal[0] = 1;
-                mNormal[1] = 0;
-                // Clamp to closest side
-                if (mVec[1] > 0) {
-                    mVec[1] = alongY;
-                } else {
-                    mVec[1] = -alongY;
-                }
-            }
-
-            vec2.subtract(mVec, mVec, mFrom1to2);
-            vec2.add(pos, pos, mVec);  // remember pt is ptShape.Position!!
+    var resolveRectPos = function (rectShape, xf) {
+        if(circleCollision === 0){
+            circleCollision=new RigidCircle(xf,0.3);
         }
-        return collided;
+        else{
+            circleCollision.setTransform(xf);
+        }
+        return gEngine.Physics.particleProcessCollision(rectShape,circleCollision,mFrom1to2);
+        
     };
     
-    // Rigid Shape interactions: a game object and a set of particle game objects
     /**
-     * 
+     * Rigid Shape interactions: a game object and a set of particle game objects
      * @memberOf gEngine.ParticleSystem
-     * @param {type} obj
-     * @param {type} pSet
+     * @param {GameObject} obj
+     * @param {ParticleObjectSet} pSet
      * @returns {undefined}
      */
     var processObjSet = function(obj, pSet) {
-        var s1 = obj.getPhysicsComponent();  // a RigidShape
+        var s1 = obj.getRigidBody();  // a RigidShape
         var i, p;
         for (i=0; i<pSet.size(); i++) {
-            p = pSet.getObjectAt(i).getPhysicsComponent();  // a Particle
-            s1.resolveParticleCollision(p);
+            var x = pSet.getObjectAt(i).getX();
+            p = pSet.getObjectAt(i).getParticle();  // a Particle
+            s1.resolveParticleCollision(p,x);
         }
     };
     
-    // Rigid Shape interactions: game object set and a set of particle game objects
     /**
-     * 
+     * Rigid Shape interactions: game object set and a set of particle game objects
      * @memberOf gEngine.ParticleSystem
-     * @param {type} objSet
-     * @param {type} pSet
-     * @returns {undefined}
+     * @param {GameObjectSet} objSet
+     * @param {ParticleObjectSet} pSet
+     * @returns {void}
      */
-    var processSetSet = function(objSet, pSet) {
+    var collideWithRigidSet = function(objSet, pSet) {
         var i;
         for (i=0; i<objSet.size(); i++) {
             processObjSet(objSet.getObjectAt(i), pSet);
@@ -137,19 +99,31 @@ gEngine.ParticleSystem = (function () {
     };
     
     /**
-     * 
+     * Return Acceleration
      * @memberOf gEngine.ParticleSystem
-     * @returns {Array|g}
+     * @returns {Float[]} current Acceleration [X, Y]
      */
     var getSystemtAcceleration = function() { return mSystemtAcceleration; };
     
     /**
-     * 
+     * Set Acceleration
      * @memberOf gEngine.ParticleSystem
-     * @param {type} g
-     * @returns {undefined}
+     * @param {Float[]} g new Acceleration [X, Y]
+     * @returns {void}
      */
     var setSystemtAcceleration = function(g) { mSystemtAcceleration = g; };
+    
+    /**
+     * Update Particles
+     * @memberOf gEngine.ParticleSystem
+     * @param {ParticleGameObjectSet} pSet the particleSet you want to update
+     * @returns {void}
+     */
+    var update = function(pSet){
+        for(var i=0; i<pSet.size(); i++){
+            pSet.getObjectAt(i).update();
+        }
+    };
     
     var mPublic = {
         getSystemtAcceleration: getSystemtAcceleration,
@@ -157,7 +131,8 @@ gEngine.ParticleSystem = (function () {
         resolveCirclePos: resolveCirclePos,
         resolveRectPos: resolveRectPos,
         processObjSet: processObjSet,
-        processSetSet: processSetSet
+        collideWithRigidSet: collideWithRigidSet,
+        update: update
     };
 
     return mPublic;

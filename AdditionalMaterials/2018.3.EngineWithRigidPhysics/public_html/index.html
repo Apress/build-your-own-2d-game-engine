@@ -16,7 +16,7 @@
         <script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
         <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
         <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
-        <script type="text/javascript" src="src/Engine/Core/Engine_Particle.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_ParticleSystem.js"></script>
         <script type="text/javascript" src="src/Engine/Core/Engine_LayerManager.js"></script>
         <!-- Resource support -->
         <script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
@@ -107,12 +107,12 @@
         gEngine.Core.initializeEngineCore('GLCanvas', myGame);
      ">
         <div id="LoadingIconParent" style="width: 800px; height:600px;">
-                <canvas id="GLCanvas">
-        <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
-        Your browser does not support the HTML5 canvas.
-        <!-- this message will show only if WebGL clearing failed -->
-        </canvas>
-        <script type="text/javascript"> gEngine.LoadingIconConfig.setup(); </script>
+            <canvas id="GLCanvas">
+                <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
+                Your browser does not support the HTML5 canvas.
+                <!-- this message will show only if WebGL clearing failed -->
+            </canvas>
+            <script type="text/javascript"> gEngine.LoadingIconConfig.setup(); </script>
         </div>
         <div style="display: table" >
             <div style="float: left; padding-left: 10px">
