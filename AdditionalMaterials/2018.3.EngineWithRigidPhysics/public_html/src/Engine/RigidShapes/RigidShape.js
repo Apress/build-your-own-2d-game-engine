@@ -26,13 +26,6 @@ function RigidShape(xf) {
     this.mDrawBounds = false;
 }
 
-/**
- * Returns
- * @param {Particle} aParticle, the particle to check for collisison
- * @param {Transform} xf, the transform of the particle
- * @returns {boolean} status, whether the rigid shape collided with a particle
- * @memberOf RigidShape
- */
 RigidShape.prototype.getInvMass = function() { return this.mInvMass; };
 RigidShape.prototype.getInertia = function() { return this.mInertia; };
 RigidShape.prototype.getFriction = function() { return this.mFriction; };
@@ -98,7 +91,7 @@ RigidShape.prototype.travel = function() {
 
 RigidShape.prototype.adjustPositionBy = function(v, delta) {
     var p = this.mXform.getPosition();
-    vec2.scaleAndAdd(p, p, v, delta)
+    vec2.scaleAndAdd(p, p, v, delta);
 };
 
 var kRigidShapeDelta = 0.01;
@@ -228,7 +221,7 @@ RigidShape.prototype.resolveParticleCollision = function(aParticle, xf) {
         return status;
     }
     else if( this.getType()==="RigidRectangle"){
-        status = gEngine.ParticleSystem.resolveRectPos(this, xf,);
+        status = gEngine.ParticleSystem.resolveRectPos(this, xf);
         return status;
     }
     else{return status;}
@@ -241,5 +234,5 @@ RigidShape.prototype.resolveParticleCollision = function(aParticle, xf) {
  * @memberOf RigidShape
  */
 RigidShape.prototype.setTransform = function(xf){
-    this.mXform=xf;
+    this.mXform = xf;
 };

@@ -57,3 +57,7 @@ RigidCircle.prototype.update = function () {
 };
 
 RigidCircle.prototype.getRadius = function () { return this.mRadius; };
+RigidCircle.prototype.setTransform = function (xf) {
+    RigidShape.prototype.setTransform.call(this, xf);
+    this.mRadius = xf.getWidth();  // assume width and height are the same
+};

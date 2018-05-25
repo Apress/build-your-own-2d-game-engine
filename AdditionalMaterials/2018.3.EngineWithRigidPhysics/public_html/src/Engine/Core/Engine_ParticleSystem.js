@@ -26,10 +26,10 @@ gEngine.ParticleSystem = (function () {
     
     // the follows are scratch workspace for vec2
     var mFrom1to2 = [0, 0];
-    var circleCollision=0;
+    var mCircleCollider = null; 
     
     /**
-     * 
+     * Resolve collision between a particle and a RigidCircle
      * @memberOf gEngine.ParticleSystem
      * @param {type} circShape
      * @param {type} particle
@@ -48,23 +48,29 @@ gEngine.ParticleSystem = (function () {
         }
         return collided;
     };
-
+    
     /**
-     * particle collision of 
+     * Resolve collision between a particle and a RigidRectangle
      * @memberOf gEngine.ParticleSystem
      * @param {type} rectShape
      * @param {type} xf
      * @returns {Boolean}
      */
     var resolveRectPos = function (rectShape, xf) {
-        if(circleCollision === 0){
-            circleCollision=new RigidCircle(xf,0.3);
+        if (mCircleCollider === null)
+            mCircleCollider = new RigidCircle(null, 0.0);  // radius of 0.0 
+        mCircleCollider.setTransform(xf);
+        if (mCircleCollider.boundTest(rectShape)) {
+            var rPInfo = new CollisionInfo();
+            if (rectShape.collisionTest(mCircleCollider, rPInfo)) {
+                // make sure info is always from rect towards particle
+                vec2.subtract(mFrom1to2, mCircleCollider.getCenter(), rectShape.getCenter());
+                if (vec2.dot(mFrom1to2, rPInfo.getNormal()) < 0)
+                    mCircleCollider.adjustPositionBy(rPInfo.getNormal(), -rPInfo.getDepth());
+                else
+                    mCircleCollider.adjustPositionBy(rPInfo.getNormal(), rPInfo.getDepth());
+            }
         }
-        else{
-            circleCollision.setTransform(xf);
-        }
-        return gEngine.Physics.particleProcessCollision(rectShape,circleCollision,mFrom1to2);
-        
     };
     
     /**
@@ -120,9 +126,7 @@ gEngine.ParticleSystem = (function () {
      * @returns {void}
      */
     var update = function(pSet){
-        for(var i=0; i<pSet.size(); i++){
-            pSet.getObjectAt(i).update();
-        }
+        pSet.update();
     };
     
     var mPublic = {
