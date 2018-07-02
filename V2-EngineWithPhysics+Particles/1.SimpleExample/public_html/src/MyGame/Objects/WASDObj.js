@@ -17,15 +17,23 @@ WASDObj.prototype.keyControl = function () {
     var xform = this.getXform();
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
         xform.incYPosBy(kWASDDelta);
+        this.getRigidBody().setVelocity(0,this.getRigidBody().getVelocity()[1]);
+        this.getRigidBody().setAngularVelocity(0);
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
         xform.incYPosBy(-kWASDDelta);
+        this.getRigidBody().setVelocity(0,this.getRigidBody().getVelocity()[1]);
+        this.getRigidBody().setAngularVelocity(0);
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
         xform.incXPosBy(-kWASDDelta);
+        this.getRigidBody().setVelocity(0,this.getRigidBody().getVelocity()[1]);
+        this.getRigidBody().setAngularVelocity(0);
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
         xform.incXPosBy(kWASDDelta);
+        this.getRigidBody().setVelocity(0,this.getRigidBody().getVelocity()[1]);
+        this.getRigidBody().setAngularVelocity(0);
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
         xform.incRotationByDegree(1);

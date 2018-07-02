@@ -18,31 +18,37 @@ MyGame.prototype.radomizeVelocity = function()
         var obj = this.mAllObjs.getObjectAt(i);
         var rigidShape = obj.getRigidBody();
         var x = (Math.random() - 0.5) * kSpeed;
-        var y = Math.random() * kSpeed * 0.5;
+        var y = .6 * kSpeed * 0.5 + 2;
         rigidShape.setVelocity(x, y);
     }
 };
 
 MyGame.prototype.createBounds = function() {
     var x = 15, w = 30, y = 4;
-    for (x = 15; x < 120; x+=30) 
-        this.platformAt(x, y, w, 0);
-    y = 76;
-    for (x = 15; x < 120; x+=30) 
-        this.platformAt(x, y, w, 180);
+    this.platformAt(25,76,50,0,.9,.8);
+    this.platformAt(75,76,50,0,.3,.5);
+    this.platformAt(25,39.5,50,0,.9,.8);
+    this.platformAt(75,39.5,50,0,.3,.5);
+    this.platformAt(25,36.5,50,0,.6,.01);
+    this.platformAt(75,36.5,50,0,0,.4);
+    this.platformAt(25,4,50,0,.6,.01);
+    this.platformAt(75,4,50,0,0,.4);
     
-    this.platformAt(40, 40, 20, -30);
-    this.platformAt(60, 30, 20, 0);
-    this.platformAt(20, 20, 20, 0);
-    this.platformAt(70, 50, 20, 0);
     
     x = 2;
     w = 3;
-    for (y = 8; y < 90; y+=12) 
-        this.wallAt(x, y, w);
+    this.wallAt(x,18,w,.6,.01);
+    this.wallAt(x,58,w,.9,.8);
+    
+    x = 48.5;
+    this.wallAt(x,18,w,.6,.01);
+    this.wallAt(x,58,w,.9,.8);
+    x = 51.5;
+    this.wallAt(x,18,w,0,.4);
+    this.wallAt(x,58,w,.3,.5);
     x = 98;
-    for (y = 8; y < 90; y+=12) 
-        this.wallAt(x, y, w);
+    this.wallAt(x,18,w,0,.4);
+    this.wallAt(x,58,w,.3,.5);
     
     var r = new TextureRenderable(this.kTargetTexture);
     this.mTarget = new GameObject(r);
@@ -50,8 +56,8 @@ MyGame.prototype.createBounds = function() {
     xf.setSize(3, 3);
 };
 
-MyGame.prototype.wallAt = function (x, y, w) {
-    var h = w * 4;
+MyGame.prototype.wallAt = function (x, y, w, res, frct) {
+    var h = 40;
     var p = new TextureRenderable(this.kWallTexture);
     var xf = p.getXform();
     
@@ -62,13 +68,15 @@ MyGame.prototype.wallAt = function (x, y, w) {
     g.toggleDrawRigidShape();
     
     r.setMass(0);
+    r.setRestitution(res);
+    r.setFriction(frct);
     xf.setSize(w, h);
     xf.setPosition(x, y);
     this.mAllObjs.addToSet(g);
 };
 
-MyGame.prototype.platformAt = function (x, y, w, rot) {
-    var h = w / 8;
+MyGame.prototype.platformAt = function (x, y, w, rot,res,frct) {
+    var h = 3;
     var p = new TextureRenderable(this.kPlatformTexture);
     var xf = p.getXform();
     
@@ -79,11 +87,10 @@ MyGame.prototype.platformAt = function (x, y, w, rot) {
     g.toggleDrawRigidShape();
     
     r.setMass(0);
+    r.setRestitution(res);
+    r.setFriction(frct);
     xf.setSize(w, h);
     xf.setPosition(x, y);
     xf.setRotationInDegree(rot);
     this.mAllObjs.addToSet(g);
 };
-
-
-    

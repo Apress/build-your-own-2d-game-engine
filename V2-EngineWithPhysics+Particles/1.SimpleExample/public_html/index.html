@@ -97,6 +97,7 @@
         <script type="text/javascript" src="src/MyGame/Objects/WASDObj.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/Hero.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/Minion.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Arena.js"></script>
         
         <link rel="stylesheet" type="text/css" href="LoadingIcons.css">
         
@@ -119,34 +120,44 @@
                 <b>Behavior Controls:</b>
                 <ul>
                     <li>
-                        <b>P</b>: Penetration resolution on/off </li>
+                        <b>Z/X</b>: Sequence through arenas </li>
                     <li>
-                        <b>V</b>: Motion on/off </li>
+                        <b>C/V</b>: Decrease/Increase Arena Restitution </li>
                     <li>
-                        <b>H</b>: Inject random velocity to all objects </li>
+                        <b>B/N</b>: Decrease/Increase Arena Mass </li>
                     <li>
-                        <b>G</b>: Create new Rectangle/Circle (randomly)</li>
+                        <b>H</b>: Inject random velocity to all objects in the selected arena </li>
                     <li>
                         <b>WASD</b>: Move selected object </li>
                     <li>
                         <b>Left/Right</b>: Sequence through selected object </li>
                     <li>
                         <b>Up/Down + MRF</b>: Increase/Decrease Mass/Restitution/Friction</li>
+                    <li>
+                        <b>U/J/I/K/O/L</b>: Create a Bouncy Ball/Soccer Ball/Rock/Wooden Ball/Ice/Bowling Ball </li>
                 </ul>
             </div>
-            
-            <div style="float: left">
-                <b>Drawing Controls:</b>
-                <ul>
-                    <li>
-                        <b>T</b>:Texture&nbsp; </li>
-                    <li>
-                        <b>B</b>:Primitive Bounds&nbsp; </li>
-                    <li>
-                        <b>R</b>:RigidShape&nbsp;  </li>
-                </ul>
-                <b>C</b>: Generate particles at the mouse position.
-            </div>
+            <table style="float: right">
+              <tr>
+                  <th colspan='2'>Selected RigidBody Physics Values</th>
+              </tr>
+              <tr>
+                <th>Description</th> 
+                <th>Value</th>
+              </tr>
+              <tr>
+                <td>Mass</td>
+                <td><bdi id="value1"></bdi></td>
+              </tr>
+              <tr>
+                <td>Restitution</td>
+                <td><bdi id="value2"></bdi></td>
+              </tr>
+              <tr>
+                  <td>Friction</td>
+                  <td><bdi id="value3"></bdi></td>
+              </tr>
+            </table>
         </div>
     </body>
 </html>
