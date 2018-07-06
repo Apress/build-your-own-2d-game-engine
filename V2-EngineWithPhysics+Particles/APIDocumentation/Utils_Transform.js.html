@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Utils/Transform.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Utils/Transform.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * File: Transform.js
+ * Encapsulates the matrix transformation functionality, meant to work with
+ * Renderable
+ */
+
+/*jslint node: true, vars: true */
+/*global gEngine: false, vec2: false, Math: false, mat4: false, vec3: false */
+/* find out more about jslint: http://www.jslint.com/help.html */
+"use strict";
+
+/**
+ * Defualt Constructor.
+ * @memberOf Transform
+ * @returns {Transform}
+ */
+function Transform() {
+    this.mPosition = vec2.fromValues(0, 0); // this is the translation
+    this.mScale = vec2.fromValues(1, 1);    // this is the width (x) and height (y)
+    this.mZ = 0.0;                          // must be a positive number, larger is closer to eye
+    this.mRotationInRad = 0.0;              // in radians!
+}
+
+/**
+ * Clone this transform properties to the paramater object.
+ * @memberOf Transform
+ * @param {type} aXform to clone this transform properties to.
+ * @returns {void}
+ */
+Transform.prototype.cloneTo = function (aXform) {
+    aXform.mPosition = vec2.clone(this.mPosition);
+    aXform.mScale = vec2.clone(this.mScale);
+    aXform.mZ = this.mZ;
+    aXform.mRotationInRad = this.mRotationInRad;
+};
+// &lt;editor-fold desc="Public Methods">
+
+//&lt;editor-fold desc="Setter/getter methods">
+// // &lt;editor-fold desc="Position setters and getters ">
+/**
+ * Sets the X and Y position.
+ * @memberOf Transform
+ * @param {Number} xPos of the transform.
+ * @param {Number} yPos of the transform.
+ * @returns {void}
+ */
+Transform.prototype.setPosition = function (xPos, yPos) { this.setXPos(xPos); this.setYPos(yPos); };
+
+/**
+ * Returns the 2D Position.
+ * @memberOf Transform
+ * @returns {vec2} 2D Position.
+ */
+Transform.prototype.getPosition = function () { return this.mPosition; };
+
+/**
+ * Returns the 3D Position.
+ * @memberOf Transform
+ * @returns {vec3} 3D Position.
+ */
+Transform.prototype.get3DPosition = function () {
+    return vec3.fromValues(this.getXPos(), this.getYPos(), this.getZPos());
+};
+
+/**
+ * Returns the X Position.
+ * @memberOf Transform
+ * @returns {Number} X Position.
+ */
+Transform.prototype.getXPos = function () { return this.mPosition[0]; };
+
+/**
+ * Sets the X Position.
+ * @memberOf Transform
+ * @param {Number} xPos New X Position.
+ * @returns {void}
+ */
+Transform.prototype.setXPos = function (xPos) { this.mPosition[0] = xPos; };
+
+/**
+ * Increment the X Position value by param.
+ * @memberOf Transform
+ * @param {Number} delta to increment X Position.
+ * @returns {void}
+ */
+Transform.prototype.incXPosBy = function (delta) { this.mPosition[0] += delta; };
+
+/**
+ * Returns the Y Position.
+ * @memberOf Transform
+ * @returns {Number} Y Position.
+ */
+Transform.prototype.getYPos = function () { return this.mPosition[1]; };
+
+/**
+ * Sets the Y Position.
+ * @memberOf Transform
+ * @param {Number} yPos new Y Position.
+ * @returns {void}
+ */
+Transform.prototype.setYPos = function (yPos) { this.mPosition[1] = yPos; };
+
+/**
+ * Increment the Y Position value by param.
+ * @memberOf Transform
+ * @param {Number} delta to increment the Y Position.
+ * @returns {void}
+ */
+Transform.prototype.incYPosBy = function (delta) { this.mPosition[1] += delta; };
+
+/**
+ * Sets the Z Position.
+ * @memberOf Transform
+ * @param {Number} d new Z Position.
+ * @returns {void}
+ */
+Transform.prototype.setZPos = function (d) { this.mZ = d; };
+
+/**
+ * Returns the Z Position.
+ * @memberOf Transform
+ * @returns {Number}
+ */
+Transform.prototype.getZPos = function () { return this.mZ; };
+
+/**
+ * Increment the Z Position by delta.
+ * @memberOf Transform
+ * @param {Number} delta to increment the Z Position.
+ * @returns {void}
+ */
+Transform.prototype.incZPosBy = function (delta) { this.mZ += delta; };
+//&lt;/editor-fold>
+// &lt;editor-fold desc="size setters and getters">
+
+/**
+ * Set the Size.
+ * @memberOf Transform
+ * @param {Number} width new width of the Transform.
+ * @param {Number} height new height of the Transform.
+ * @returns {void}
+ */
+Transform.prototype.setSize = function (width, height) {
+    this.setWidth(width);
+    this.setHeight(height);
+};
+
+/**
+ * Returns the Size.
+ * @memberOf Transform
+ * @returns {vec2} Size of the Transform.
+ */
+Transform.prototype.getSize = function () { return this.mScale; };
+
+/**
+ * Increment the Width and Height by delta.
+ * @memberOf Transform
+ * @param {Number} delta to increment the width and height.
+ * @returns {void}
+ */
+Transform.prototype.incSizeBy = function (delta) {
+    this.incWidthBy(delta);
+    this.incHeightBy(delta);
+};
+
+/**
+ * Returns the Width of the Transform.
+ * @memberOf Transform
+ * @returns {Number} Width of the Transform.
+ */
+Transform.prototype.getWidth = function () { return this.mScale[0]; };
+
+/**
+ * Sets the Width of the Transform.
+ * @memberOf Transform
+ * @param {Number} width new width of the transform.
+ * @returns {void}
+ */
+Transform.prototype.setWidth = function (width) { this.mScale[0] = width; };
+
+/**
+ * Increment Width of the Transform.
+ * @memberOf Transform
+ * @param {Number} delta to increment the width by.
+ * @returns {void}
+ */
+Transform.prototype.incWidthBy = function (delta) { this.mScale[0] += delta; };
+
+/**
+ * Returns the Height of the Transform.
+ * @memberOf Transform
+ * @returns {Number} Height of the Transform.
+ */
+Transform.prototype.getHeight = function () { return this.mScale[1]; };
+
+/**
+ * Sets the Height of the Transform.
+ * @memberOf Transform
+ * @param {Number} height new height of the Transform.
+ * @returns {void}
+ */
+Transform.prototype.setHeight = function (height) { this.mScale[1] = height; };
+
+/**
+ * Increment the Height of the Transform.
+ * @memberOf Transform
+ * @param {Number} delta to increment the height by.
+ * @returns {void}
+ */
+Transform.prototype.incHeightBy = function (delta) { this.mScale[1] += delta; };
+//&lt;/editor-fold>
+// &lt;editor-fold desc="rotation getters and setters">
+
+/**
+ * Set the Transform's Rotation in Radians.
+ * @memberOf Transform
+ * @param {Number} rotationInRadians Radian to set the Transform.
+ * @returns {void}
+ */
+Transform.prototype.setRotationInRad = function (rotationInRadians) {
+    this.mRotationInRad = rotationInRadians;
+    while (this.mRotationInRad > (2 * Math.PI)) {
+        this.mRotationInRad -= (2 * Math.PI);
+    }
+};
+
+/**
+ * Set the Transform's Rotation in Degree's.
+ * @memberOf Transform
+ * @param {Number} rotationInDegree Degree to set the Transform.
+ * @returns {void}
+ */
+Transform.prototype.setRotationInDegree = function (rotationInDegree) {
+    this.setRotationInRad(rotationInDegree * Math.PI / 180.0);
+};
+
+/**
+ * Increment the Rotation by delta Degree.
+ * @memberOf Transform
+ * @param {Number} deltaDegree to increment the rotatation by.
+ * @returns {void}
+ */
+Transform.prototype.incRotationByDegree = function (deltaDegree) {
+    this.incRotationByRad(deltaDegree * Math.PI / 180.0);
+};
+
+/**
+ * Increment the Rotation by delta Radian.
+ * @memberOf Transform
+ * @param {Number} deltaRad to increment the rotation by.
+ * @returns {void}
+ */
+Transform.prototype.incRotationByRad = function (deltaRad) {
+    this.setRotationInRad(this.mRotationInRad + deltaRad);
+};
+
+/**
+ * Returns the Rotation in Radian.
+ * @memberOf Transform
+ * @returns {Number} Radian rotation of the Transform.
+ */
+Transform.prototype.getRotationInRad = function () {  return this.mRotationInRad; };
+
+/**
+ * Returns the Rotation in Degree.
+ * @memberOf Transform
+ * @returns {Number} Degree rotation of the Transform.
+ */
+Transform.prototype.getRotationInDegree = function () { return this.mRotationInRad * 180.0 / Math.PI; };
+    //&lt;/editor-fold>
+//&lt;/editor-fold>
+
+/**
+ * returns the matrix the concatenates the transformations defined
+ * @memberOf Transform
+ * @returns {mat4} Maxtrix 4 representation of the Transform.
+ */
+Transform.prototype.getXform = function () {
+    // Creates a blank identity matrix
+    var matrix = mat4.create();
+
+    // The matrices that WebGL uses are transposed, thus the typical matrix
+    // operations must be in reverse.
+
+    // Step A: compute translation, for now z is the mHeight
+    mat4.translate(matrix, matrix, this.get3DPosition());
+    // Step B: concatenate with rotation.
+    mat4.rotateZ(matrix, matrix, this.getRotationInRad());
+    // Step C: concatenate with scaling
+    mat4.scale(matrix, matrix, vec3.fromValues(this.getWidth(), this.getHeight(), 1.0));
+
+    return matrix;
+};
+//&lt;/editor-fold></code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: RigidShapes/CollisionInfo.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: RigidShapes/CollisionInfo.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * File: CollisionInfo.js
+ *      normal: vector upon which collision interpenetrates
+ *      depth: how much penetration
+ */
+
+/*jslint node: true, vars: true, evil: true, bitwise: true */
+/* global vec2 */
+"use strict";
+
+/**
+ * Default Constructor
+ * @memberOf CollisionInfo
+ * @returns {CollisionInfo} New instance of CollisionInfo
+ */
+function CollisionInfo() {
+    this.mDepth = 0;
+    this.mNormal = vec2.fromValues(0, 0);
+    this.mStart = vec2.fromValues(0, 0);
+    this.mEnd = vec2.fromValues(0, 0);
+    
+    this.mLine = new LineRenderable();
+    this.mLine.setColor([1, 0, 1, 1]);
+    this.mLine.setDrawVertices(true);
+    this.mLine.setPointSize(5);
+}
+
+/**
+ * Set the depth of the CollisionInfo
+ * @memberOf CollisionInfo
+ * @param {Number} s how much penetration
+ */
+CollisionInfo.prototype.setDepth = function (s) {
+    this.mDepth = s;
+};
+
+/**
+ * Set the normal of the CollisionInfo
+ * @memberOf CollisionInfo
+ * @param {vec2} s vector upon which collision interpenetrates
+ */
+CollisionInfo.prototype.setNormal = function (s) {
+    this.mNormal = s;
+};
+
+/**
+ * Return the depth of the CollisionInfo
+ * @memberOf CollisionInfo
+ * @returns {Number} how much penetration
+ */
+CollisionInfo.prototype.getDepth = function () {
+    return this.mDepth;
+};
+
+/**
+ * Return the depth of the CollisionInfo
+ * @memberOf CollisionInfo
+ * @returns {vec2} vector upon which collision interpenetrates
+ */
+CollisionInfo.prototype.getNormal = function () {
+    return this.mNormal;
+};
+/**
+ * Return the start of the Collision
+ * @memberOf CollisionInfo
+ * @returns {vec2} vector upon which collision starts
+ */
+CollisionInfo.prototype.getStart = function () {
+    return this.mStart;
+};
+/**
+ * Return the end of the Collision
+ * @memberOf CollisionInfo
+ * @returns {vec2} vector upon which collision end
+ */
+CollisionInfo.prototype.getEnd = function () {
+    return this.mEnd;
+};
+
+/**
+ * Set the all value of the CollisionInfo
+ * @memberOf CollisionInfo
+ * @param {Number} d the depth of the CollisionInfo 
+ * @param {Vec2} n the normal of the CollisionInfo
+ * @param {Vec2} s the startpoint of the CollisionInfo
+ */
+CollisionInfo.prototype.setInfo = function (d, n, s) {
+    this.mDepth = d;
+    this.mNormal[0] = n[0];
+    this.mNormal[1] = n[1];
+    this.mStart[0] = s[0];
+    this.mStart[1] = s[1];
+    vec2.scaleAndAdd(this.mEnd, s, n, d);
+};
+
+/**
+ * Change the direction of normal
+ * @memberOf CollisionInfo
+ */
+CollisionInfo.prototype.changeDir = function () {
+    vec2.scale(this.mNormal, this.mNormal, -1);
+    var n = this.mStart;
+    this.mStart = this.mEnd;
+    this.mEnd = n;
+};
+/**
+ * Draws the collision line
+ * @param {Camera} aCamera The camera in which to draw the collision on
+ * @memberOf CollisionInfo
+ */
+CollisionInfo.prototype.draw = function(aCamera) {
+    this.mLine.setFirstVertex(this.mStart[0], this.mStart[1]);
+    this.mLine.setSecondVertex(this.mEnd[0], this.mEnd[1]);
+    this.mLine.draw(aCamera);
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
