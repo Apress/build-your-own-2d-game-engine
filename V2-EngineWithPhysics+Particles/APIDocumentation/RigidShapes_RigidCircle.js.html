@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: RigidShapes/RigidCircle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: RigidShapes/RigidCircle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * File:RigidCircle.js
+ *      define a circle
+ *     
+ */
+/*jslint node: true, vars: true, evil: true, bitwise: true */
+"use strict";
+/* global RigidShape, gEngine, vec2 */
+
+/**
+ * Default Constructor for Rigid Circle
+ * @param {Transform} xf The transform to map the Rigid Circle to
+ * @param {float} radius The radius for the Rigid Circle
+ * @returns {RigidCircle}
+ * @class RigidCircle
+ * @type RigidCircle
+ */
+var RigidCircle = function (xf, radius) {
+    RigidShape.call(this, xf);
+    this.mType = "RigidCircle";
+    this.mRadius = radius;
+    this.mBoundRadius = radius;
+    
+    this.updateInertia();
+};
+gEngine.Core.inheritPrototype(RigidCircle, RigidShape);
+
+/**
+ * Update the inertia
+ * @memberOf RigidCircle
+ */
+RigidCircle.prototype.updateInertia = function () {
+    if (this.mInvMass === 0) {
+        this.mInertia = 0;
+    } else {
+        // this.mInvMass is inverted!!
+        // Inertia=mass * radius^2
+        // 12 is a constant value that can be changed
+        this.mInertia = (1 / this.mInvMass) * (this.mRadius * this.mRadius) / 12;
+    }
+};
+
+/**
+ * Increase the radius by the passed amount
+ * @memberOf RigidCircle
+ * @param {float} dt The amount to increase the radius by
+ */
+RigidCircle.prototype.incShapeSizeBy= function (dt) {
+    this.mRadius += dt;
+};
+
+/**
+ * Draws the Rigid Circle
+ * @memberOf RigidCircle
+ * @param {Camera} aCamera The camera to draw it on
+ */
+RigidCircle.prototype.draw = function (aCamera) {
+    RigidShape.prototype.draw.call(this, aCamera);
+    
+    // kNumSides forms the circle.
+    this.mLine.setColor([0, 0, 0, 1]);
+    this.drawCircle(aCamera, this.mRadius);
+    
+    var p = this.mXform.getPosition();
+    var u = [p[0], p[1]+this.mBoundRadius];
+    // angular motion
+    vec2.rotateWRT(u, u, this.mXform.getRotationInRad(), p);
+    this.mLine.setColor([1, 1, 1, 1]);
+    this.mLine.setFirstVertex(p[0], p[1]);
+    this.mLine.setSecondVertex(u[0], u[1]);
+    this.mLine.draw(aCamera);
+    
+    if (this.mDrawBounds)
+        this.drawCircle(aCamera, this.mBoundRadius);
+};
+
+/**
+ * Updates the RigidCircle
+ * @memberOf RigidCircle
+ */
+RigidCircle.prototype.update = function () {
+    RigidShape.prototype.update.call(this);
+};
+
+/**
+ * Get the radius of the Rigid Circle
+ * @memberOf RigidCircle
+ * @returns {float}
+ */
+RigidCircle.prototype.getRadius = function () { return this.mRadius; };
+/**
+ * Sets the Rigid Circle to a new transform
+ * @memberOf RigidCircle
+ * @param {Transform} xf Which transform to set the RigidCircle to
+ */
+RigidCircle.prototype.setTransform = function (xf) {
+    RigidShape.prototype.setTransform.call(this, xf);
+    this.mRadius = xf.getWidth();  // assume width and height are the same
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

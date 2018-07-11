@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Core/Engine_VertexBuffer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Core/Engine_VertexBuffer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * File: EngineCore_VertexBuffer.js
+ *  
+ * defines the object that supports the loading and using of the buffer that 
+ * contains vertex positions of a square onto the gGL context
+ * 
+ * Notice, this is a singleton object.
+ */
+
+/*jslint node: true, vars: true */
+/*global Float32Array */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+"use strict";  // Operate in Strict mode such that variables must be declared before used!
+
+/**
+ * Static refrence to gEngine
+ * @type gEngine
+ */
+var gEngine = gEngine || { };
+
+// The VertexBuffer object
+/**
+ * Default Constructor&lt;p>
+ * defines the object that supports the loading and using of the buffer that&lt;p>
+ * contains vertex positions of a square onto the gGL context&lt;p>
+ * &lt;p>
+ * Notice, this is a singleton object.
+ * @class gEngine.VertexBuffer
+ * @type gEngine.VertexBuffer
+ */
+gEngine.VertexBuffer = (function () {
+    // reference to the vertex positions for the square in the gl context
+    var mSquareVertexBuffer = null;
+
+    // reference to the texture positions for the square vertices in the gl context
+    var mTextureCoordBuffer = null;
+
+    // First: define the vertices for a square
+    var verticesOfSquare = [
+        0.5, 0.5, 0.0,
+        -0.5, 0.5, 0.0,
+        0.5, -0.5, 0.0,
+        -0.5, -0.5, 0.0
+    ];
+
+    // Second: define the corresponding texture coordinates
+    var textureCoordinates = [
+        1.0, 1.0,
+        0.0, 1.0,
+        1.0, 0.0,
+        0.0, 0.0
+    ];
+    // this is to support the debugging of physics engine
+    var verticesOfLine = [
+        0.5, 0.5, 0.0,
+        -0.5, -0.5, 0.0
+    ];
+    // reference to the texture positions for the square vertices in the gl context
+    var mLineVertexBuffer = null;
+
+    /**
+     * Initilize the Vertex Buffer
+     * @memberOf gEngine.VertexBuffer
+     * @returns {undefined}
+     */
+    var initialize = function () {
+        var gl = gEngine.Core.getGL();
+
+        // &lt;editor-fold desc="Step A: Allocate and store vertex positions into the webGL context">
+        // Create a buffer on the gGL context for our vertex positions
+        mSquareVertexBuffer = gl.createBuffer();
+
+        // Activate vertexBuffer
+        gl.bindBuffer(gl.ARRAY_BUFFER, mSquareVertexBuffer);
+
+        // Loads verticesOfSquare into the vertexBuffer
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verticesOfSquare), gl.STATIC_DRAW);
+        //&lt;editor-fold>
+
+        // &lt;editor-fold desc="Step  B: Allocate and store texture coordinates">
+        // Create a buffer on the gGL context for our vertex positions
+        mTextureCoordBuffer = gl.createBuffer();
+
+        // Activate vertexBuffer
+        gl.bindBuffer(gl.ARRAY_BUFFER, mTextureCoordBuffer);
+
+        // Loads verticesOfSquare into the vertexBuffer
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates), gl.STATIC_DRAW);
+        // &lt;/editor-fold>
+
+        // &lt;editor-fold desc="Step A: Allocate and store vertex positions into the webGL context">
+        // Create a buffer on the gGL context for our vertex positions
+        mLineVertexBuffer = gl.createBuffer();
+
+        // Connect the vertexBuffer to the ARRAY_BUFFER global gl binding point.
+        gl.bindBuffer(gl.ARRAY_BUFFER, mLineVertexBuffer);
+
+        // Put the verticesOfSquare into the vertexBuffer, as non-changing drawing data (STATIC_DRAW)
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verticesOfLine), gl.STATIC_DRAW);
+        //&lt;editor-fold>
+    };
+
+    /**
+     * Return reference to the vertex positions for the square in the gl context
+     * @memberOf gEngine.VertexBuffer
+     * @returns {VertexBuffer}
+     */
+    var getGLVertexRef = function () { return mSquareVertexBuffer; };
+    
+    /**
+     * Return reference to the texture positions for the square vertices in the gl context
+     * @memberOf gEngine.VertexBuffer
+     * @returns {CoordinateBuffer}
+     */
+    var getGLTexCoordRef = function () { return mTextureCoordBuffer; };
+    
+    /**
+     * Return reference to the texture positions for the square vertices in the gl context
+     * @memberOf gEngine.VertexBuffer
+     * @returns {VertexBuffer}
+     */
+    var getGLLineVertexRef = function () { return mLineVertexBuffer; };
+
+    /**
+     * Detaches and removes the resources from the DefaultResources Program.
+     * @memberOf gEngine.VertexBuffer
+     * @returns {void}
+     */
+    var cleanUp = function () {
+        var gl = gEngine.Core.getGL();
+        gl.deleteBuffer(mSquareVertexBuffer);
+        gl.deleteBuffer(mTextureCoordBuffer);
+        gl.deleteBuffer(mLineVertexBuffer);
+    };
+
+    var mPublic = {
+        initialize: initialize,
+        getGLVertexRef: getGLVertexRef,
+        getGLTexCoordRef: getGLTexCoordRef,
+        getGLLineVertexRef: getGLLineVertexRef,
+        cleanUp: cleanUp
+    };
+
+    return mPublic;
+}());</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

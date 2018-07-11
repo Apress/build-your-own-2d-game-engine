@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Core/Engine_LayerManager.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Core/Engine_LayerManager.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * File: Engine_LayerManager.js 
+ * Central storage for all elements that would be drawn 
+ */
+/*jslint node: true, vars: true, white: true*/
+/*global GameObjectSet */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+//  Global variable EngineCore
+//  the following syntax enforces there can only be one instance of EngineCore object
+"use strict";  // Operate in Strict mode such that variables must be declared before used!
+
+/**
+ * Static refrence to gEngine
+ * @type gEngine
+ */
+var gEngine = gEngine || { };
+    // initialize the variable while ensuring it is not redefined
+
+/**
+ * Layer enum
+ * @memberOf gEngine.eLayer
+ * @type enum|eLayer
+ */
+gEngine.eLayer = Object.freeze({
+    eBackground: 0,
+    eShadowReceiver: 1,
+    eActors: 2,
+    eFront: 3,
+    eHUD: 4
+});
+
+/**
+ * Global variable EngineLayerManager&lt;p>
+ * Central storage for all elements that would be drawn 
+ * @class gEngine.eLayer
+ * @type gEngine.LayerManager
+ */
+gEngine.LayerManager = (function () {
+    // instance variables
+    var kNumLayers = 5;
+    
+    var mAllLayers = [];
+    
+    /**
+     * Initilize the LayerManager
+     * @memberOf gEngine.LayerManager
+     * @returns {void}
+     */
+    var initialize = function() {
+        mAllLayers[gEngine.eLayer.eBackground] = new GameObjectSet();
+        mAllLayers[gEngine.eLayer.eShadowReceiver] = new GameObjectSet();
+        mAllLayers[gEngine.eLayer.eActors] = new GameObjectSet();
+        mAllLayers[gEngine.eLayer.eFront] = new GameObjectSet();
+        mAllLayers[gEngine.eLayer.eHUD] = new GameObjectSet();
+    };
+    
+    /**
+     * Initilize the LayerManager
+     * @memberOf gEngine.LayerManager
+     * @returns {void}
+     */
+    var cleanUp = function() {
+        initialize();
+    };
+    
+    /**
+     * Draw all Layers
+     * @memberOf gEngine.LayerManager
+     * @param {Camera} aCamera to draw Layers too
+     * @returns {void}
+     */
+    var drawAllLayers = function(aCamera) {
+        var i;
+        for (i=0; i&lt;kNumLayers; i++) {
+            mAllLayers[i].draw(aCamera);
+        }
+    };
+    
+    /**
+     * Update all Layers
+     * @memberOf gEngine.LayerManager
+     * @returns {void}
+     */
+    var updateAllLayers = function() {
+        var i;
+        for (i=0; i&lt;kNumLayers; i++) {
+            mAllLayers[i].update();
+        }
+    };
+    
+    // operations on the layers
+    
+    /**
+     * Draw layer index
+     * @memberOf gEngine.eLayer
+     * @param {Number} layerEnum layer index to draw
+     * @param {Camera} aCamera to draw layer to
+     * @returns {void}
+     */
+    var drawLayer = function(layerEnum, aCamera) {
+        mAllLayers[layerEnum].draw(aCamera);
+    };
+    
+    /**
+     * Update layer index
+     * @memberOf gEngine.LayerManager
+     * @param {Number} layerEnum layer index to update
+     * @returns {void}
+     */
+    var updateLayer = function(layerEnum) {
+        mAllLayers[layerEnum].update();
+    };
+    
+    /**
+     * Add Renderable to Layer
+     * @memberOf gEngine.LayerManager
+     * @param {Number} layerEnum layer index to add to
+     * @param {Renderable} obj to add to Layer
+     * @returns {void}
+     */
+    var addToLayer = function(layerEnum, obj) {
+        mAllLayers[layerEnum].addToSet(obj);
+    };
+    
+    /**
+     * add the shadow caster objects (obj) to the layer manager.
+     * @memberOf gEngine.LayerManager
+     * @param {ShadowCaster} obj object to add
+     * @returns {void}
+     */
+    var addAsShadowCaster = function(obj) {
+        var i;
+        for (i = 0; i&lt;mAllLayers[gEngine.eLayer.eShadowReceiver].size(); i++) {
+            mAllLayers[gEngine.eLayer.eShadowReceiver].getObjectAt(i).addShadowCaster(obj);
+        }
+    };
+    
+    /**
+     * Remove object from Layer
+     * @memberOf gEngine.LayerManager
+     * @param {Number} layerEnum layer index to remove from
+     * @param {Renderable} obj to remove from set
+     * @returns {void}
+     */
+    var removeFromLayer = function(layerEnum, obj) {
+        mAllLayers[layerEnum].removeFromSet(obj);
+    };
+    
+    /**
+     * Move the obj such that it will be drawn on top of all other objects in the layer
+     * @memberOf gEngine.LayerManager
+     * @param {Number} layerEnum layer index to move
+     * @param {Renderanle} obj Object to move
+     * @returns {void}
+     */
+    var moveToLayerFront = function(layerEnum, obj) {
+        mAllLayers[layerEnum].moveToLast(obj);
+    };
+    
+    /**
+     * Return the count of obects within layer
+     * @memberOf gEngine.LayerManager
+     * @param {Number} layerEnum Layer index
+     * @returns {Number}
+     */
+    var layerSize = function(layerEnum) {
+        return mAllLayers[layerEnum].size();
+    };
+
+    var mPublic = {
+      initialize: initialize,
+      drawAllLayers: drawAllLayers,
+      updateAllLayers: updateAllLayers,
+      cleanUp: cleanUp,
+      
+      drawLayer: drawLayer,
+      updateLayer: updateLayer,
+      addToLayer: addToLayer,
+      addAsShadowCaster: addAsShadowCaster,
+      removeFromLayer: removeFromLayer,
+      moveToLayerFront: moveToLayerFront,
+      layerSize: layerSize
+    };
+
+    return mPublic;
+}());
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

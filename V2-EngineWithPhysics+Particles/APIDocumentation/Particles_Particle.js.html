@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Particles/Particle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Particles/Particle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * File: Particle.js
+ * Defines a particle
+ */
+
+/*jslint node: true, vars:true , white: true*/
+/*global gEngine, vec2, LineRenderable */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+"use strict";
+
+/**
+ * Default Constructor&lt;p>
+ * Defines a particle
+ * @param {vec2} pos Position of particle
+ * @returns {Particle} New instance of Particle
+ * @class Particle
+ */
+function Particle(pos) {
+    this.kPadding = 0.5;   // for drawing particle bounds
+    
+    this.mPosition = pos;  // this is likely to be a reference to xform.mPosition
+    this.mVelocity = vec2.fromValues(0, 0);
+    this.mAcceleration = gEngine.ParticleSystem.getSystemtAcceleration();
+    this.mDrag = 0.95; 
+    
+    this.mPositionMark = new LineRenderable();
+    this.mDrawBounds = false;
+}
+
+/**
+ * Draw function called by GameLoop
+ * @param {Camera} aCamera Camera to draw too
+ * @returns {void}
+ * @memberOf Particle
+ */
+Particle.prototype.draw = function (aCamera) {
+    if (!this.mDrawBounds) {
+        return;
+    }
+    
+    //calculation for the X at the particle position
+    var x = this.mPosition[0];
+    var y = this.mPosition[1];
+
+    this.mPositionMark.setFirstVertex(x - this.kPadding, y + this.kPadding);  //TOP LEFT
+    this.mPositionMark.setSecondVertex(x + this.kPadding, y - this.kPadding); //BOTTOM RIGHT
+    this.mPositionMark.draw(aCamera);
+
+    this.mPositionMark.setFirstVertex(x + this.kPadding, y + this.kPadding);  //TOP RIGHT
+    this.mPositionMark.setSecondVertex(x - this.kPadding, y - this.kPadding); //BOTTOM LEFT
+    this.mPositionMark.draw(aCamera);
+};
+
+/**
+/**
+ * Update Function called by GameLoop
+ * @returns {void}
+ * @memberOf Particle
+ */
+Particle.prototype.update = function () {
+    var dt = gEngine.GameLoop.getUpdateIntervalInSeconds();
+    
+    // Symplectic Euler
+    //    v += a * dt
+    //    x += v * dt
+    var p = this.getPosition();
+    vec2.scaleAndAdd(this.mVelocity, this.mVelocity, this.mAcceleration, dt);
+    vec2.scale(this.mVelocity, this.mVelocity, this.mDrag);
+    vec2.scaleAndAdd(p, p, this.mVelocity, dt);
+};
+
+/**
+ * Set the particle Color
+ * @param {Float[]} color new color of particle [R, G, B, A]
+ * @returns {void}
+ * @memberOf Particle
+ */
+Particle.prototype.setColor = function (color) {
+    this.mPositionMark.setColor(color);
+};
+
+/**
+ * Return the current color of the particle
+ * @returns {Float[]} current color [R, G, B, A]
+ * @memberOf Particle
+ */
+Particle.prototype.getColor = function () { return this.mPositionMark.getColor(); };
+
+/**
+ * Set the bound drawing state
+ * @param {Boolean} d true if bounds are to be drawn
+ * @returns {void}
+ * @memberOf Particle
+ */
+Particle.prototype.setDrawBounds = function(d) { this.mDrawBounds = d; };
+
+/**
+ * Returns the bound drawing state
+ * @returns {Boolean} true of bounds are drawn
+ * @memberOf Particle
+ */
+Particle.prototype.getDrawBounds = function() { return this.mDrawBounds; };
+
+/**
+ * Set new position
+ * @param {Number} xPos New X position
+ * @param {Number} yPos New Y position
+ * @returns {void}
+ * @memberOf Particle
+ */
+Particle.prototype.setPosition = function (xPos, yPos) { this.setXPos(xPos); this.setYPos(yPos); };
+
+/**
+ * Return current position
+ * @returns {vec2} current position of particle [X, Y]
+ * @memberOf Particle
+ */
+Particle.prototype.getPosition = function () { return this.mPosition; };
+
+/**
+ * Return the X position
+ * @returns {Number} current X position
+ * @memberOf Particle
+ */
+Particle.prototype.getXPos = function () { return this.mPosition[0]; };
+
+/**
+ * Set the X position
+ * @param {Number} xPos new X position
+ * @returns {void}
+ * @memberOf Particle
+ */
+Particle.prototype.setXPos = function (xPos) { this.mPosition[0] = xPos; };
+
+/**
+ * Return the Y position
+ * @returns {Number} current Y position
+ * @memberOf Particle
+ */
+Particle.prototype.getYPos = function () { return this.mPosition[1]; };
+
+/**
+ * Set the Y position
+ * @param {Number} yPos new Y position
+ * @returns {void}
+ * @memberOf Particle
+ */
+Particle.prototype.setYPos = function (yPos) { this.mPosition[1] = yPos; };
+
+/**
+ * Set Velocity
+ * @param {vec2} f new Velocity [X, Y]
+ * @returns {void}
+ * @memberOf Particle
+ */
+Particle.prototype.setVelocity = function (f) { this.mVelocity = f; };
+
+/**
+ * Return Velocity
+ * @returns {vec2} current Velocity [X, Y]
+ * @memberOf Particle
+ */
+Particle.prototype.getVelocity = function () { return this.mVelocity; };
+
+/**
+ * Set Acceleration
+ * @param {Float[]} g new Acceleration [X, Y]
+ * @returns {undefined}
+ * @memberOf Particle
+ */
+Particle.prototype.setAcceleration = function (g) { this.mAcceleration = g; };
+
+/**
+ * Return Acceleration
+ * @returns {Float[]} current Acceleration [X, Y]
+ * @memberOf Particle
+ */
+Particle.prototype.getAcceleration = function () { return this.mAcceleration; };
+
+/**
+ * Set Drag
+ * @param {Number} d new Drag value
+ * @returns {void}
+ * @memberOf Particle
+ */
+Particle.prototype.setDrag = function (d) { this.mDrag = d; };
+
+/**
+ * Return Drag
+ * @returns {Number} current drag value
+ * @memberOf Particle
+ */
+Particle.prototype.getDrag = function () { return this.mDrag; };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
