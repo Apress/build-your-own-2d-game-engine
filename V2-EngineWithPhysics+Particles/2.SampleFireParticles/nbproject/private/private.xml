@@ -26,6 +26,11 @@
             <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/AdditionalMaterials/2018.3.EngineWithRigidPhysics/public_html/src/Engine/Core/Engine_ParticleSystem.js</file>
             <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/AdditionalMaterials/2018.3.EngineWithRigidPhysics/public_html/index.html</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/D:/BIONICLE%20IGNIKA/test/NetBeansProjects/Phase2/build-your-own-2d-game-engine-master/build-your-own-2d-game-engine-master/V2-EngineWithPhysics+Particles/2.SampleFireParticles/public_html/src/Engine/Particles/ParticleSystems/Fire.js</file>
+            <file>file:/D:/BIONICLE%20IGNIKA/test/NetBeansProjects/Phase2/build-your-own-2d-game-engine-master/build-your-own-2d-game-engine-master/V2-EngineWithPhysics+Particles/2.SampleFireParticles/public_html/src/Engine/Particles/ParticleGameObjectSet.js</file>
+            <file>file:/D:/BIONICLE%20IGNIKA/test/NetBeansProjects/Phase2/build-your-own-2d-game-engine-master/build-your-own-2d-game-engine-master/V2-EngineWithPhysics+Particles/2.SampleFireParticles/public_html/src/MyGame/MyGame.js</file>
+            <file>file:/D:/BIONICLE%20IGNIKA/test/NetBeansProjects/Phase2/build-your-own-2d-game-engine-master/build-your-own-2d-game-engine-master/V2-EngineWithPhysics+Particles/2.SampleFireParticles/public_html/src/Engine/Particles/ParticleEmitter.js</file>
+        </group>
     </open-files>
 </project-private>
