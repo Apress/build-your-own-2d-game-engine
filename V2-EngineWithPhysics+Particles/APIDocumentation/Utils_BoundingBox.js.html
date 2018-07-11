@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Utils/BoundingBox.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Utils/BoundingBox.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * File: BoundingBox.js
+ * Encapsulates an axis aligned box
+ */
+
+/*jslint node: true, vars: true, bitwise: true */
+/*global vec2 */
+/* find out more about jslint: http://www.jslint.com/help.html */
+"use strict";
+
+/**
+ * Default Constructor
+ * Encapsulates an axis aligned box
+ * @memberOf BoundingBox
+ * @param {vec2} centerPos Center postion of the bounding box
+ * @param {Number} w Width of the bounding box
+ * @param {Number} h Height of the bounding box
+ * @returns {BoundingBox} New instance of BoundingBox
+ */
+function BoundingBox(centerPos, w, h) {
+    this.mLL = vec2.fromValues(0, 0);
+    this.setBounds(centerPos, w, h);
+}
+
+/**
+ * Collision Status values
+ * @memberOf BoundingBox
+ * @type {enum|eboundCollideStatus}
+ */
+BoundingBox.eboundCollideStatus = Object.freeze({
+    eCollideLeft: 1,
+    eCollideRight: 2,
+    eCollideTop: 4,
+    eCollideBottom: 8,
+    eInside : 16,
+    eOutside: 0
+});
+/**
+ * Set the BoundingBox Location and Size. rotation is ignored.
+ * @memberOf BoundingBox
+ * @param {vec2} centerPos Center postion of the bounding box
+ * @param {Number} w Width of the bounding box
+ * @param {Number} h Height of the bounding box
+ * @returns {void}
+ */
+BoundingBox.prototype.setBounds = function (centerPos, w, h) {
+    this.mWidth = w;
+    this.mHeight = h;
+    this.mLL[0] = centerPos[0] - (w / 2);
+    this.mLL[1] = centerPos[1] - (h / 2);
+};
+
+/**
+ * Determines if x,y point is inside BoundingBox
+ * @memberOf BoundingBox
+ * @param {type} x X location to check
+ * @param {type} y Y location to check
+ * @returns {Boolean} true if x,y point is inside this BoundingBox
+ */
+BoundingBox.prototype.containsPoint = function (x, y) {
+    return ((x > this.minX()) &amp;&amp; (x &lt; this.maxX()) &amp;&amp;
+             (y > this.minY()) &amp;&amp; (y &lt; this.maxY()));
+};
+
+/**
+ * Determines if parameter BoundingBox intersects with this BoundingBox
+ * @memberOf BoundingBox
+ * @param {BoundingBox} otherBound to check intersect status
+ * @returns {Boolean} true if paramater intersects this BoundingBox
+ */
+BoundingBox.prototype.intersectsBound = function (otherBound) {
+    return ((this.minX() &lt; otherBound.maxX()) &amp;&amp;
+            (this.maxX() > otherBound.minX()) &amp;&amp;
+            (this.minY() &lt; otherBound.maxY()) &amp;&amp;
+            (this.maxY() > otherBound.minY()));
+};
+
+/**
+ * Return the collision status of parameter BoundingBox
+ * @memberOf BoundingBox
+ * @param {BoundingBox} otherBound to check collision status
+ * @returns {eboundCollideStatus} collision status
+ */
+// returns the status of otherBound wrt to this.
+BoundingBox.prototype.boundCollideStatus = function (otherBound) {
+    var status = BoundingBox.eboundCollideStatus.eOutside;
+
+    if (this.intersectsBound(otherBound)) {
+        if (otherBound.minX() &lt; this.minX()) {
+            status |= BoundingBox.eboundCollideStatus.eCollideLeft;
+        }
+        if (otherBound.maxX() > this.maxX()) {
+            status |= BoundingBox.eboundCollideStatus.eCollideRight;
+        }
+        if (otherBound.minY() &lt; this.minY()) {
+            status |= BoundingBox.eboundCollideStatus.eCollideBottom;
+        }
+        if (otherBound.maxY() > this.maxY()) {
+            status |= BoundingBox.eboundCollideStatus.eCollideTop;
+        }
+
+        // if the bounds intersects and yet none of the sides overlaps
+        // otherBound is completely inside thisBound
+        if (status === BoundingBox.eboundCollideStatus.eOutside) {
+            status = BoundingBox.eboundCollideStatus.eInside;
+        }
+    }
+    return status;
+};
+
+/**
+ * Return the left position of the BoundingBox
+ * @memberOf BoundingBox
+ * @returns {Number} left position
+ */
+BoundingBox.prototype.minX = function () { return this.mLL[0]; };
+
+/**
+ * Return the right position of the BoundingBox
+ * @memberOf BoundingBox
+ * @returns {Number} right position
+ */
+BoundingBox.prototype.maxX = function () { return this.mLL[0] + this.mWidth; };
+
+/**
+ * Return the bottom position of the BoundingBox
+ * @memberOf BoundingBox
+ * @returns {Number} bottom position
+ */
+BoundingBox.prototype.minY = function () { return this.mLL[1]; };
+
+/**
+ * Return the top position of the BoundingBox
+ * @memberOf BoundingBox
+ * @returns {Number} top position
+ */
+BoundingBox.prototype.maxY = function () { return this.mLL[1] + this.mHeight; };
+//&lt;/editor-fold></code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

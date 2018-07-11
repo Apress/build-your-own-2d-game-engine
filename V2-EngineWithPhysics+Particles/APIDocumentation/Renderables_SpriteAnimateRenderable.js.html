@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Renderables/SpriteAnimateRenderable.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Renderables/SpriteAnimateRenderable.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * File: SpriteAnimateRenderable.js
+ */
+
+/*jslint node: true, vars: true */
+/*global gEngine: false, Renderable: false, TextureRenderable: false, SpriteRenderable: false */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+// Constructor and object definition
+"use strict";  // Operate in Strict mode such that variables must be declared before used!
+
+/**
+ * Constructor of SpriteAnimateRenderable object.
+ * @param {Texture} myTexture Texture to be associated by object.
+ * @returns {SpriteAnimateRenderable} Instance of this SpriteAnimateRenderable object
+ * @class SpriteAnimateRenderable
+ */
+function SpriteAnimateRenderable(myTexture) {
+    SpriteRenderable.call(this, myTexture);
+    Renderable.prototype._setShader.call(this, gEngine.DefaultResources.getSpriteShader());
+
+    // All coordinates are in texture coordinate (UV between 0 to 1)
+
+    // Information on the sprite element
+    this.mFirstElmLeft = 0.0; // 0.0 is left corner of image
+    this.mElmTop = 1.0;  // 1.0 is top corner of image
+    this.mElmWidth = 1.0;     // default sprite element size is the entire image
+    this.mElmHeight = 1.0;
+    this.mWidthPadding = 0.0;
+    this.mNumElems = 1;   // number of elements in an animation
+
+    //
+    // per animation settings
+    this.mUpdateInterval = 1;   // how often to advance
+    this.mAnimationType = SpriteAnimateRenderable.eAnimationType.eAnimateRight;
+
+    this.mCurrentAnimAdvance = -1;
+    this.mCurrentElm = 0;
+    this._initAnimation();
+}
+gEngine.Core.inheritPrototype(SpriteAnimateRenderable, SpriteRenderable);
+
+SpriteAnimateRenderable.prototype._initAnimation = function () {
+    // Currently running animation
+    this.mCurrentTick = 0;
+    switch (this.mAnimationType) {
+    case SpriteAnimateRenderable.eAnimationType.eAnimateRight:
+        this.mCurrentElm = 0;
+        this.mCurrentAnimAdvance = 1; // either 1 or -1
+        break;
+    case SpriteAnimateRenderable.eAnimationType.eAnimateSwing:
+        this.mCurrentAnimAdvance = -1 * this.mCurrentAnimAdvance; // swings ... 
+        this.mCurrentElm += 2 * this.mCurrentAnimAdvance;
+        break;
+    case SpriteAnimateRenderable.eAnimationType.eAnimateLeft:
+        this.mCurrentElm = this.mNumElems - 1;
+        this.mCurrentAnimAdvance = -1; // either 1 or -1
+        break;
+    }
+    this._setSpriteElement();
+};
+
+SpriteAnimateRenderable.prototype._setSpriteElement = function () {
+    var left = this.mFirstElmLeft + (this.mCurrentElm * (this.mElmWidth + this.mWidthPadding));
+    SpriteRenderable.prototype.setElementUVCoordinate.call(this, left, left + this.mElmWidth,
+                                        this.mElmTop - this.mElmHeight, this.mElmTop);
+};
+
+
+//&lt;editor-fold desc="Public Methods">
+//**-----------------------------------------
+// Public methods
+//**-----------------------------------------
+/**
+ * Assumption is that the first sprite in an animation is always the left-most element.
+ * @memberOf SpriteAnimateRenderable
+ * @type enum|eAnimationType
+ */
+SpriteAnimateRenderable.eAnimationType = Object.freeze({
+    eAnimateRight: 0,     // Animate from first (left) towards right, when hit the end, start from the left again
+    eAnimateLeft: 1,      // Compute find the last element (in the right), start from the right animate left-wards, 
+    eAnimateSwing: 2      // Animate from first (left) towards the right, when hit the end, animates backwards 
+});
+
+/**
+ * Set the Sprite animation sequence parameters
+ * Always set the left-most element to be the first
+ * @param {Number} topPixel Top of the sprite row in pixel
+ * @param {Number} leftPixel left most pixel of the first animation frame in pixel
+ * @param {Number} elmWidthInPixel width of the animation in pixel
+ * @param {Number} elmHeightInPixel height of the animation in pixel
+ * @param {Number} numElements number of animation frames
+ * @param {Number} wPaddingInPixel pixel padding between animation frames
+ * @returns {void}
+ * @memberOf SpriteAnimateRenderable
+ */
+SpriteAnimateRenderable.prototype.setSpriteSequence = function (
+    topPixel,   // offset from top-left
+    leftPixel, // offset from top-left
+    elmWidthInPixel,
+    elmHeightInPixel,
+    numElements,      // number of elements in sequence
+    wPaddingInPixel  // left/right padding
+) {
+    var texInfo = gEngine.ResourceMap.retrieveAsset(this.mTexture);
+    // entire image width, height
+    var imageW = texInfo.mWidth;
+    var imageH = texInfo.mHeight;
+
+    this.mNumElems = numElements;   // number of elements in animation
+    this.mFirstElmLeft = leftPixel / imageW;
+    this.mElmTop = topPixel / imageH;
+    this.mElmWidth = elmWidthInPixel / imageW;
+    this.mElmHeight = elmHeightInPixel / imageH;
+    this.mWidthPadding = wPaddingInPixel / imageW;
+    this._initAnimation();
+};
+
+/**
+ * Set the frame change speed
+ * @param {Number} tickInterval number of update calls between animation frames
+ * @returns {void}
+ * @memberOf SpriteAnimateRenderable
+ */
+SpriteAnimateRenderable.prototype.setAnimationSpeed = function (
+    tickInterval   // number of update calls before advancing the animation
+) {
+    this.mUpdateInterval = tickInterval;   // how often to advance
+};
+
+/**
+ * Increment the animation frame change speed
+ * @param {Number} deltaInterval increment by number of update calls between animation frames
+ * @returns {void}
+ * @memberOf SpriteAnimateRenderable
+ */
+SpriteAnimateRenderable.prototype.incAnimationSpeed = function (
+    deltaInterval   // number of update calls before advancing the animation
+) {
+    this.mUpdateInterval += deltaInterval;   // how often to advance
+};
+
+/**
+ * Set animation type (eAnimateRight, eAnimateLeft, eAnimateSwing)
+ * @param {eAnimationType|enum} animationType enum of animation type
+ * @returns {void}
+ * @memberOf SpriteAnimateRenderable
+ */
+SpriteAnimateRenderable.prototype.setAnimationType = function (animationType) {
+    this.mAnimationType = animationType;
+    this.mCurrentAnimAdvance = -1;
+    this.mCurrentElm = 0;
+    this._initAnimation();
+};
+
+/**
+ * Update the animation interval
+ * @returns {void}
+ * @memberOf SpriteAnimateRenderable
+ */
+SpriteAnimateRenderable.prototype.updateAnimation = function () {
+    this.mCurrentTick++;
+    if (this.mCurrentTick >= this.mUpdateInterval) {
+        this.mCurrentTick = 0;
+        this.mCurrentElm += this.mCurrentAnimAdvance;
+        if ((this.mCurrentElm >= 0) &amp;&amp; (this.mCurrentElm &lt; this.mNumElems)) {
+            this._setSpriteElement();
+        } else {
+            this._initAnimation();
+        }
+    }
+};
+//--- end of Public Methods
+//
+//&lt;/editor-fold></code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

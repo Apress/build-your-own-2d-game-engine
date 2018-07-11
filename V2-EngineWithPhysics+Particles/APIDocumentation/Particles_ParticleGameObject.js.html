@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Particles/ParticleGameObject.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Particles/ParticleGameObject.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* File: ParticleGameObject.js 
+ *
+ * support particle object particulars: color change and expiration
+ */
+
+/*jslint node: true, vars: true, white: true */
+/*global gEngine, GameObject, ParticleRenderable, Particle, vec4, vec2 */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+"use strict";  // Operate in Strict mode such that variables must be declared before used!
+
+/**
+ * Default Contsructor&lt;p>
+ * support particle object particulars: color change and expiration
+ * @param {String} texture Texture filename
+ * @param {Number} atX X Position of particle
+ * @param {Number} atY Y Position of particle
+ * @param {Number} cyclesToLive Number of gameupdates to live
+ * @returns {ParticleGameObject} New instance of ParticleGameObject
+ * @class ParticleGameObject
+ */
+function ParticleGameObject(texture, atX, atY, cyclesToLive) {
+    var renderableObj = new ParticleRenderable(texture);
+    var xf = renderableObj.getXform();
+    xf.setPosition(atX, atY);
+    GameObject.call(this, renderableObj);
+    
+    this.mParticle = new Particle(xf.getPosition());
+    // this.setPhysicsComponent(p);  &lt;-- does not work with the new physics engine
+    
+    this.mDeltaColor = [0, 0, 0, 0];
+    this.mSizeDelta = 0;
+    this.mCyclesToLive = cyclesToLive;
+}
+gEngine.Core.inheritPrototype(ParticleGameObject, GameObject);
+
+/**
+ * Set final color for the particle to change to during its life
+ * @param {Float[]} f final color of particle [R, G, B, A]
+ * @returns {void}
+ * @memberOf ParticleGameObject
+ */
+ParticleGameObject.prototype.setFinalColor = function(f) {    
+    vec4.sub(this.mDeltaColor, f, this.mRenderComponent.getColor());
+    if (this.mCyclesToLive !== 0) {
+        vec4.scale(this.mDeltaColor, this.mDeltaColor, 1/this.mCyclesToLive);
+    }
+};
+
+/**
+ * Set the size delta of the particle
+ * @param {Number} d Sife of particle
+ * @returns {void}
+ * @memberOf ParticleGameObject
+ */
+ParticleGameObject.prototype.setSizeDelta = function(d) {
+    this.mSizeDelta = d;
+};
+
+/**
+ * Return if the particle has expired
+ * @returns {Boolean} True if the particle is out of cycles
+ * @memberOf ParticleGameObject
+ */
+ParticleGameObject.prototype.hasExpired = function() {
+    return (this.mCyclesToLive &lt; 0);
+};
+
+/**
+ * Update Function called by GameLoop
+ * @returns {void}
+ * @memberOf ParticleGameObject
+ */
+ParticleGameObject.prototype.update = function () {
+    // GameObject.prototype.update.call(this); &lt;== does not work (yet) with the new physics engine
+    this.mParticle.update();
+    this.getXform().setPosition(this.mParticle.getXPos(), this.mParticle.getYPos());
+    
+    this.mCyclesToLive--;
+    var c = this.mRenderComponent.getColor();
+    vec4.add(c, c, this.mDeltaColor);
+    
+    var xf = this.getXform();
+    var s = xf.getWidth() * this.mSizeDelta;
+    xf.setSize(s, s);
+};
+/**
+ * Returns the Particle
+ * @memberOf ParticleGameObject
+ * @returns {Particle} The particle of the ParticleGameObject
+ */
+ParticleGameObject.prototype.getParticle = function () { return this.mParticle; };
+/**
+ * Return the transform of the particle
+ * @memberOf ParticleGameObject
+ * @returns {Transform} the transform tied to the particle
+ */
+ParticleGameObject.prototype.getX = function () { return this.getXform(); };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

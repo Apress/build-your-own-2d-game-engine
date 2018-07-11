@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Renderables/SpriteRenderable.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Renderables/SpriteRenderable.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * File: SpriteRenderable.js
+ *  
+ * Texture objects where texture coordinate can change
+ */
+/*jslint node: true, vars: true */
+/*global gEngine: false, Renderable: false, TextureRenderable: false */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+// Constructor and object definition
+"use strict";  // Operate in Strict mode such that variables must be declared before used!
+
+/**
+ * Constructor of SpriteRenderable object.
+ * @class SpriteRenderable
+ * @param {Texture} myTexture Texture to be associated by object.
+ * @returns {SpriteRenderable} Instance of this SpriteRenderable object
+ */
+function SpriteRenderable(myTexture) {
+    TextureRenderable.call(this, myTexture);
+    Renderable.prototype._setShader.call(this, gEngine.DefaultResources.getSpriteShader());
+    this.mTexLeft = 0.0;   // bounds of texture coordinate (0 is left, 1 is right)
+    this.mTexRight = 1.0;  // 
+    this.mTexTop = 1.0;    //   1 is top and 0 is bottom of image
+    this.mTexBottom = 0.0; // 
+
+    // 
+    this._setTexInfo();
+}
+gEngine.Core.inheritPrototype(SpriteRenderable, TextureRenderable);
+
+//&lt;editor-fold desc="Public Methods">
+
+// Convention: eName is an enumerated data type
+/**
+ * the expected texture cooridnate array is an array of 8 floats where elements:&lt;p>
+ * [0] [1]: is u/v coordinate of Top-Right&lt;p>
+ * [2] [3]: is u/v coordinate of Top-Left&lt;p>
+ * [4] [5]: is u/v coordinate of Bottom-Right&lt;p>
+ * [6] [7]: is u/v coordinate of Bottom-Left
+ * @memberOf SpriteRenderable
+ * @type {float[]|enum}
+ */
+SpriteRenderable.eTexCoordArray = Object.freeze({
+    eLeft: 2,
+    eRight: 0,
+    eTop: 1,
+    eBottom: 5
+});
+
+//**-----------------------------------------
+// Public methods
+//**-----------------------------------------
+
+/**
+ * specify element region by texture coordinate (between 0 to 1)
+ * @memberOf SpriteRenderable
+ * @param {float} left - Sets the Left UV Coordinate.
+ * @param {float} right - Sets the Right UV Coordinate.
+ * @param {float} bottom - Sets the Bottom UV Coordinate.
+ * @param {float} top - Sets the Top UV Coordinate.
+ * @returns {void}
+ */
+SpriteRenderable.prototype.setElementUVCoordinate = function (left, right, bottom, top) {
+    this.mTexLeft = left;
+    this.mTexRight = right;
+    this.mTexBottom = bottom;
+    this.mTexTop = top;
+    this._setTexInfo();
+};
+
+/**
+ * specify element region by pixel positions (between 0 to image resolutions)
+ * @memberOf SpriteRenderable
+ * @param {float} left - Sets the Left pixel position.
+ * @param {float} right - Sets the Right pixel position.
+ * @param {float} bottom - Sets the Bottom pixel position.
+ * @param {float} top - Sets the Top pixel position.
+ * @returns {void}
+ */
+SpriteRenderable.prototype.setElementPixelPositions = function (left, right, bottom, top) {
+    var imageW = this.mTextureInfo.mWidth;
+    var imageH = this.mTextureInfo.mHeight;
+
+    this.mTexLeft = left / imageW;
+    this.mTexRight = right / imageW;
+    this.mTexBottom = bottom / imageH;
+    this.mTexTop = top / imageH;
+    this._setTexInfo();
+};
+
+/**
+ * Returns a UV Coordinate Array.
+ * @memberOf SpriteRenderable
+ * @returns {float[]} UV Voordinate Array
+ */
+SpriteRenderable.prototype.getElementUVCoordinateArray = function () {
+    return [
+        this.mTexRight,  this.mTexTop,          // x,y of top-right
+        this.mTexLeft,   this.mTexTop,
+        this.mTexRight,  this.mTexBottom,
+        this.mTexLeft,   this.mTexBottom
+    ];
+};
+
+/**
+ * Draws the SpriteRenderable to the screen in the aCamera viewport.
+ * @memberOf SpriteRenderable
+ * @param {Camera} aCamera - drawing Camera of the SpriteRenderable.
+ * @returns {void}
+ */
+SpriteRenderable.prototype.draw = function (aCamera) {
+    // set the current texture coordinate
+    // 
+    // activate the texture
+    this.mShader.setTextureCoordinate(this.getElementUVCoordinateArray());
+    TextureRenderable.prototype.draw.call(this, aCamera);
+};
+
+//--- end of Public Methods
+//
+//&lt;/editor-fold></code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

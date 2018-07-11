@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GameObjects/ParallaxGameObject.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GameObjects/ParallaxGameObject.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* File: ParallexGameObject.js 
+ *
+ * Represent an GameObject located at some distance D away, thus 
+ * resulting in slower movements
+ * 
+ * Passed in scale: 
+ *     ==1: means same as actors
+ *     > 1: farther away, slows down inversely (scale==2 slows down twice)
+ *     &lt; 1: closer, speeds up inversely (scale==0.5 speeds up twice)
+ */
+
+/*jslint node: true, vars: true, white: true */
+/*global gEngine, TiledGameObject, vec2  */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+"use strict";  // Operate in Strict mode such that variables must be declared before used!
+
+/**
+ * Default Contructor&lt;p>
+ * Represent an GameObject located at some distance D away, thus resulting in slower movements&lt;p>
+ * Passed in scale:&lt;p>
+ *      ==1: means same as actors&lt;p>
+ *      > 1: farther away, slows down inversely (scale==2 slows down twice)&lt;p>
+ *      &lt; 1: closer, speeds up inversely (scale==0.5 speeds up twice)
+ * 
+ * @param {Renderable} renderableObj Renderable to parallax
+ * @param {Number} scale Parallax scale
+ * @param {Camera} aCamera Camera to refrence
+ * @returns {ParallaxGameObject}
+ * @class ParallaxGameObject
+ */
+function ParallaxGameObject(renderableObj, scale, aCamera) {
+    this.mRefCamera = aCamera;
+    this.mCameraWCCenterRef = vec2.clone(this.mRefCamera.getWCCenter());
+    this.mParallaxScale = 1;
+    this.setParallaxScale(scale);
+    TiledGameObject.call(this, renderableObj);
+}
+gEngine.Core.inheritPrototype(ParallaxGameObject, TiledGameObject);
+
+/**
+ * renderableObj xfrom is accessible, it is in WC space!!&lt;p>
+ * GameObject parameters: speed and direction are all in WC space
+ * @returns {void}
+ * @memberOf ParallaxGameObject
+ */
+ParallaxGameObject.prototype.update = function () {
+    // simple default behavior
+    this._refPosUpdate(); // check to see if the camera has moved
+    var pos = this.getXform().getPosition();  // our own xform
+    vec2.scaleAndAdd(pos, pos, this.getCurrentFrontDir(), this.getSpeed() * this.mParallaxScale);
+};
+
+ParallaxGameObject.prototype._refPosUpdate = function () {
+    // now check for reference movement
+    var deltaT = vec2.fromValues(0, 0);
+    vec2.sub(deltaT, this.mCameraWCCenterRef, this.mRefCamera.getWCCenter());
+    this.setWCTranslationBy(deltaT);
+    vec2.sub(this.mCameraWCCenterRef, this.mCameraWCCenterRef, deltaT); // update WC center ref position
+};
+
+/**
+ * Set world coordinate translation delta to change the position of parallax object.
+ * @memberOf ParallaxGameObject
+ * @param {Number} delta Amount to change the position of parallax object.
+ * @returns {undefined}
+ * @memberOf ParallaxGameObject
+ */
+ParallaxGameObject.prototype.setWCTranslationBy = function (delta) {
+    var f = (1-this.mParallaxScale);
+    this.getXform().incXPosBy(-delta[0] * f);
+    this.getXform().incYPosBy(-delta[1] * f);
+};
+
+/**
+ * Return the Paralax scale
+ * @memberOf ParallaxGameObject
+ * @returns {Number} parallax scale
+ * @memberOf ParallaxGameObject
+ */
+ParallaxGameObject.prototype.getParallaxScale = function () {
+    return this.mParallaxScale;
+};
+
+/**
+ * Set the Parallax view scale
+ * @param {Number} s Scale of parallax
+ * @returns {void}
+ * @memberOf ParallaxGameObject
+ */
+ParallaxGameObject.prototype.setParallaxScale = function(s) {
+    if (s &lt;= 0) {
+        this.mParallaxScale = 1;
+    } else {
+        this.mParallaxScale = 1/s;
+    }
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jul 04 2018 23:05:47 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
