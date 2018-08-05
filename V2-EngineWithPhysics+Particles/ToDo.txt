@@ -1,0 +1,7 @@
+1. RigidShape: set xform should update width/height of Rectangle (and probably radius of circle).
+
+2. Network TCP support: Integrate from NUS 2018, Group 10 (Black and White).
+
+3. Investigate full screen support
+
+4. Support for fonts from other languages? e.g., Chinese?
