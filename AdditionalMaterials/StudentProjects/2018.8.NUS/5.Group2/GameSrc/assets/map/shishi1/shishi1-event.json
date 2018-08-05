@@ -1,0 +1,76 @@
+{
+	"rukou": [
+				[null, "Show", [
+					["tangseng", "唐僧：这是..."],
+					["sunwukong", "孙悟空：想不到这火焰山内居然这么曲折，师傅小心。"],
+					["zhubajie", "猪八戒：这密室里会不会有埋伏啊..."],
+					["sunwukong", "孙悟空：有又如何？妖怪来一个俺老孙收拾一个。"],
+					["tangseng", "唐僧：徒儿们，凡事小心为上，出发吧。"]
+				]],
+			false, 0],
+
+	"baoyuan1": [
+					[null, "Show",[
+						["tangseng", "唐僧：没想到这石室如此复杂，虽然没遇到敌人，但也耽误了我们不少时间。"],
+						["sunwukong", "孙悟空： 怪了。难不成这些妖怪平时就这么出入？"],
+						["sunwukong", "孙悟空：咦？臭猪呢？"],
+						["zhubajie", "猪八戒：师傅，大师兄，等..等等我啊..."]
+					]],
+				false, 0],
+
+	"wrong": [
+					[null, "Show",[
+						["zhubajie", "猪八戒：！！！"],
+						["zhubajie", "猪八戒：这什么破地方！走了这么远结果..结果是个死胡同！"],
+						["sunwukong", "孙悟空：跟你这臭猪怎么都得倒霉。"]
+					]],
+				false, 0],
+
+	"finally": [
+					[null, "Show",[
+						["zhubajie", "猪八戒：可算是到了..."],
+						["zhubajie", "孙悟空：前面好像有人。"],
+						["tangseng", "唐僧：悟空不要鲁莽，且去看看是什么人。"]
+					]],
+				false, 0],
+
+	"baoyuan2": [
+					[null, "Show",[
+						["zhubajie", "猪八戒：得了，就在这累死老猪我吧！"],
+						["zhubajie", "孙悟空：嘿嘿..叫你平时吃那么多，动那么少。是吧师傅。"],
+						["tangseng", "唐僧：... ..."]
+					]],
+				false, 0],
+
+	"chukou": [
+				[null, "Show",
+					[
+						["shishi1-zuihan", "醉酒老翁：人逢喜事精神爽，闷上心来瞌睡多~"],
+						["shishi1-zuihan", "醉酒老翁：好酒啊~好酒~"],
+						["shishi1-zuihan", "醉酒老翁：咦...是我喝多了吗？咋来了个和尚和小动物呢？"],
+						["shishi1-zuihan", "醉酒老翁：哟...和尚...来这地方作甚？"],
+						["tangseng", "唐僧：这位施主，贫僧是携徒弟前来找回朱紫国国王遗失的东西的。"],
+						["shishi1-zuihan", "醉酒老翁：哦...那就是来抓妖怪的呗。"],
+						["sunwukong", "孙悟空：这醉汉看起来也是知道些内情的。"],
+						["tangseng", "唐僧：施主为何会在如此凶险的地方呢？"],
+						["tangseng", "唐僧：方才贫僧的徒弟们"],
+						["tangseng", "唐僧：从石室下山的路上已是安全的了，贫僧劝施主即可下山，免得被妖怪发现了。"],
+						["sunwukong", "孙悟空：师傅小心，这醉汉似醉非醉，而且内功我甚至有点把握不住.."],
+						["shishi1-zuihan", "醉酒老翁：放心猴子~不会对你师傅做什么的~"],
+						["shishi1-zuihan", "醉酒老翁：和尚啊，千万不要忘记你们是怎么<font color = yellow><b>一步步</b></font>来到这的喔~"],
+						["zhubajie", "猪八戒：？？？"]
+				]],
+			false, 0],
+
+	"zuihan": [
+				["J", "Show",[
+						["shishi1-zuihan", "醉酒老翁：今朝有酒今朝醉，莫管门前是与非~"],
+						["tangseng", "孙悟空：这老头... ..."]
+					]],
+				true, 0],
+
+	"go_shishi2": [[null, "Go", "shishi2"], true, 0],
+	"go_huoyanshandi": [[null, "Go", "huoyanshandi"], true, 0],
+	"go_huoyanshandi": [[null, "Go", "huoyanshandi"], true, 0],
+	"go_huoyanshandi": [[null, "Go", "huoyanshandi"], true, 0]
+}

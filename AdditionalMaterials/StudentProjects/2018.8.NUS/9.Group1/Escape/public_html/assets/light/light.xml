@@ -1,0 +1,15 @@
+<MyGameLevel>
+        <Light 
+            Type="0" 
+            Color="1 1 1 1" 
+            Pos="0 0 3"
+            Dir="0 0 0" 
+            Near="5"
+            Far="8"
+            Inner="5"
+            Outter="10"
+            DropOff="1"
+            Intensity="2" 
+            CastShadow="true" 
+        />
+</MyGameLevel>

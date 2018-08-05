@@ -1,0 +1,35 @@
+<MyGameLevel>
+    
+<!--  *** be careful!! comma (,) is not a supported syntax!!  -->
+<!--  make sure there are no comma in between attributes -->
+<!--  e.g., do NOT do:  PosX="20", PosY="30" -->
+<!--  notice the "comma" between PosX and PosY: Syntax error! -->
+  
+    <!-- cameras -->
+    <!-- Viewport: x, y, w, h -->
+    <Camera CenterX="512" CenterY="256" Width="1024"
+          Viewport="0 0 1024 512"
+          BgColor="0 0 0 0"
+    />
+    <!-- Background -->
+    <Background PosX="512" PosY="256" Width="1024" Height="1024" ZPos="-5" ParallaxDepth="100"
+                ReceiveShadow="false"
+                Texture="myLevel2.jpg"/>
+    <Mask PosX="512" PosY="512" Width="1024" Height="1024" ZPos="-5" ParallaxDepth="100"
+                ReceiveShadow="false"
+                Texture="Mask.png"/>
+    <!-- Squares Rotation is in degree -->
+        <Wall PosX="240" PosY="442" Width="250" Height="30" Rotation="0"  Color="0.82 0.82 0.82 1" />
+        <Wall PosX="780" PosY="442" Width="250" Height="30" Rotation="0"  Color="0.82 0.82 0.82 1" />
+   	<Wall PosX="210" PosY="334" Width="340" Height="30" Rotation="0"  Color="0.47 0.53 0.6 1" />
+   	<Wall PosX="814" PosY="334" Width="340" Height="30" Rotation="0"  Color="0.47 0.53 0.6 1" />
+        <Wall PosX="512" PosY="339" Width="90" Height="30" Rotation="0"  Color="0.82 0.82 0.82 1" />
+   	<Wall PosX="342" PosY="220" Width="240" Height="30" Rotation="0"  Color="0.47 0.53 0.6 1" />
+   	<Wall PosX="682" PosY="220" Width="240" Height="30" Rotation="0"  Color="0.47 0.53 0.6 1" />
+   	<Wall PosX="142" PosY="130" Width="150" Height="30" Rotation="0"  Color="0.47 0.53 0.6 1" />
+   	<Wall PosX="882" PosY="130" Width="150" Height="30" Rotation="0"  Color="0.47 0.53 0.6 1" />
+   	<Wall PosX="512" PosY="40" Width="500" Height="30" Rotation="0"  Color="0.82 0.82 0.82 1" />
+        <Wall PosX="512" PosY="540" Width="1024" Height="30" Rotation="0"  Color="0.82 0.82 0.82 1" />
+
+    
+</MyGameLevel>

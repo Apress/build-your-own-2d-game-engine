@@ -1,0 +1,103 @@
+{
+
+  "get_huluobo1": [
+  			["J",
+  				"Show", [
+  					["", "<font color = yellow><b>（获得物品 胡萝卜）</b></font>"]
+  				]
+  			],
+  			[null,
+  				"Get", ["huluobo"]
+  			],
+  		false, 0],
+
+    "get_huluobo2": [
+  			["J",
+  				"Show", [
+  					["", "<font color = yellow><b>（获得物品 胡萝卜）</b></font>"]
+  				]
+  			],
+  			[null,
+  				"Get", ["huluobo"]
+  			],
+  		false, 0],
+
+  "npc1": [
+  			["J",
+		 		"Show", [
+		 			["zhuzishanjiao-npc1", "朱紫国官员：高僧此行危险非常，小官将祖方创药赠与高僧，希望能够对高僧和高僧的高徒们有所帮助。"],
+		 			["", "<font color = yellow><b>（获得物品 祖方创药）</b></font>"]
+		 		]
+		 	],
+		 	[null,
+		 		"Get", ["zufangchuangyao"]
+		 	],
+  		false, 0],
+
+  "npc2": [
+  			["J",
+		 		"Show", [
+		 			["zhuzishanjiao-npc2", "从这下去就是前往<font color = yellow><b>火焰山</b></font>的小径了，当年火焰山里的妖精就是从这个小径潜入了朱紫国的王宫。\n如今朱紫国的不少百姓都因缺少庇护被抓紧了山里做妖精的努力，也不知这日子何时是个头..."]
+		 		]
+		 	],
+  		true, 0],
+
+  "lupai1": [
+  			["J",
+		 		"Show", [
+		 			["", "沿此路上朱紫山"]
+			 	]
+			],
+		true, 0],
+
+  "lupai2": [
+  			["J",
+		 		"Show", [
+		 			["", "通往火焰山山洞内"]
+		 		]
+		 	],
+		 true, 0],
+
+  "wangling": [
+  			["J",
+		 		"Show", [
+		 			["zhuzishanjiao-wangling", "???：啊......"],
+				  	["zhuzishanjiao-wangling", "亡灵：妖孽！"]
+				  ]
+		 	],
+		 	[null,
+				"Battle", ["zhuzishanjiao", "zhuzishanjiao-wangling"]
+			],
+		 	[null,
+		 		"Show", [
+		 			["zhuzishanjiao-wangling", "亡灵：.."],
+		 			["zhuzishanjiao-wangling", "亡灵：啊..原来不是火焰山里的黄风怪啊.."],
+				  	["zhuzishanjiao-wangling", "亡灵：.."],
+				  	["zhuzishanjiao-wangling", "亡灵：原来是要为吾主寻药的大唐高僧。恕在下失礼。"],
+				  	["sunwukong", "孙悟空：忒。你这厮话都不说清楚，一下就下来棍棒...且不提了。倒是你怎么一幅鬼魂模样？"],
+				  	["zhuzishanjiao-wangling", "亡灵：在下本是朱紫国国王贴身侍卫，三年前在下护驾不利，自己敌不过妖怪，还让妖怪近了国王的身。"],
+				  	["zhuzishanjiao-wangling", "亡灵：我死后被葬于此地，因护驾失败的怨念太深，魂魄一直未能散去。<br>如今幸好还存留些许神智，最后还是看清了各位不是妖怪。"],
+				  	["zhuzishanjiao-wangling", "亡灵：我的魂魄也将散去了，今日能听闻大唐高僧愿帮助我们朱紫国，也算了却了我的心愿。谢谢你们。"],
+				  	["zhuzishanjiao-wangling", "亡灵：我很遗憾不能同你们前去，但我一定要将自己最厉害的招数传与请这位猴勇士！"],
+				  	["", "<font color = yellow><b>（孙悟空习得技能 三昧真火）</b></font>"],
+				  	["zhuzishanjiao-wangling", "亡灵：我也终于能安息了..."],
+				  	["tangseng", "唐僧：哦弥陀佛。"]
+				  ]
+		 	],
+		 	[null,
+		 		"Learn", "0", {"name": "三昧真火", "VP": 81, "dmgPercent": 0.61}
+            ],
+		 false, 0],
+
+  "wangling_hint": [
+  						[null,"Show", [
+  									["", "<font color = yellow><b>山顶上（地图右侧）</b></font>传来阵阵阴风..."]
+  						]],
+  				false, 0],
+
+  "go_huoyanshankou": [[null,"Go", "huoyanshankou"], true, 0],
+
+	"go_zhuzishan": [[null, "Go", "zhuzishan"], true, 0],
+
+	"go_zhuzishan": [[null, "Go", "zhuzishan"], true, 0]
+}

@@ -1,0 +1,72 @@
+a {
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+p {
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+button {
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.myButton {
+    font-family: Helvetica, Arial, "PingFang SC", "Microsoft YaHei";
+    margin-left: -485px;
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 970px;
+    height: 600px;
+    background-color:rgba(63,63,63,0.8);
+    text-align: center;
+    color: #f2f2f2;
+}
+.myButton a {
+    text-decoration: none;
+    background: #2f435e;
+    color: #f2f2f2;
+    padding: 10px 50px 10px 50px;
+    font-size: 22px;
+    -webkit-transition: all linear 0.20s;
+    --moz-transition: all linear 0.20s;
+    transition: 0.20s;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.myButton a:hover {
+    background: #385f9e;
+}
+.myButton p {
+    /*margin-top:4em;*/
+}
+.dialogue {
+    font-family: Helvetica, Arial, "PingFang SC", "Microsoft YaHei";
+    margin-left: -485px;
+    position: absolute;
+    left: 50%;
+    top: 480px;
+    width: 970px;
+    height: 128px;
+    color: #f2f2f2;
+    background-color:rgba(63,63,63,0.8);
+    word-wrap: break-word;
+}
+.dialogue p {
+    margin: 5px;
+    margin-left: 10px;
+}
+
+.inCanvas {
+    position: absolute;
+    top: 600px;
+}

@@ -1,0 +1,28 @@
+{
+	"854": "npc1",
+	"855": "npc1",
+	"856": "npc1",
+	"805": "npc1_lose",
+				
+	"462": "npc2",
+	"513": "npc2",
+	"463": "npc2_lose",
+
+	"574": "npc3",
+	"625": "npc3",
+	"575": "npc3_lose",
+
+	"946": "npc4",
+	"947": "npc4",
+	"948": "npc4",
+	"896": "npc4_lose",
+
+	"240": "heifengguai",
+	"241": "heifengguai",
+	"242": "heifengguai",
+	"243": "heifengguai",
+	"192": "heifengguai_lose",
+
+	"1610": "go_huoyanshankou",
+	"91": "go_shishi1"
+}

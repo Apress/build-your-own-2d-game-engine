@@ -1,0 +1,182 @@
+{
+    "xiyijing": [
+    			["J",
+					"Show",	[
+						["zhuzishan-xiyijing", "蜥蜴精：什么人敢吵得大爷我没的清闲？！"],
+						["sunwukong", "孙悟空：原来就是个蜥蜴成了精，不知道自己几斤几两，\n趁着朱紫国国王病危就兴风作浪。看俺老孙怎么教训你！"],
+						["zhubajie", "猪八戒：大师兄等等我！"],
+						["tangseng", "唐僧：悟空，切勿下杀手啊。"]
+					]
+				],
+				[null,
+					"Battle", ["zhuzishan", "zhuzishan-xiyijing"]
+				],
+				[null,
+					"Win",
+						[null,
+							"Show", [
+								["zhuzishan-xiyijing", "蜥蜴精：别..别打了..我..我只是一时..放过我吧.."],
+								["", "（蜥蜴精失去了战斗能力）"],
+								["zhubajie", "猪八戒：师傅，是金莲！"],
+								["sunwukong", "孙悟空：原来是被这臭蜥蜴偷了去。看我不把你.."],
+								["tangseng", "唐僧：悟空.."],
+								["sunwukong", "孙悟空：师傅！把这妖精的命留着也是祸害呀。"],
+								["tangseng", "唐僧：我们既已找到金莲，这妖精也被你收拾得百年内难以修成人形，就给它一个机会吧。"],
+								["sunwukong", "孙悟空：（低声）忒。每次都来这么一套。"],
+								["zhubajie", "猪八戒：师傅！大师兄他说你坏话！"],
+								["tangseng", "唐僧：好了好了。找到了金莲，我们便去找<font color = yellow><b>楚姑娘</b></font>吧。"],
+								["", "（获得物品 金莲）"]
+							]
+						]
+					],
+				[null,
+					"Win",
+						[null,
+							"Get", ["golden_lotus"]
+						]
+				],
+			false, 0],
+    "talk_hint": [
+    			[null,
+					"Show", [
+						["", "小引导：前面有个村民<br>试着去和他说句话吧！"],
+						["", "小引导：在任何可以按下<font color = yellow><b>J</b></font>调查的对象面前也都会跳出一个感叹号喔~"]
+					]
+				],
+			false, 0],
+	"npc1": [
+				["J",
+					"Show", [
+						["zhuzishan-npc1", "老人：哟，这不是大唐来的高僧吗？"],
+						["zhuzishan-npc1", "老人：看你手上拿着西牛贺洲的地图，那请容许老夫为高僧稍作讲解如何使用地图吧"],
+						["zhuzishan-npc1", "老人：点击下方按钮或按 N/M 会显示大地图或小地图，"],
+						["zhuzishan-npc1", "老人：地图上会显示你当前的位置，遇到黄点可以按 J 键调查或对话"],
+						["zhuzishan-npc1", "老人：又简单又实用，对我们老人家老花眼呐，特别方便。"],
+						["zhuzishan-npc1", "老人：我也不耽误高僧再多时间了，但求求高僧一定救救我们的君主，救救朱紫国.."]
+					]
+				],
+			true, 0],
+	"npc2": [
+				["J",
+					"Show", [
+						["zhuzishan-npc2", "拾荒老太：地上总是有各种奇怪的东西，我没事就喜欢翻翻地上那些遗骸啊箱子什么的，总能找到些好东西。"],
+						["zhuzishan-npc2", "拾荒老太：年轻人，要是看到地上有什么奇怪的东西一定要记得按 J 键查看喔~"]
+					]
+				],
+			true, 0],
+	"jinlian_1": [
+				[null,
+					"Show", [
+						["zhuzishan-chulianyi", "楚依恋：高僧，请留步！"],
+						["zhuzishan-chulianyi", "楚依恋：小女子名叫楚依恋，就住在这山脚下。"],
+						["zhubajie", "猪八戒：嘿嘿..真漂亮的姑娘。"],
+						["sunwukong", "孙悟空：这臭猪.."],
+						["tangseng", "唐僧：请问楚姑娘叫住贫僧所为何事？"],
+						["zhuzishan-chulianyi", "楚依恋：是这样的。小女子孤身一人登上这朱紫山，是为给重病娘亲采拾一朵金莲制药。"],
+						["zhuzishan-chulianyi", "楚依恋：不料这朱紫山实在陡峭，劳烦高僧和同行的猴大哥、猪大哥帮帮小女子。"],
+						["zhuzishan-chulianyi", "楚依恋：若几位大人忙着赶路，我..我也没关系的.."],
+						["zhubajie", "猪八戒：没问题小美女！包在我老猪身上了。"],
+						["sunwukong", "孙悟空：这死肥猪平时倒不见这么积极.."],
+						["tangseng", "唐僧：我们这便前去帮姑娘采花，令堂的身体要紧。"],
+						["tangseng", "唐僧：不知姑娘所说的金莲在何处？"],
+						["zhuzishan-chulianyi", "楚依恋：金莲就在<font color = yellow><b>断桥右边的一棵枯树</b></font>下。"]
+					]
+				],
+			false, 0],
+	"jinlian_2": [
+				["J",
+					"Show", [
+						["sunwukong", "孙悟空：师傅，这金莲已被摘走了，只留得这金莲叶。"],
+						["sunwukong", "孙悟空：而且这一带草木衰败，似是曾有邪物出没。"],
+						["zhubajie", "猪八戒：又是妖怪..."],
+						["tangseng", "唐僧：我们再往<font color = yellow><b>更高层的山</b></font>上去看看吧。"]
+					]
+				],
+			false, 0],
+	"battle_hint": [
+				["J",
+					"Show", [
+						["", "在遇到妖怪进行战斗的时候，要注意英雄的<font color = yellow><b>血量（HP）和疲劳值（VP）</b></font>。"],
+						["", "当血量降至最低时，当前英雄就不能再战斗。"],
+						["", "当疲劳值满格时，英雄的某些属性会被削弱。"],
+						["", "同时，要对妖怪的特点选择<font color = yellow><b>特定</b></font>的英雄进行战斗。"],
+						["", "点击下方<font color = yellow><b>Character</b></font>按钮或按<font color = yellow><b>C</b></font>来查看人物状态<br>一路好运~"]
+					]
+				],
+			true, 0],
+    "monument": [
+    			["J",
+					"Show", [
+						["", "石碑：门楼高耸，垛迭齐排。周围活水通流，南北高山相对。六街三市货资多，万户千家生意盛。"],
+						["", "石碑：形胜连山远，宫垣接汉清。三关严锁钥，万古乐升平。"],
+						["zhubajie", "猪八戒：万古乐升平...这是我们到的朱紫国吗？"],
+						["tangseng", "唐僧：这石碑上所记录的约莫是数年前，朱紫国国王健康时朱紫国的光景。"],
+						["tangseng", "唐僧：极盛的朱紫国如此繁荣昌盛，如今竟随着国王重病，朱紫一带也开始产生了动荡，许多妖怪也趁此机会兴风作浪，国运飘摇，实在令人叹惋。"]
+					]
+				],
+			true, 0],
+    "jinlian_3": [
+    			["J",
+					"Check", "Golden Lotus",
+						[null, "Show",
+							[["zhuzishan-chulianyi", "楚依恋：是金莲！"],
+						 	["zhuzishan-chulianyi", "楚依恋：…"]]
+						],
+						[null, "Skip"]
+				],
+
+				[null,
+					"Check", "Golden Lotus",
+						[null, "Change"],
+						[null, "Skip"]
+				],
+				[null,
+					"Check", "Golden Lotus",
+						[null, "Show",
+							[["zhuzishan-xiaolongnv", ""],
+								["sunwukong", "孙悟空：哟！这不是观音姐姐的小童子嘛~"],
+								["zhubajie", "猪八戒：嘿嘿..嘿嘿，原来是龙女姐姐啊"],
+								["tangseng", "唐僧：悟空八戒休得无礼！"],
+								["tangseng", "唐僧：原来是小龙女在与贫僧开玩笑…"],
+								["zhuzishan-xiaolongnv", "小龙女：不是啦，三藏师傅~是观音菩萨知道各位打算帮朱紫国国王治病，便委我前来为各位指点一二。"],
+								["zhuzishan-xiaolongnv", "小龙女：不料如今朱紫国已如此混乱，就算是这皇宫殿下都有妖怪作祟，这不正巧撞见各位，请各位为民除害了嘛~"],
+								["tangseng", "唐僧：小龙女伶牙俐齿，贫僧说不过。"],
+								["tangseng", "唐僧：可是不知观音菩萨想告诉我们什么呢？"],
+								["zhuzishan-xiaolongnv", "小龙女：是这样的。朱紫国国王这场病其实也是妖怪作祟。<br>三年前，西牛贺洲有三个大妖精联合起来，"],
+								["zhuzishan-xiaolongnv", "小龙女：他们闯入朱紫国皇宫，夺走了国王三件神器，并利用三件神器对国王施下了恶咒，<br>在神器中封住了国王的部分魂魄。只有夺回三件神器，交给观音菩萨，国王才能得救！"],
+								["tangseng", "唐僧：原来如此。多谢小龙女姑娘与观音菩萨为我们指点前路。那贫僧也不敢再耽误，即可便启程<font color = yellow><b>下山</b></font>。"],
+								["zhuzishan-xiaolongnv", "小龙女：三藏师傅一路保重。"]
+							]
+						],
+						[null, "Show",
+							[["zhuzishan-chulianyi", "楚依恋：实在是麻烦高僧了。但请高僧一定助小女子一臂之力！"]]
+						]
+					],
+				true, 0],
+	"go_zhuzishanjiao": [[null,
+				"Check", "Golden Lotus",
+					[null, "Go", "zhuzishanjiao"],
+					[null, "Show", [["tangseng", "且慢，金莲还未替那位小姑娘找到。"]]]
+				],
+			[null,
+				"Check", "Golden Lotus",
+				[null, "Go", "zhuzishanjiao"],
+				[null, "Back"]
+			],
+			true, 0],
+    "go_wanggong": [[null, "Go", "wanggong"] ,true, 0],
+    "get_ham_bone": [
+    	["J",
+    		"Show", [["", "<font color = yellow><b>(获得物品 带骨肉)</b></font>"]]
+    	],
+    	[null,
+    		"Get", ["Ham Bone"]],
+		false, 0],
+    "get_necklace": [
+    	["J",
+    		"Show", [["", "<font color = yellow><b>(获得装备 项链)</b></font>"]]
+    	],
+    	[null,
+    		"Get", ["Necklace"]],
+		false, 0]
+}

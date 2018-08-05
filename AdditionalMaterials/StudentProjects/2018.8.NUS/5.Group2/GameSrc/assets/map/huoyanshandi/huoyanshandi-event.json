@@ -1,0 +1,134 @@
+{
+	"npc1": [
+				[null, "Show",
+					[
+						["huoyanshandi-xiaozu", "洞内喽啰：什么人？胆敢擅闯我火焰山！"]
+					]
+				],
+				[null, "Battle", ["huoyanshandi", "huoyanshandi-xiaozu"]],
+				[null, "Show",
+					[
+						["sunwukong", "孙悟空：忒~就你们这些不成形的怪物的修行，跟俺老孙差了千百年哩~"],
+						["", "(获得装备 青云盔)"]
+					]
+				],
+				[null, "Get", ["QingYun Helmet"]],
+			false, 0],
+
+	"npc1_lose": [
+				["J", "Show",
+					[
+						["huoyanshandi-xiaozu", "洞内喽啰：像你们这样擅闯我们火焰山..都..都不会有好下场的.."]
+					]
+				],
+			true, 0],
+
+	"npc2": 	[
+				[null, "Show",
+					[
+						["huoyanshandi-xiaozu", "洞内喽啰：那三个，你们是新来的奴隶嘛？"],
+						["zhubajie", "猪八戒：哎嘿，又来了个送死的~"],
+						["huoyanshandi-xiaozu", "什么？！你们几个细皮嫩肉的...看来是注定得给小爷爷我吃掉了！"]
+					]
+				],
+				[null, "Battle", ["huoyanshandi", "huoyanshandi-xiaozu"]],
+				[null, "Show",
+					[
+						["tangseng", "唐僧：按这妖怪说的，真不知有多少村民给抓了做奴隶。我们不能再耽误了。"]
+					]
+				],
+			false, 0],
+
+	"npc2_lose": [
+				["J", "Show",
+					[
+						["huoyanshandi-xiaozu", "洞内喽啰：像你们这样擅闯我们火焰山..都..都不会有好下场的.."]
+					]
+				],
+			true, 0],
+
+	"npc3":		[
+				[null, "Show",
+					[
+						["huoyanshandi-xiaozu", "洞内喽啰：妖怪..妖怪进山洞啦！二大王————"],
+						["sunwukong", "孙悟空：这臭妖精居然敢说孙爷爷我是妖怪？！看我怎么收拾你。"]
+					]
+				],
+				[null, "Battle", ["huoyanshandi", "huoyanshandi-xiaozu"]],
+			false, 0],
+
+	"npc3_lose": [
+				["J", "Show",
+					[
+						["huoyanshandi-xiaozu", "洞内喽啰：像你们这样擅闯我们火焰山..都..都不会有好下场的.."]
+					]
+				],
+			true, 0],
+
+	"npc4":	[
+				[null, "Show",
+					[
+						["huoyanshandi-xiaozu", "洞内喽啰：站住！"],
+						["huoyanshandi-xiaozu", "洞内喽啰：这是哪里来的和尚..和猴子..和猪"],
+						["zhubajie", "猪八戒：敢叫俺老猪..猪？！"],
+						["zhubajie", "猪八戒：让你们见识见识我天蓬元帅的厉害。"]
+					]
+				],
+				[null, "Battle", ["huoyanshandi", "huoyanshandi-xiaozu"]],
+				[null, "Show",
+					[
+						["huoyanshandi-xiaozu", "洞内喽啰：只能靠黑风大王了..."]
+					]
+				],
+			false, 0],
+
+	"npc4_lose": [
+				["J", "Show",
+					[
+						["huoyanshandi-xiaozu", "洞内喽啰：像你们这样擅闯我们火焰山..都..都不会有好下场的.."]
+					]
+				],
+			true, 0],
+
+	"heifengguai": [
+				[null, "Show",
+					[
+						["huoyanshandi-heifengguai", "黑风怪：你们三个闯入者..."],
+						["huoyanshandi-heifengguai", "黑风怪：..击败了我所有的手下吗..."],
+						["huoyanshandi-heifengguai", "黑风怪：那就只能由我..."],
+						["sunwukong", "孙悟空：别废话啦————"],
+						["sunwukong", "孙悟空：吃俺老孙一棒！"]
+					]
+				],
+				[null, "Battle", ["huoyanshandi", "huoyanshandi-heifengguai"]],
+				[null, "Show",
+					[
+						["huoyanshandi-heifengguai", "黑风怪：好不容易占了这山..你们这些..可恶.."],
+						["huoyanshandi-heifengguai", "黑风怪：只恨我无能不能干掉你们这些自以为正义的可恨的异族人.."],
+						["huoyanshandi-heifengguai", "黑风怪：和那朱紫国国王一样，闯入我们的世界，屠杀我们的族人"],
+						["huoyanshandi-heifengguai", "黑风怪：我恨那日大哥未能手刃那朱紫国老狗..."],
+						["zhubajie", "猪八戒：哟呵，我们师傅不正义，世间便没人算得上正义了。"],
+						["huoyanshandi-heifengguai", "黑风怪：呵。"],
+						["tangseng", "唐僧：..."],
+						["tangseng", "唐僧：..."],
+						["tangseng", "唐僧：悟空八戒，我们走吧。"],
+						["", "(获得装备 传说套装)"]
+					]
+				],
+				[null, "Get", ["Legend Armor", "Legend Trousers"]],
+			false, 0],
+
+	"heifengguai_lose": [
+							["J", "Show",
+								[
+									["huoyanshandi-heifengguai", "黑风怪：大哥..大哥会帮我报仇的.."],
+									["zhubajie", "猪八戒：得了吧，也不看看我是..我大师兄是谁~"],
+									["tangseng", "唐僧：八戒，行了，我们该继续上路了。"],
+									["zhubajie", "猪八戒：得嘞~师傅~"]
+								]
+							],
+						true, 0],
+
+	"go_huoyanshankou": [[null, "Go", "huoyanshankou"] ,true, 0],
+	"go_shishi1": [[null, "Go", "shishi1"] ,true, 0]
+}

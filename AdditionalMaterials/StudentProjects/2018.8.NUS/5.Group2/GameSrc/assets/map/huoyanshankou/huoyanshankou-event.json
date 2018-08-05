@@ -1,0 +1,74 @@
+{
+	"npc1": [
+				["J", "Show", [
+					["huoyanshankou-npc1", "被抓来的奴隶：大侠救救我们吧…"],
+					["huoyanshankou-npc1", "被抓来的奴隶：黄毛妖怪和黑毛妖怪带着他们的小喽啰洗劫了我们的村子。"],
+					["huoyanshankou-npc1", "被抓来的奴隶：他们…他们掳走了我们的孩子、牲口，还把我们村里人抓紧山洞里给他们做牛做马…这里..！"],
+					["huoyanshankou-npc1", "被抓来的奴隶：这里简直就是地狱啊…"],
+					["tangseng", "唐僧：施主莫急，贫僧正是带着高徒来收服妖怪的，待我们胜了妖怪，一定速速离开此地。"],
+					["huoyanshankou-npc1", "被抓来的奴隶：谢谢！！谢谢恩公的大恩大德..."],
+					["sunwukong", "孙悟空：放心吧，有我齐天大圣在此，管他什么黄毛、黑毛，没毛的我都不怕~"],
+					["tangseng", "唐僧：悟空！这哪是开玩笑的时候。"],
+					["tangseng", "唐僧：施主放心，我们这就<font color = yellow><b>入洞</b></font>。"],
+					["huoyanshankou-npc1", "被抓来的奴隶：恩公们小心啊！"]
+				]],
+			true, 0],
+
+	"npc2": [
+				["J", "Show", [
+					["huoyanshankou-npc2", "被抓来的奴隶：这洞里的大妖精黄风怪原是灵山脚下得道的黄毛貂鼠，因为偷吃琉璃盏内的清油，怕被金刚捉拿，<br>便跑来西牛贺洲占山为王…而他收下那个黑风怪也似是类似的来历。"],
+					["huoyanshankou-npc2", "被抓来的奴隶：不过可别看他们占着这火焰山，不久前那红孩儿的<font color = yellow><b>真三昧火</b></font>可是教他们吃了不少苦头…"],
+					["zhubajie", "猪八戒：真三昧火？？？"],
+					["zhubajie", "猪八戒：大师兄，你刚学的那招不就是这名字吗？"],
+					["sunwukong", "孙悟空：笨猪，那是三昧真火。"],
+					["sunwukong", "孙悟空：（低声）不过这名字竟这么相近，说不定…唔…"]
+				]],
+			true, 0],
+
+	"xiaozu": 	[
+				[null, "Show", [
+					["huoyanshankou-xiaozu", "山口小喽啰：来者何人？可知道我家大王是什么人！"],
+					["sunwukong", "孙悟空：啥？孙子叫谁？"],
+					["huoyanshankou-xiaozu", "山口小喽啰：孙子叫你！"],
+					["huoyanshankou-xiaozu", "山口小喽啰：…"],
+					["huoyanshankou-xiaozu", "山口小喽啰：好啊，敢侮辱小爷我。看招！"],
+					["tangseng", "唐僧：悟空，速战速决，事不宜迟。"]
+				]],
+				[null, "Battle", ["huoyanshankou", "huoyanshankou-xiaozu"]],
+				[null, "Show", [
+					["huoyanshankou-xiaozu", "山口小喽啰：可恶！黑风大王就在洞里巡逻，会叫你们好看的！"]
+				]],
+			false, 0],
+
+	"xiaozu_lose": [
+						["J", "Show", [
+							["huoyanshankou-xiaozu", "山口小喽啰：我们二大王不会让你们活着出去的..."]
+						]],
+					true, 0],
+
+	"get_tongjingti": [
+  			["J",
+  				"Show", [
+  					["", "<font color = yellow><b>（获得装备 蓝色护臂）</b></font>"]
+  				]
+  			],
+  			[null,
+  				"Get", ["Blue Barcer"]
+  			],
+  		false, 0],
+
+	"get_gufen": [
+  			["J",
+  				"Show", [
+  					["", "<font color = yellow><b>（获得装备 青云靴）</b></font>"]
+  				]
+  			],
+  			[null,
+  				"Get", ["QingYun Shoes"]
+  			],
+  		false, 0],
+
+	"go_zhuzishanjiao": [[null, "Go", "zhuzishanjiao"], true, 0],
+
+	"go_huoyanshandi": [[null, "Go", "huoyanshandi"], true, 0]
+}

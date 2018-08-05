@@ -1,0 +1,64 @@
+[
+    {
+        "Name": "Monkey King",
+        "HP": 400,
+        "VP": 480,
+        "ATK": 88,
+        "DEF": 90,
+        "SPD": 50,
+        "characterType": "角色",
+        "skills": [
+            {
+                "name": "火眼金睛",
+                "VP": 77,
+                "defPercent": 0.53,
+                "turn": 5
+            },
+            {
+                "name": "当头一棒",
+                "VP": 52,
+                "dmgPercent": 1.45
+            }
+        ]
+    },
+    {
+        "Name": "The Pigsy",
+        "HP": 480,
+        "VP": 380,
+        "ATK": 62,
+        "DEF": 124,
+        "SPD": 30,
+        "characterType": "角色",
+        "skills": [
+            {
+                "name": "睡懒觉",
+                "VP": -21,
+                "HP": 23,
+                "atkPercent": 1.27
+            },
+            {
+                "name": "锤击",
+                "VP": 63,
+                "atkNumber": 31,
+                "defNumber": 26,
+                "turn": 3
+            }
+        ]
+    },
+    {
+        "Name": "Monk Tang",
+        "HP": 350,
+        "VP": 600,
+        "ATK": 57,
+        "DEF": 50,
+        "SPD": 40,
+        "characterType": "角色",
+        "skills": [
+            {
+                "name": "神圣治愈",
+                "VP": 110,
+                "HP": 51
+            }
+        ]
+    }
+]

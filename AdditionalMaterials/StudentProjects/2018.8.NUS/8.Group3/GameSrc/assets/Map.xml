@@ -1,0 +1,169 @@
+<MyGameLevel>
+
+<!--  *** be careful!! comma (,) is not a supported syntax!!  -->
+<!--  make sure there are no comma in between attributes -->
+<!--  e.g., do NOT do:  PosX="20", PosY="30" -->
+<!--  notice the "comma" between PosX and PosY: Syntax error! -->
+  
+    <!-- cameras -->
+                <!-- Viewport: x, y, w, h -->
+
+    <Windoor PosX = "480" PosY ="500" Width = "30" Height = "30" />
+
+<!--  *** be careful!! comma (,) is not a supported syntax!!  -->
+<!--  make sure there are no comma in between attributes -->
+<!--  e.g., do NOT do:  PosX="20", PosY="30" -->
+<!--  notice the "comma" between PosX and PosY: Syntax error! -->
+  
+    <!-- cameras -->
+                <!-- Viewport: x, y, w, h -->
+    <Camera CenterX="300" CenterY="60" Width="120"
+            Viewport="0 0 1280 720"
+            BgColor="0 0 1 0"/>
+    <Camera CenterX="100" CenterY="300" Width="240"
+            Viewport="19.2 19.2 150 150"
+            BgColor="0 1 1 1"/>
+
+    
+    <Wall PosX = "57.5" PosY ="144" Width = "115" Height = "288"  Rotate = "0" />
+    <Wall PosX = "329.4" PosY ="6.4" Width = "428.8" Height = "12.8"  Rotate = "0" />
+    <Wall PosX = "134.2" PosY ="223.6" Width = "38.4" Height = "140"  Rotate = "0" />
+    <Wall PosX = "12.8" PosY ="412.8" Width = "25.6" Height = "249.6" Rotate = "0"  />
+    <Wall PosX = "70.4" PosY ="419.2" Width = "89.6" Height = "57.6"  Rotate = "0" />      
+    <Wall PosX = "134.4" PosY ="406.4" Width = "38.4" Height = "83.2" Rotate = "0"  />    
+    
+    <Wall PosX = "54.4" PosY ="528.1" Width = "57.6" Height = "19.2" Rotate = "0"  />
+    <Wall PosX = "112" PosY ="528.1" Width = "57.6" Height = "19.2"  Rotate = "0" />      
+    <Wall PosX = "169.6" PosY ="528.1" Width = "57.6" Height = "19.2" Rotate = "0"  />   
+    <Wall PosX = "227.2" PosY ="528.1" Width = "57.6" Height = "19.2" Rotate = "0"  />
+    <Wall PosX = "284.8" PosY ="528.1" Width = "57.6" Height = "19.2" Rotate = "0"  />      
+    <Wall PosX = "342.4" PosY ="528.1" Width = "57.6" Height = "19.2" Rotate = "0"  /> 
+    <Wall PosX = "400" PosY ="528.1" Width = "57.6" Height = "19.2" Rotate = "0" />
+    <Wall PosX = "457.6" PosY ="528.1" Width = "57.6" Height = "19.2" Rotate = "0"  />      
+    <Wall PosX = "515.2" PosY ="528.1" Width = "57.6" Height = "19.2" Rotate = "0"  /> 
+   
+    <Wall PosX = "256" PosY ="169.6" Width = "89.6" Height = "32"  Rotate = "0" />
+    <Wall PosX = "268.8" PosY ="32" Width = "38.4" Height = "38.4" Rotate = "0"  />
+    <Wall PosX = "307.2" PosY ="32" Width = "38.4" Height = "38.4" Rotate = "0"  /> 
+    <Wall PosX = "345.6" PosY ="32" Width = "38.4" Height = "38.4" Rotate = "0"  />
+    <Wall PosX = "384" PosY ="32" Width = "38.4" Height = "38.4"  Rotate = "0" /> 
+    <Wall PosX = "422.4" PosY ="32" Width = "38.4" Height = "38.4"  Rotate = "0" />
+    <Wall PosX = "460.8" PosY ="32" Width = "38.4" Height = "38.4" Rotate = "0"  /> 
+    <Wall PosX = "499.2" PosY ="32" Width = "38.4" Height = "38.4" Rotate = "0"  />
+    
+    <Wall PosX = "275.2" PosY ="102.4" Width = "51.2" Height = "102.4" Rotate = "0" />   
+    
+     
+    <Wall PosX = "236.8" PosY ="250.6" Width = "51.2" Height = "25.6" Rotate = "0" /> 
+    <Wall PosX = "236.8" PosY ="276.2" Width = "51.2" Height = "25.6" Rotate = "0"  /> 
+    <Wall PosX = "236.8" PosY ="300.8" Width = "51.2" Height = "25.6"  Rotate = "0" /> 
+    <Wall PosX = "236.8" PosY ="326.4" Width = "51.2" Height = "25.6"  Rotate = "0" /> 
+    <Wall PosX = "236.8" PosY ="352" Width = "51.2" Height = "25.6"  Rotate = "0" /> 
+    <Wall PosX = "236.8" PosY ="377.6" Width = "51.2" Height = "25.6"  Rotate = "0" /> 
+    <Wall PosX = "236.8" PosY ="403.2" Width = "51.2" Height = "25.6"  Rotate = "0" /> 
+    <Wall PosX = "236.8" PosY ="428.8" Width = "51.2" Height = "25.6"  Rotate = "0" /> 
+    <Wall PosX = "236.8" PosY ="454.4" Width = "51.2" Height = "25.6" Rotate = "0"  /> 
+    <Wall PosX = "236.8" PosY ="480" Width = "51.2" Height = "25.6"  Rotate = "0" /> 
+    <Wall PosX = "236.8" PosY ="505.6" Width = "51.2" Height = "25.6"  Rotate = "0" />
+    
+     <Wall PosX = "304" PosY ="250.6" Width = "83.2" Height = "25.6"  Rotate = "0" />       
+     <Wall PosX = "403.6" PosY ="180.2" Width = "115.2" Height = "166.4"  Rotate = "0" />
+ 
+     <Wall PosX = "371.6" PosY ="412.4" Width = "127.2" Height = "56.8" Rotate = "0"  />   
+    
+
+     <Wall PosX = "348.4" PosY ="509" Width = "172.8" Height = "32"  Rotate = "0" />  
+        
+     <Wall PosX = "473.4" PosY ="396.8" Width = "76.8" Height = "25.6" Rotate = "0"  /> 
+     
+     
+        
+     <Wall PosX = "531.2" PosY ="38.4" Width = "38.4" Height = "51.2"  Rotate = "0" />  
+     <Wall PosX = "531.2" PosY ="89.6" Width = "38.4" Height = "51.2"  Rotate = "0" />      
+     <Wall PosX = "531.2" PosY ="140.8" Width = "38.4" Height = "51.2" Rotate = "0"  /> 
+     <Wall PosX = "531.2" PosY ="192" Width = "38.4" Height = "51.2" Rotate = "0"  />  
+     <Wall PosX = "531.2" PosY ="243.2" Width = "38.4" Height = "51.2"  Rotate = "0" />      
+     <Wall PosX = "531.2" PosY ="294.4" Width = "38.4" Height = "51.2"  Rotate = "0" />     
+     <Wall PosX = "531.2" PosY ="345.6" Width = "38.4" Height = "51.2"  Rotate = "0" />  
+     <Wall PosX = "531.2" PosY ="396.8" Width = "38.4" Height = "51.2"  Rotate = "0" />      
+     <Wall PosX = "531.2" PosY ="448" Width = "38.4" Height = "51.2"  Rotate = "0" />     
+     <Wall PosX = "531.2" PosY ="499.2" Width = "38.4" Height = "51.2"  Rotate = "0" />  
+     
+     <Wall PosX = "531.2" PosY ="448" Width = "38.4" Height = "51.2"  Rotate = "0" />     
+     <Wall PosX = "531.2" PosY ="499.2" Width = "38.4" Height = "51.2"  Rotate = "0" />   
+     
+         
+     <Wall PosX = "205" PosY ="510" Width = "47" Height = "25"  Rotate = "-45" />      
+     <Wall PosX = "180" PosY ="518" Width = "23" Height = "10"  Rotate = "-25" />      
+     <Wall PosX = "213" PosY ="480" Width = "30" Height = "10"  Rotate = "-75" />      
+
+     <Wall PosX = "155" PosY ="439" Width = "15" Height = "10"  Rotate = "-45" /> 
+     <Wall PosX = "159" PosY ="427" Width = "20" Height = "11"  Rotate = "-90" />                    
+     <Wall PosX = "153" PosY ="413" Width = "22" Height = "10"  Rotate = "45" /> 
+     
+            
+     <Wall PosX = "205" PosY ="340" Width = "35" Height = "20"  Rotate = "0" /> 
+     <Wall PosX = "202" PosY ="352" Width = "50" Height = "17"  Rotate = "45" />                    
+     <Wall PosX = "202" PosY ="328" Width = "50" Height = "17"  Rotate = "-45" />   
+     <Wall PosX = "215" PosY ="370" Width = "37" Height = "17"  Rotate = "75" />                    
+     <Wall PosX = "215" PosY ="310" Width = "37" Height = "17"  Rotate = "-75" />     
+<Wall PosX = "332.35" PosY ="232" Width = "50" Height = "30"  Rotate = "-30" />         
+<Wall PosX = "349" PosY ="215" Width = "50" Height = "25"  Rotate = "-60" />    
+     
+<Wall PosX = "140" PosY ="511" Width = "16" Height = "16"  Rotate = "0" />         
+<Wall PosX = "140" PosY ="456" Width = "16" Height = "16"  Rotate = "0" />                                        
+    <Map PosX = "269" PosY ="269" Width = "538" Height = "538"  />
+
+
+    <Minion PosX="200" PosY="250" Width="7" Height="7" />
+    <Minion PosX="190" PosY="465" Width="7" Height="7" />
+    <Minion PosX="200" PosY="400" Width="7" Height="7" />
+    
+    <Minion PosX="307" PosY="102" Width="7" Height="7" />
+    <Minion PosX="140" PosY="100" Width="7" Height="7" />
+    <Minion PosX="217" PosY="102" Width="7" Height="7" />
+    <Minion PosX="480" PosY="200" Width="7" Height="7" />
+    <Minion PosX="83" PosY="300" Width="7" Height="7" />
+    
+    <Minion PosX="420" PosY="76" Width="7" Height="7" />
+    <Minion PosX="410" PosY="480" Width="7" Height="7" />
+    <!-- Buttons -->
+    <Button PosX="120" PosY="513" Type="0"/>
+    <Button PosX="120" PosY="454" Type="0"/>
+<!--    <Button PosX="60" PosY="8.5" Type="0"/>-->
+    
+    <!-- Doors -->
+    <Door PosX="140" PosY="483"  />
+    
+        <!-- Coins -->
+    <Coin PosX="60" PosY="340" Radio = "4"  />
+    <Coin PosX="310" PosY="320" Radio = "4"  />
+    <Coin PosX="180" PosY="60" Radio = "4"  />
+
+    <Coin PosX="696" PosY="800" Radio = "2"  />
+    <Coin PosX="700" PosY="800" Radio = "2"  />
+    <Coin PosX="704" PosY="800" Radio = "2"  />
+    
+    
+
+    <WallCircle PosX="704" PosY="800" Rotate = "15"  />
+    <WallCircle PosX="134" PosY="378" Rotate = "23"  />
+    <WallCircle PosX="315" PosY="242" Rotate = "15"  />
+    
+    <Bloodpack PosX="480" PosY="150" Width="14" Height="14" />
+    <Bloodpack PosX="140" PosY="325" Width="14" Height="14" />
+    <Bloodpack PosX="180" PosY="30" Width="14" Height="14" />
+    
+
+    <Boom PosX="450" PosY="280" Width="14" Height="14" />
+    <Boom PosX="480" PosY="335" Width="14" Height="14" />
+    <Boom PosX="400" PosY="370" Width="14" Height="14" />    
+    <Boom PosX="425" PosY="330" Width="14" Height="14" />
+    <Boom PosX="167" PosY="400" Width="7" Height="7" />    
+    <Boom PosX="465" PosY="100" Width="7" Height="7" />    
+    <Boom PosX="360" PosY="310" Width="14" Height="14" />        
+    <Boom PosX="322" PosY="445" Width="7" Height="7" />
+    <Boom PosX="302" PosY="185" Width="7" Height="7" />           
+</MyGameLevel>
+    
+    

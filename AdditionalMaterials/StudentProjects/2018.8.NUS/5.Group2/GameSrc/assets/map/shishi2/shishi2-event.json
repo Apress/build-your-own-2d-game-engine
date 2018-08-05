@@ -1,0 +1,82 @@
+{
+	"rukou": [
+				[null, "Show", [
+					["tangseng", "唐僧：这..."],
+					["sunwukong", "孙悟空：又是个迷宫。"],
+					["zhubajie", "猪八戒：大师兄，你傻了吧，这门不就在前头吗？"],
+					["sunwukong", "孙悟空：..."],
+					["sunwukong", "孙悟空：臭猪，就你长了眼睛。"]
+				]],
+			false, 0],
+
+	"baoyuan1": [
+					[null, "Show",[
+						["tangseng", "唐僧：没想到这石室如此复杂，虽然没遇到敌人，但也耽误了我们不少时间。"],
+						["sunwukong", "孙悟空： 怪了。难不成这些妖怪平时就这么出入？"],
+						["sunwukong", "孙悟空：咦？臭猪呢？"],
+						["zhubajie", "猪八戒：师傅，大师兄，等..等等我啊..."]
+					]],
+				false, 0],
+
+	"finally": [
+					[null, "Show",[
+						["sunwukong", "孙悟空：前面好像...好像又是那个醉老头？？"]
+					]],
+				false, 0],
+
+	"baoyuan2": [
+					[null, "Show",[
+						["zhubajie", "猪八戒：得了，就在这累死老猪我吧！"],
+						["zhubajie", "孙悟空：嘿嘿..叫你平时吃那么多，动那么少。是吧师傅。"],
+						["tangseng", "唐僧：... ..."]
+					]],
+				false, 0],
+
+	"chukou": [
+				[null, "Show",
+					[
+						["shishi1-zuihan", "醉酒老翁：人逢喜事精神爽，闷上心来..."],
+						["sunwukong", "孙悟空：忒！老头，你究竟是什么人？跟着我师父作甚？"],
+						["shishi1-zuihan", "醉酒老翁：我..你..哎？你们来了啊？小猪，小猴，小和尚？"],
+						["tangseng", "唐僧：多谢施主先前提示。贫僧才和徒弟走出了妖怪布下的阵。"],
+						["tangseng", "唐僧：可是贫僧仍想冒昧问一句施主为何要出手相助？贫僧又有什么能为施主效劳的吗？"],
+						["shishi1-zuihan", "醉酒老翁：我啊...嘿嘿..."],
+						["", "（语音未落，老和尚一掌击在唐僧胸前，唐僧口吐鲜血）"],
+						["sunwukong", "孙悟空：忒！老头！！！你对我师父做了什么？！"],
+						["zhubajie", "猪八戒：师父！！！"],
+						["shishi1-zuihan", "醉酒老翁：嘿嘿...嘿嘿..."],
+						["tangseng", "唐僧：师父没事..."],
+						["tangseng", "唐僧：施主...施主将内功传于贫僧...贫僧感激不尽...但究竟是所谓何事？"],
+						["sunwukong", "孙悟空：...内功？？"],
+						["shishi1-zuihan", "醉酒老翁：哈哈哈...是的是的！老夫将自己生平绝学传于你，和尚。"],
+						["shishi1-zuihan", "醉酒老翁：你呢，就去做你该做的事吧。"],
+						["shishi1-zuihan", "醉酒老翁：我这招“念经”呢，是专门对付那些<font color = yellow><b>蚊子水蛭</b></font>一般的妖精的哟~"],
+						["shishi1-zuihan", "醉酒老翁：可别忘了老夫告诫你们的字字箴言~"],
+						["shishi1-zuihan", "醉酒老翁：进了这个门...可就没有回头路了哟~"],
+						["", "<font color = yellow><b>（唐僧习得技能 念经）</b></font>"],
+						["", "（门按J进入）"]
+				]],
+			[null,
+				"Learn", "2", {"name": "念经", "VP": 63, "atkPercent": 0.71, "turn": 6}
+			],
+			false, 0],
+
+	"zuihan": [
+				["J", "Show",[
+						["shishi1-zuihan", "醉酒老翁：今朝有酒今朝醉，莫管门前是与非~"],
+						["tangseng", "孙悟空：... ..."]
+					]],
+				true, 0],
+
+	"huangfengguai": [
+						["J",
+							"Battle", ["shishi2", "shishi2-huangfengguai"]
+						],
+						[null,
+							"Win", [null,
+									"EndGame"]],
+				false, 0],
+
+	"go_shishi2": [[null, "Go", "shishi2"], true, 0],
+	"go_huoyanshanding": [[null, "Go", "huoyanshanding"], true, 0]
+}
