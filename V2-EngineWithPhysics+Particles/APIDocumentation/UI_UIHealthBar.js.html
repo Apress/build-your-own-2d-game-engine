@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/UIHealthBar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/UIHealthBar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* UIHealthBar.js
+ * 
+ */
+
+"use strict";
+
+/**
+ * A health bar to can be used for UI's
+ * @param {texture} sprite Texture for the UIHealthBar
+ * @param {Array[]} position Base position for the UIHealthBar
+ * @param {Array[]} size The size for the UIHealthBar
+ * @param {int} buffer Size different between background and foreground
+ * @class UIHealthBar
+ * @returns {UIHealthBar}
+ */
+function UIHealthBar(sprite, position, size, buffer) {
+    this.mBack = new SpriteRenderable(sprite);
+    this.mBack.setElementUVCoordinate(0.0, 1.0, 0.5, 1.0);
+    UIElement.call(this, this.mBack, position, size);
+    
+    this.mBuffer = buffer;
+    
+    this.mMaxHP = 100;
+    this.mCurHP = this.mMaxHP;
+    
+    
+    this.mHPElem = new UISprite(sprite, position, size, [0.0, 1.0, 0.0, 0.5]);
+};
+gEngine.Core.inheritPrototype(UIHealthBar, UIElement);
+/**
+ * Draws the UIHealthBar 
+ * @param {Camera} aCamera The camera to draw it on
+ * @memberOf UIHealthBar
+ */
+UIHealthBar.prototype.draw = function(aCamera) {
+  UIElement.prototype.draw.call(this, aCamera);
+  this.mHPElem.draw(aCamera);
+};
+
+/**
+ * Update the UIHealthBar
+ * @memberOf UIHealthBar
+ */
+UIHealthBar.prototype.update = function() {
+    UIElement.prototype.update.call(this);
+    
+    var s = this.getUIXform().getSize();
+    var p = this.getUIXform().getPosition();
+    this.mHPElem.getUIXform().setSize((s[0] - 2*this.mBuffer) * (this.mCurHP / this.mMaxHP), s[1] - 2*this.mBuffer);
+    
+    //left align
+    this.mHPElem.getUIXform().setPosition(p[0] - s[0]/2 + this.mBuffer + (this.mHPElem.getUIXform().getSize()[0]/2), p[1]);
+    this.mHPElem.update();
+};
+
+/**
+ * Set the Max HP
+ * @param {int} hp What to set the Max HP to
+ * @memberOf UIHealthBar
+ */
+UIHealthBar.prototype.setMaxHP = function(hp) {
+    if(hp > 0)
+        this.mMaxHP = hp;  
+};
+
+/**
+ * Set the Current HP
+ * @param {type} hp what to set the Current HP
+ * @memberOf UIHealthBar
+ */
+UIHealthBar.prototype.setCurrentHP = function(hp) {
+    if(hp &lt; 0)
+        this.mCurHP = 0;
+    else
+        this.mCurHP = hp;
+};
+
+/**
+ * Get the Max HP
+ * @returns {int} The Max HP
+ * @memberOf UIHealthBar
+ */
+UIHealthBar.prototype.getMaxHP = function() {
+    return this.mMaxHP;
+};
+
+/**
+ * Get the Current HP
+ * @returns {int} The Current HP
+ * @memberOf UIHealthBar
+ */
+UIHealthBar.prototype.getCurrentHP = function() {
+    return this.mCurHP;
+};
+
+/**
+ * Increment the HP by the passed amount
+ * @param {type} hp The amount to increment by
+ * @memberOf UIHealthBar
+ */
+UIHealthBar.prototype.incCurrentHP = function(hp) {
+    if(this.mCurHP + hp > this.mMaxHP)
+        this.mCurHP = this.mMaxHP; 
+    else if(this.mCurHP + hp &lt; 0)
+        this.mCurHP = 0;
+    else
+        this.mCurHP = this.mCurHP + hp;
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="ParticleSystem.html">ParticleSystem</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="Smoke.html">Smoke</a></li><li><a href="Snow.html">Snow</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li><li><a href="UIButton.html">UIButton</a></li><li><a href="UIDDButton.html">UIDDButton</a></li><li><a href="UIDropDown.html">UIDropDown</a></li><li><a href="UIElement.html">UIElement</a></li><li><a href="UIHealthBar.html">UIHealthBar</a></li><li><a href="UIRadio.html">UIRadio</a></li><li><a href="UIRButton.html">UIRButton</a></li><li><a href="UISprite.html">UISprite</a></li><li><a href="UIText.html">UIText</a></li><li><a href="UITextBox.html">UITextBox</a></li><li><a href="UITextBoxFont.html">UITextBoxFont</a></li><li><a href="UITexture.html">UITexture</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Aug 20 2018 01:51:28 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="coding.css">
+		<title>UI Tutorial</title>
+	</head>
+
+	<body>
+    	<div id="main-content">
+		<h1> GTCS Game Engine: <br>
+		UI Tutorial</h1>
+		
+		
+		
+		<hr>
+		<p><b>Note: </b>These UI Objects are implemented in the updated game engine.</p>
+		<h2>Introduction</h2>
+		<p>This tutorial will cover the new UI Objects added. It will explain how to set up and use
+		each of the UI Objects.</p>
+		<p>You can download the source code from <a href="UIDemo.zip">here</a>.</p>
+		<p>You can try the demo for the UI <a href="UIDemo/public_html/index.html">here</a>.</p>
+		<hr>
+		<h2>Common Variables</h2>
+		<p>There are variables that multiple objects use. Let's go over them.</p>
+		<table>
+			<tr>
+				<td>position</td>
+				<td>A 2 entry array that takes the PIXEL position of the object.</td>
+			</tr>
+			<tr>
+				<td>color</td>
+				<td>Whether it be the color of a box or text, this is a 4 entry array that controls the color of said part of the obejct.</td>
+			</tr>
+			<tr>
+				<td>text</td>
+				<td>A string for the object to display.</td>
+			<tr>
+				<td>textSize</td>
+				<td>A single number that controls the height of text. This value also sets the height for some UI Objects.</td>
+			</tr>
+			<tr>
+				<td>callback</td>
+				<td>For Objects that do something when they are either clicked or have a value entered, this variable is the function that is called.</td>
+			</tr>
+			<tr>
+				<td>context</td>
+				<td>Who the callback function belongs to. For example, if the function you wish to call is this.setToRed(), then setToRed is the callback and this is the context.</td>
+			</tr>
+			<tr>
+				<td>aCamera</td>
+				<td>Used to convert pixel to WC and vice versa. Especially useful when auto positioning for the lists.
+		</table>
+		<p>Now that the common variables have been explained, let's look at the objects themselves.</p>
+		<hr>
+		<h2>UI Text</h2>
+		<p><figure>
+        	<img src="images/UIText.png" width="332" height="63" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UIText = new UIText(text, position, size, hAlign, vAlign, color);
+};</pre>
+        <p><figure>
+            	<figcaption>Constructor header for UI Text.</figcaption>
+            </figure>
+        </p>
+		<p>Size for this objects is the same as textSize for other objects.</p>
+		<p>hAlign sets which part of the text the horizontal position applies to. 0 sets the left end to the position, 1 the center, and 2 the right end.</p>
+		<p>vAlign sets which part of the text the vertical position applies to. 0 sets the top to the position, 1 the center, and 2 the bottom.</p>
+		<p>A FontRenderable Object for UI Purposes, Alignment makes positioning far easier.
+		<hr>
+		<h2>UI Button</h2>
+		<p><figure>
+        	<img src="images/UIButton.png" width="187" height="45" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UIButton = new UIButton(buttonSprite, callback, context, position, size, text, textSize, textColor, clickTextColor);
+};</pre>
+		<p><figure>
+            	<figcaption>Constructor header for UI Button.</figcaption>
+            </figure>
+        </p>
+		<p>buttonSprite is the texture that's used for the button. The texture has 2 butttons, the top is the normal state, the bottom is the clicked state.</p>
+		<p>Size is a 2 entry array that sets the width and height of the button in PIXELS.</p>
+		<p>clickTextColor is the color the text will have while it's being clicked.</p>
+		<p>An UI Object that triggers the callback function when it is clicked and released.</p>
+		<hr>
+		<h2>UI HealthBar</h2>
+		<p><figure>
+        	<img src="images/UIHealthBar.png" width="456" height="44" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UIHealthBar = new UIHealthBar(sprite, position, size, buffer);
+};</pre>
+		<p><figure>
+            	<figcaption>Constructor header for UI HealthBar.</figcaption>
+            </figure>
+        </p>
+		<p>Sprite is the texture that's used for the button. The texture has 2 images, the top is the background part, the bottom is the part used to represent the current HP.</p>
+		<p>Size is a 2 entry array that sets the width and height of the health bar in PIXELS.</p>
+		<p>Buffer is the size difference between the forground and the background of the health bar in PIXELS.</p>
+		<p>Use <b>incCurrentHP(num)</b> to change the current HP by that amount. There are also getters and setter for the Max and Current HP.</p>
+		<hr>
+		<h2>UI TextBox</h2>
+		<p><figure>
+        	<img src="images/UITextBox.png" width="354" height="54" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UITextBox = new UITextBox(position, textSize, width, color, textColor, callback, context);
+};</pre>
+		<p><figure>
+            	<figcaption>Constructor header for UI Textbox.</figcaption>
+            </figure>
+        </p>
+		<p>The only unique variable is width setting the width of the text box in World Coordinates.</p>
+		<p>When you press enter, it updates the latest entered value. This value can be accessed with the getEnteredValue function.</p>
+		<hr>
+		<h2>UI Radio List</h2>
+		<p><figure>
+        	<img src="images/UIRadio.png" width="198" height="128" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UIRadio = new UIRadio(callback, context, position, text, textSize, textColor, aCamera);
+	this.UIRadio.addToSet = function (callback, context, text, textColor, aCamera);
+};</pre>
+		<p><figure>
+            	<figcaption>Constructor header and addToSet function for UI Radio.</figcaption>
+            </figure>
+        </p>
+		<p>UI Radio creates one node with the constructor, you need the addToSet function to add more nodes to the Radio List.</p>
+		<hr>
+		<h2>UI DropDown List</h2>
+		<p><figure>
+        	<img src="images/UIDropDown.png" width="416" height="228" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UIDropDown = new UIDropDown(position,text,textSize,textColor,boxColor);
+	this.UIDropDown.addToSet = function (text, textColor, boxColor, callback, context, aCamera);
+};</pre>
+	<p><figure>
+            	<figcaption>Constructor header and addToSet function for UI DropDown.</figcaption>
+            </figure>
+        </p>
+		<p>The constructor only sets up the headButton. To add actual items to the list, you need to use the addToSet function.</p>
+		<hr>
+		<h2>Draw and Update</h2>
+		<p>Like every other object, Draw and Update are necessary in order to use the object. Draw is the same as every other object, update is different.</p>
+		<pre>MyGame.prototype.update = function(){
+	this.UIButton.update();
+	this.UIDropDown.update(Camera);
+};</pre>
+	<p>UITextBox, UIRadio, and UIDropDown all require a Camera object to convert the mouse position to WC for the update.</p>
+    <h2>Conclusion</h2>
+        <p>These UI Objects will allow for a proper UI experience without the hassle of creating everything from scratch.
+		Now that you've finished this tutorial, you now have the knowledge to use these UI Objects.</p>
+	</div>
+    <h4><i>8/19/2018</i> - Akilas Mebrahtom</h4>
+    </body>
+</html>
