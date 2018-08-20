@@ -19,6 +19,7 @@
 		<h2>Introduction</h2>
 		<p>This tutorial will cover the new UI Objects added. It will explain how to set up and use
 		each of the UI Objects.</p>
+		<p><strong>UI Objects:</strong> <a href="#UI_Text">UI Text</a> • <a href="#UI_Button">UI Button</a> • <a href="#UI_HealthBar">UI HealthBar</a> • <a href="#UI_TextBox">UI TextBox</a> • <a href="#UI_Radio">UI Radio</a> • <a href="#UI_DropDown">UI DropDown</a></p>
 		<p>You can download the source code from <a href="UIDemo.zip">here</a>.</p>
 		<p>You can try the demo for the UI <a href="UIDemo/public_html/index.html">here</a>.</p>
 		<hr>
@@ -54,7 +55,7 @@
 		</table>
 		<p>Now that the common variables have been explained, let's look at the objects themselves.</p>
 		<hr>
-		<h2>UI Text</h2>
+		<h2><a id="UI_Text"></a>UI Text</h2>
 		<p><figure>
         	<img src="images/UIText.png" width="332" height="63" alt=""/>
             </figure>
@@ -71,7 +72,7 @@
 		<p>vAlign sets which part of the text the vertical position applies to. 0 sets the top to the position, 1 the center, and 2 the bottom.</p>
 		<p>A FontRenderable Object for UI Purposes, Alignment makes positioning far easier.
 		<hr>
-		<h2>UI Button</h2>
+		<h2><a id="UI_Button"></a>UI Button</h2>
 		<p><figure>
         	<img src="images/UIButton.png" width="187" height="45" alt=""/>
             </figure>
@@ -88,7 +89,7 @@
 		<p>clickTextColor is the color the text will have while it's being clicked.</p>
 		<p>An UI Object that triggers the callback function when it is clicked and released.</p>
 		<hr>
-		<h2>UI HealthBar</h2>
+		<h2><a id="UI_HealthBar"></a>UI HealthBar</h2>
 		<p><figure>
         	<img src="images/UIHealthBar.png" width="456" height="44" alt=""/>
             </figure>
@@ -105,7 +106,7 @@
 		<p>Buffer is the size difference between the forground and the background of the health bar in PIXELS.</p>
 		<p>Use <b>incCurrentHP(num)</b> to change the current HP by that amount. There are also getters and setter for the Max and Current HP.</p>
 		<hr>
-		<h2>UI TextBox</h2>
+		<h2><a id="UI_TextBox"></a>UI TextBox</h2>
 		<p><figure>
         	<img src="images/UITextBox.png" width="354" height="54" alt=""/>
             </figure>
@@ -120,7 +121,7 @@
 		<p>The only unique variable is width setting the width of the text box in World Coordinates.</p>
 		<p>When you press enter, it updates the latest entered value. This value can be accessed with the getEnteredValue function.</p>
 		<hr>
-		<h2>UI Radio List</h2>
+		<h2><a id="UI_Radio"></a>UI Radio List</h2>
 		<p><figure>
         	<img src="images/UIRadio.png" width="198" height="128" alt=""/>
             </figure>
@@ -135,7 +136,7 @@
         </p>
 		<p>UI Radio creates one node with the constructor, you need the addToSet function to add more nodes to the Radio List.</p>
 		<hr>
-		<h2>UI DropDown List</h2>
+		<h2><a id="UI_DropDown"></a>UI DropDown List</h2>
 		<p><figure>
         	<img src="images/UIDropDown.png" width="416" height="228" alt=""/>
             </figure>
