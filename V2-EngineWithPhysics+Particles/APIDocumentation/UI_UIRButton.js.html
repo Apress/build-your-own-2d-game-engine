@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/UIRButton.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/UIRButton.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+"use strict";
+
+/**
+ * A radio button for UI purposes
+ * @param {function} callback The function to be called when the button is released
+ * @param {object} context The owner of the callback function
+ * @param {Array[]} position The base position for the UIRButton
+ * @param {string} text The text for the UIRButton
+ * @param {int} textSize The size for the text and the button
+ * @param {Array[]} textColor The color for the text
+ * @param {Camera} aCamera The camera that the UIRButton will be drawn on
+ * @class UIRButton
+ * @returns {UIRButton}
+ */
+function UIRButton(callback, context, position, text, textSize, textColor, aCamera) {
+    this.mBack = new SpriteRenderable("assets/UI/radarbutton.png");
+    this.mBack.setElementUVCoordinate(0.0, 1.0, 0.5, 1.0);
+    
+    var pixSize=textSize*(aCamera.getViewport()[2]/aCamera.getWCWidth());
+    var tPos = [position[0]+pixSize/2+5,position[1]];
+    
+    this.mText = new UIText(text, 
+                            tPos, 
+                            textSize, 
+                            UIText.eHAlignment.eLeft, 
+                            UIText.eVAlignment.eCenter,
+                            textColor);
+ 
+    
+    UIElement.call(this, this.mBack, position, [20,20]);
+    
+    //callback management
+    this.mCallBack = callback;
+    this.mContext = context;
+    
+    
+    this.mHover = false;
+    this.mClick = false;
+}
+gEngine.Core.inheritPrototype(UIRButton, UIElement);
+
+/**
+ * Returns the UIText on the UIRButton
+ * @memberOf UIRButton
+ * @returns {UIText}
+ */
+UIRButton.prototype.getText = function() {
+    return this.mText;
+};
+
+/**
+ * Draws the UIRButton on the passed camera
+ * @param {Camera} aCamera The camera to draw the button on
+ * @memberOf UIRButton
+ */
+UIRButton.prototype.draw = function (aCamera) {
+    UIElement.prototype.draw.call(this, aCamera);
+    
+    if(this.mText !== null)
+        this.mText.draw(aCamera);
+};
+
+/**
+ * Updates the UIRButton
+ * @memberOf UIRButton
+ */
+UIRButton.prototype.update = function () {
+    UIElement.prototype.update.call(this);
+    
+    this.mClick = false;
+   
+    //make sure the button text stays on the button
+    //this.mText.getUIXform().setPosition(uiXform.getXPos(), uiXform.getYPos());
+    
+    //get the mouse position, and if its over the button
+    var mousePos = vec2.fromValues(gEngine.Input.getMousePosX(),
+                                gEngine.Input.getMousePosY());
+    var mouseOver = this.getUIBBox().containsPoint(mousePos[0], mousePos[1]);
+    
+
+    //start simple, just do callback when clicked
+    if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
+        if(mouseOver){
+            var x = this.mBack.getElementUVCoordinateArray();
+            if(x[2]!==0||x[0]!==1||x[5]!==0||x[1]!==0.5){
+                this.mClick = true;
+                this.mBack.setElementUVCoordinate(0.0, 1.0, 0.0, 0.5);
+                if(this.mCallBack !== null)
+                    this.mCallBack.call(this.mContext);
+            }
+        }
+    }
+};
+
+/**
+ * Sets the text for the UIRButton
+ * @param {String} text The new text for the UIRButton
+ * @memberOf UIRButton
+ */
+UIRButton.prototype.setTextString = function(text) {
+    this.mText.setText(text);
+};
+
+/**
+ * Sets the text's color
+ * @param {Array[]} color The new text color
+ * @memberOf UIRButton
+ */
+UIRButton.prototype.setTextColor = function(color) {
+    this.mText.setColor(color);
+};
+
+/**
+ * Set the height of the text
+ * @param {int} height The new height
+ * @memberOf UIRButton
+ */
+UIRButton.prototype.setTextHeight = function(height) {
+    this.mText.setTextHeight(height);
+};
+
+/**
+ * Resets the radio button back to a non-clicked state
+ * @memberOf UIRButton
+ */
+UIRButton.prototype.deselect = function(){
+    this.mBack.setElementUVCoordinate(0.0, 1.0, 0.5, 1.0);
+    this.mClick = false;
+};
+
+/**
+ * Checks whether if the button was clicked this update
+ * @memberOf UIRButton
+ * @returns {Boolean} If the button was clicked
+ */
+UIRButton.prototype.getClick = function(){
+    return this.mClick;
+};
+/**
+ * This adjusts the button so it can be drawn by the camera
+ * @param {Camera} aCamera the camera to adjust for
+ * @memberOf UIRButton
+ */
+UIRButton.prototype._applyUIXform = function(aCamera) {
+    var rendXform = this.getXform();
+    var WCPos = aCamera.VPpixelPosToWC(this.mUIXform.getPosition());
+    rendXform.setPosition(WCPos[0], WCPos[1]);
+    var height= this.mText.getXform().getHeight();
+    rendXform.setSize(height, height);
+    this.mText.getXform().setXPos(this.mText.getXform().getXPos());
+    
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="ParticleSystem.html">ParticleSystem</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="Smoke.html">Smoke</a></li><li><a href="Snow.html">Snow</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li><li><a href="UIButton.html">UIButton</a></li><li><a href="UIDDButton.html">UIDDButton</a></li><li><a href="UIDropDown.html">UIDropDown</a></li><li><a href="UIElement.html">UIElement</a></li><li><a href="UIHealthBar.html">UIHealthBar</a></li><li><a href="UIRadio.html">UIRadio</a></li><li><a href="UIRButton.html">UIRButton</a></li><li><a href="UISprite.html">UISprite</a></li><li><a href="UIText.html">UIText</a></li><li><a href="UITextBox.html">UITextBox</a></li><li><a href="UITextBoxFont.html">UITextBoxFont</a></li><li><a href="UITexture.html">UITexture</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gEngine">gEngine</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Aug 20 2018 01:51:28 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

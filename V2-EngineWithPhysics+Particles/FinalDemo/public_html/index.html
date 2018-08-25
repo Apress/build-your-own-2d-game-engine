@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Game Physics Engine Integration: RigidBody Physics Engine </title>
+        <link rel ="icon" type ="image/x-icon" href="./assets/favicon.png">
+
+        <!-- the following says there are javascript source code contained in 
+             the external source files
+        -->
+        <!-- external library -->
+        <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
+
+        <!-- Engine code -->
+        <!-- Core of Engine --> 
+        <script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_ParticleSystem.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_LayerManager.js"></script>
+        <!-- Resource support -->
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_AudioClips.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Textures.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Fonts.js"></script>
+        <script type="text/javascript" src="src/Engine/Scene.js"></script>
+        <script type="text/javascript" src="src/Engine/Material.js"></script>
+        <!--Lights -->
+        <script type="text/javascript" src="src/Engine/Lights/Light.js"></script>
+        <script type="text/javascript" src="src/Engine/Lights/LightSet.js"></script>
+        <!-- Utilities -->
+        <script type="text/javascript" src="src/Engine/Utils/Transform.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/BoundingBox.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/Interpolate.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/InterpolateVec2.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/LoadingIconConfig.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/ShakePosition.js"></script>
+        <!-- Renderables -->
+        <script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteAnimateRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/FontRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/LineRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/LightRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/IllumRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/ParticleRenderable.js"></script>
+        <!-- Shadows -->
+        <script type="text/javascript" src="src/Engine/Shadows/ShadowCaster.js"></script>
+        <script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver.js"></script>
+        <script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver_Stencil.js"></script>
+        <!-- GameObject -->
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObject_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObjectSet.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/TiledGameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/ParallaxGameObject.js"></script>
+        <!-- Particles -->
+        <script type="text/javascript" src="src/Engine/Particles/Particle.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleGameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleGameObjectSet.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleEmitter.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/ParticleSystem.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Fire.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Smoke.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Snow.js"></script>
+        <!-- Shaders -->
+        <script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/SpriteShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/LineShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/LightShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShaderLightAtIndex.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/IllumShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShaderMaterial.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShadowCasterShader.js"></script>
+        <!-- Camera -->
+        <script type="text/javascript" src="src/Engine/Cameras/Camera.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Manipulation.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Input.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Xform.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraState.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraShake.js"></script>
+        
+        <!-- Physics support -->
+        <script type="text/javascript" src="src/Engine/Core/Engine_Physics.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidShape.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidCircle.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangle.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/CollisionInfo.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidCircle_Collision.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangleCircle_Collision.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangle_Collision.js"></script>
+        
+        <!-- UI -->
+        <script type="text/javascript" src="src/Engine/UI/UIElement.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIText.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UITexture.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UISprite.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIButton.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIRadio.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIRButton.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIHealthBar.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UITextBoxFont.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UITextBox.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIDropDown.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIDDButton.js"></script>
+        
+        <!-- Client game code -->
+        <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
+        <script type="text/javascript" src="src/MyGame/ParticleLevel.js"></script>
+        <script type="text/javascript" src="src/MyGame/FireDemo.js"></script>
+        <script type="text/javascript" src="src/MyGame/SmokeDemo.js"></script>
+        <script type="text/javascript" src="src/MyGame/SnowDemo.js"></script>
+        <script type="text/javascript" src="src/MyGame/RigidShapeDemo.js"></script>
+        <script type="text/javascript" src="src/MyGame/UIDemo.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Arena.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/WASDObj.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Minion.js"></script>
+        
+        
+           
+<link rel="stylesheet" type="text/css" href="LoadingIcons.css">
+        
+    </head>
+
+    <body onload="
+        var myGame = new MyGame();
+        gEngine.Core.initializeEngineCore('GLCanvas', myGame);
+     ">
+        <div id="LoadingIconParent" style="width: 800px; height:600px;">
+                <canvas id="GLCanvas">
+        <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
+        Your browser does not support the HTML5 canvas.
+        <!-- this message will show only if WebGL clearing failed -->
+        </canvas>
+        <script type="text/javascript"> gEngine.LoadingIconConfig.setup(); </script>
+        </div>
+        <div id="particle" style="display: none">
+            <div>Use Left/Right buttons to select which object to manipulate</div>
+        <table>
+          <tr>
+            <th>Controls</th>
+            <th>Description</th> 
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>Q/W</td>
+            <td>Width of the object +/-</td>
+            <td><bdi id="value1"></bdi></td>
+          </tr>
+          <tr>
+            <td>A/S</td>
+            <td>Vertical Acceleration of Particles +/-</td>
+            <td><bdi id="value2"></bdi></td>
+          </tr>
+          <tr>
+              <td>Z/X</td>
+              <td>Life of the Particles +/-</td>
+              <td><bdi id="value3"></bdi></td>
+          </tr>
+          <tr>
+            <td>E/R</td>
+            <td>Setting the Horizontal initial boost of the Particles +/-</td>
+            <td><bdi id="value4"></bdi></td>
+          </tr>
+          <tr>
+            <td>D/F</td>
+            <td>Setting the Vertical initial boost of the Particles +/-</td>
+            <td><bdi id="value5"></bdi></td>
+          </tr>
+          <tr>
+            <td>C/V</td>
+            <td>What the particle size is multiplied by every update +/-</td>
+            <td><bdi id="value6"></bdi></td>
+          </tr>
+          <tr>
+            <td>T/Y</td>
+            <td>How many particles are spawned per update cycle +/-</td>
+            <td><bdi id="value7"></bdi></td>
+          </tr>
+          <tr>
+            <td>G/H</td>
+            <td>Horizontal Acceleration of the Particles +/-</td>
+            <td><bdi id="value8"></bdi></td>
+          </tr>
+          <tr>
+            <td>B/N</td>
+            <td>The size of the Particles +/-</td>
+            <td><bdi id="value9"></bdi></td>
+          </tr>
+          <tr>
+            <td>U/I</td>
+            <td>The Maximum Vertical Offset of the Particles +/-</td>
+            <td><bdi id="value10"></bdi></td>
+          </tr>
+        </table>
+        </div>
+        <div id="physics" style="display: none">
+            <div style="display: table" >
+            <div style="float: left; padding-left: 10px">
+                <b>Behavior Controls:</b>
+                <ul>
+                    <li>
+                        <b>Z/X</b>: Sequence through arenas </li>
+                    <li>
+                        <b>C/V</b>: Decrease/Increase Arena Restitution </li>
+                    <li>
+                        <b>B/N</b>: Decrease/Increase Arena Mass </li>
+                    <li>
+                        <b>H</b>: Inject random velocity to all objects in the selected arena </li>
+                    <li>
+                        <b>WASD</b>: Move selected object </li>
+                    <li>
+                        <b>Left/Right</b>: Sequence through selected object </li>
+                    <li>
+                        <b>Up/Down + MRF</b>: Increase/Decrease Mass/Restitution/Friction</li>
+                    <li>
+                        <b>U/J/I/K/O/L</b>: Create a Bouncy Ball/Soccer Ball/Rock/Wooden Ball/Ice/Bowling Ball </li>
+                </ul>
+            </div>
+            <table style="float: right">
+              <tr>
+                  <th colspan='2'>Selected RigidBody Physics Values</th>
+              </tr>
+              <tr>
+                <th>Description</th> 
+                <th>Value</th>
+              </tr>
+              <tr>
+                <td>Mass</td>
+                <td><bdi id="value11"></bdi></td>
+              </tr>
+              <tr>
+                <td>Restitution</td>
+                <td><bdi id="value12"></bdi></td>
+              </tr>
+              <tr>
+                  <td>Friction</td>
+                  <td><bdi id="value13"></bdi></td>
+              </tr>
+            </table>
+        </div>
+        <div><b>Warning: </b>There is a bug that if you change the
+                restitution too fast on a rigid rectangle, it might
+                cause it to endlessly bounce</div>
+        </div>
+    </body>
+</html>
