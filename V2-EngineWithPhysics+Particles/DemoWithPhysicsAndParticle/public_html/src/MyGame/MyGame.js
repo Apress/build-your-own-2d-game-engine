@@ -32,6 +32,11 @@ function MyGame() {
     
     this.mCurrentObj = 0;
     this.mTarget = null;
+   
+   // Draw controls
+   this.mDrawTexture = false;
+   this.mDrawBounds = false;
+   this.mDrawRigidShape = true;
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
@@ -164,12 +169,17 @@ MyGame.prototype.update = function () {
         var y = 75;
         var t = Math.random() > 0.5;
         var m = new Minion(this.kMinionSprite, x, y, t);
+        if (this.mDrawTexture) // default is false
+            m.toggleDrawRenderable();
+        if (this.mDrawBounds) // default is false
+            m.getRigidBody().toggleDrawBound();
+        if (!this.mDrawRigidShape) // default is true
+            m.toggleDrawRigidShape();
         this.mAllObjs.addToSet(m);
     }
         
     obj.keyControl();
-    obj.getRigidBody().userSetsState();
-    
+    this.drawControlUpdate();
     this.mAllObjs.update(this.mCamera);
     
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
@@ -187,7 +197,7 @@ MyGame.prototype.update = function () {
 
 MyGame.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject("assets/particle.png", atX, atY, life);
+    var p = new ParticleGameObject(this.kParticleTexture, atX, atY, life);
     p.getRenderable().setColor([1, 0, 0, 1]);
     
     // size of the particle
@@ -209,4 +219,26 @@ MyGame.prototype.createParticle = function(atX, atY) {
     p.setSizeDelta(0.98);
     
     return p;
+};
+
+MyGame.prototype.drawControlUpdate = function() {
+    var i;
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
+        this.mDrawTexture = !this.mDrawTexture;
+        for (i = 0; i < this.mAllObjs.size(); i++) {
+            this.mAllObjs.getObjectAt(i).toggleDrawRenderable();
+        }
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
+        this.mDrawRigidShape = !this.mDrawRigidShape;
+        for (i = 0; i < this.mAllObjs.size(); i++) {
+            this.mAllObjs.getObjectAt(i).toggleDrawRigidShape();
+        }
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
+        this.mDrawBounds = !this.mDrawBounds;
+        for (i = 0; i < this.mAllObjs.size(); i++) {
+            this.mAllObjs.getObjectAt(i).getRigidBody().toggleDrawBound();
+        }
+    }
 };
