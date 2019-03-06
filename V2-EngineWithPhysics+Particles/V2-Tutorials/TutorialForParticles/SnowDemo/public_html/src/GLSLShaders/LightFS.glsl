@@ -12,7 +12,7 @@ uniform vec4 uPixelColor;
 uniform vec4 uGlobalAmbientColor; // this is shared globally
 uniform float uGlobalAmbientIntensity;
 
-#define kGLSLuLightArraySize 25
+#define kGLSLuLightArraySize 4
     // GLSL Fragment shader requires loop control
     // variable to be a constant number. This number 4
     // says, this fragment shader will _ALWAYS_ process
