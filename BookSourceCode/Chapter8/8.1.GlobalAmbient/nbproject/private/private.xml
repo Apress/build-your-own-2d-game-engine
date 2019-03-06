@@ -5,6 +5,8 @@
         <group name="Chapter4"/>
         <group name="BookChapters"/>
         <group name="AllBookProjects"/>
-        <group name="Apress-2d-game-engine"/>
+        <group name="Apress-2d-game-engine">
+            <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/BookSourceCode/Chapter8/8.1.GlobalAmbient/public_html/src/GLSLShaders/SimpleFS.glsl</file>
+        </group>
     </open-files>
 </project-private>

@@ -28,7 +28,7 @@ function LightShader(vertexShaderPath, fragmentShaderPath) {
     //*******WARNING***************
     // this number MUST correspond to the GLSL uLight[] array size (for LightFS.glsl and IllumFS.glsl)
     //*******WARNING********************
-    this.kGLSLuLightArraySize = 25;  // <-- make sure this is the same as LightFS.glsl and IllumFS.glsl
+    this.kGLSLuLightArraySize = 4;  // <-- make sure this is the same as LightFS.glsl and IllumFS.glsl
     this.mShaderLights = [];
     var i, ls;
     for (i = 0; i < this.kGLSLuLightArraySize; i++) {

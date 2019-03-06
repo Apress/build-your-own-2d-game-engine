@@ -11,5 +11,15 @@
             <file>file:/D:/BIONICLE%20IGNIKA/test/NetBeansProjects/FinalDemo/public_html/src/Engine/UI/UIDDButton.js</file>
             <file>file:/D:/BIONICLE%20IGNIKA/test/NetBeansProjects/FinalDemo/public_html/src/Engine/UI/UIDropDown.js</file>
         </group>
+        <group name="GameTopics">
+            <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/MyGame/FireDemo.js</file>
+            <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/MyGame/ParticleLevel.js</file>
+        </group>
+        <group name="Apress-2d-game-engine">
+            <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Shaders/IllumShader.js</file>
+            <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Cameras/Camera_Manipulation.js</file>
+            <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/GLSLShaders/IllumFS.glsl</file>
+            <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Shaders/LightShader.js</file>
+        </group>
     </open-files>
 </project-private>
