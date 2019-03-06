@@ -34,8 +34,8 @@ Camera.prototype.update = function () {
  */
 Camera.prototype.panBy = function (dx, dy) {
     var newC = vec2.clone(this.getWCCenter());
-    this.mWCCenter[0] += dx;
-    this.mWCCenter[1] += dy;
+    newC[0] += dx;
+    newC[1] += dy;
     this.mCameraState.setCenter(newC);
 };
 
