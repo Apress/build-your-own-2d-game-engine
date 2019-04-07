@@ -1,0 +1,1 @@
+Game has normal map implemented in lighting in a 2-man team

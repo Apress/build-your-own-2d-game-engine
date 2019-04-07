@@ -1,0 +1,24 @@
+<MyGameLevel>
+    <Camera CenterX="0" CenterY="37.5" Width="200" 
+            Viewport="0 0 800 600"   
+            BgColor="0.8 0.9 1.0 1.0"
+    />            
+              
+    <!-- Platforms -->
+    <RenderablePlatform PosX="0" PosY="-36" Width="198" Height="1" DrawRigid="true" />
+    <RenderablePlatform PosX="98.5" PosY="64.5" Width="1" Height="200" DrawRigid="true" />
+    <RenderablePlatform PosX="-98.5" PosY="64.5" Width="1" Height="200" DrawRigid="true" />
+<!--    <RenderablePlatform PosX="-30" PosY="20" Width="15" Height="1" DrawRigid="true" />
+    <RenderablePlatform PosX="30" PosY="0" Width="15" Height="1" DrawRigid="true" />
+    <RenderablePlatform PosX="0" PosY="50" Width="40" Height="1" DrawRigid="true" />
+    <RenderablePlatform PosX="-36" PosY="80" Width="24" Height="1" DrawRigid="true" />-->
+    
+    <!-- Birds -->
+    <Bird PosX="0" PosY="0" />
+    
+    <!-- Eggs --> 
+    <Egg PosX="0" PosY="-30" />
+<!--    <Egg PosX="-32" PosY="84" />
+    <Egg PosX="18" PosY="54" />-->
+    
+</MyGameLevel>
