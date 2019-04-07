@@ -1,0 +1,48 @@
+<MyGameLevel>
+    <Camera CenterX="0" CenterY="37.5" Width="120" 
+            Viewport="0 0 800 600"   
+            BgColor="0.8 0.9 1.0 1.0"
+    />      
+    <MiniMap CenterX="0" CenterY="35" Width="250" 
+            Viewport="50 50 700 500"   
+            BgColor="0.8 0.8 0.8 1.0"/>      
+    
+    <!-- Ground and Walls -->
+    <RenderablePlatform PosX="0" PosY="-36" Width="198" Height="1" DrawRigid="false" Color="0,0,0,0.25" Ground="true" />
+    <RenderablePlatform PosX="98.5" PosY="64.5" Width="1" Height="200" DrawRigid="false" Color="0,0,0,0.25"  Ground="false" />
+    <RenderablePlatform PosX="-98.5" PosY="64.5" Width="1" Height="200" DrawRigid="false" Color="0,0,0,0.25" Ground="false" />
+    <RenderablePlatform PosX="0" PosY="165" Width="198" Height="1" DrawRigid="false" Color="0,0,0,0.25" Ground="false" />
+              
+    <!-- Trees -->
+    <Tree PosX="5" PosY="65" Width="20" Height="200"/>
+    
+    <!--Branches-->>
+    <Branch PosX="40" PosY="100" Width="48" Height="10" />
+    <Branch PosX="40" PosY="15" Width="48" Height="10" />
+    <Branch PosX="-23" PosY="20" Width="34" Height="10" />
+    <Branch PosX="35" PosY="-10" Width="38" Height="10" />
+    <Branch PosX="-40" PosY="57" Width="68" Height="10" />
+    <Branch PosX="-25" PosY="110" Width="38" Height="10" />
+
+    <!-- Nests -->
+    <Nest PosX="40" PosY="100" Width="40" Height="5" DrawRigid="false" HomeNest="false"/>
+    <Nest PosX="40" PosY="15" Width="45" Height="5" DrawRigid="false" HomeNest="true" />
+    <Nest PosX="-25" PosY="20" Width="30" Height="5" DrawRigid="false" HomeNest="false"/>
+    <Nest PosX="38" PosY="-10" Width="30" Height="5" DrawRigid="false" HomeNest="false"/>
+    <Nest PosX="-50" PosY="57" Width="40" Height="5" DrawRigid="false" HomeNest="false" />
+    <Nest PosX="-25" PosY="110" Width="30" Height="5" DrawRigid="false" HomeNest="false" />
+    <Nest PosX="-50" PosY="-32" Width="44" Height="5" DrawRigid="false" HomeNest="false"  />
+    
+    <!-- Birds -->
+    <Bird PosX="40" PosY="15" />
+    
+    <!-- Eggs --> 
+    <Egg PosX="40" PosY="104" />
+    <Egg PosX="-25" PosY="24" />
+    <Egg PosX="38" PosY="-6" />
+    <Egg PosX="-46" PosY="61" />
+    <Egg PosX="-54" PosY="61" />
+    <Egg PosX="-25" PosY="114" />
+    <Egg PosX="-50" PosY="-28" />
+    
+</MyGameLevel>

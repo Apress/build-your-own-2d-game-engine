@@ -1,0 +1,129 @@
+{
+    "_comment": "reference: http://www.json.org/",
+    "_comment": "example JSON files: http://json.org/example.html",
+    "_comment": "simple parsing example: http://www.w3schools.com/json/json_http.asp",
+    
+    "Camera": {
+        "Center": [100, 75],
+        "Width": 200,
+        "Viewport": [0, 0, 800, 600],
+        "BgColor": [0.8, 0.8, 0.8, 1.0]
+    },
+
+    "Arena": {
+        "x": -1.5,
+        "y": -1.5,
+        "w": 196.4,
+        "h": 147.3,
+        "res": 0.8,
+        "frct": 0.3,
+        "s1": 0,
+        "s2": 2,
+        "p": false,
+        "speed": 0.25
+    },
+    
+    "Objective": {
+        "x": 12,
+        "y": 68
+    },
+    
+    "Hero": {
+        "x": 10,
+        "y": 17
+    },
+    
+    "Platform": [
+        {
+            "x": 6.75,
+            "y": 10,
+            "w": 7.5,
+            "rot": 0,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 12,
+            "y": 7.25,
+            "w": 8.5,
+            "rot": 90,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 10,
+            "y": 60,
+            "w": 15,
+            "rot": 0,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 50,
+            "y": 75,
+            "w": 144,
+            "rot": 90,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 59,
+            "y": 36.5,
+            "w": 67,
+            "rot": 90,
+            "res": 0.8,
+            "frct": 0.5
+        }
+    ],
+    
+    "Spike": [
+        
+        {
+            "x": 43,
+            "y": 7,
+            "rot": 0
+        },
+        {
+            "x": 31.5,
+            "y": 7,
+            "rot": 0
+        },
+        {
+            "x": 20,
+            "y": 7,
+            "rot": 0
+        },
+        {
+            "x": 53.25,
+            "y": 15,
+            "rot": 90
+        },
+        {
+            "x": 53.25,
+            "y": 25,
+            "rot": 90
+        },
+        {
+            "x": 53.25,
+            "y": 35,
+            "rot": 90
+        },
+        {
+            "x": 53.25,
+            "y": 45,
+            "rot": 90
+        },
+        {
+            "x": 53.25,
+            "y": 55,
+            "rot": 90
+        },
+        {
+            "x": 53.25,
+            "y": 65,
+            "rot": 90
+        }
+    ]
+    
+    
+}

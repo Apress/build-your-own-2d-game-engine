@@ -1,0 +1,2322 @@
+{
+    "_comment": "reference: http://www.json.org/",
+    "_comment": "example JSON files: http://json.org/example.html",
+    "_comment": "simple parsing example: http://www.w3schools.com/json/json_http.asp",
+    
+    "Camera": {
+        "Center": [195, 35],
+        "Width": 70,
+        "Viewport": [0, 0, 800, 600],
+        "BgColor": [0.40, 0.26, 0.13, 1.0]
+    },
+    "GameTimer": {
+        "time":300000 
+    },
+    "MapInfo": {
+        "width":230,
+        "height":230,
+        "wallx":24,
+        "wally":24,
+        "wallgrid":true
+    },
+    "Hero": {
+        "herox": 195,
+        "heroy": 35
+    },
+    "Sprite": {
+        "spritex": 215,
+        "spritey": 15
+    },
+    "Exit": {
+        "exitx": 215,
+        "exity": 15
+    },
+    "Wall": [
+        {
+            "Pos": [0, 0],
+            "Orientation": 8
+        },
+        {
+            "Pos": [10, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [20, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [30, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [90, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [100, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [110, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [120, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [160, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [170, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [180, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [190, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [200, 0],
+            "Orientation": 12
+        },
+        {
+            "Pos": [210, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [220, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [230, 0],
+            "Orientation": 7
+        },
+        {
+            "Pos": [0, 10],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {
+            "Pos": [200, 10],
+            "Orientation": 3
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 10],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 20],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {
+            "Pos": [200, 20],
+            "Orientation": 4
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 20],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 30],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 30],
+            "Orientation": 8
+        },
+        {
+            "Pos": [20, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [30, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [90, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [100, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [110, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [120, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [160, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [170, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [180, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [190, 30],
+            "Orientation": 5
+        },
+        {
+            "Pos": [200, 30],
+            "Orientation": 15
+        },
+        {
+            "Pos": [210, 30],
+            "Orientation": 1
+        },
+        {
+            "Pos": [220, 30],
+            "Orientation": 2
+        },
+        {
+            "Pos": [230, 30],
+            "Orientation": 13
+        },
+        {
+            "Pos": [0, 40],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 40],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 40],
+            "Orientation": 8
+        },
+        {
+            "Pos": [30, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [90, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [100, 40],
+            "Orientation": 7
+        },
+        {
+            "Pos": [110, 40],
+            "Orientation": 8
+        },
+        {
+            "Pos": [120, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [160, 40],
+            "Orientation": 5
+        },
+        {
+            "Pos": [170, 40],
+            "Orientation": 7
+        },
+        {
+            "Pos": [180, 40],
+            "Orientation": 4
+        },
+        {},
+        {
+            "Pos": [200, 40],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 40],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 50],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 50],
+            "Orientation": 3
+        },
+        {
+            "Pos": [20, 50],
+            "Orientation": 10
+        },
+        {
+            "Pos": [30, 50],
+            "Orientation": 4
+        },
+        {
+            "Pos": [40, 50],
+            "Orientation": 2
+        },
+        {
+            "Pos": [50, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 50],
+            "Orientation": 7
+        },
+        {
+            "Pos": [90, 50],
+            "Orientation": 4
+        },
+        {
+            "Pos": [100, 50],
+            "Orientation": 3
+        },
+        {
+            "Pos": [110, 50],
+            "Orientation": 3
+        },
+        {
+            "Pos": [120, 50],
+            "Orientation": 2
+        },
+        {
+            "Pos": [130, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [160, 50],
+            "Orientation": 1
+        },
+        {
+            "Pos": [170, 50],
+            "Orientation": 10
+        },
+        {
+            "Pos": [180, 50],
+            "Orientation": 9
+        },
+        {
+            "Pos": [190, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [200, 50],
+            "Orientation": 13
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 50],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 60],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 60],
+            "Orientation": 2
+        },
+        {
+            "Pos": [20, 60],
+            "Orientation": 6
+        },
+        {
+            "Pos": [30, 60],
+            "Orientation": 10
+        },
+        {
+            "Pos": [40, 60],
+            "Orientation": 8
+        },
+        {
+            "Pos": [50, 60],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 60],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 60],
+            "Orientation": 7
+        },
+        {
+            "Pos": [80, 60],
+            "Orientation": 10
+        },
+        {
+            "Pos": [90, 60],
+            "Orientation": 9
+        },
+        {
+            "Pos": [100, 60],
+            "Orientation": 5
+        },
+        {
+            "Pos": [110, 60],
+            "Orientation": 5
+        },
+        {
+            "Pos": [120, 60],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 60],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 60],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 60],
+            "Orientation": 7
+        },
+        {},
+        {
+            "Pos": [170, 60],
+            "Orientation": 9
+        },
+        {
+            "Pos": [180, 60],
+            "Orientation": 5
+        },
+        {
+            "Pos": [190, 60],
+            "Orientation": 1
+        },
+        {
+            "Pos": [200, 60],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 60],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 70],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 70],
+            "Orientation": 4
+        },
+        {
+            "Pos": [20, 70],
+            "Orientation": 8
+        },
+        {
+            "Pos": [30, 70],
+            "Orientation": 6
+        },
+        {
+            "Pos": [40, 70],
+            "Orientation": 10
+        },
+        {
+            "Pos": [50, 70],
+            "Orientation": 4
+        },
+        {
+            "Pos": [60, 70],
+            "Orientation": 4
+        },
+        {
+            "Pos": [70, 70],
+            "Orientation": 10
+        },
+        {
+            "Pos": [80, 70],
+            "Orientation": 10
+        },
+        {
+            "Pos": [90, 70],
+            "Orientation": 8
+        },
+        {
+            "Pos": [100, 70],
+            "Orientation": 5
+        },
+        {
+            "Pos": [110, 70],
+            "Orientation": 5
+        },
+        {
+            "Pos": [120, 70],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 70],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 70],
+            "Orientation": 7
+        },
+        {
+            "Pos": [150, 70],
+            "Orientation": 3
+        },
+        {},
+        {
+            "Pos": [170, 70],
+            "Orientation": 2
+        },
+        {
+            "Pos": [180, 70],
+            "Orientation": 5
+        },
+        {
+            "Pos": [190, 70],
+            "Orientation": 7
+        },
+        {
+            "Pos": [200, 70],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 70],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 80],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 80],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 80],
+            "Orientation": 10
+        },
+        {
+            "Pos": [30, 80],
+            "Orientation": 8
+        },
+        {
+            "Pos": [40, 80],
+            "Orientation": 6
+        },
+        {
+            "Pos": [50, 80],
+            "Orientation": 9
+        },
+        {
+            "Pos": [60, 80],
+            "Orientation": 6
+        },
+        {
+            "Pos": [70, 80],
+            "Orientation": 10
+        },
+        {
+            "Pos": [80, 80],
+            "Orientation": 10
+        },
+        {
+            "Pos": [90, 80],
+            "Orientation": 10
+        },
+        {},
+        {
+            "Pos": [110, 80],
+            "Orientation": 8
+        },
+        {
+            "Pos": [120, 80],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 80],
+            "Orientation": 7
+        },
+        {
+            "Pos": [140, 80],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {},
+        {},
+        {
+            "Pos": [190, 80],
+            "Orientation": 10
+        },
+        {
+            "Pos": [200, 80],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 80],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 90],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 90],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 90],
+            "Orientation": 10
+        },
+        {
+            "Pos": [30, 90],
+            "Orientation": 9
+        },
+        {
+            "Pos": [40, 90],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 90],
+            "Orientation": 1
+        },
+        {
+            "Pos": [60, 90],
+            "Orientation": 2
+        },
+        {
+            "Pos": [70, 90],
+            "Orientation": 6
+        },
+        {
+            "Pos": [80, 90],
+            "Orientation": 10
+        },
+        {
+            "Pos": [90, 90],
+            "Orientation": 10
+        },
+        {
+            "Pos": [100, 90],
+            "Orientation": 8
+        },
+        {
+            "Pos": [110, 90],
+            "Orientation": 6
+        },
+        {
+            "Pos": [120, 90],
+            "Orientation": 4
+        },
+        {
+            "Pos": [130, 90],
+            "Orientation": 3
+        },
+        {
+            "Pos": [140, 90],
+            "Orientation": 3
+        },
+        {
+            "Pos": [150, 90],
+            "Orientation": 2
+        },
+        {
+            "Pos": [160, 90],
+            "Orientation": 5
+        },
+        {
+            "Pos": [170, 90],
+            "Orientation": 7
+        },
+        {},
+        {
+            "Pos": [190, 90],
+            "Orientation": 10
+        },
+        {
+            "Pos": [200, 90],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 90],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 100],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 100],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 100],
+            "Orientation": 9
+        },
+        {
+            "Pos": [30, 100],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 100],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 100],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 100],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 100],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 100],
+            "Orientation": 6
+        },
+        {
+            "Pos": [90, 100],
+            "Orientation": 10
+        },
+        {
+            "Pos": [100, 100],
+            "Orientation": 14
+        },
+        {
+            "Pos": [110, 100],
+            "Orientation": 7
+        },
+        {
+            "Pos": [120, 100],
+            "Orientation": 10
+        },
+        {
+            "Pos": [130, 100],
+            "Orientation": 8
+        },
+        {
+            "Pos": [140, 100],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 100],
+            "Orientation": 5
+        },
+        {
+            "Pos": [160, 100],
+            "Orientation": 7
+        },
+        {
+            "Pos": [170, 100],
+            "Orientation": 10
+        },
+        {
+            "Pos": [180, 100],
+            "Orientation": 8
+        },
+        {
+            "Pos": [190, 100],
+            "Orientation": 6
+        },
+        {
+            "Pos": [200, 100],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 100],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 110],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 110],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 110],
+            "Orientation": 8
+        },
+        {
+            "Pos": [30, 110],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 110],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 110],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 110],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 110],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 110],
+            "Orientation": 7
+        },
+        {
+            "Pos": [90, 110],
+            "Orientation": 10
+        },
+        {
+            "Pos": [100, 110],
+            "Orientation": 10
+        },
+        {
+            "Pos": [110, 110],
+            "Orientation": 9
+        },
+        {
+            "Pos": [120, 110],
+            "Orientation": 13
+        },
+        {
+            "Pos": [130, 110],
+            "Orientation": 10
+        },
+        {},
+        {
+            "Pos": [150, 110],
+            "Orientation": 4
+        },
+        {
+            "Pos": [160, 110],
+            "Orientation": 10
+        },
+        {
+            "Pos": [170, 110],
+            "Orientation": 10
+        },
+        {
+            "Pos": [180, 110],
+            "Orientation": 10
+        },
+        {},
+        {
+            "Pos": [200, 110],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 110],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [30, 120],
+            "Orientation": 2
+        },
+        {
+            "Pos": [40, 120],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 120],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 120],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 120],
+            "Orientation": 7
+        },
+        {
+            "Pos": [80, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [90, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [100, 120],
+            "Orientation": 10
+        },
+        {},
+        {
+            "Pos": [120, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [130, 120],
+            "Orientation": 10
+        },
+        {},
+        {
+            "Pos": [150, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [160, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [170, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [180, 120],
+            "Orientation": 10
+        },
+        {},
+        {
+            "Pos": [200, 120],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 120],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 130],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 130],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 130],
+            "Orientation": 9
+        },
+        {
+            "Pos": [30, 130],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 130],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 130],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 130],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 130],
+            "Orientation": 6
+        },
+        {
+            "Pos": [80, 130],
+            "Orientation": 3
+        },
+        {
+            "Pos": [90, 130],
+            "Orientation": 10
+        },
+        {
+            "Pos": [100, 130],
+            "Orientation": 3
+        },
+        {},
+        {
+            "Pos": [120, 130],
+            "Orientation": 3
+        },
+        {
+            "Pos": [130, 130],
+            "Orientation": 10
+        },
+        {},
+        {
+            "Pos": [150, 130],
+            "Orientation": 10
+        },
+        {
+            "Pos": [160, 130],
+            "Orientation": 10
+        },
+        {
+            "Pos": [170, 130],
+            "Orientation": 10
+        },
+        {
+            "Pos": [180, 130],
+            "Orientation": 10
+        },
+        {},
+        {
+            "Pos": [200, 130],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 130],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 140],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 140],
+            "Orientation": 9
+        },
+        {
+            "Pos": [20, 140],
+            "Orientation": 5
+        },
+        {
+            "Pos": [30, 140],
+            "Orientation": 7
+        },
+        {
+            "Pos": [40, 140],
+            "Orientation": 8
+        },
+        {
+            "Pos": [50, 140],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 140],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 140],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 140],
+            "Orientation": 1
+        },
+        {
+            "Pos": [90, 140],
+            "Orientation": 3
+        },
+        {
+            "Pos": [100, 140],
+            "Orientation": 2
+        },
+        {
+            "Pos": [110, 140],
+            "Orientation": 5
+        },
+        {
+            "Pos": [120, 140],
+            "Orientation": 7
+        },
+        {
+            "Pos": [130, 140],
+            "Orientation": 14
+        },
+        {
+            "Pos": [140, 140],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 140],
+            "Orientation": 6
+        },
+        {
+            "Pos": [160, 140],
+            "Orientation": 10
+        },
+        {
+            "Pos": [170, 140],
+            "Orientation": 10
+        },
+        {
+            "Pos": [180, 140],
+            "Orientation": 9
+        },
+        {
+            "Pos": [190, 140],
+            "Orientation": 7
+        },
+        {
+            "Pos": [200, 140],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 140],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 150],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 150],
+            "Orientation": 8
+        },
+        {
+            "Pos": [20, 150],
+            "Orientation": 1
+        },
+        {
+            "Pos": [30, 150],
+            "Orientation": 10
+        },
+        {
+            "Pos": [40, 150],
+            "Orientation": 10
+        },
+        {
+            "Pos": [50, 150],
+            "Orientation": 8
+        },
+        {
+            "Pos": [60, 150],
+            "Orientation": 7
+        },
+        {
+            "Pos": [70, 150],
+            "Orientation": 4
+        },
+        {
+            "Pos": [80, 150],
+            "Orientation": 8
+        },
+        {
+            "Pos": [90, 150],
+            "Orientation": 1
+        },
+        {
+            "Pos": [100, 150],
+            "Orientation": 2
+        },
+        {
+            "Pos": [110, 150],
+            "Orientation": 7
+        },
+        {
+            "Pos": [120, 150],
+            "Orientation": 10
+        },
+        {
+            "Pos": [130, 150],
+            "Orientation": 10
+        },
+        {
+            "Pos": [140, 150],
+            "Orientation": 2
+        },
+        {
+            "Pos": [150, 150],
+            "Orientation": 7
+        },
+        {
+            "Pos": [160, 150],
+            "Orientation": 10
+        },
+        {
+            "Pos": [170, 150],
+            "Orientation": 10
+        },
+        {},
+        {
+            "Pos": [190, 150],
+            "Orientation": 10
+        },
+        {
+            "Pos": [200, 150],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 150],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 160],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 160],
+            "Orientation": 9
+        },
+        {
+            "Pos": [20, 160],
+            "Orientation": 1
+        },
+        {
+            "Pos": [30, 160],
+            "Orientation": 10
+        },
+        {
+            "Pos": [40, 160],
+            "Orientation": 9
+        },
+        {
+            "Pos": [50, 160],
+            "Orientation": 6
+        },
+        {
+            "Pos": [60, 160],
+            "Orientation": 9
+        },
+        {
+            "Pos": [70, 160],
+            "Orientation": 6
+        },
+        {
+            "Pos": [80, 160],
+            "Orientation": 9
+        },
+        {
+            "Pos": [90, 160],
+            "Orientation": 5
+        },
+        {
+            "Pos": [100, 160],
+            "Orientation": 5
+        },
+        {
+            "Pos": [110, 160],
+            "Orientation": 6
+        },
+        {
+            "Pos": [120, 160],
+            "Orientation": 10
+        },
+        {
+            "Pos": [130, 160],
+            "Orientation": 9
+        },
+        {
+            "Pos": [140, 160],
+            "Orientation": 1
+        },
+        {
+            "Pos": [150, 160],
+            "Orientation": 10
+        },
+        {
+            "Pos": [160, 160],
+            "Orientation": 10
+        },
+        {
+            "Pos": [170, 160],
+            "Orientation": 9
+        },
+        {
+            "Pos": [180, 160],
+            "Orientation": 7
+        },
+        {
+            "Pos": [190, 160],
+            "Orientation": 10
+        },
+        {
+            "Pos": [200, 160],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 160],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 170],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 170],
+            "Orientation": 8
+        },
+        {
+            "Pos": [20, 170],
+            "Orientation": 5
+        },
+        {
+            "Pos": [30, 170],
+            "Orientation": 11
+        },
+        {
+            "Pos": [40, 170],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 170],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 170],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 170],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 170],
+            "Orientation": 1
+        },
+        {},
+        {},
+        {},
+        {
+            "Pos": [120, 170],
+            "Orientation": 9
+        },
+        {
+            "Pos": [130, 170],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 170],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 170],
+            "Orientation": 13
+        },
+        {
+            "Pos": [160, 170],
+            "Orientation": 3
+        },
+        {},
+        {
+            "Pos": [180, 170],
+            "Orientation": 10
+        },
+        {
+            "Pos": [190, 170],
+            "Orientation": 10
+        },
+        {
+            "Pos": [200, 170],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 170],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 180],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 180],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 180],
+            "Orientation": 8
+        },
+        {
+            "Pos": [30, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 180],
+            "Orientation": 12
+        },
+        {
+            "Pos": [60, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 180],
+            "Orientation": 7
+        },
+        {
+            "Pos": [90, 180],
+            "Orientation": 8
+        },
+        {
+            "Pos": [100, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [110, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [120, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 180],
+            "Orientation": 7
+        },
+        {
+            "Pos": [150, 180],
+            "Orientation": 9
+        },
+        {
+            "Pos": [160, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [170, 180],
+            "Orientation": 5
+        },
+        {
+            "Pos": [180, 180],
+            "Orientation": 6
+        },
+        {
+            "Pos": [190, 180],
+            "Orientation": 10
+        },
+        {
+            "Pos": [200, 180],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 180],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 190],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 190],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 190],
+            "Orientation": 10
+        },
+        {
+            "Pos": [30, 190],
+            "Orientation": 4
+        },
+        {
+            "Pos": [40, 190],
+            "Orientation": 2
+        },
+        {
+            "Pos": [50, 190],
+            "Orientation": 6
+        },
+        {},
+        {},
+        {
+            "Pos": [80, 190],
+            "Orientation": 10
+        },
+        {
+            "Pos": [90, 190],
+            "Orientation": 10
+        },
+        {
+            "Pos": [100, 190],
+            "Orientation": 8
+        },
+        {
+            "Pos": [110, 190],
+            "Orientation": 1
+        },
+        {
+            "Pos": [120, 190],
+            "Orientation": 2
+        },
+        {
+            "Pos": [130, 190],
+            "Orientation": 7
+        },
+        {
+            "Pos": [140, 190],
+            "Orientation": 10
+        },
+        {
+            "Pos": [150, 190],
+            "Orientation": 4
+        },
+        {
+            "Pos": [160, 190],
+            "Orientation": 8
+        },
+        {
+            "Pos": [170, 190],
+            "Orientation": 5
+        },
+        {
+            "Pos": [180, 190],
+            "Orientation": 5
+        },
+        {
+            "Pos": [190, 190],
+            "Orientation": 6
+        },
+        {
+            "Pos": [200, 190],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 190],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [30, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [40, 200],
+            "Orientation": 2
+        },
+        {
+            "Pos": [50, 200],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 200],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 200],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 200],
+            "Orientation": 6
+        },
+        {
+            "Pos": [90, 200],
+            "Orientation": 3
+        },
+        {
+            "Pos": [100, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [110, 200],
+            "Orientation": 2
+        },
+        {
+            "Pos": [120, 200],
+            "Orientation": 1
+        },
+        {
+            "Pos": [130, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [140, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [150, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [160, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [170, 200],
+            "Orientation": 2
+        },
+        {
+            "Pos": [180, 200],
+            "Orientation": 5
+        },
+        {
+            "Pos": [190, 200],
+            "Orientation": 5
+        },
+        {
+            "Pos": [200, 200],
+            "Orientation": 6
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 200],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 210],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 210],
+            "Orientation": 10
+        },
+        {
+            "Pos": [20, 210],
+            "Orientation": 9
+        },
+        {
+            "Pos": [30, 210],
+            "Orientation": 11
+        },
+        {
+            "Pos": [40, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [90, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [100, 210],
+            "Orientation": 11
+        },
+        {
+            "Pos": [110, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [120, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 210],
+            "Orientation": 11
+        },
+        {
+            "Pos": [140, 210],
+            "Orientation": 6
+        },
+        {
+            "Pos": [150, 210],
+            "Orientation": 10
+        },
+        {
+            "Pos": [160, 210],
+            "Orientation": 10
+        },
+        {
+            "Pos": [170, 210],
+            "Orientation": 2
+        },
+        {
+            "Pos": [180, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [190, 210],
+            "Orientation": 5
+        },
+        {
+            "Pos": [200, 210],
+            "Orientation": 7
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 210],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 220],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 220],
+            "Orientation": 9
+        },
+        {
+            "Pos": [20, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [30, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [90, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [100, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [110, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [120, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 220],
+            "Orientation": 6
+        },
+        {
+            "Pos": [160, 220],
+            "Orientation": 9
+        },
+        {
+            "Pos": [170, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [180, 220],
+            "Orientation": 5
+        },
+        {
+            "Pos": [190, 220],
+            "Orientation": 1
+        },
+        {
+            "Pos": [200, 220],
+            "Orientation": 10
+        },
+        {},
+        {},
+        {
+            "Pos": [230, 220],
+            "Orientation": 10
+        },
+        {
+            "Pos": [0, 230],
+            "Orientation": 9
+        },
+        {
+            "Pos": [10, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [20, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [30, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [60, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [70, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [80, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [90, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [100, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [110, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [120, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [130, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [140, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [150, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [160, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [170, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [180, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [190, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [200, 230],
+            "Orientation": 11
+        },
+        {
+            "Pos": [210, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [220, 230],
+            "Orientation": 5
+        },
+        {
+            "Pos": [230, 230],
+            "Orientation": 6
+        }
+    ],
+    "Door": [
+        {
+            "DoorX": 200,
+            "DoorY": 15,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 0,
+            "DoorNum": 5
+        },
+        {
+            "DoorX": 215,
+            "DoorY": 30,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 5
+        },
+        {
+            "DoorX": 5,
+            "DoorY": 50,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 2
+        },
+        {
+            "DoorX": 55,
+            "DoorY": 90,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 125,
+            "DoorY": 90,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 75,
+            "DoorY": 130,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 95,
+            "DoorY": 140,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 155,
+            "DoorY": 140,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 70,
+            "DoorY": 145,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 0,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 95,
+            "DoorY": 150,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 40,
+            "DoorY": 205,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 0,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 90,
+            "DoorY": 205,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 0,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 170,
+            "DoorY": 205,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 0,
+            "DoorNum": 2
+        }
+    ],
+    "Button": [
+        {
+            "ButtonX": 4.5,
+            "ButtonY": 15,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 270,
+            "DoorIndex": 0
+        },
+        {
+            "ButtonX": 115,
+            "ButtonY": 4.5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 0,
+            "DoorIndex": 0
+        },
+        {
+            "ButtonX": 115,
+            "ButtonY": 25.5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 180,
+            "DoorIndex": 0
+        },
+        {
+            "ButtonX": 185,
+            "ButtonY": 25.5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 180,
+            "DoorIndex": 0
+        },
+        {
+            "ButtonX": 185,
+            "ButtonY": 4.5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 0,
+            "DoorIndex": 0
+        },
+        {
+            "ButtonX": 204.5,
+            "ButtonY": 45,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 270,
+            "DoorIndex": 1
+        },
+        {
+            "ButtonX": 225.5,
+            "ButtonY": 45,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 90,
+            "DoorIndex": 1
+        },
+        {
+            "ButtonX": 225.5,
+            "ButtonY": 135,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 90,
+            "DoorIndex": 1
+        },
+        {
+            "ButtonX": 204.5,
+            "ButtonY": 135,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 270,
+            "DoorIndex": 1
+        },
+        {
+            "ButtonX": 215,
+            "ButtonY": 225.5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 180,
+            "DoorIndex": 1
+        },
+        {
+            "ButtonX": 84.5,
+            "ButtonY": 155,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 270,
+            "DoorIndex": 2
+        },
+        {
+            "ButtonX": 45.5,
+            "ButtonY": 185,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 90,
+            "DoorIndex": 7
+        },
+        {
+            "ButtonX": 45,
+            "ButtonY": 155.5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 180,
+            "DoorIndex": 10
+        },
+        {
+            "ButtonX": 175.5,
+            "ButtonY": 165,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 90,
+            "DoorIndex": 11
+        },
+        {
+            "ButtonX": 65.5,
+            "ButtonY": 125,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 90,
+            "DoorIndex": 12
+        }
+    ],
+    "Lever": [
+        {
+            "LeverX": 34,
+            "LeverY": 85,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 270,
+            "DoorIndex": 2
+        },
+        {
+            "LeverX": 14,
+            "LeverY": 155,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 270,
+            "DoorIndex": 3
+        },
+        {
+            "LeverX": 140,
+            "LeverY": 136,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 180,
+            "DoorIndex": 4
+        },
+        {
+            "LeverX": 76,
+            "LeverY": 195,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 90,
+            "DoorIndex": 5
+        },
+        {
+            "LeverX": 140,
+            "LeverY": 46,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 180,
+            "DoorIndex": 6
+        },
+        {
+            "LeverX": 184,
+            "LeverY": 125,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 270,
+            "DoorIndex": 8
+        },
+        {
+            "LeverX": 115,
+            "LeverY": 204,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 0,
+            "DoorIndex": 9
+        },
+        {
+            "LeverX": 104,
+            "LeverY": 96,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 270,
+            "DoorIndex": 12
+        }
+    ]
+}

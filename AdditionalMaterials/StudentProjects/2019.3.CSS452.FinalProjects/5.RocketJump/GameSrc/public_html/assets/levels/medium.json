@@ -1,0 +1,120 @@
+{
+    "_comment": "reference: http://www.json.org/",
+    "_comment": "example JSON files: http://json.org/example.html",
+    "_comment": "simple parsing example: http://www.w3schools.com/json/json_http.asp",
+    
+    "Camera": {
+        "Center": [100, 75],
+        "Width": 200,
+        "Viewport": [0, 0, 800, 600],
+        "BgColor": [0.8, 0.8, 0.8, 1.0]
+    },
+
+    "Arena": {
+        "x": -1.5,
+        "y": -1.5,
+        "w": 196.4,
+        "h": 147.3,
+        "res": 0.8,
+        "frct": 0.3,
+        "s1": 0,
+        "s2": 2,
+        "p": false,
+        "speed": 0.7
+    },
+    
+    "Objective": {
+        "x": 20,
+        "y": 89
+    },
+    
+    "Hero": {
+        "x": 50,
+        "y": 5
+    },
+    
+    "Platform": [
+        {
+            "x": 17.5,
+            "y": 18,
+            "w": 29,
+            "rot": 0,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 30.5,
+            "y": 11.5,
+            "w": 16.2,
+            "rot": 90,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 62,
+            "y": 95,
+            "w": 32,
+            "rot": 0,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 110,
+            "y": 95,
+            "w": 32,
+            "rot": 0,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 150,
+            "y": 85,
+            "w": 30,
+            "rot": 0,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 28,
+            "y": 82,
+            "w": 50,
+            "rot": 0,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 110,
+            "y": 50,
+            "w": 160,
+            "rot": 0,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 90,
+            "y": 26,
+            "w": 46,
+            "rot": 90,
+            "res": 0.8,
+            "frct": 0.5
+        },
+        {
+            "x": 190,
+            "y": 98,
+            "w": 99,
+            "rot": 90,
+            "res": 0.8,
+            "frct": 0.5
+        }
+    ],
+    
+    "Spike": [
+        {
+            "x": 90,
+            "y": 55.5,
+            "rot": 0
+        }
+    ]
+    
+    
+}

@@ -1,0 +1,119 @@
+/* File: GameObjectSet.js 
+ *
+ * Support for working with a set of GameObjects
+ */
+
+/*jslint node: true, vars: true */
+/*global  */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+"use strict";  // Operate in Strict mode such that variables must be declared before used!
+
+/**
+ * Default Constructor<p>
+ * Support for working with a set of GameObjects
+ * @returns {GameObjectSet} New instance of GameObjectSet
+ * @class GameObjectSet
+ */
+function GameObjectSet() {
+    this.mSet = [];
+}
+
+/**
+ * Return the count of GameObjects in set
+ * @returns {Number} count of GameObjects in set
+ * @memberOf GameObjectSet
+ */
+GameObjectSet.prototype.size = function () { return this.mSet.length; };
+
+/**
+ * Return the GameObject at index
+ * @param {Number} index of GameObject to return
+ * @returns {GameObject}
+ * @memberOf GameObjectSet
+ */
+GameObjectSet.prototype.getObjectAt = function (index) {
+    return this.mSet[index];
+};
+
+/**
+ * Add GameObject to this GameObjectSet
+ * @param {GameObject} obj to add to this GameObjectSet
+ * @returns {void}
+ * @memberOf GameObjectSet
+ */
+GameObjectSet.prototype.addToSet = function (obj) {
+    this.mSet.push(obj);
+};
+
+/**
+ * Remove GameObject from GameObjectSet
+ * @param {GameObject} obj to remove from GameObjectSet
+ * @returns {void}
+ * @memberOf GameObjectSet
+ */
+GameObjectSet.prototype.removeFromSet = function (obj) {
+    var index = this.mSet.indexOf(obj);
+    if (index > -1)
+        this.mSet.splice(index, 1);
+};
+
+/**
+ * Move GameObject to end of GameObjectSet
+ * @param {GameObjec} obj to move to end of GameObjectSet
+ * @returns {void}
+ * @memberOf GameObjectSet
+ */
+GameObjectSet.prototype.moveToLast = function (obj) {
+    this.removeFromSet(obj);
+    this.addToSet(obj);
+};
+
+/**
+ * Update function called by GameLoop calls all GameObject's in GameObjectSet
+ * @returns {void}
+ * @memberOf GameObjectSet
+ */
+GameObjectSet.prototype.update = function () {
+    var i;
+    for (i = 0; i < this.mSet.length; i++) {
+        this.mSet[i].update();
+    }
+};
+
+/**
+ * Draw function called by GameLoop calls all GameObject's in GameObjectSet
+ * @param {type} aCamera
+ * @returns {undefined}
+ * @memberOf GameObjectSet
+ */
+GameObjectSet.prototype.draw = function (aCamera) {
+    var i;
+    for (i = 0; i < this.mSet.length; i++) {
+        this.mSet[i].draw(aCamera);
+    }
+};
+
+GameObjectSet.prototype.highestPlat = function(x){
+    var i;
+    var index = -1;
+    var y = 0;
+    for(i=0;i<this.mSet.length;i++){
+        var left,right,width,height;
+        width = this.mSet[i].getXform().getWidth();
+        left = this.mSet[i].getXform().getXPos() - (width/2);
+        right = this.mSet[i].getXform().getXPos() +(width/2);
+        if(x>=left && x<=right){
+            index = i;
+            height = this.mSet[i].getXform().getHeight();
+            var tempY = this.mSet[i].getXform().getYPos()+(height/2);
+            if(tempY>y){
+                y = tempY;
+            }
+        }
+    }
+    var c = [];
+    c[0] = index;
+    c[1] = y;
+    return c;
+};

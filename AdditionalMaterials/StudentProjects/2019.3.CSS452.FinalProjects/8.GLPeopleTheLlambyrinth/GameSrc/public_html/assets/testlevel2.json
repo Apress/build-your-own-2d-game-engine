@@ -1,0 +1,199 @@
+{
+    "_comment": "reference: http://www.json.org/",
+    "_comment": "example JSON files: http://json.org/example.html",
+    "_comment": "simple parsing example: http://www.w3schools.com/json/json_http.asp",
+    
+    "Camera": {
+        "Center": [5, 5],
+        "Width": 50,
+        "Viewport": [0, 0, 800, 600],
+        "BgColor": [0.40, 0.26, 0.13, 1.0]
+    },
+    "GameTimer": {
+        "time":100000 
+    },
+    "MapInfo": {
+        "width":50,
+        "height":50,
+        "wallx":6,
+        "wally":6,
+        "wallgrid":true
+    },
+    "Hero": {
+        "herox": 5,
+        "heroy": 5
+    },
+    "Sprite": {
+        "spritex": 25,
+        "spritey": 25
+    },
+    "Exit": {
+        "exitx": 15,
+        "exity": 40
+    },
+    "Wall": [
+        {
+            "Pos": [0, 0],
+            "Orientation": 8
+        },
+        {
+            "Pos": [10, 0],
+            "Orientation": 12
+        },
+        {
+            "Pos": [20, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [30, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 0],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 0],
+            "Orientation": 7
+        },
+        {
+            "Pos": [0, 10],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 10],
+            "Orientation": 14
+        },
+        {
+            "Pos": [20, 10],
+            "Orientation": 5
+        },
+        {
+            "Pos": [30, 10],
+            "Orientation": 1
+        },
+        {
+            "Pos": [40, 10],
+            "Orientation": 2
+        },
+        {
+            "Pos": [50, 10],
+            "Orientation": 13
+        },
+        {
+            "Pos": [0, 20],
+            "Orientation": 10
+        },
+        {
+            "Pos": [10, 20],
+            "Orientation": 3
+        },
+        {},
+        {},
+        {},
+        {
+            "Pos": [50, 20],
+            "Orientation": 10 
+        },
+        {
+           "Pos": [0, 30],
+            "Orientation": 14 
+        },
+        {
+           "Pos": [10, 30],
+            "Orientation": 5 
+        },
+        {
+           "Pos": [20, 30],
+            "Orientation": 5 
+        },
+        {
+           "Pos": [30, 30],
+            "Orientation": 5 
+        },
+        {
+           "Pos": [40, 30],
+            "Orientation": 1 
+        },
+        {
+           "Pos": [50, 30],
+            "Orientation": 10 
+        },
+        {
+           "Pos": [0, 40],
+            "Orientation": 10 
+        },
+        {},
+        {},
+        {},
+        {},
+        {
+           "Pos": [50, 40],
+            "Orientation": 10 
+        },
+        {
+           "Pos": [0, 50],
+            "Orientation": 9 
+        },
+        {
+            "Pos": [10, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [20, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [30, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [40, 50],
+            "Orientation": 5
+        },
+        {
+            "Pos": [50, 50],
+            "Orientation": 6
+        }
+        
+        
+    ],
+    "Door": [
+        {
+            "DoorX": 35,
+            "DoorY": 10,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 45,
+            "DoorY": 30,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        }
+    ],
+    "Button": [
+        {
+            "ButtonX": 14.5,
+            "ButtonY": 5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 270,
+            "DoorIndex": 1
+        }
+    ],
+    "Lever": [
+        {
+            "LeverX": 46,
+            "LeverY": 20,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 90,
+            "DoorIndex": 0
+        }
+    ]
+}

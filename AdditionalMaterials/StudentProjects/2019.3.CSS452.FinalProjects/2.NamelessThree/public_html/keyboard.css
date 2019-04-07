@@ -1,0 +1,63 @@
+.key {
+    width: 4em;
+    position: relative;
+    display: inline-block;
+}
+
+.space-key {
+    width: 16em;
+    position: relative;
+    display: inline-block;
+}
+
+.key-text {
+    position: absolute;
+    height: 100%;
+    width: 80%;
+    text-align: center;
+}
+
+.key-text:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.key-text > p {
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 1.2em;
+    color: black;
+    font-weight: bold;
+}
+
+.key-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.key-image-alt {
+    max-width: 100%;
+    height: auto;
+    display: none;
+}
+
+.key-group {
+    padding: 1em;
+    margin: 2em;
+    user-select: none;
+}
+
+.key-image.key-pressed {
+    display: none;
+}
+
+.key-image-alt.key-pressed {
+    display: block;
+}
+
+p.key-pressed {
+    color: white;
+}

@@ -1,0 +1,69 @@
+<Level>    
+    <EndOfWorld value="1155"/>
+    <Start PosX="50" PosY="40"/>
+    <EndMarker PosX="1180" PosY="30"/>
+    <Features value="Ghost"/>
+    
+    <Block Type="1" PosX="80" PosY="3" Width="160" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" /> 
+    <Block Type="2" PosX="107" PosY="11" Width="3" Height="10" Rotation="0" Color="0.8 0.8 0.8 1" />  
+    <Block Type="2" PosX="110" PosY="11" Width="3" Height="10" Rotation="0" Color="0.8 0.8 0.8 1" />
+    <Block Type="2" PosX="113" PosY="11" Width="3" Height="10" Rotation="0" Color="0.8 0.8 0.8 1" />  
+    <Block Type="3" PosX="173" PosY="30" Width="2" Height="2" Rotation="0" Color="0.933 0.921 0.184 1" /> 
+    <Block Type="1" PosX="173" PosY="20" Width="30" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" /> 
+    <Block Type="2" PosX="183.5" PosY="28" Width="3" Height="10" Rotation="0"  Color="0.8 0.8 0.8 1" /> 
+    <Block Type="2" PosX="186.5" PosY="28" Width="3" Height="10" Rotation="0"  Color="0.8 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="230" PosY="3" Width="40" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" /> 
+    
+    <Block Type="1" PosX="280" PosY="23" Width="30" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" /> 
+    <Block Type="3" PosX="320" PosY="50" Width="2" Height="2" Rotation="0" Color="0.933 0.921 0.184 1" /> 
+    <Block Type="1" PosX="320" PosY="40" Width="20" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" /> 
+    
+    <Block Type="1" PosX="400" PosY="3" Width="80" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" /> 
+    <Block Type="2" PosX="361.5" PosY="11" Width="3" Height="10" Rotation="0"  Color="0.8 0.8 0.8 1" /> 
+    <Block Type="2" PosX="364.5" PosY="11" Width="3" Height="10" Rotation="0"  Color="0.8 0.8 0.8 1" /> 
+    
+    <Block Type="1" PosX="465" PosY="23" Width="30" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" /> 
+    
+    <Block Type="1" PosX="520" PosY="23" Width="30" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="560" PosY="3" Width="30" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="570" PosY="23" Width="25" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    <Block Type="3" PosX="570" PosY="33" Width="2" Height="2" Rotation="0" Color="0.933 0.921 0.184 1" /> 
+    <Block Type="1" PosX="635" PosY="3" Width="50" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="685" PosY="3" Width="25" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="710" PosY="3" Width="6" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    <Block Type="2" PosX="711.5" PosY="11" Width="3" Height="10" Rotation="0"  Color="0.8 0.8 0.8 1" /> 
+    <Block Type="2" PosX="708.5" PosY="11" Width="3" Height="10" Rotation="0"  Color="0.8 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="735" PosY="3" Width="25" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="775" PosY="3" Width="20" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    <Block Type="3" PosX="815" PosY="10" Width="2" Height="2" Rotation="0" Color="0.933 0.921 0.184 1" /> 
+    <Block Type="1" PosX="815" PosY="3" Width="20" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="850" PosY="20" Width="30" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="895" PosY="40" Width="60" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    <Block Type="2" PosX="900" PosY="48" Width="3" Height="10" Rotation="0"  Color="0.8 0.8 0.8 1" /> 
+    <Block Type="2" PosX="903" PosY="48" Width="3" Height="10" Rotation="0"  Color="0.8 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="890" PosY="3" Width="40" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="940" PosY="23" Width="30" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="980" PosY="33" Width="35" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    <Block Type="3" PosX="980" PosY="40" Width="2" Height="2" Rotation="0" Color="0.933 0.921 0.184 1" /> 
+    <Block Type="1" PosX="1035" PosY="28" Width="30" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="1055" PosY="3" Width="20" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    <Block Type="3" PosX="1092" PosY="10" Width="2" Height="2" Rotation="0" Color="0.933 0.921 0.184 1" /> 
+    <Block Type="1" PosX="1092" PosY="3" Width="20" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    <Block Type="2" PosX="1100.5" PosY="11" Width="3" Height="10" Rotation="0"  Color="0.8 0.8 0.8 1" />
+    
+    <Block Type="1" PosX="1155" PosY="23" Width="70" Height="6" Rotation="0"  Color="0.9 0.8 0.8 1" />
+    <Block Type="3" PosX="70" PosY="10" Width="2" Height="2" Rotation="0" Color="0.933 0.921 0.184 1" /> 
+</Level>
