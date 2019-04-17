@@ -26,10 +26,9 @@ gEngine.GameLoop = (function () {
     var kMPF = 1000 * kFrameTime; // Milliseconds per frame.
 
     // Variables for timing gameloop.
-    var mPreviousTime;
+    var mPreviousTime = Date.now();
     var mLagTime;
-    var mCurrentTime;
-    var mElapsedTime;
+
 
     // The current loop state (running or should stop)
     var mIsLoopRunning = false;
@@ -43,10 +42,10 @@ gEngine.GameLoop = (function () {
             requestAnimationFrame(function () { _runLoop.call(mMyGame); });
 
             // Step B: compute how much time has elapsed since we last RunLoop was executed
-            mCurrentTime = Date.now();
-            mElapsedTime = mCurrentTime - mPreviousTime;
-            mPreviousTime = mCurrentTime;
-            mLagTime += mElapsedTime;
+            var currentTime = Date.now();
+            var elapsedTime = currentTime - mPreviousTime;
+            mPreviousTime = currentTime;
+            mLagTime += elapsedTime;
 
             // Step C: Make sure we update the game the appropriate number of times.
             //      Update only every Milliseconds per frame.
