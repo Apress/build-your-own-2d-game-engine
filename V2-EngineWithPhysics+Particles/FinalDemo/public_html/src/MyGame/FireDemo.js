@@ -129,7 +129,7 @@ FireDemo.prototype.draw = function () {
     //this.mBush.draw(this.mCamera);
     this.mPillar.draw(this.mCamera);
     this.mForest.draw(this.mCamera);
-    this.mTarget.draw(this.mCamera);
+    //this.mTarget.draw(this.mCamera);
     this.mAllFire.draw(this.mCamera);
     this.mPlatforms.draw(this.mCamera);
     this.backButton.draw(this.mCamera);
@@ -144,6 +144,7 @@ FireDemo.prototype.update = function () {
     
     // create particles
     this.applyEmbers();
+    
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
         this.mCurrentObj -= 1;
         if (this.mCurrentObj < this.mFirstObject)
@@ -155,67 +156,88 @@ FireDemo.prototype.update = function () {
             this.mCurrentObj = this.mFirstObject;
     }
 
-    var obj = this.mAllFire.getObjectAt(this.mCurrentObj);
+    var obj = this.mAllFire.getObjectAt(0);
+    var obj1 = this.mAllFire.getObjectAt(1);
     
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
+     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
         obj.incWidth(1);
+        obj1.incWidth(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
         obj.incWidth(-1);
+        obj1.incWidth(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.A)) {
         obj.incyAcceleration(1);
+        obj1.incyAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.S)) {
         obj.incyAcceleration(-1);
+        obj1.incyAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Z)) {
         obj.incLife(1);
+        obj1.incLife(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.X)) {
         obj.incLife(-1);
+        obj1.incLife(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.E)) {
         obj.incxVelocity(1);
+        obj1.incxVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
         obj.incxVelocity(-1);
+        obj1.incxVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.D)) {
         obj.incyVelocity(1);
+        obj1.incyVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.F)) {
         obj.incyVelocity(-1);
+        obj1.incyVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
         obj.incFlicker(1);
+        obj1.incFlicker(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
         obj.incFlicker(-1);
+        obj1.incFlicker(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
         obj.incIntensity(1);
+        obj1.incIntensity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Y)) {
         obj.incIntensity(-1);
+        obj1.incIntensity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.G)) {
         obj.incxAcceleration(1);
+        obj1.incxAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
         obj.incxAcceleration(-1);
+        obj1.incxAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
         obj.incParticleSize(1);
+        obj1.incParticleSize(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
         obj.incParticleSize(-1);
+        obj1.incParticleSize(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.U)) {
         obj.incyOffset(1);
+        obj1.incyOffset(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         obj.incyOffset(-1);
+        obj1.incyOffset(-1);
     }
     
 
@@ -251,14 +273,14 @@ FireDemo.prototype.applyDrift = function(pGO){
         pPos[0] -= .5;
     }
 };
+
 FireDemo.prototype.applySizeDelta = function(pGO){
     if(Math.floor(Math.random()*2) === 0){
         pGO.setSizeDelta(1.01)
     }
     else{
         pGO.setSizeDelta(.99)
-    }
-    
+    }    
 };
 
 FireDemo.prototype.updateValue = function(obj){

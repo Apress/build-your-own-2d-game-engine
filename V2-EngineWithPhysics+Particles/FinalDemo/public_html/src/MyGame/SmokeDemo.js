@@ -71,7 +71,7 @@ SmokeDemo.prototype.initialize = function () {
         100,                     // width of camera
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    this.mCamera.setBackgroundColor([0.2, 0.2, 0.2, 1]);
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
@@ -82,12 +82,12 @@ SmokeDemo.prototype.initialize = function () {
     this.mFirstObject = 0;
     this.mCurrentObj = this.mFirstObject;
     var m;
-    m=new Smoke(10,10,3,2,60,0,20,1,1,0,2.5,0);
-    this.mAllSmoke.addToSet(m);
+    //m=new Smoke(10,10,3,2,60,0,20,1,1,0,2.5,0);
+    //this.mAllSmoke.addToSet(m);
     this.fire=new Fire(10,7,3,2,20,0,20,4,1,0,2.5,0);
-    m=new Smoke(30,9,0,50,1,0,20,0,6,0,-5.5,0);
+    m=new Smoke(25,7,20,2,60,0,5,1,9,0,2.5,7);
     this.mAllSmoke.addToSet(m);
-    m=new Smoke(70,7,20,0,60,0,0,1,9,0,2.5,7);
+    m=new Smoke(75,7,20,2,60,0,5,1,9,0,2.5,7);
     this.mAllSmoke.addToSet(m);
     var r = new TextureRenderable(this.kTargetTexture);
     this.mTarget = new GameObject(r);
@@ -97,12 +97,12 @@ SmokeDemo.prototype.initialize = function () {
     this.mBush.getXform().setPosition(10,8);
     this.mBush.setColor([0, 0, 0, 0]);  // No tinting
     this.mBush.getXform().setSize(6,6);
-    this.mTeacup = new TextureRenderable(this.kTeacup);
-    this.mTeacup.getXform().setPosition(27.3,9);
+    this.mTeacup = new TextureRenderable(this.kForest);
+    this.mTeacup.getXform().setPosition(25,9);
     this.mTeacup.setColor([0, 0, 0, 0]);  // No tinting
-    this.mTeacup.getXform().setSize(6,6);
+    this.mTeacup.getXform().setSize(48,12);
     this.mForest = new TextureRenderable(this.kForest);
-    this.mForest.getXform().setPosition(70,9);
+    this.mForest.getXform().setPosition(75,9);
     this.mForest.setColor([0, 0, 0, 0]);  // No tinting
     this.mForest.getXform().setSize(48,12);
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
@@ -113,16 +113,16 @@ SmokeDemo.prototype.initialize = function () {
 // importantly, make sure to _NOT_ change any state.
 SmokeDemo.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
+    gEngine.Core.clearCanvas([0.2, 0.2, 0.2, 1.0]); // clear to light gray
 
     this.mCamera.setupViewProjection();
     
-    this.mBush.draw(this.mCamera);
+    //this.mBush.draw(this.mCamera);
     this.mTeacup.draw(this.mCamera);
     this.mForest.draw(this.mCamera);
-    this.mTarget.draw(this.mCamera);
+    //this.mTarget.draw(this.mCamera);
     this.mAllSmoke.draw(this.mCamera);
-    this.fire.draw(this.mCamera);
+    //this.fire.draw(this.mCamera);
     this.mPlatforms.draw(this.mCamera);
     this.MainMenuButton.draw(this.mCamera);
     this.backButton.draw(this.mCamera);
@@ -135,6 +135,7 @@ SmokeDemo.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mAllSmoke);
     gEngine.ParticleSystem.update(this.fire);
     // create particles
+    this.applyEmbers();
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
         this.mCurrentObj -= 1;
@@ -147,67 +148,88 @@ SmokeDemo.prototype.update = function () {
             this.mCurrentObj = this.mFirstObject;
     }
 
-    var obj = this.mAllSmoke.getObjectAt(this.mCurrentObj);
+    var obj = this.mAllSmoke.getObjectAt(0);
+    var obj1 = this.mAllSmoke.getObjectAt(1);
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
         obj.incWidth(1);
+        obj1.incWidth(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
         obj.incWidth(-1);
+        obj1.incWidth(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.A)) {
         obj.incyAcceleration(1);
+        obj1.incyAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.S)) {
         obj.incyAcceleration(-1);
+        obj1.incyAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Z)) {
         obj.incLife(1);
+        obj1.incLife(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.X)) {
         obj.incLife(-1);
+        obj1.incLife(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.E)) {
         obj.incxVelocity(1);
+        obj1.incxVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
         obj.incxVelocity(-1);
+        obj1.incxVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.D)) {
         obj.incyVelocity(1);
+        obj1.incyVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.F)) {
         obj.incyVelocity(-1);
+        obj1.incyVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
         obj.incFlicker(1);
+        obj1.incFlicker(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
         obj.incFlicker(-1);
+        obj1.incFlicker(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
         obj.incIntensity(1);
+        obj1.incIntensity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Y)) {
         obj.incIntensity(-1);
+        obj1.incIntensity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.G)) {
         obj.incxAcceleration(1);
+        obj1.incxAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
         obj.incxAcceleration(-1);
+        obj1.incxAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
         obj.incParticleSize(1);
+        obj1.incParticleSize(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
         obj.incParticleSize(-1);
+        obj1.incParticleSize(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.U)) {
         obj.incyOffset(1);
+        obj1.incyOffset(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         obj.incyOffset(-1);
+        obj1.incyOffset(-1);
     }
 
     var p = obj.getPos();
@@ -215,6 +237,56 @@ SmokeDemo.prototype.update = function () {
     this.updateValue(obj);
     this.MainMenuButton.update();
     this.backButton.update();
+};
+SmokeDemo.prototype.applyEmbers = function(){
+    var sPSet = this.mAllSmoke.getObjectAt(1);
+    var pSet = sPSet.getSet().mSet;
+    var setLength = pSet.length;
+    for (var i = 0; i < setLength; i++){    
+        if(pSet[i].getParticle().mParallaxDir && pSet[i].getParticle().mDriftDir){
+            this.applyDrift(pSet[i]);            
+        }
+        if(pSet[i].getParticle().mParallaxDir && !pSet[i].getParticle().mDriftDir){
+            this.applyColor(pSet[i]);
+        }
+        if(!pSet[i].getParticle().mParallaxDir && !pSet[i].getParticle().mDriftDir){
+            this.applySizeDelta(pSet[i]);
+            this.applyColor(pSet[i]);
+        }
+    }
+};
+SmokeDemo.prototype.applyDrift = function(pGO){
+    var p = pGO.getParticle();
+    var pPos = p.getPosition();
+    //var xform = pGO.getXform();    
+    pGO.setSizeDelta(.95);
+    if(Math.floor(Math.random()*2) === 0){
+        pPos[0] += 1;
+    }
+    else{
+        pPos[0] -= 1;
+    }
+};
+
+SmokeDemo.prototype.applySizeDelta = function(pGO){
+    if(Math.floor(Math.random()*2) === 0){
+        pGO.setSizeDelta(1.0125);        
+    }
+    else{
+        pGO.setSizeDelta(.99); 
+    }    
+};
+
+SmokeDemo.prototype.applyColor = function(pGO){
+    var p = pGO.getParticle();
+    if(Math.floor(Math.random()*2) === 0){
+        pGO.setFinalColor([0,0,0,1]);
+        p.setVelocity([-3.5,p.getVelocity()[1]+.1]);
+    }
+    else{
+        pGO.setFinalColor([.1,.1,.1,1]);
+        p.setVelocity([3.5,p.getVelocity()[1]+.1]);
+    }       
 };
 
 SmokeDemo.prototype.updateValue = function(obj){
