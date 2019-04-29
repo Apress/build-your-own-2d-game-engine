@@ -72,7 +72,7 @@ FireDemo.prototype.initialize = function () {
         100,                     // width of camera
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    this.mCamera.setBackgroundColor([0.2, 0.2, 0.2, 1]);
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
@@ -83,14 +83,16 @@ FireDemo.prototype.initialize = function () {
     this.mFirstObject = 0;
     this.mCurrentObj = this.mFirstObject;
     var m;
-    m=new Fire(20,14,0,0,20,0,20,32,1,0,2.5,0);
-    this.mAllFire.addToSet(m);
+    //m=new Fire(20,14,0,0,20,0,20,32,1,0,2.5,0);
+    //this.mAllFire.addToSet(m);
     m=new Fire(35,13,3,36,8,0,0,2,15,0,2.5,1);
     this.mAllFire.addToSet(m);
-    m=new Fire(68,7,23,11,20,0,12,4,23,8,3.5,0);
+    m=new Fire(55,13,3,36,8,0,0,2,15,0,2.5,1);
     this.mAllFire.addToSet(m);
-    m=new Fire(10,7,3,2,20,0,20,4,1,0,2.5,0);
-    this.mAllFire.addToSet(m);
+    //m=new Fire(68,7,23,11,20,0,12,4,23,8,3.5,0);
+    //this.mAllFire.addToSet(m);
+    //m=new Fire(10,7,3,2,20,0,20,4,1,0,2.5,0);
+    //this.mAllFire.addToSet(m);
     var r = new TextureRenderable(this.kTargetTexture);
     this.mTarget = new GameObject(r);
     var xf = r.getXform();
@@ -107,10 +109,10 @@ FireDemo.prototype.initialize = function () {
     this.mPillar.getXform().setPosition(35,8);
     this.mPillar.setColor([0, 0, 0, 0]);  // No tinting
     this.mPillar.getXform().setSize(7,7);
-    this.mForest = new TextureRenderable(this.kForest);
-    this.mForest.getXform().setPosition(70,9);
+    this.mForest = new TextureRenderable(this.kPillar);
+    this.mForest.getXform().setPosition(55,8);
     this.mForest.setColor([0, 0, 0, 0]);  // No tinting
-    this.mForest.getXform().setSize(48,12);
+    this.mForest.getXform().setSize(7,7);
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
     this.MainMenuButton = new UIButton(this.kUIButton,this.mainSelect,this,[700,580],[200,40],"Main Menu",4,[1,1,1,1],[1,1,1,1]);
 };
@@ -119,12 +121,12 @@ FireDemo.prototype.initialize = function () {
 // importantly, make sure to _NOT_ change any state.
 FireDemo.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
+    gEngine.Core.clearCanvas([0.2, 0.2, 0.2, 1.0]); // clear to light gray
 
     this.mCamera.setupViewProjection();
     
-    this.mTorch.draw(this.mCamera);
-    this.mBush.draw(this.mCamera);
+    //this.mTorch.draw(this.mCamera);
+    //this.mBush.draw(this.mCamera);
     this.mPillar.draw(this.mCamera);
     this.mForest.draw(this.mCamera);
     this.mTarget.draw(this.mCamera);
@@ -141,7 +143,7 @@ FireDemo.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mAllFire);
     
     // create particles
-    
+    this.applyEmbers();
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
         this.mCurrentObj -= 1;
         if (this.mCurrentObj < this.mFirstObject)
@@ -222,6 +224,41 @@ FireDemo.prototype.update = function () {
     this.updateValue(obj);
     this.backButton.update();
     this.MainMenuButton.update();
+};
+FireDemo.prototype.applyEmbers = function(){
+    var fPSet = this.mAllFire.getObjectAt(1);
+    var pSet = fPSet.getSet().mSet;
+    var setLength = pSet.length;    
+    for (var i = 0; i < setLength; i++){
+        if(pSet[i].getParticle().mParallaxDir && pSet[i].getParticle().mDriftDir){
+            this.applyDrift(pSet[i]);
+        }
+        if(pSet[i].getParticle().mParallaxDir && !pSet[i].getParticle().mDriftDir){
+            this.applySizeDelta(pSet[i]);
+        }
+    }
+};
+
+FireDemo.prototype.applyDrift = function(pGO){
+    var p = pGO.getParticle();
+    var pPos = p.getPosition();
+    //var xform = pGO.getXform();    
+    pGO.setSizeDelta(.95);
+    if(Math.floor(Math.random()*2) === 0){
+        pPos[0] += .5;
+    }
+    else{
+        pPos[0] -= .5;
+    }
+};
+FireDemo.prototype.applySizeDelta = function(pGO){
+    if(Math.floor(Math.random()*2) === 0){
+        pGO.setSizeDelta(1.01)
+    }
+    else{
+        pGO.setSizeDelta(.99)
+    }
+    
 };
 
 FireDemo.prototype.updateValue = function(obj){

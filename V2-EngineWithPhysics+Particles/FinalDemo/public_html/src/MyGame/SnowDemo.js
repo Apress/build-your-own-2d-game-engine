@@ -58,7 +58,7 @@ SnowDemo.prototype.initialize = function () {
     this.mPlatforms = new GameObjectSet();
     
     this.createBounds();
-    this.mSnow=new Snow(50,80,50,5,350,0,0,0,1,0,0.5,0);
+    this.mSnow=new Snow(50,80,50,5,250,0,0,0,1,0,0.5,0);
     
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
     this.MainMenuButton = new UIButton(this.kUIButton,this.mainSelect,this,[700,580],[200,40],"Main Menu",4,[1,1,1,1],[1,1,1,1]);
