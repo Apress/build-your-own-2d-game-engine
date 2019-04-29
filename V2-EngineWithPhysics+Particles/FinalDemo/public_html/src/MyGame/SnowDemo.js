@@ -51,7 +51,7 @@ SnowDemo.prototype.initialize = function () {
         100,                     // width of camera
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    this.mCamera.setBackgroundColor([0.6, 0.6, 0.6, 1]);
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
@@ -68,7 +68,7 @@ SnowDemo.prototype.initialize = function () {
 // importantly, make sure to _NOT_ change any state.
 SnowDemo.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
+    gEngine.Core.clearCanvas([0.6, 0.6, 0.6, 1.0]); // clear to med gray
 
     this.mCamera.setupViewProjection();
     
@@ -153,6 +153,39 @@ SnowDemo.prototype.update = function () {
     this.updateValue();
     this.MainMenuButton.update();
     this.backButton.update();
+    
+    this.wrapParticles();
+};
+
+SnowDemo.prototype.wrapParticles = function(){    
+    var pSet = this.mSnow.getSet().mSet;
+    var setLength = pSet.length;    
+    for (var i = 0; i < setLength; i++){
+        this.applyDrift(pSet[i].getParticle());
+    }
+};
+
+SnowDemo.prototype.applyDrift = function(p){
+    //console.log(p);    
+    var pPos = p.getPosition();
+    var pOPos = p.getOriginalPosition();
+    var dist = Math.abs(pPos[0] - pOPos[0]);    
+    
+    if(p.mDriftDir){
+        pPos[0] += .1;
+    }
+    else{
+        pPos[0] -= .1;
+    }
+    if(dist > 10){
+        p.mDriftDir = !p.mDriftDir;
+    }
+    if (pPos[0] > 100){
+        pPos[0] = 0;
+    }
+    if (pPos[0] < 0){
+        pPos[0] = 100;
+    }
 };
 
 SnowDemo.prototype.updateValue = function(){

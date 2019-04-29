@@ -137,6 +137,16 @@ ParticleSystem.prototype.incxAcceleration = function(inc){
     this.xAcceleration+=inc;
 };
 
+
+/**
+ * Get reference to the particle set
+ * @returns {float} this.mAllParticles
+ * @memberOf ParticleSystem
+ */
+ParticleSystem.prototype.getSet = function(){
+    return this.mAllParticles;
+};
+
 /**
  * Get the width of the ParticleSystem object
  * @returns {float} this.width

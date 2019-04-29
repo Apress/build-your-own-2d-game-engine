@@ -26,6 +26,7 @@ function ParticleGameObject(texture, atX, atY, cyclesToLive) {
     GameObject.call(this, renderableObj);
     
     this.mParticle = new Particle(xf.getPosition());
+    this.mParticle.mOriginalPosition = [atX,atY];
     // this.setPhysicsComponent(p);  <-- does not work with the new physics engine
     
     this.mDeltaColor = [0, 0, 0, 0];
