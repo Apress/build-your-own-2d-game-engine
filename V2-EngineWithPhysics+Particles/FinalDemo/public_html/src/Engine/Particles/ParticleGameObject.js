@@ -50,7 +50,7 @@ ParticleGameObject.prototype.setFinalColor = function(f) {
 
 /**
  * Set the size delta of the particle
- * @param {Number} d Sife of particle
+ * @param {Number} d Size of particle
  * @returns {void}
  * @memberOf ParticleGameObject
  */

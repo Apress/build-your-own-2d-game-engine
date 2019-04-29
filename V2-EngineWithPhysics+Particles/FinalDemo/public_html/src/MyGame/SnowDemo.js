@@ -51,14 +51,14 @@ SnowDemo.prototype.initialize = function () {
         100,                     // width of camera
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.6, 0.6, 0.6, 1]);
+    this.mCamera.setBackgroundColor([0.1, 0.1, 0.1, 1]);
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
     this.mPlatforms = new GameObjectSet();
     
     this.createBounds();
-    this.mSnow=new Snow(50,80,50,5,200,0,0,0,1,0,0.5,0);
+    this.mSnow=new Snow(50,80,50,5,350,0,0,0,1,0,0.5,0);
     
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
     this.MainMenuButton = new UIButton(this.kUIButton,this.mainSelect,this,[700,580],[200,40],"Main Menu",4,[1,1,1,1],[1,1,1,1]);
@@ -68,7 +68,7 @@ SnowDemo.prototype.initialize = function () {
 // importantly, make sure to _NOT_ change any state.
 SnowDemo.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.6, 0.6, 0.6, 1.0]); // clear to med gray
+    gEngine.Core.clearCanvas([0.1, 0.1, 0.1, 1.0]); // clear to med gray
 
     this.mCamera.setupViewProjection();
     
@@ -161,31 +161,57 @@ SnowDemo.prototype.wrapParticles = function(){
     var pSet = this.mSnow.getSet().mSet;
     var setLength = pSet.length;    
     for (var i = 0; i < setLength; i++){
-        this.applyDrift(pSet[i].getParticle());
+        this.applyDrift(pSet[i]);
     }
 };
 
-SnowDemo.prototype.applyDrift = function(p){
-    //console.log(p);    
+SnowDemo.prototype.applyDrift = function(pGO){
+    //console.log(p);
+    var p = pGO.getParticle();
     var pPos = p.getPosition();
     var pOPos = p.getOriginalPosition();
     var dist = Math.abs(pPos[0] - pOPos[0]);    
-    
+    if(dist % 3 < 0.1){
+        var test = Math.floor(Math.random()*2);
+        if(test)
+            p.mDriftDir = !p.mDriftDir;
+    }    
     if(p.mDriftDir){
-        pPos[0] += .1;
+        pPos[0] += .05;
     }
     else{
-        pPos[0] -= .1;
+        pPos[0] -= .05;
     }
-    if(dist > 10){
-        p.mDriftDir = !p.mDriftDir;
+    if(p.mParallaxDir){
+        pGO.setSizeDelta(1.0005);
+        pGO.getXform().incYPosBy(-.01);        
     }
+    else{
+        pGO.setSizeDelta(.999);
+        pGO.getXform().incYPosBy(.01);        
+    }
+    //var g = gEngine.ParticleSystem.getSystemtAcceleration();
+//    if (dist < 2){
+        //p.mAcceleration = g;
+//    }
+//    if (dist > 2 && dist < 4){
+//        var newG = [g[0],g[1] + 3];
+//        p.setAcceleration(newG);
+        //p.mAcceleration = g-[0,1];
+//    }
+//    if (dist > 4){
+//        var newG = [g[0],g[1] + 6];
+//        p.setAcceleration(newG);
+        //p.mAcceleration = g-[0,2];
+//    }
     if (pPos[0] > 100){
         pPos[0] = 0;
     }
     if (pPos[0] < 0){
         pPos[0] = 100;
     }
+    var pXform = pGO.getXform();
+    pXform.incRotationByDegree(p.mRotationVal*.05);
 };
 
 SnowDemo.prototype.updateValue = function(){
