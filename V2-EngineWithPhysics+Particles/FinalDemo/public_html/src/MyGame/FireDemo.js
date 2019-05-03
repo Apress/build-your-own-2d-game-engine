@@ -276,10 +276,10 @@ FireDemo.prototype.applyDrift = function(pGO){
 
 FireDemo.prototype.applySizeDelta = function(pGO){
     if(Math.floor(Math.random()*2) === 0){
-        pGO.setSizeDelta(1.01)
+        pGO.setSizeDelta(1.01);
     }
     else{
-        pGO.setSizeDelta(.99)
+        pGO.setSizeDelta(.99);
     }    
 };
 

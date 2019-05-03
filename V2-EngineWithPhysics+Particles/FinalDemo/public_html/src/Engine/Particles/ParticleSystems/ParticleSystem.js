@@ -43,7 +43,7 @@ function ParticleSystem(texture, xPos, yPos, width, yAcceleration, life, xVeloci
     this.startColor=startColor;
     this.finalColor=finalColor;
     this.yMultiplier=yMultiplier;
-    this.sizeBase=3.5;
+    this.sizeBase=1;
 }
 
 /**

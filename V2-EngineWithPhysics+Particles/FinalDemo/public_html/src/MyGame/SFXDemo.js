@@ -11,40 +11,37 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function SnowDemo() {
-    this.kPlatformTexture = "assets/Snow/platform.png";
+function SFXDemo() {
     this.kUIButton = "assets/UI/button.png";
     this.kTargetTexture = "assets/Snow/target.png";
+    this.kTinyTexture = "assets/ParticleSystem/tiny.png"
     // The camera to view the scene
     this.mCamera = null;
     this.LevelSelect = null;
     this.mAllObjs = null;
     this.mPlatforms = null;
-    this.mSnow = null;
-    this.mFrontParticleSet = null;
-    this.mRearParticleSet = null;
+    this.mTiny = null;
+    this.mXParticles = null;
     this.mTarget = null;
     this.backButton = null;
     this.MainMenuButton = null;
     this.mDrawRigidShape = true;
     this.r = null;
-    this.FCollide = true;
-    this.RCollide = false;
 }
-gEngine.Core.inheritPrototype(SnowDemo, Scene);
+gEngine.Core.inheritPrototype(SFXDemo, Scene);
 
 
-SnowDemo.prototype.loadScene = function () {
-    gEngine.Textures.loadTexture(this.kPlatformTexture);
+SFXDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kUIButton);
     gEngine.Textures.loadTexture(this.kTargetTexture);
+    gEngine.Textures.loadTexture(this.kTinyTexture);
     document.getElementById("particle").style.display="block";
 };
 
-SnowDemo.prototype.unloadScene = function () {
-    gEngine.Textures.unloadTexture(this.kPlatformTexture);
+SFXDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kUIButton);
     gEngine.Textures.unloadTexture(this.kTargetTexture);
+    gEngine.Textures.unloadTexture(this.kTinyTexture);
     document.getElementById("particle").style.display="none";
     if(this.LevelSelect==="Back")
         gEngine.Core.startScene(new ParticleLevel());
@@ -52,22 +49,18 @@ SnowDemo.prototype.unloadScene = function () {
         gEngine.Core.startScene(new MyGame());
 };
 
-SnowDemo.prototype.initialize = function () {
+SFXDemo.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
         vec2.fromValues(50, 40), // position of the camera
         100,                     // width of camera
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.1, 0.1, 0.1, 1]);
+    this.mCamera.setBackgroundColor([0, 0, 0, 1]);
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
-    
-    this.mPlatforms = new GameObjectSet();
-    this.createBounds();
-    this.mSnow=new Snow(50,80,50,5,150,0,0,0,1,0,0.5,0);
-    this.mFrontParticleSet = new ParticleGameObjectSet();
-    this.mRearParticleSet = new ParticleGameObjectSet();
+    this.mTiny=new ParticleSystem(this.kTinyTexture, 50,5,35,4,50,0,0,0,1,0,.1,0,[1,0,0,1], [0,0,1,1], 1);
+    this.mXParticles = new ParticleGameObjectSet();
     this.mTarget = new GameObject(new SpriteRenderable(this.kTargetTexture));
     var r = new RigidCircle(this.mTarget.getXform(), 5);
     this.mTarget.setRigidBody(r);
@@ -79,9 +72,9 @@ SnowDemo.prototype.initialize = function () {
 
 // This is the draw function, make sure to setup proper drawing environment, and more
 // importantly, make sure to _NOT_ change any state.
-SnowDemo.prototype.draw = function () {
+SFXDemo.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.1, 0.1, 0.1, 1.0]); // clear to med gray
+    gEngine.Core.clearCanvas([0, 0, 0, 1.0]); // clear to med gray
 
     this.mCamera.setupViewProjection();
     
@@ -91,8 +84,8 @@ SnowDemo.prototype.draw = function () {
     this.mCollisionInfos = []; 
     
     this.mTarget.draw(this.mCamera);
-    this.mSnow.draw(this.mCamera);
-    this.mPlatforms.draw(this.mCamera);
+    this.mTiny.draw(this.mCamera);
+    this.mXParticles.draw(this.mCamera);
     this.MainMenuButton.draw(this.mCamera);
     this.backButton.draw(this.mCamera);
 };
@@ -100,121 +93,146 @@ SnowDemo.prototype.draw = function () {
 // The Update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 //SnowDemo.kBoundDelta = 0.1;
-SnowDemo.prototype.update = function () {
-    gEngine.ParticleSystem.update(this.mSnow);
-    
+SFXDemo.prototype.update = function () {
+    gEngine.ParticleSystem.update(this.mTiny);
+    gEngine.ParticleSystem.update(this.mXParticles);
     if (this.mCamera.isMouseInViewport()) {
         var xform = this.mTarget.getXform();
         xform.setXPos(this.mCamera.mouseWCX());
         xform.setYPos(this.mCamera.mouseWCY());       
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
-        this.mSnow.incWidth(1);
+        this.mTiny.incWidth(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
-        this.mSnow.incWidth(-1);
+        this.mTiny.incWidth(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.A)) {
-        this.mSnow.incyAcceleration(1);
+        this.mTiny.incyAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.S)) {
-        this.mSnow.incyAcceleration(-1);
+        this.mTiny.incyAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Z)) {
-        this.mSnow.incLife(1);
+        this.mTiny.incLife(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.X)) {
-        this.mSnow.incLife(-1);
+        this.mTiny.incLife(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.E)) {
-        this.mSnow.incxVelocity(1);
+        this.mTiny.incxVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
-        this.mSnow.incxVelocity(-1);
+        this.mTiny.incxVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.D)) {
-        this.mSnow.incyVelocity(1);
+        this.mTiny.incyVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.F)) {
-        this.mSnow.incyVelocity(-1);
+        this.mTiny.incyVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
-        this.mSnow.incFlicker(1);
+        this.mTiny.incFlicker(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
-        this.mSnow.incFlicker(-1);
+        this.mTiny.incFlicker(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
-        this.mSnow.incIntensity(1);
+        this.mTiny.incIntensity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Y)) {
-        this.mSnow.incIntensity(-1);
+        this.mTiny.incIntensity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.G)) {
-        this.mSnow.incxAcceleration(1);
+        this.mTiny.incxAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
-        this.mSnow.incxAcceleration(-1);
+        this.mTiny.incxAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
-        this.mSnow.incParticleSize(1);
+        this.mTiny.incParticleSize(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
-        this.mSnow.incParticleSize(-1);
+        this.mTiny.incParticleSize(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.U)) {
-        this.mSnow.incyOffset(1);
+        this.mTiny.incyOffset(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
-        this.mSnow.incyOffset(-1);
+        this.mTiny.incyOffset(-1);
     }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {            
+    if (gEngine.Input.isButtonClicked(0)){
+        if (this.mCamera.isMouseInViewport()) {
+            var p = this.createXParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
+            this.mXParticles.addToSet(p);
+        }
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {            
         //var r = new RigidCircle(this.mTarget.getXform(), this.mTarget.getXform().getSize() + 10);            
         //this.r.getRadius();
         //this.mTarget.setRigidBody(r);
-        this.FCollide = !this.FCollide;
     }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Down)) {
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
         //var r = new RigidCircle(this.mTarget.getXform(), this.mTarget.getXform().getSize() - 10);
         //this.mTarget.setRigidBody(r);
-        this.RCollide = !this.RCollide;
     }
     this.updateValue();
     this.MainMenuButton.update();
     this.backButton.update();
     
     this.wrapParticles();
-    if(this.FCollide){
-        gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mFrontParticleSet);//this.mSnow.getSet());
-    }
-    if(this.RCollide){
-        gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mRearParticleSet);
-    }
-    if(!this.FCollide && !this.RCollide){
-        gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mSnow.getSet());
-    }
+    gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mTiny.getSet());
+    if(this.mXParticles.size > 0)
+        gEngine.ParticleSystem.collideWithRigidSet(this.mXParticles, this.mTiny.getSet());
 };
 
-SnowDemo.prototype.wrapParticles = function(){    
-    var pSet = this.mSnow.getSet().mSet;
+SFXDemo.prototype.createXParticle = function(atX, atY){
+    var life = 130 + Math.random() * 10;
+    var p = new ParticleGameObject(this.kTinyTexture, atX, atY, life);
+    p.getRenderable().setColor([1, 1, 1, 1]);
+    
+    // size of the particle
+    var r = 3.5 + Math.random() * 2.5;
+    p.getXform().setSize(r, r);
+    
+    // final color
+    //var fr = 3.5 + Math.random();
+    //var fg = 0.4 + 0.1 * Math.random();
+    //var fb = 0.3 + 0.1 * Math.random();
+    //p.setFinalColor([fr, fg, fb, 0.6]);
+    
+    // velocity on the particle
+    var fx = 10 * Math.random() - 20 * Math.random();
+    var fy = 10 * Math.random();
+    p.getParticle().setVelocity([fx, fy]);
+    //var ax = 10 * Math.random() - 20 * Math.random();
+    //var ay = 10 * Math.random();
+    //p.getParticle().setAcceleration([ax,ay]);
+    // size delta
+    p.setSizeDelta(0.98);
+    
+    return p;
+};
+
+SFXDemo.prototype.wrapParticles = function(){    
+    var pSet = this.mTiny.getSet().mSet;
     var setLength = pSet.length;    
     for (var i = 0; i < setLength; i++){
         this.applyDrift(pSet[i]);
     }
 };
 
-SnowDemo.prototype.applyDrift = function(pGO){
+SFXDemo.prototype.applyDrift = function(pGO){
     //console.log(p);
     var p = pGO.getParticle();
     var pPos = p.getPosition();
     var pOPos = p.getOriginalPosition();
-    var dist = Math.abs(pPos[0] - pOPos[0]);
-    var ydist = Math.abs(pPos[1] - pOPos[1]);
+    var dist = Math.abs(pPos[0] - pOPos[0]);    
     if(dist % (Math.floor(Math.random()*5)) < 0.1){
         var test = Math.floor(Math.random()*2);
         if(test)
             p.mDriftDir = !p.mDriftDir;
-    }
+    }    
     if(p.mDriftDir){
         pPos[0] += .05;
     }
@@ -223,17 +241,11 @@ SnowDemo.prototype.applyDrift = function(pGO){
     }
     if(p.mParallaxDir){
         pGO.setSizeDelta(1.0005);
-        pGO.getXform().incYPosBy(-.01);
-        if(ydist < 0.1){
-            this.mFrontParticleSet.addToSet(pGO);
-        }
+        pGO.getXform().incYPosBy(-.01);        
     }
     else{
         pGO.setSizeDelta(.999);
-        pGO.getXform().incYPosBy(.01);
-        if(ydist < 0.1){
-            this.mRearParticleSet.addToSet(pGO);
-        }
+        pGO.getXform().incYPosBy(.01);        
     }
     //var g = gEngine.ParticleSystem.getSystemtAcceleration();
 //    if (dist < 2){
@@ -259,47 +271,25 @@ SnowDemo.prototype.applyDrift = function(pGO){
     pXform.incRotationByDegree(p.mRotationVal*.05);
 };
 
-SnowDemo.prototype.updateValue = function(){
-    document.getElementById("value1").innerHTML = this.mSnow.getWidth();
-    document.getElementById("value2").innerHTML = this.mSnow.getyAcceleration();
-    document.getElementById("value3").innerHTML = this.mSnow.getLife();
-    document.getElementById("value4").innerHTML = this.mSnow.getxVelocity();
-    document.getElementById("value5").innerHTML = this.mSnow.getyVelocity();
-    document.getElementById("value6").innerHTML = this.mSnow.getFlicker();
-    document.getElementById("value7").innerHTML = this.mSnow.getIntensity();
-    document.getElementById("value8").innerHTML = this.mSnow.getxAcceleration();
-    document.getElementById("value9").innerHTML = this.mSnow.getParticleSize();
-    document.getElementById("value10").innerHTML = this.mSnow.getyOffset();
+SFXDemo.prototype.updateValue = function(){
+    document.getElementById("value1").innerHTML = this.mTiny.getWidth();
+    document.getElementById("value2").innerHTML = this.mTiny.getyAcceleration();
+    document.getElementById("value3").innerHTML = this.mTiny.getLife();
+    document.getElementById("value4").innerHTML = this.mTiny.getxVelocity();
+    document.getElementById("value5").innerHTML = this.mTiny.getyVelocity();
+    document.getElementById("value6").innerHTML = this.mTiny.getFlicker();
+    document.getElementById("value7").innerHTML = this.mTiny.getIntensity();
+    document.getElementById("value8").innerHTML = this.mTiny.getxAcceleration();
+    document.getElementById("value9").innerHTML = this.mTiny.getParticleSize();
+    document.getElementById("value10").innerHTML = this.mTiny.getyOffset();
 };
 
-SnowDemo.prototype.createBounds = function() {
-    var x = 15, w = 30, y = 4;
-    for (x = 15; x < 120; x+=30) 
-        this.platformAt(x, y, w, 0);
-};
-
-SnowDemo.prototype.platformAt = function (x, y, w, rot) {
-    var h = w / 8;
-    var p = new TextureRenderable(this.kPlatformTexture);
-    var xf = p.getXform();
-    
-    var g = new GameObject(p);
-    var r = new RigidRectangle(xf, w, h);
-    g.setRigidBody(r);
-    
-    r.setMass(0);
-    xf.setSize(w, h);
-    xf.setPosition(x, y);
-    xf.setRotationInDegree(rot);
-    this.mPlatforms.addToSet(g);
-};
-
-SnowDemo.prototype.backSelect = function(){
+SFXDemo.prototype.backSelect = function(){
     this.LevelSelect="Back";
     gEngine.GameLoop.stop();
 };
 
-SnowDemo.prototype.mainSelect = function(){
+SFXDemo.prototype.mainSelect = function(){
     this.LevelSelect="Main";
     gEngine.GameLoop.stop();
 };

@@ -92,7 +92,7 @@ gEngine.DefaultResources = (function () {
     var fireParticleTexture = "assets/ParticleSystem/flameparticle.png";
     var smokeParticleTexture = "assets/ParticleSystem/smokeparticle.png";
     var snowParticleTexture = "assets/ParticleSystem/snowparticle.png";
-    
+    var tinyParticleTexture = "assets/ParticleSystem/tiny.png";
     // UI
     var UIRadarButtonTexture = "assets/UI/radarbutton.png";
     var UIDropDownArrow = "assets/UI/ddarrow.png";
@@ -220,7 +220,7 @@ gEngine.DefaultResources = (function () {
         gEngine.Textures.loadTexture(fireParticleTexture);
         gEngine.Textures.loadTexture(smokeParticleTexture);
         gEngine.Textures.loadTexture(snowParticleTexture);
-        
+        gEngine.Textures.loadTexture(tinyParticleTexture)
         gEngine.Textures.loadTexture(UIRadarButtonTexture);
         gEngine.Textures.loadTexture(UIDropDownArrow);
 
