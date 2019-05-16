@@ -133,9 +133,7 @@ SmokeDemo.prototype.draw = function () {
 SmokeDemo.kBoundDelta = 0.1;
 SmokeDemo.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mAllSmoke);
-    gEngine.ParticleSystem.update(this.fire);
-    // create particles
-    this.applyEmbers();
+    // create particles    
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
         this.mCurrentObj -= 1;
@@ -231,62 +229,95 @@ SmokeDemo.prototype.update = function () {
         obj.incyOffset(-1);
         obj1.incyOffset(-1);
     }
+    
+    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.M)){
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Q)) {
+            obj.incWidth(1);
+            obj1.incWidth(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+            obj.incWidth(-1);
+            obj1.incWidth(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+            obj.incyAcceleration(1);
+            obj1.incyAcceleration(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+            obj.incyAcceleration(-1);
+            obj1.incyAcceleration(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
+            obj.incLife(1);
+            obj1.incLife(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
+            obj.incLife(-1);
+            obj1.incLife(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.E)) {
+            obj.incxVelocity(1);
+            obj1.incxVelocity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
+            obj.incxVelocity(-1);
+            obj1.incxVelocity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+            obj.incyVelocity(1);
+            obj1.incyVelocity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.F)) {
+            obj.incyVelocity(-1);
+            obj1.incyVelocity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+            obj.incFlicker(1);
+            obj1.incFlicker(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.V)) {
+            obj.incFlicker(-1);
+            obj1.incFlicker(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.T)) {
+            obj.incIntensity(1);
+            obj1.incIntensity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Y)) {
+            obj.incIntensity(-1);
+            obj1.incIntensity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.G)) {
+            obj.incxAcceleration(1);
+            obj1.incxAcceleration(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.H)) {
+            obj.incxAcceleration(-1);
+            obj1.incxAcceleration(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.B)) {
+            obj.incParticleSize(1);
+            obj1.incParticleSize(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.N)) {
+            obj.incParticleSize(-1);
+            obj1.incParticleSize(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.U)) {
+            obj.incyOffset(1);
+            obj1.incyOffset(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.I)) {
+            obj.incyOffset(-1);
+            obj1.incyOffset(-1);
+        }
+    }
 
     var p = obj.getPos();
     this.mTarget.getXform().setPosition(p[0], p[1]);
     this.updateValue(obj);
     this.MainMenuButton.update();
     this.backButton.update();
-};
-SmokeDemo.prototype.applyEmbers = function(){
-    var sPSet = this.mAllSmoke.getObjectAt(1);
-    var pSet = sPSet.getSet().mSet;
-    var setLength = pSet.length;
-    for (var i = 0; i < setLength; i++){    
-        if(pSet[i].getParticle().mParallaxDir && pSet[i].getParticle().mDriftDir){
-            this.applyDrift(pSet[i]);            
-        }
-        if(pSet[i].getParticle().mParallaxDir && !pSet[i].getParticle().mDriftDir){
-            this.applyColor(pSet[i]);
-        }
-        if(!pSet[i].getParticle().mParallaxDir && !pSet[i].getParticle().mDriftDir){
-            this.applySizeDelta(pSet[i]);
-            this.applyColor(pSet[i]);
-        }
-    }
-};
-SmokeDemo.prototype.applyDrift = function(pGO){
-    var p = pGO.getParticle();
-    var pPos = p.getPosition();
-    //var xform = pGO.getXform();    
-    pGO.setSizeDelta(.95);
-    if(Math.floor(Math.random()*2) === 0){
-        pPos[0] += 1;
-    }
-    else{
-        pPos[0] -= 1;
-    }
-};
-
-SmokeDemo.prototype.applySizeDelta = function(pGO){
-    if(Math.floor(Math.random()*2) === 0){
-        pGO.setSizeDelta(1.0125);        
-    }
-    else{
-        pGO.setSizeDelta(.99); 
-    }    
-};
-
-SmokeDemo.prototype.applyColor = function(pGO){
-    var p = pGO.getParticle();
-    if(Math.floor(Math.random()*2) === 0){
-        pGO.setFinalColor([0,0,0,1]);
-        p.setVelocity([-3.5,p.getVelocity()[1]+.1]);
-    }
-    else{
-        pGO.setFinalColor([.1,.1,.1,1]);
-        p.setVelocity([3.5,p.getVelocity()[1]+.1]);
-    }       
 };
 
 SmokeDemo.prototype.updateValue = function(obj){

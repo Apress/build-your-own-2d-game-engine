@@ -5,8 +5,8 @@
         <group>
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/MyGame/SnowDemo.js</file>
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/MyGame/SFXDemo.js</file>
-            <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Particles/ParticleEmitter.js</file>
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/GameObjects/GameObject.js</file>
+            <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Particles/ParticleEmitter.js</file>
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/MyGame/SmokeDemo.js</file>
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Particles/ParticleSystems/Smoke.js</file>
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Core/Engine_Input.js</file>
@@ -19,8 +19,8 @@
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Particles/ParticleGameObjectSet.js</file>
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Particles/ParticleGameObject.js</file>
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Particles/ParticleSystems/ParticleSystem.js</file>
-            <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/GameObjects/GameObjectSet.js</file>
             <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Particles/ParticleSystems/Fire.js</file>
+            <file>file:/C:/Users/mustardback/Dropbox/CS498/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/GameObjects/GameObjectSet.js</file>
         </group>
     </open-files>
 </project-private>

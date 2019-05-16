@@ -25,13 +25,13 @@ function FireDemo() {
 
     this.mPlatforms = null;
     this.mAllFire = null;
-    
+    this.mFire1 = null;
+    this.mFire2 = null;
     this.mCurrentObj = 0;
     this.mTarget = null;
     this.mTorch = null;
     this.mBush = null;
     this.mPillar = null;
-    this.mForest = null;
     this.backButton = null;
     this.MainMenuButton = null;
     this.LevelSelect = null;
@@ -81,18 +81,20 @@ FireDemo.prototype.initialize = function () {
     
     this.createBounds();
     this.mFirstObject = 0;
-    this.mCurrentObj = this.mFirstObject;
-    var m;
+    this.mCurrentObj = this.mFirstObject;    
     //m=new Fire(20,14,0,0,20,0,20,32,1,0,2.5,0);
     //this.mAllFire.addToSet(m);
-    m=new Fire(35,13,3,36,8,0,0,2,15,0,2.5,1);
-    this.mAllFire.addToSet(m);
-    m=new Fire(55,13,3,36,8,0,0,2,15,0,2.5,1);
-    this.mAllFire.addToSet(m);
+    this.mFire1 =new Fire(35,13,3,1,12,0,20,2,7,0,1.5,5);
+    this.mAllFire.addToSet(this.mFire1);
+    //var fParam = new Fire.FireParams();
+    //m = new Fire(Fire.FireParams());
+    //this.mAllFire.addToSet(m);
+    
     //m=new Fire(68,7,23,11,20,0,12,4,23,8,3.5,0);
     //this.mAllFire.addToSet(m);
     //m=new Fire(10,7,3,2,20,0,20,4,1,0,2.5,0);
     //this.mAllFire.addToSet(m);
+    
     var r = new TextureRenderable(this.kTargetTexture);
     this.mTarget = new GameObject(r);
     var xf = r.getXform();
@@ -108,11 +110,7 @@ FireDemo.prototype.initialize = function () {
     this.mPillar = new TextureRenderable(this.kPillar);
     this.mPillar.getXform().setPosition(35,8);
     this.mPillar.setColor([0, 0, 0, 0]);  // No tinting
-    this.mPillar.getXform().setSize(7,7);
-    this.mForest = new TextureRenderable(this.kPillar);
-    this.mForest.getXform().setPosition(55,8);
-    this.mForest.setColor([0, 0, 0, 0]);  // No tinting
-    this.mForest.getXform().setSize(7,7);
+    this.mPillar.getXform().setSize(7,7);    
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
     this.MainMenuButton = new UIButton(this.kUIButton,this.mainSelect,this,[700,580],[200,40],"Main Menu",4,[1,1,1,1],[1,1,1,1]);
 };
@@ -128,7 +126,6 @@ FireDemo.prototype.draw = function () {
     //this.mTorch.draw(this.mCamera);
     //this.mBush.draw(this.mCamera);
     this.mPillar.draw(this.mCamera);
-    this.mForest.draw(this.mCamera);
     //this.mTarget.draw(this.mCamera);
     this.mAllFire.draw(this.mCamera);
     this.mPlatforms.draw(this.mCamera);
@@ -139,11 +136,8 @@ FireDemo.prototype.draw = function () {
 // The Update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 FireDemo.kBoundDelta = 0.1;
-FireDemo.prototype.update = function () {
+FireDemo.prototype.update = function () {    
     gEngine.ParticleSystem.update(this.mAllFire);
-    
-    // create particles
-    this.applyEmbers();
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
         this.mCurrentObj -= 1;
@@ -157,88 +151,172 @@ FireDemo.prototype.update = function () {
     }
 
     var obj = this.mAllFire.getObjectAt(0);
-    var obj1 = this.mAllFire.getObjectAt(1);
+    //var obj1 = this.mAllFire.getObjectAt(1);
     
-     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
         obj.incWidth(1);
-        obj1.incWidth(1);
+        //obj1.incWidth(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
         obj.incWidth(-1);
-        obj1.incWidth(-1);
+        //obj1.incWidth(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.A)) {
         obj.incyAcceleration(1);
-        obj1.incyAcceleration(1);
+        //obj1.incyAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.S)) {
         obj.incyAcceleration(-1);
-        obj1.incyAcceleration(-1);
+        //obj1.incyAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Z)) {
         obj.incLife(1);
-        obj1.incLife(1);
+        //obj1.incLife(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.X)) {
         obj.incLife(-1);
-        obj1.incLife(-1);
+        //obj1.incLife(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.E)) {
         obj.incxVelocity(1);
-        obj1.incxVelocity(1);
+        //obj1.incxVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
         obj.incxVelocity(-1);
-        obj1.incxVelocity(-1);
+        //obj1.incxVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.D)) {
         obj.incyVelocity(1);
-        obj1.incyVelocity(1);
+        //obj1.incyVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.F)) {
         obj.incyVelocity(-1);
-        obj1.incyVelocity(-1);
+        //obj1.incyVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
         obj.incFlicker(1);
-        obj1.incFlicker(1);
+        //obj1.incFlicker(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
         obj.incFlicker(-1);
-        obj1.incFlicker(-1);
+        //obj1.incFlicker(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
         obj.incIntensity(1);
-        obj1.incIntensity(1);
+        //obj1.incIntensity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Y)) {
         obj.incIntensity(-1);
-        obj1.incIntensity(-1);
+        //obj1.incIntensity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.G)) {
         obj.incxAcceleration(1);
-        obj1.incxAcceleration(1);
+        //obj1.incxAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
         obj.incxAcceleration(-1);
-        obj1.incxAcceleration(-1);
+        //obj1.incxAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
         obj.incParticleSize(1);
-        obj1.incParticleSize(1);
+        //obj1.incParticleSize(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
         obj.incParticleSize(-1);
-        obj1.incParticleSize(-1);
+        //obj1.incParticleSize(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.U)) {
         obj.incyOffset(1);
-        obj1.incyOffset(1);
+        //obj1.incyOffset(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         obj.incyOffset(-1);
-        obj1.incyOffset(-1);
+        //obj1.incyOffset(-1);
     }
+    
+    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.M)){
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Q)) {
+            obj.incWidth(1);
+            //obj1.incWidth(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+            obj.incWidth(-1);
+            //obj1.incWidth(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+            obj.incyAcceleration(1);
+            //obj1.incyAcceleration(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+            obj.incyAcceleration(-1);
+            //obj1.incyAcceleration(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
+            obj.incLife(1);
+            //obj1.incLife(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
+            obj.incLife(-1);
+            //obj1.incLife(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.E)) {
+            obj.incxVelocity(1);
+            //obj1.incxVelocity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
+            obj.incxVelocity(-1);
+            //obj1.incxVelocity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+            obj.incyVelocity(1);
+            //obj1.incyVelocity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.F)) {
+            obj.incyVelocity(-1);
+            //obj1.incyVelocity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+            obj.incFlicker(1);
+            //obj1.incFlicker(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.V)) {
+            obj.incFlicker(-1);
+            //obj1.incFlicker(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.T)) {
+            obj.incIntensity(1);
+            //obj1.incIntensity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Y)) {
+            obj.incIntensity(-1);
+            //obj1.incIntensity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.G)) {
+            obj.incxAcceleration(1);
+            //obj1.incxAcceleration(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.H)) {
+            obj.incxAcceleration(-1);
+            //obj1.incxAcceleration(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.B)) {
+            obj.incParticleSize(1);
+            //obj1.incParticleSize(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.N)) {
+            obj.incParticleSize(-1);
+            //obj1.incParticleSize(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.U)) {
+            obj.incyOffset(1);
+            //obj1.incyOffset(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.I)) {
+            obj.incyOffset(-1);
+            //obj1.incyOffset(-1);
+        }
+    }
+    
     
 
     var p = obj.getPos();
@@ -246,41 +324,6 @@ FireDemo.prototype.update = function () {
     this.updateValue(obj);
     this.backButton.update();
     this.MainMenuButton.update();
-};
-FireDemo.prototype.applyEmbers = function(){
-    var fPSet = this.mAllFire.getObjectAt(1);
-    var pSet = fPSet.getSet().mSet;
-    var setLength = pSet.length;    
-    for (var i = 0; i < setLength; i++){
-        if(pSet[i].getParticle().mParallaxDir && pSet[i].getParticle().mDriftDir){
-            this.applyDrift(pSet[i]);
-        }
-        if(pSet[i].getParticle().mParallaxDir && !pSet[i].getParticle().mDriftDir){
-            this.applySizeDelta(pSet[i]);
-        }
-    }
-};
-
-FireDemo.prototype.applyDrift = function(pGO){
-    var p = pGO.getParticle();
-    var pPos = p.getPosition();
-    //var xform = pGO.getXform();    
-    pGO.setSizeDelta(.95);
-    if(Math.floor(Math.random()*2) === 0){
-        pPos[0] += .5;
-    }
-    else{
-        pPos[0] -= .5;
-    }
-};
-
-FireDemo.prototype.applySizeDelta = function(pGO){
-    if(Math.floor(Math.random()*2) === 0){
-        pGO.setSizeDelta(1.01);
-    }
-    else{
-        pGO.setSizeDelta(.99);
-    }    
 };
 
 FireDemo.prototype.updateValue = function(obj){

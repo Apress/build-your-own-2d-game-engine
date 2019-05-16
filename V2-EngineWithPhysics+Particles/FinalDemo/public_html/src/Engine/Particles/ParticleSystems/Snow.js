@@ -28,6 +28,25 @@ function Snow(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flic
 
 gEngine.Core.inheritPrototype(Snow,ParticleSystem);
 
-
+Snow.SnowParams = function(){
+    //this.mAllParticles = new ParticleGameObjectSet();
+    //this.texture="assets/ParticleSystem/flameparticle.png";
+    this.xPos=50;
+    this.yPos=50;
+    this.width=5;
+    this.yAcceleration=1;
+    this.life=140;
+    this.xVelocity=0;
+    this.yVelocity=0;
+    this.flicker=0;
+    this.intensity=1;
+    this.xAcceleration=0;
+    this.size=1;
+    this.yOffset=0;
+    //this.startColor=[1,0,0,1];
+    //this.finalColor=[0,0,0,1];
+    //this.yMultiplier=1;
+    //this.sizeBase=1;
+}
 
 
