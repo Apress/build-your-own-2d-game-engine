@@ -29,7 +29,7 @@ function Particle(pos) {
     this.mDrawBounds = false;
     this.mDriftDir = Math.floor(Math.random()*2);
     this.mParallaxDir = Math.floor(Math.random()*2);
-    this.mRotationVal = Math.random()*100;
+    this.mRotationVal = Math.floor(Math.random()*100);
 }
 
 /**

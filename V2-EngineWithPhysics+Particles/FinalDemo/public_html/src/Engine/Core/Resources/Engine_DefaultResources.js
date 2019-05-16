@@ -220,11 +220,11 @@ gEngine.DefaultResources = (function () {
         gEngine.Textures.loadTexture(fireParticleTexture);
         gEngine.Textures.loadTexture(smokeParticleTexture);
         gEngine.Textures.loadTexture(snowParticleTexture);
-        gEngine.Textures.loadTexture(tinyParticleTexture)
+        gEngine.Textures.loadTexture(tinyParticleTexture);
         gEngine.Textures.loadTexture(UIRadarButtonTexture);
         gEngine.Textures.loadTexture(UIDropDownArrow);
 
-        gEngine.ResourceMap.setLoadCompleteCallback(function s() {_createShaders(callBackFunction); });
+        gEngine.ResourceMap.setLoadCompleteCallback(function () {_createShaders(callBackFunction); });
     };
 
     /**

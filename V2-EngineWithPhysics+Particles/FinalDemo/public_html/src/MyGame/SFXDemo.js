@@ -14,7 +14,7 @@
 function SFXDemo() {
     this.kUIButton = "assets/UI/button.png";
     this.kTargetTexture = "assets/Snow/target.png";
-    this.kTinyTexture = "assets/ParticleSystem/tiny.png"
+    this.kTinyTexture = "assets/ParticleSystem/tiny.png";
     // The camera to view the scene
     this.mCamera = null;
     this.LevelSelect = null;
