@@ -49,4 +49,81 @@ Snow.SnowParams = function(){
     //this.sizeBase=1;
 }
 
+Snow.prototype.update = function(){
+    for(var i=0; i<this.intensity; i++){
+    var p = this.createParticle(this.xPos, this.yPos);
+    this.mAllParticles.addToSet(p);
+    }
+    gEngine.ParticleSystem.update(this.mAllParticles);
+    this.wrapParticles();
+};
 
+Snow.prototype.wrapParticles = function(){    
+    var pSet = this.getSet().mSet;
+    var setLength = pSet.length;    
+    for (var i = 0; i < setLength; i++){        
+        this.applyDrift(pSet[i]);
+    }
+};
+
+Snow.prototype.applyDrift = function(pGO){
+    //console.log(p);
+    var p = pGO.getParticle();    
+    var pPos = p.getPosition();
+    if(pPos[1] < 0){
+        pGO.mCyclesToLive = 0;
+    }
+    var pOPos = p.getOriginalPosition();
+    var dist = Math.abs(pPos[0] - pOPos[0]);
+    var ydist = Math.abs(pPos[1] - pOPos[1]);
+    if(dist % (Math.floor(Math.random()*5)) < 0.1){
+        var test = Math.floor(Math.random()*2);
+        if(test)
+            p.mDriftDir = !p.mDriftDir;
+    }
+    var pAccel = p.getAcceleration();
+    if(p.mDriftDir){
+        //pPos[0] += .05;
+        p.setAcceleration([pAccel[0]+.1,pAccel[1]]);
+    }
+    else{
+        //pPos[0] -= .05;
+        p.setAcceleration([pAccel[0]-.1,pAccel[1]]);
+    }
+    if(p.mParallaxDir){
+        pGO.setSizeDelta(1.0005);
+        pGO.getXform().incYPosBy(-.01);
+//        if(ydist < 0.1){
+//            this.mFrontParticleSet.addToSet(pGO);
+//        }
+    }
+    else{
+        pGO.setSizeDelta(.999);
+        pGO.getXform().incYPosBy(.01);
+//        if(ydist < 0.1){
+//            this.mRearParticleSet.addToSet(pGO);
+//        }
+    }
+    //var g = gEngine.ParticleSystem.getSystemtAcceleration();
+//    if (dist < 2){
+        //p.mAcceleration = g;
+//    }
+//    if (dist > 2 && dist < 4){
+//        var newG = [g[0],g[1] + 3];
+//        p.setAcceleration(newG);
+        //p.mAcceleration = g-[0,1];
+//    }
+//    if (dist > 4){
+//        var newG = [g[0],g[1] + 6];
+//        p.setAcceleration(newG);
+        //p.mAcceleration = g-[0,2];
+//    }
+    if (pPos[0] > 100){
+        pPos[0] = 0;
+    }
+    if (pPos[0] < 0){
+        pPos[0] = 100;
+    }
+    var pXform = pGO.getXform();
+    pXform.incRotationByDegree(p.mRotationVal*.05);
+};
