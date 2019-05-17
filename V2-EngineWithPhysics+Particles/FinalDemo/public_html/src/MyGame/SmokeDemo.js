@@ -71,7 +71,7 @@ SmokeDemo.prototype.initialize = function () {
         100,                     // width of camera
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.2, 0.2, 0.2, 1]);
+    this.mCamera.setBackgroundColor([0.5, 0.5, 0.5, 1]);
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
@@ -84,11 +84,18 @@ SmokeDemo.prototype.initialize = function () {
     var m;
     //m=new Smoke(10,10,3,2,60,0,20,1,1,0,2.5,0);
     //this.mAllSmoke.addToSet(m);
-    this.fire=new Fire(10,7,3,2,20,0,20,4,1,0,2.5,0);
-    m=new Smoke(25,7,20,2,60,0,5,1,9,0,2.5,7);
-    this.mAllSmoke.addToSet(m);
+    //this.fire=new Fire(10,7,3,2,20,0,20,4,1,0,2.5,0);
+    //m=new Smoke(25,7,20,2,60,0,5,1,9,0,2.5,7);
+    //this.mAllSmoke.addToSet(m);
     m=new Smoke(75,7,20,2,60,0,5,1,9,0,2.5,7);
     this.mAllSmoke.addToSet(m);
+    
+    m=new Smoke(18.5,10,0,10,5,0,5,.9,2,0,-0.5,1);
+    this.mAllSmoke.addToSet(m);
+    
+    m=new Smoke(25,50,20,-.5,100,0,0,1,2,0,10,10);
+    this.mAllSmoke.addToSet(m);
+    
     var r = new TextureRenderable(this.kTargetTexture);
     this.mTarget = new GameObject(r);
     var xf = r.getXform();
@@ -97,13 +104,13 @@ SmokeDemo.prototype.initialize = function () {
     this.mBush.getXform().setPosition(10,8);
     this.mBush.setColor([0, 0, 0, 0]);  // No tinting
     this.mBush.getXform().setSize(6,6);
-    this.mTeacup = new TextureRenderable(this.kForest);
-    this.mTeacup.getXform().setPosition(25,9);
+    this.mTeacup = new TextureRenderable(this.kTeacup);
+    this.mTeacup.getXform().setPosition(15,9.5);
     this.mTeacup.setColor([0, 0, 0, 0]);  // No tinting
-    this.mTeacup.getXform().setSize(48,12);
+    this.mTeacup.getXform().setSize(8,8);
     this.mForest = new TextureRenderable(this.kForest);
     this.mForest.getXform().setPosition(75,9);
-    this.mForest.setColor([0, 0, 0, 0]);  // No tinting
+    this.mForest.setColor([.1, .1, .1, .8]);  // No tinting
     this.mForest.getXform().setSize(48,12);
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
     this.MainMenuButton = new UIButton(this.kUIButton,this.mainSelect,this,[700,580],[200,40],"Main Menu",4,[1,1,1,1],[1,1,1,1]);
@@ -113,7 +120,7 @@ SmokeDemo.prototype.initialize = function () {
 // importantly, make sure to _NOT_ change any state.
 SmokeDemo.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.2, 0.2, 0.2, 1.0]); // clear to light gray
+    gEngine.Core.clearCanvas([0.5, 0.5, 0.5, 1.0]); // clear to light gray
 
     this.mCamera.setupViewProjection();
     
@@ -342,6 +349,7 @@ SmokeDemo.prototype.createBounds = function() {
 SmokeDemo.prototype.platformAt = function (x, y, w, rot) {
     var h = w / 8;
     var p = new TextureRenderable(this.kPlatformTexture);
+    p.setColor([0,0,0,1]);
     var xf = p.getXform();
     
     var g = new GameObject(p);

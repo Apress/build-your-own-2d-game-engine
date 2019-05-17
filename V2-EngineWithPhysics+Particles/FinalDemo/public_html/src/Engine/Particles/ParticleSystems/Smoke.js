@@ -78,23 +78,26 @@ Smoke.prototype.applyEmbers = function(){
 
 Smoke.prototype.applyDrift = function(pGO){
     var p = pGO.getParticle();
-    var pPos = p.getPosition();
+    //var pPos = p.getPosition();
     //var xform = pGO.getXform();    
     pGO.setSizeDelta(.95);
     if(Math.floor(Math.random()*2) === 0){
-        pPos[0] += 1;
+        //pPos[0] += 1;
     }
     else{
-        pPos[0] -= 1;
+        //pPos[0] -= 1;
     }
 };
 
 Smoke.prototype.applySizeDelta = function(pGO){
+    var p = pGO.getParticle();
     if(Math.floor(Math.random()*2) === 0){
-        pGO.setSizeDelta(1.0125);        
+        pGO.setSizeDelta(1.0125);
+        pGO.getXform().incRotationByDegree(p.mRotationVal*.05);
     }
     else{
-        pGO.setSizeDelta(.99); 
+        pGO.setSizeDelta(.99);
+        pGO.getXform().incRotationByDegree(p.mRotationVal*-.05);
     }    
 };
 
