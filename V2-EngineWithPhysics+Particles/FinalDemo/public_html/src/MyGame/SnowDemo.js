@@ -80,28 +80,26 @@ SnowDemo.prototype.initialize = function () {
     
     var tree = new TextureRenderable(this.kTree1Texture);
     var xf = tree.getXform(); 
-    xf.setSize(25, 25);
-    xf.setPosition(10, 20);
+    xf.setSize(20, 20);
+    xf.setPosition(20, 15.5);
     xf.setZPos(0);
     this.mTrees.addToSet(tree);
     
     var tree2 = new TextureRenderable(this.kTree2Texture);
-    var xf = tree.getXform(); 
-    xf.setSize(25, 25);
-    xf.setPosition(50, 10);
-    xf.setZPos(2);
+    var xf2 = tree2.getXform(); 
+    xf2.setSize(30, 30);
+    xf2.setPosition(50, 20);
+    xf2.setZPos(2);
     this.mTrees.addToSet(tree2);
     
     var tree3 = new TextureRenderable(this.kTree3Texture);
-    var xf = tree.getXform(); 
-    xf.setSize(40, 40);
-    xf.setPosition(85, 25);
-    xf.setZPos(4);
+    var xf3 = tree3.getXform(); 
+    xf3.setSize(40, 40);
+    xf3.setPosition(85, 25);
+    xf3.setZPos(4);
     this.mTrees.addToSet(tree3);
     
-    
-    
-    this.mSnow=new Snow(50,80,50,5,150,0,0,0,1,0,0.5,0);
+    this.mSnow=new Snow(50,80,50,5,150,0,0,0,3,0,-0.5,0);
     this.mFrontParticleSet = new ParticleGameObjectSet();
     this.mRearParticleSet = new ParticleGameObjectSet();
     this.mTarget = new GameObject(new SpriteRenderable(this.kTargetTexture));
@@ -243,6 +241,7 @@ SnowDemo.prototype.createBounds = function() {
 SnowDemo.prototype.platformAt = function (x, y, w, rot) {
     var h = w / 8;
     var p = new TextureRenderable(this.kPlatformTexture);
+    p.setColor([0,0,0,1]);
     var xf = p.getXform();
     
     var g = new GameObject(p);

@@ -15,7 +15,7 @@ function FireDemo() {
     this.kPlatformTexture = "assets/Fire/platform.png";
     this.kTargetTexture = "assets/Fire/target.png";
     this.kTorch = "assets/Fire/torch3.png";
-    this.kBush = "assets/Fire/bush.png";
+    this.kVolc = "assets/Fire/volc.png";
     this.kPillar = "assets/Fire/pillar.png";
     this.kForest = "assets/Fire/forest.png";
     this.kUIButton = "assets/UI/button.png";
@@ -30,7 +30,7 @@ function FireDemo() {
     this.mCurrentObj = 0;
     this.mTarget = null;
     this.mTorch = null;
-    this.mBush = null;
+    this.mVolc = null;
     this.mPillar = null;
     this.backButton = null;
     this.MainMenuButton = null;
@@ -43,7 +43,7 @@ FireDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kPlatformTexture);
     gEngine.Textures.loadTexture(this.kTargetTexture);
     gEngine.Textures.loadTexture(this.kTorch);
-    gEngine.Textures.loadTexture(this.kBush);
+    gEngine.Textures.loadTexture(this.kVolc);
     gEngine.Textures.loadTexture(this.kPillar);
     gEngine.Textures.loadTexture(this.kForest);
     gEngine.Textures.loadTexture(this.kUIButton);
@@ -54,7 +54,7 @@ FireDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kPlatformTexture);
     gEngine.Textures.unloadTexture(this.kTargetTexture);
     gEngine.Textures.unloadTexture(this.kTorch);
-    gEngine.Textures.unloadTexture(this.kBush);
+    gEngine.Textures.unloadTexture(this.kVolc);
     gEngine.Textures.unloadTexture(this.kPillar);
     gEngine.Textures.unloadTexture(this.kForest);
     gEngine.Textures.unloadTexture(this.kUIButton);
@@ -84,8 +84,14 @@ FireDemo.prototype.initialize = function () {
     this.mCurrentObj = this.mFirstObject;    
     //m=new Fire(20,14,0,0,20,0,20,32,1,0,2.5,0);
     //this.mAllFire.addToSet(m);
-    this.mFire1 =new Fire(35,13,3,1,12,0,20,2,7,0,1.5,5);
+    this.mFire1 = new Fire(20,13,3,40,12,0,20,2,7,0,1.5,5);
     this.mAllFire.addToSet(this.mFire1);
+    
+    this.mFire2 = new Fire(50,19,1,0,10,0,3,1,1,0,0.5,1);
+    this.mAllFire.addToSet(this.mFire2);
+    
+    this.mFire3 = new Fire(80,19,2,-9,15,0,50,1,1,0,0.5,0);
+    this.mAllFire.addToSet(this.mFire3);
     //var fParam = new Fire.FireParams();
     //m = new Fire(Fire.FireParams());
     //this.mAllFire.addToSet(m);
@@ -99,18 +105,22 @@ FireDemo.prototype.initialize = function () {
     this.mTarget = new GameObject(r);
     var xf = r.getXform();
     xf.setSize(3, 3);
+    
     this.mTorch = new TextureRenderable(this.kTorch);
-    this.mTorch.getXform().setPosition(20,10);
-    this.mTorch.setColor([0, 0, 0, 0]);  // No tinting
-    this.mTorch.getXform().setSize(4,8);
-    this.mBush = new TextureRenderable(this.kBush);
-    this.mBush.getXform().setPosition(10,8);
-    this.mBush.setColor([0, 0, 0, 0]);  // No tinting
-    this.mBush.getXform().setSize(6,6);
+    this.mTorch.getXform().setPosition(50,13);
+    this.mTorch.setColor([0, 0, 0, 1]);  // No tinting
+    this.mTorch.getXform().setSize(8,16);
+    
+    this.mVolc = new TextureRenderable(this.kVolc);
+    this.mVolc.getXform().setPosition(80,12);
+    this.mVolc.setColor([0, 0, 0, 1]);  // No tinting
+    this.mVolc.getXform().setSize(60,15);
+    
     this.mPillar = new TextureRenderable(this.kPillar);
-    this.mPillar.getXform().setPosition(35,8);
-    this.mPillar.setColor([0, 0, 0, 0]);  // No tinting
+    this.mPillar.getXform().setPosition(20,8);
+    this.mPillar.setColor([0, 0, 0, 1]);  // No tinting
     this.mPillar.getXform().setSize(7,7);    
+    
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
     this.MainMenuButton = new UIButton(this.kUIButton,this.mainSelect,this,[700,580],[200,40],"Main Menu",4,[1,1,1,1],[1,1,1,1]);
 };
@@ -123,8 +133,8 @@ FireDemo.prototype.draw = function () {
 
     this.mCamera.setupViewProjection();
     
-    //this.mTorch.draw(this.mCamera);
-    //this.mBush.draw(this.mCamera);
+    this.mTorch.draw(this.mCamera);
+    this.mVolc.draw(this.mCamera);
     this.mPillar.draw(this.mCamera);
     //this.mTarget.draw(this.mCamera);
     this.mAllFire.draw(this.mCamera);
@@ -348,6 +358,7 @@ FireDemo.prototype.createBounds = function() {
 FireDemo.prototype.platformAt = function (x, y, w, rot) {
     var h = w / 8;
     var p = new TextureRenderable(this.kPlatformTexture);
+    p.setColor([0,0,0,1]);
     var xf = p.getXform();
     
     var g = new GameObject(p);

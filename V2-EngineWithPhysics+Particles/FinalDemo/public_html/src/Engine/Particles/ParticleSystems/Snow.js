@@ -30,7 +30,7 @@ gEngine.Core.inheritPrototype(Snow,ParticleSystem);
 
 Snow.SnowParams = function(){
     //this.mAllParticles = new ParticleGameObjectSet();
-    //this.texture="assets/ParticleSystem/flameparticle.png";
+    //this.texture="assets/ParticleSystem/snowparticle.png";
     this.xPos=50;
     this.yPos=50;
     this.width=5;
@@ -53,7 +53,7 @@ Snow.prototype.update = function(){
     for(var i=0; i<this.intensity; i++){
     var p = this.createParticle(this.xPos, this.yPos);
     this.mAllParticles.addToSet(p);
-    p.xf.setZPos(1);
+    p.xf.setZPos(3);
     }
     gEngine.ParticleSystem.update(this.mAllParticles);
     this.wrapParticles();
@@ -67,8 +67,7 @@ Snow.prototype.wrapParticles = function(){
     }
 };
 
-Snow.prototype.applyDrift = function(pGO){
-    //console.log(p);
+Snow.prototype.applyDrift = function(pGO){    
     var p = pGO.getParticle();    
     var pPos = p.getPosition();
     var pAccel = p.getAcceleration();
@@ -88,44 +87,22 @@ Snow.prototype.applyDrift = function(pGO){
         if(test)
             p.mDriftDir = !p.mDriftDir;
     }
-    if(p.mDriftDir){
-        //pPos[0] += .05;
+    if(p.mDriftDir){        
         p.setAcceleration([pAccel[0]+.1,pAccel[1]]);
     }
-    else{
-        //pPos[0] -= .05;
+    else{        
         p.setAcceleration([pAccel[0]-.1,pAccel[1]]);
     }
     if(p.mParallaxDir){
         pGO.setSizeDelta(1.0005);
         pGO.getXform().incYPosBy(-.01);
-        pGO.getXform().setZPos(5)
-//        if(ydist < 0.1){
-//            this.mFrontParticleSet.addToSet(pGO);
-//        }
+        pGO.getXform().setZPos(5);
     }
     else{
         pGO.setSizeDelta(.999);
         pGO.getXform().incYPosBy(.01);
-        pGO.getXform().setZPos(0);
-//        if(ydist < 0.1){
-//            this.mRearParticleSet.addToSet(pGO);
-//        }
-    }
-    //var g = gEngine.ParticleSystem.getSystemtAcceleration();
-//    if (dist < 2){
-        //p.mAcceleration = g;
-//    }
-//    if (dist > 2 && dist < 4){
-//        var newG = [g[0],g[1] + 3];
-//        p.setAcceleration(newG);
-        //p.mAcceleration = g-[0,1];
-//    }
-//    if (dist > 4){
-//        var newG = [g[0],g[1] + 6];
-//        p.setAcceleration(newG);
-        //p.mAcceleration = g-[0,2];
-//    }
+        pGO.getXform().setZPos(1);
+    }    
     if (pPos[0] > 100){
         pPos[0] = 0;
     }
