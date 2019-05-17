@@ -216,6 +216,7 @@ SnowDemo.prototype.platformAt = function (x, y, w, rot) {
     xf.setSize(w, h);
     xf.setPosition(x, y);
     xf.setRotationInDegree(rot);
+    xf.setZPos(5);
     this.mPlatforms.addToSet(g);
 };
 

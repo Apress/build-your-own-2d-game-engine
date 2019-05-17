@@ -70,6 +70,11 @@ Snow.prototype.applyDrift = function(pGO){
     //console.log(p);
     var p = pGO.getParticle();    
     var pPos = p.getPosition();
+    var pAccel = p.getAcceleration();
+    if(pPos[1] < 6){
+        p.setAcceleration([0,0]);
+        p.setVelocity([0,0]);        
+    }
     if(pPos[1] < 0){
         pGO.mCyclesToLive = 0;
     }
@@ -81,7 +86,6 @@ Snow.prototype.applyDrift = function(pGO){
         if(test)
             p.mDriftDir = !p.mDriftDir;
     }
-    var pAccel = p.getAcceleration();
     if(p.mDriftDir){
         //pPos[0] += .05;
         p.setAcceleration([pAccel[0]+.1,pAccel[1]]);
