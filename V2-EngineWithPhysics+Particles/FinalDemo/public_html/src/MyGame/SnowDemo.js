@@ -13,6 +13,9 @@
 
 function SnowDemo() {
     this.kPlatformTexture = "assets/Snow/platform.png";
+    this.kTree1Texture = "assets/Snow/tree1.png";
+    this.kTree2Texture = "assets/Snow/tree2.png";
+    this.kTree3Texture = "assets/Snow/tree3.png";
     this.kUIButton = "assets/UI/button.png";
     this.kTargetTexture = "assets/Snow/target.png";
     // The camera to view the scene
@@ -20,6 +23,7 @@ function SnowDemo() {
     this.LevelSelect = null;
     this.mAllObjs = null;
     this.mPlatforms = null;
+    this.mTrees = null;
     this.mSnow = null;
     this.mFrontParticleSet = null;
     this.mRearParticleSet = null;
@@ -36,6 +40,10 @@ gEngine.Core.inheritPrototype(SnowDemo, Scene);
 
 SnowDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kPlatformTexture);
+    gEngine.Textures.loadTexture(this.kTree1Texture);
+    gEngine.Textures.loadTexture(this.kTree2Texture);
+    gEngine.Textures.loadTexture(this.kTree3Texture);
+    
     gEngine.Textures.loadTexture(this.kUIButton);
     gEngine.Textures.loadTexture(this.kTargetTexture);
     document.getElementById("particle").style.display="block";
@@ -45,6 +53,9 @@ SnowDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kPlatformTexture);
     gEngine.Textures.unloadTexture(this.kUIButton);
     gEngine.Textures.unloadTexture(this.kTargetTexture);
+    gEngine.Textures.unloadTexture(this.kTree1Texture);
+    gEngine.Textures.unloadTexture(this.kTree2Texture);
+    gEngine.Textures.unloadTexture(this.kTree3Texture);
     document.getElementById("particle").style.display="none";
     if(this.LevelSelect==="Back")
         gEngine.Core.startScene(new ParticleLevel());
@@ -59,12 +70,37 @@ SnowDemo.prototype.initialize = function () {
         100,                     // width of camera
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.1, 0.1, 0.1, 1]);
+    this.mCamera.setBackgroundColor([0.2, 0.2, 0.2, 1]);
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
     this.mPlatforms = new GameObjectSet();
+    this.mTrees = new GameObjectSet();
     this.createBounds();
+    
+    var tree = new TextureRenderable(this.kTree1Texture);
+    var xf = tree.getXform(); 
+    xf.setSize(25, 25);
+    xf.setPosition(10, 20);
+    xf.setZPos(0);
+    this.mTrees.addToSet(tree);
+    
+    var tree2 = new TextureRenderable(this.kTree2Texture);
+    var xf = tree.getXform(); 
+    xf.setSize(25, 25);
+    xf.setPosition(50, 10);
+    xf.setZPos(2);
+    this.mTrees.addToSet(tree2);
+    
+    var tree3 = new TextureRenderable(this.kTree3Texture);
+    var xf = tree.getXform(); 
+    xf.setSize(40, 40);
+    xf.setPosition(85, 25);
+    xf.setZPos(4);
+    this.mTrees.addToSet(tree3);
+    
+    
+    
     this.mSnow=new Snow(50,80,50,5,150,0,0,0,1,0,0.5,0);
     this.mFrontParticleSet = new ParticleGameObjectSet();
     this.mRearParticleSet = new ParticleGameObjectSet();
@@ -81,7 +117,7 @@ SnowDemo.prototype.initialize = function () {
 // importantly, make sure to _NOT_ change any state.
 SnowDemo.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.1, 0.1, 0.1, 1.0]); // clear to med gray
+    gEngine.Core.clearCanvas([0.2, 0.2, 0.2, 1.0]); // clear to med gray
 
     this.mCamera.setupViewProjection();
     
@@ -93,6 +129,7 @@ SnowDemo.prototype.draw = function () {
     this.mTarget.draw(this.mCamera);
     this.mSnow.draw(this.mCamera);
     this.mPlatforms.draw(this.mCamera);
+    this.mTrees.draw(this.mCamera);
     this.MainMenuButton.draw(this.mCamera);
     this.backButton.draw(this.mCamera);
 };
@@ -216,7 +253,6 @@ SnowDemo.prototype.platformAt = function (x, y, w, rot) {
     xf.setSize(w, h);
     xf.setPosition(x, y);
     xf.setRotationInDegree(rot);
-    xf.setZPos(5);
     this.mPlatforms.addToSet(g);
 };
 

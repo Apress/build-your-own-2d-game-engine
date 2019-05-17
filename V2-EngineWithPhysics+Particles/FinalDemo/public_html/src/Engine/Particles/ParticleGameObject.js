@@ -21,11 +21,11 @@
  */
 function ParticleGameObject(texture, atX, atY, cyclesToLive) {
     var renderableObj = new ParticleRenderable(texture);
-    var xf = renderableObj.getXform();
-    xf.setPosition(atX, atY);
+    this.xf = renderableObj.getXform();
+    this.xf.setPosition(atX, atY);
     GameObject.call(this, renderableObj);
     
-    this.mParticle = new Particle(xf.getPosition());
+    this.mParticle = new Particle(this.xf.getPosition());
     this.mParticle.mOriginalPosition = [atX,atY];
     // this.setPhysicsComponent(p);  <-- does not work with the new physics engine
     

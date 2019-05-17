@@ -53,6 +53,7 @@ Snow.prototype.update = function(){
     for(var i=0; i<this.intensity; i++){
     var p = this.createParticle(this.xPos, this.yPos);
     this.mAllParticles.addToSet(p);
+    p.xf.setZPos(1);
     }
     gEngine.ParticleSystem.update(this.mAllParticles);
     this.wrapParticles();
@@ -73,7 +74,8 @@ Snow.prototype.applyDrift = function(pGO){
     var pAccel = p.getAcceleration();
     if(pPos[1] < 6){
         p.setAcceleration([0,0]);
-        p.setVelocity([0,0]);        
+        p.setVelocity([0,0]);
+        p.mRotationVal = 0;
     }
     if(pPos[1] < 0){
         pGO.mCyclesToLive = 0;
@@ -97,6 +99,7 @@ Snow.prototype.applyDrift = function(pGO){
     if(p.mParallaxDir){
         pGO.setSizeDelta(1.0005);
         pGO.getXform().incYPosBy(-.01);
+        pGO.getXform().setZPos(5)
 //        if(ydist < 0.1){
 //            this.mFrontParticleSet.addToSet(pGO);
 //        }
@@ -104,6 +107,7 @@ Snow.prototype.applyDrift = function(pGO){
     else{
         pGO.setSizeDelta(.999);
         pGO.getXform().incYPosBy(.01);
+        pGO.getXform().setZPos(0);
 //        if(ydist < 0.1){
 //            this.mRearParticleSet.addToSet(pGO);
 //        }
@@ -127,7 +131,6 @@ Snow.prototype.applyDrift = function(pGO){
     }
     if (pPos[0] < 0){
         pPos[0] = 100;
-    }
-    var pXform = pGO.getXform();
-    pXform.incRotationByDegree(p.mRotationVal*.05);
+    }    
+    pGO.getXform().incRotationByDegree(p.mRotationVal*.05);
 };
