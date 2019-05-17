@@ -90,7 +90,7 @@ FireDemo.prototype.initialize = function () {
     this.mFire2 = new Fire(50,19,1,0,10,0,3,1,1,0,0.5,1);
     this.mAllFire.addToSet(this.mFire2);
     
-    this.mFire3 = new Fire(80,19,2,-9,15,0,50,1,1,0,0.5,0);
+    this.mFire3 = new Fire(80,19,2,-9,15,20,50,1,1,0,0.5,0);
     this.mAllFire.addToSet(this.mFire3);
     //var fParam = new Fire.FireParams();
     //m = new Fire(Fire.FireParams());
