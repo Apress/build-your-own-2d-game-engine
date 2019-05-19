@@ -5,6 +5,7 @@
  *      (have tested with regular renderables and UI renderables)
  * -uses the alpha of the stencil's image
  * -only works with alpha values of 0 or 1 (does not take into accound partial transparency)
+ * -any draw call between startStenciling and stopStenciling will be stenciled
  */
 //references used:
     // https://learnopengl.com/Advanced-OpenGL/Blending
@@ -27,16 +28,16 @@ var gEngine = gEngine || { };
  */
 gEngine.Stencil = (function () {
     /**
-     * Stencils and draws given Renderable
-     * @param {Renderable} renderable The renderable to be stenciled
+     * Sets up stenciling with a renderable to use as a stencil
+     * NOTE: MUST CALL STOPSTENCILING() TO NO LONGER USE THE STENCIL WHEN DRAWING
      * @param {Renderable} stencilRenderable The renderable to use as a stencil
      * @param {Camera} aCamera The camera to draw to
+     * @returns {void}
      */
-    var drawWithStencil = function (renderable, stencilRenderable, aCamera)
-    {
+    var startStenciling = function(stencilRenderable, aCamera) {
         var gl = gEngine.Core.getGL();
         gl.enable(gl.STENCIL_TEST);
-        // first clear stencil
+        // first clear stencil, just in case
         gl.stencilMask(0xFF);
         gl.clearStencil(0);
         // set up how the stencil will work
@@ -55,31 +56,26 @@ gEngine.Stencil = (function () {
         gl.stencilMask(0x00);
         gl.depthMask(true);
         gl.colorMask(true, true, true, true);
-        // draw the renderable based on the stencil
-        renderable.draw(aCamera);
-        gl.disable(gl.STENCIL_TEST);
     };
     
     /**
-     * Stencils multiple Renderables
-     * @param {Renderable} renderables The renderables to be stenciled
-     * @param {Renderable} stencilRenderable The renderable to use as a stencil
-     * @param {Camera} aCamera
+     * Stops stenciling when drawing
+     * @returns {void}
      */
-    var drawMultiWithStencil = function (renderables, stencilRenderable, aCamera)
-    {
+    var stopStenciling = function() {
+        var gl = gEngine.Core.getGL();
+        // clear stencil
+        gl.stencilMask(0xFF);
+        gl.clearStencil(0);
         
-        for(var i = 0; i < renderables.length; i++)
-        {
-            gEngine.Stencil.drawWithStencil(renderables[i], stencilRenderable, aCamera);
-        }
+        gl.disable(gl.STENCIL_TEST);
     };
     
     // Public interface for this object. Anything not in here will
     // not be accessable.
     var mPublic = {
-        drawWithStencil: drawWithStencil,
-        drawMultiWithStencil: drawMultiWithStencil
+        startStenciling: startStenciling,
+        stopStenciling: stopStenciling
     };
     return mPublic;
 }());

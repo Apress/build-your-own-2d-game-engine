@@ -63,15 +63,16 @@ gEngine.Core.inheritPrototype(UIBar, UIElement);
  * @memberOf UIBar
  */
 UIBar.prototype.draw = function(aCamera) {
-    // draw function of the elements called in drawWithStencil function
     if(this.mVisible) {
+        gEngine.Stencil.startStenciling(this.mStencil, aCamera);
         if(this.mBgVisible){
-            gEngine.Stencil.drawWithStencil(this.mBg, this.mStencil, aCamera);
+            this.mBg.draw(aCamera);
         }
         if(this.mMidVisible) {
-            gEngine.Stencil.drawWithStencil(this.mMidValElem, this.mStencil, aCamera);
+            this.mMidValElem.draw(aCamera);
         }
-        gEngine.Stencil.drawWithStencil(this.mTopValElem, this.mStencil, aCamera);
+        this.mTopValElem.draw(aCamera);
+        gEngine.Stencil.stopStenciling();
     }
 };
 
