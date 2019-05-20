@@ -14,6 +14,7 @@ function UIRenderable(color, position, size) {
     this.mRenderable._setShader(gEngine.DefaultResources.getUnlitShader());
     this.mRenderable.setColor(color);
     this.mRenderable.getXform().setZPos(3);
+    
     UIElement.call(this, position, size);
 }
 gEngine.Core.inheritPrototype(UIRenderable, UIElement);
