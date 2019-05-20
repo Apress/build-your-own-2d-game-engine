@@ -17,7 +17,6 @@ function SnowDemo() {
     this.kTree2Texture = "assets/Snow/tree2.png";
     this.kTree3Texture = "assets/Snow/tree3.png";
     this.kUIButton = "assets/UI/button.png";
-    this.kTargetTexture = "assets/Snow/target.png";
     // The camera to view the scene
     this.mCamera = null;
     this.LevelSelect = null;
@@ -25,15 +24,10 @@ function SnowDemo() {
     this.mPlatforms = null;
     this.mTrees = null;
     this.mSnow = null;
-    this.mFrontParticleSet = null;
-    this.mRearParticleSet = null;
-    this.mTarget = null;
     this.backButton = null;
     this.MainMenuButton = null;
     this.mDrawRigidShape = true;
-    this.r = null;
-    this.FCollide = true;
-    this.RCollide = false;
+
 }
 gEngine.Core.inheritPrototype(SnowDemo, Scene);
 
@@ -43,16 +37,14 @@ SnowDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kTree1Texture);
     gEngine.Textures.loadTexture(this.kTree2Texture);
     gEngine.Textures.loadTexture(this.kTree3Texture);
-    
     gEngine.Textures.loadTexture(this.kUIButton);
-    gEngine.Textures.loadTexture(this.kTargetTexture);
+
     document.getElementById("particle").style.display="block";
 };
 
 SnowDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kPlatformTexture);
     gEngine.Textures.unloadTexture(this.kUIButton);
-    gEngine.Textures.unloadTexture(this.kTargetTexture);
     gEngine.Textures.unloadTexture(this.kTree1Texture);
     gEngine.Textures.unloadTexture(this.kTree2Texture);
     gEngine.Textures.unloadTexture(this.kTree3Texture);
@@ -81,7 +73,7 @@ SnowDemo.prototype.initialize = function () {
     var tree = new TextureRenderable(this.kTree1Texture);
     var xf = tree.getXform(); 
     xf.setSize(20, 20);
-    xf.setPosition(20, 15.5);
+    xf.setPosition(20, 15);
     xf.setZPos(0);
     this.mTrees.addToSet(tree);
     
@@ -100,11 +92,6 @@ SnowDemo.prototype.initialize = function () {
     this.mTrees.addToSet(tree3);
     
     this.mSnow=new Snow(50,80,50,5,150,0,0,0,3,0,-0.5,0);
-    this.mFrontParticleSet = new ParticleGameObjectSet();
-    this.mRearParticleSet = new ParticleGameObjectSet();
-    this.mTarget = new GameObject(new SpriteRenderable(this.kTargetTexture));
-    var r = new RigidCircle(this.mTarget.getXform(), 5);
-    this.mTarget.setRigidBody(r);
     this.mAllObjs = new GameObjectSet();
     this.mAllObjs.addToSet(this.mTarget);
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
@@ -124,7 +111,6 @@ SnowDemo.prototype.draw = function () {
         this.mCollisionInfos[i].draw(this.mCamera); */
     this.mCollisionInfos = []; 
     
-    this.mTarget.draw(this.mCamera);
     this.mSnow.draw(this.mCamera);
     this.mPlatforms.draw(this.mCamera);
     this.mTrees.draw(this.mCamera);
@@ -138,11 +124,6 @@ SnowDemo.prototype.draw = function () {
 SnowDemo.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mSnow);
     
-    if (this.mCamera.isMouseInViewport()) {
-        var xform = this.mTarget.getXform();
-        xform.setXPos(this.mCamera.mouseWCX());
-        xform.setYPos(this.mCamera.mouseWCY());       
-    }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
         this.mSnow.incWidth(1);
     }
@@ -203,17 +184,6 @@ SnowDemo.prototype.update = function () {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         this.mSnow.incyOffset(-1);
     }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {            
-        //var r = new RigidCircle(this.mTarget.getXform(), this.mTarget.getXform().getSize() + 10);            
-        //this.r.getRadius();
-        //this.mTarget.setRigidBody(r);
-        this.FCollide = !this.FCollide;
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Down)) {
-        //var r = new RigidCircle(this.mTarget.getXform(), this.mTarget.getXform().getSize() - 10);
-        //this.mTarget.setRigidBody(r);
-        this.RCollide = !this.RCollide;
-    }
     this.updateValue();
     this.MainMenuButton.update();
     this.backButton.update();    
@@ -243,7 +213,7 @@ SnowDemo.prototype.platformAt = function (x, y, w, rot) {
     var p = new TextureRenderable(this.kPlatformTexture);
     p.setColor([0,0,0,1]);
     var xf = p.getXform();
-    
+
     var g = new GameObject(p);
     var r = new RigidRectangle(xf, w, h);
     g.setRigidBody(r);
@@ -251,6 +221,7 @@ SnowDemo.prototype.platformAt = function (x, y, w, rot) {
     r.setMass(0);
     xf.setSize(w, h);
     xf.setPosition(x, y);
+    xf.setZPos(2);
     xf.setRotationInDegree(rot);
     this.mPlatforms.addToSet(g);
 };
