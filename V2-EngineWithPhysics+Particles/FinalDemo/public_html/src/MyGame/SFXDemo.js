@@ -326,7 +326,7 @@ SFXDemo.prototype.applyTaper = function(pGO){
     var pAccel = p.getAcceleration();
     var v2c = new vec2.fromValues(pAccel[0],(40-p.getYPos())*150);//40-p.getYPos())*50);        
     p.setAcceleration(v2c);   
-}
+};
 
 SFXDemo.prototype.updateValue = function(){
     document.getElementById("value1").innerHTML = this.mTiny1.getWidth();
