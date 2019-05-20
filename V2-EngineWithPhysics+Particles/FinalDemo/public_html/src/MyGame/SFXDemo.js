@@ -250,7 +250,7 @@ SFXDemo.prototype.createXParticle = function(atX, atY){
     p2.setSizeDelta(1.001);
     this.mXParticles.addToSet(p2);
     
-    var p = new ParticleGameObject("assets/ParticleSystem/shock2.png", 50,40, 10);        
+    var p = new ParticleGameObject(this.kTargetTexture, 50,40, 10);        
     // size of the particle    
     p.getXform().setSize(2.5, 2.5);    
     p.getRenderable().setColor([1, 1, 1, 1]);
