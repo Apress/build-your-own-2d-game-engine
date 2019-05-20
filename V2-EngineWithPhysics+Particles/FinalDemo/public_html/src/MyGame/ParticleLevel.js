@@ -44,7 +44,7 @@ ParticleLevel.prototype.unloadScene = function () {
         gEngine.Core.startScene(new SnowDemo());
     }
     else if(this.LevelSelect==="Dust"){
-        gEngine.Core.startScene(new SFXDemo());
+        gEngine.Core.startScene(new DustDemo());
     }
     else if(this.LevelSelect==="SFX"){
         gEngine.Core.startScene(new SFXDemo());

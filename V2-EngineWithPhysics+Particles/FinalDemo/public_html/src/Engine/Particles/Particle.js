@@ -28,7 +28,7 @@ function Particle(pos) {
     this.mPositionMark = new LineRenderable();
     this.mDrawBounds = false;
     this.mDriftDir = Math.floor(Math.random()*2);
-    this.mParallaxDir = Math.floor(Math.random()*2);
+    this.mParallaxDir = Math.floor(Math.random()*3);
     this.mRotationVal = Math.floor(Math.random()*100);
 }
 

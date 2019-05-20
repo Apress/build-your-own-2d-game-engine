@@ -71,38 +71,37 @@ Snow.prototype.applyDrift = function(pGO){
     var p = pGO.getParticle();    
     var pPos = p.getPosition();
     var pAccel = p.getAcceleration();
-    if(pPos[1] < 6){
+    if(pPos[1] < 6){        
         p.setAcceleration([0,0]);
         p.setVelocity([0,0]);
-        p.mRotationVal = 0;
+        p.mRotationVal = 0;        
     }
     if(pPos[1] < 0){
         pGO.mCyclesToLive = 0;
     }
     var pOPos = p.getOriginalPosition();
     var dist = Math.abs(pPos[0] - pOPos[0]);
-    var ydist = Math.abs(pPos[1] - pOPos[1]);
     if(dist % (Math.floor(Math.random()*5)) < 0.1){
         var test = Math.floor(Math.random()*2);
         if(test)
             p.mDriftDir = !p.mDriftDir;
     }
     if(p.mDriftDir){        
-        p.setAcceleration([pAccel[0]+.1,pAccel[1]]);
+        p.setAcceleration([pAccel[0]+.025,pAccel[1]]);
     }
     else{        
-        p.setAcceleration([pAccel[0]-.1,pAccel[1]]);
+        p.setAcceleration([pAccel[0]-.025,pAccel[1]]);
     }
-    if(p.mParallaxDir){
+    if(p.mParallaxDir === 0){
         pGO.setSizeDelta(1.0005);
-        pGO.getXform().incYPosBy(-.01);
+        p.setAcceleration([p.getAcceleration()[0],pAccel[1]-0.01]);
         pGO.getXform().setZPos(5);
     }
-    else{
+    if(p.mParrallaxDir === 2){
         pGO.setSizeDelta(.999);
-        pGO.getXform().incYPosBy(.01);
+        p.setAcceleration([p.getAcceleration()[0],pAccel[1]+.01]);
         pGO.getXform().setZPos(1);
-    }    
+    }
     if (pPos[0] > 100){
         pPos[0] = 0;
     }
