@@ -187,6 +187,15 @@ UIButton.prototype.setBGClickColor = function(color) {
 };
 
 /**
+ * Sets the sprite to be used for the Stencil
+ * @param {String} stencilSprite Location of the Sprite to be used for Stenciling
+ * @memberOf UIButton
+ */
+UIButton.prototype.setStencil = function(stencilSprite) {
+    this.mStencil.setTexture(stencilSprite);
+};
+
+/**
  * Private function that sets the button background based on current button state
  * @memberOf UIButton
  */
