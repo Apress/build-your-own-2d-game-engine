@@ -13,7 +13,7 @@
 
 function SFXDemo() {
     this.kUIButton = "assets/UI/button.png";
-    this.kTargetTexture = "assets/fire/target.png";
+    this.kTargetTexture = "assets/Fire/target.png";
     // The camera to view the scene
     this.mCamera = null;
     this.LevelSelect = null;
