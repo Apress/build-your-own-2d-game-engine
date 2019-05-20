@@ -13,30 +13,49 @@
 
 function SnowDemo() {
     this.kPlatformTexture = "assets/Snow/platform.png";
+    this.kTree1Texture = "assets/Snow/tree1.png";
+    this.kTree2Texture = "assets/Snow/tree2.png";
+    this.kTree3Texture = "assets/Snow/tree3.png";
     this.kUIButton = "assets/UI/button.png";
-    
+    this.kTargetTexture = "assets/Snow/target.png";
     // The camera to view the scene
     this.mCamera = null;
     this.LevelSelect = null;
-
+    this.mAllObjs = null;
     this.mPlatforms = null;
+    this.mTrees = null;
     this.mSnow = null;
-    
+    this.mFrontParticleSet = null;
+    this.mRearParticleSet = null;
+    this.mTarget = null;
     this.backButton = null;
     this.MainMenuButton = null;
+    this.mDrawRigidShape = true;
+    this.r = null;
+    this.FCollide = true;
+    this.RCollide = false;
 }
 gEngine.Core.inheritPrototype(SnowDemo, Scene);
 
 
 SnowDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kPlatformTexture);
+    gEngine.Textures.loadTexture(this.kTree1Texture);
+    gEngine.Textures.loadTexture(this.kTree2Texture);
+    gEngine.Textures.loadTexture(this.kTree3Texture);
+    
     gEngine.Textures.loadTexture(this.kUIButton);
+    gEngine.Textures.loadTexture(this.kTargetTexture);
     document.getElementById("particle").style.display="block";
 };
 
 SnowDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kPlatformTexture);
     gEngine.Textures.unloadTexture(this.kUIButton);
+    gEngine.Textures.unloadTexture(this.kTargetTexture);
+    gEngine.Textures.unloadTexture(this.kTree1Texture);
+    gEngine.Textures.unloadTexture(this.kTree2Texture);
+    gEngine.Textures.unloadTexture(this.kTree3Texture);
     document.getElementById("particle").style.display="none";
     if(this.LevelSelect==="Back")
         gEngine.Core.startScene(new ParticleLevel());
@@ -51,15 +70,43 @@ SnowDemo.prototype.initialize = function () {
         100,                     // width of camera
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    this.mCamera.setBackgroundColor([0.2, 0.2, 0.2, 1]);
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
     this.mPlatforms = new GameObjectSet();
-    
+    this.mTrees = new GameObjectSet();
     this.createBounds();
-    this.mSnow=new Snow(50,80,50,5,200,0,0,0,1,0,0.5,0);
     
+    var tree = new TextureRenderable(this.kTree1Texture);
+    var xf = tree.getXform(); 
+    xf.setSize(20, 20);
+    xf.setPosition(20, 15.5);
+    xf.setZPos(0);
+    this.mTrees.addToSet(tree);
+    
+    var tree2 = new TextureRenderable(this.kTree2Texture);
+    var xf2 = tree2.getXform(); 
+    xf2.setSize(30, 30);
+    xf2.setPosition(50, 20);
+    xf2.setZPos(2);
+    this.mTrees.addToSet(tree2);
+    
+    var tree3 = new TextureRenderable(this.kTree3Texture);
+    var xf3 = tree3.getXform(); 
+    xf3.setSize(40, 40);
+    xf3.setPosition(85, 25);
+    xf3.setZPos(4);
+    this.mTrees.addToSet(tree3);
+    
+    this.mSnow=new Snow(50,80,50,5,150,0,0,0,3,0,-0.5,0);
+    this.mFrontParticleSet = new ParticleGameObjectSet();
+    this.mRearParticleSet = new ParticleGameObjectSet();
+    this.mTarget = new GameObject(new SpriteRenderable(this.kTargetTexture));
+    var r = new RigidCircle(this.mTarget.getXform(), 5);
+    this.mTarget.setRigidBody(r);
+    this.mAllObjs = new GameObjectSet();
+    this.mAllObjs.addToSet(this.mTarget);
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
     this.MainMenuButton = new UIButton(this.kUIButton,this.mainSelect,this,[700,580],[200,40],"Main Menu",4,[1,1,1,1],[1,1,1,1]);
 };
@@ -68,7 +115,7 @@ SnowDemo.prototype.initialize = function () {
 // importantly, make sure to _NOT_ change any state.
 SnowDemo.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
+    gEngine.Core.clearCanvas([0.2, 0.2, 0.2, 1.0]); // clear to med gray
 
     this.mCamera.setupViewProjection();
     
@@ -77,8 +124,10 @@ SnowDemo.prototype.draw = function () {
         this.mCollisionInfos[i].draw(this.mCamera); */
     this.mCollisionInfos = []; 
     
+    this.mTarget.draw(this.mCamera);
     this.mSnow.draw(this.mCamera);
     this.mPlatforms.draw(this.mCamera);
+    this.mTrees.draw(this.mCamera);
     this.MainMenuButton.draw(this.mCamera);
     this.backButton.draw(this.mCamera);
 };
@@ -89,6 +138,11 @@ SnowDemo.prototype.draw = function () {
 SnowDemo.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mSnow);
     
+    if (this.mCamera.isMouseInViewport()) {
+        var xform = this.mTarget.getXform();
+        xform.setXPos(this.mCamera.mouseWCX());
+        xform.setYPos(this.mCamera.mouseWCY());       
+    }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
         this.mSnow.incWidth(1);
     }
@@ -149,10 +203,20 @@ SnowDemo.prototype.update = function () {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         this.mSnow.incyOffset(-1);
     }
-    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {            
+        //var r = new RigidCircle(this.mTarget.getXform(), this.mTarget.getXform().getSize() + 10);            
+        //this.r.getRadius();
+        //this.mTarget.setRigidBody(r);
+        this.FCollide = !this.FCollide;
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Down)) {
+        //var r = new RigidCircle(this.mTarget.getXform(), this.mTarget.getXform().getSize() - 10);
+        //this.mTarget.setRigidBody(r);
+        this.RCollide = !this.RCollide;
+    }
     this.updateValue();
     this.MainMenuButton.update();
-    this.backButton.update();
+    this.backButton.update();    
 };
 
 SnowDemo.prototype.updateValue = function(){
@@ -177,6 +241,7 @@ SnowDemo.prototype.createBounds = function() {
 SnowDemo.prototype.platformAt = function (x, y, w, rot) {
     var h = w / 8;
     var p = new TextureRenderable(this.kPlatformTexture);
+    p.setColor([0,0,0,1]);
     var xf = p.getXform();
     
     var g = new GameObject(p);

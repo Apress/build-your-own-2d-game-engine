@@ -20,12 +20,16 @@ function Particle(pos) {
     this.kPadding = 0.5;   // for drawing particle bounds
     
     this.mPosition = pos;  // this is likely to be a reference to xform.mPosition
+    this.mOriginalPosition = null;
     this.mVelocity = vec2.fromValues(0, 0);
     this.mAcceleration = gEngine.ParticleSystem.getSystemtAcceleration();
     this.mDrag = 0.95; 
     
     this.mPositionMark = new LineRenderable();
     this.mDrawBounds = false;
+    this.mDriftDir = Math.floor(Math.random()*2);
+    this.mParallaxDir = Math.floor(Math.random()*2);
+    this.mRotationVal = Math.floor(Math.random()*100);
 }
 
 /**
@@ -117,6 +121,14 @@ Particle.prototype.setPosition = function (xPos, yPos) { this.setXPos(xPos); thi
  * @memberOf Particle
  */
 Particle.prototype.getPosition = function () { return this.mPosition; };
+
+/**
+ * Return original position
+ * @returns {vec2} original position of particle [X, Y]
+ * @memberOf Particle
+ */
+Particle.prototype.getOriginalPosition = function () { return this.mOriginalPosition; };
+
 
 /**
  * Return the X position
