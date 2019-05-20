@@ -57,7 +57,6 @@ SFXDemo.prototype.initialize = function () {
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0, 0, 0, 1]);
-            // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     this.mTiny1=new ParticleSystem(this.kTargetTexture, 50,0,1,4,25,0,0,0,1,0,.1,0,[1,0,0,1], [0,0,1,1], 1);
     this.mTiny2=new ParticleSystem(this.kTargetTexture, 50,80,1,-4,25,0,0,0,1,0,.1,0,[1,0,0,1], [0,0,1,1], 1);
