@@ -161,6 +161,10 @@ DustDemo.prototype.update = function () {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         this.mDust1.incyOffset(-1);
     }
+    if (gEngine.Input.isButtonPressed(0)){
+        if (this.mCamera.isMouseInViewport()) {
+            this.createDParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());            
+        }
     if (gEngine.Input.isButtonClicked(0)){
         if (this.mCamera.isMouseInViewport()) {
             this.createXParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());            
@@ -174,74 +178,60 @@ DustDemo.prototype.update = function () {
     //this.wrapParticles();
     //gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mDust1.getSet());
 };
-
-DustDemo.prototype.createXParticle = function(atX, atY){
+DustDemo.prototype.createDParticle = function(atX, atY){
     var XYPos = new vec2.fromValues(atX,atY);
     if(Math.floor(Math.random()*2)){
         var pTexture = "assets/ParticleSystem/dust.png";
     }else{
         var pTexture = "assets/ParticleSystem/dust2.png";
-    }
-//    var radius = 4;
-//    var angle = i*18;//Math.PI*2;
-//    var rXDist = Math.cos(angle)*radius;
-//    var rYDist = Math.sin(angle)*radius;        
+    }      
     var p = new ParticleGameObject(pTexture,atX,atY,90);
     p.getRenderable().setColor([1,1,1,1]);
     p.setFinalColor([0, 0, 0, 1]);
     var r = 10 + Math.random() * 2.5;
     p.getXform().setSize(r, r);    
     p.getXform().incRotationByDegree(Math.random()*360);
-    //p.getParticle().setVelocity([rXDist,rYDist]);
-    //p.getParticle().setAcceleration([0,0]);
 
     p.getParticle().setVelocity([1, 1]);
     p.getParticle().setAcceleration([0,0]);
     
     p.setSizeDelta(1.0+Math.random()*0.01);
     this.mXParticles.addToSet(p);
-    
-    
-    var p = new ParticleGameObject("assets/ParticleSystem/shock.png", atX, atY, 12);
-    p.getRenderable().setColor([1, 1, 1, .1]);
-    
-    // size of the particle
-    var r = 5 + Math.random() * 2.5;
-    p.getXform().setSize(r, r);
-    p.getXform().incRotationByDegree(Math.random()*360);
-    // final color
-    //p.setFinalColor([fr, fg, fb, 0.6]);    
-
-    p.getParticle().setVelocity([0, 0]);
-    p.getParticle().setAcceleration([0,0]);
-    // size delta
-    p.setSizeDelta(1.1);
-    
-    this.mXParticles.addToSet(p);
-        
-    var p = new ParticleGameObject("assets/ParticleSystem/shock2.png", atX, atY, 10);
-    p.getRenderable().setColor([1, 1, 1, 1]);
-    
-    // size of the particle
-    var r = 9 + Math.random() * 2.5;
-    p.getXform().setSize(r, r);
-    
-
-    p.getParticle().setVelocity([0, 0]);
-    p.getParticle().setAcceleration([0,0]);
-    // size delta
-    p.setSizeDelta(.99);
-    this.mXParticles.addToSet(p);
-    
+            
     var pSet = this.mDust1.getSet().mSet;
-    var setLength = pSet.length;
-    
+    var setLength = pSet.length;    
     for(var i = 0; i < setLength; i++){
         var particle = pSet[i].getParticle();
         var pPos = pSet[i].getParticle().getPosition();        
         var pVec = new vec2.fromValues(pPos[0]-XYPos[0],pPos[1]-XYPos[1]);                
         particle.setVelocity([pVec[0]*2,pVec[1]*2]);      
     }
+};
+
+DustDemo.prototype.createXParticle = function(atX, atY){
+    var p = new ParticleGameObject("assets/ParticleSystem/shock.png", atX, atY, 12);
+    p.getRenderable().setColor([1, 1, 1, .1]);
+    
+    // size of the particle
+    var r = 5 + Math.random() * 2.5;
+    p.getXform().setSize(r, r);
+    p.getXform().incRotationByDegree(Math.random()*360);        
+    p.getParticle().setVelocity([0, 0]);
+    p.getParticle().setAcceleration([0,0]);
+    // size delta
+    p.setSizeDelta(1.1);    
+    this.mXParticles.addToSet(p);
+        
+    var p = new ParticleGameObject("assets/ParticleSystem/shock2.png", atX, atY, 10);
+    p.getRenderable().setColor([1, 1, 1, 1]);    
+    // size of the particle
+    var r = 9 + Math.random() * 2.5;
+    p.getXform().setSize(r, r);    
+    p.getParticle().setVelocity([0, 0]);
+    p.getParticle().setAcceleration([0,0]);
+    // size delta
+    p.setSizeDelta(.99);
+    this.mXParticles.addToSet(p);
 };
 
 DustDemo.prototype.updateValue = function(obj){
@@ -265,4 +255,5 @@ DustDemo.prototype.backSelect = function(){
 DustDemo.prototype.mainSelect = function(){
     this.LevelSelect="Main";
     gEngine.GameLoop.stop();
+};
 };
