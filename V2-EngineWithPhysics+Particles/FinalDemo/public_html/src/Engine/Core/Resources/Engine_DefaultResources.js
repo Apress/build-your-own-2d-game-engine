@@ -287,11 +287,11 @@ gEngine.DefaultResources = (function () {
         gEngine.Textures.unloadTexture(smokeParticleTexture);
         gEngine.Textures.unloadTexture(snowParticleTexture);
         gEngine.Textures.unloadTexture(tinyParticleTexture);
-        gEngine.Textures.loadTexture(dustParticleTexture);
-        gEngine.Textures.loadTexture(dust2ParticleTexture);
-        gEngine.Textures.loadTexture(flareParticleTexture);
-        gEngine.Textures.loadTexture(shockParticleTexture);
-        gEngine.Textures.loadTexture(targetParticleTexture);
+        gEngine.Textures.unloadTexture(dustParticleTexture);
+        gEngine.Textures.unloadTexture(dust2ParticleTexture);
+        gEngine.Textures.unloadTexture(flareParticleTexture);
+        gEngine.Textures.unloadTexture(shockParticleTexture);
+        gEngine.Textures.unloadTexture(targetParticleTexture);
         gEngine.Textures.unloadTexture(UIRadarButtonTexture);
         gEngine.Textures.unloadTexture(UIDropDownArrow);
     };
