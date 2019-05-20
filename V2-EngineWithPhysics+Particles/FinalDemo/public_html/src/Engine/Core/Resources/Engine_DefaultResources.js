@@ -97,6 +97,7 @@ gEngine.DefaultResources = (function () {
     var dust2ParticleTexture = "assets/ParticleSystem/dust2.png";
     var flareParticleTexture = "assets/ParticleSystem/flare.png";
     var shockParticleTexture = "assets/ParticleSystem/shock.png";
+    var shock2ParticleTexture = "assets/ParticleSystem/shock2.png";
     var targetParticleTexture = "assets/Fire/target.png";
     
     // UI
@@ -231,6 +232,7 @@ gEngine.DefaultResources = (function () {
         gEngine.Textures.loadTexture(dust2ParticleTexture);
         gEngine.Textures.loadTexture(flareParticleTexture);
         gEngine.Textures.loadTexture(shockParticleTexture);
+        gEngine.Textures.loadTexture(shock2ParticleTexture);
         gEngine.Textures.loadTexture(targetParticleTexture);
         gEngine.Textures.loadTexture(UIRadarButtonTexture);
         gEngine.Textures.loadTexture(UIDropDownArrow);
@@ -291,6 +293,7 @@ gEngine.DefaultResources = (function () {
         gEngine.Textures.unloadTexture(dust2ParticleTexture);
         gEngine.Textures.unloadTexture(flareParticleTexture);
         gEngine.Textures.unloadTexture(shockParticleTexture);
+        gEngine.Textures.unloadTexture(shock2ParticleTexture);
         gEngine.Textures.unloadTexture(targetParticleTexture);
         gEngine.Textures.unloadTexture(UIRadarButtonTexture);
         gEngine.Textures.unloadTexture(UIDropDownArrow);
