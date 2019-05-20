@@ -36,12 +36,14 @@ gEngine.Core.inheritPrototype(SFXDemo, Scene);
 SFXDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kUIButton);
     gEngine.Textures.loadTexture(this.kTargetTexture);
+    gEngine.Textures.loadTexture("assets/ParticleSystem/shock2.png");
     document.getElementById("particle").style.display="block";
 };
 
 SFXDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kUIButton);
     gEngine.Textures.unloadTexture(this.kTargetTexture);
+    gEngine.Textures.unloadTexture("assets/ParticleSystem/shock2.png");
     document.getElementById("particle").style.display="none";
     if(this.LevelSelect==="Back")
         gEngine.Core.startScene(new ParticleLevel());
