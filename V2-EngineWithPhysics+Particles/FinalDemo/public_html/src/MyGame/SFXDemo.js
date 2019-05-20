@@ -250,7 +250,7 @@ SFXDemo.prototype.createXParticle = function(atX, atY){
     p2.setSizeDelta(1.001);
     this.mXParticles.addToSet(p2);
     
-    var p = new ParticleGameObject(this.kTargetTexture, 50,40, 10);        
+    var p = new ParticleGameObject("assets/ParticleSystem/shock2.png", 50,40, 10);        
     // size of the particle    
     p.getXform().setSize(2.5, 2.5);    
     p.getRenderable().setColor([1, 1, 1, 1]);
@@ -288,7 +288,6 @@ SFXDemo.prototype.wrapParticles = function(){
 };
 
 SFXDemo.prototype.applyDrift = function(pGO){
-    //console.log(p);
     var p = pGO.getParticle();
     var pPos = p.getPosition();
     var pOPos = p.getOriginalPosition();
@@ -324,7 +323,7 @@ SFXDemo.prototype.applyDrift = function(pGO){
 SFXDemo.prototype.applyTaper = function(pGO){
     var p = pGO.getParticle();    
     var pAccel = p.getAcceleration();
-    var v2c = new vec2.fromValues(pAccel[0],(40-p.getYPos())*150);//40-p.getYPos())*50);        
+    var v2c = new vec2.fromValues(pAccel[0],(40-p.getYPos())*150);      
     p.setAcceleration(v2c);   
 };
 
