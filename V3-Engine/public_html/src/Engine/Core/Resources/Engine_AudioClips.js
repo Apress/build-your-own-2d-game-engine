@@ -56,10 +56,10 @@ gEngine.AudioClips = (function () {
             // set default Background volume
             mBgGainNode.gain.value = 0.5;
             
-            // connect SFX volume control
+            // connect Cuevolume control
             mCueGainNode = mAudioContext.createGain();
             mCueGainNode.connect(mMasterGainNode);
-            // set default SFX volume
+            // set default Cue volume
             mCueGainNode.gain.value = 0.5;
         } catch (e) {alert("Web Audio Is not supported."); }
     };
@@ -216,12 +216,12 @@ gEngine.AudioClips = (function () {
     };
     
     /**
-     * Set the SFX volume
+     * Set the Cue volume
      * @memberOf gEngine.AudioClips
      * @param {type} volume
      * @returns {undefined}
      */
-    var setSFXVolume = function (volume) {
+    var setCueVolume = function (volume) {
         if(mCueGainNode !== null) {
             mCueGainNode.gain.value = (volume * mVolumeMultiplier);
         }
@@ -261,7 +261,7 @@ gEngine.AudioClips = (function () {
         incBackgroundVolume: incBackgroundVolume,
         setMasterVolume: setMasterVolume,
         incMasterVolume: incMasterVolume,
-        setSFXVolume: setSFXVolume,
+        setCueVolume: setCueVolume,
         stopBackgroundAudio: stopBackgroundAudio,
         isBackgroundAudioPlaying: isBackgroundAudioPlaying
     };
