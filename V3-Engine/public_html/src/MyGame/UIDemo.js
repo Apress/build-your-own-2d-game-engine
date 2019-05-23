@@ -12,7 +12,8 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function UIDemo() {
-    this.kUIButton = "assets/UI/SimpleButton.png";
+    this.kUIButton = "assets/UI/ElectricButton.png";
+    this.kUIButton2 = "assets/UI/BlueButton.png";
     this.kBG = "assets/UI/bg.png";
     this.kBgClip = "assets/AudioTest/BGClip.mp3";
     this.kCue = "assets/AudioTest/BlueLevel_cue.wav";
@@ -44,6 +45,7 @@ gEngine.Core.inheritPrototype(UIDemo, Scene);
 
 UIDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kUIButton);
+    gEngine.Textures.loadTexture(this.kUIButton2);
     gEngine.Textures.loadTexture(this.kBG);
     gEngine.AudioClips.loadAudio(this.kBgClip);
     gEngine.AudioClips.loadAudio(this.kCue);
@@ -54,6 +56,7 @@ UIDemo.prototype.unloadScene = function () {
     gEngine.AudioClips.unloadAudio(this.kBgClip);
     gEngine.AudioClips.unloadAudio(this.kCue);
     gEngine.Textures.unloadTexture(this.kUIButton);
+    gEngine.Textures.unloadTexture(this.kUIButton2);
     gEngine.Textures.unloadTexture(this.kBG);
     gEngine.Core.startScene(new MyGame());
 };
@@ -76,8 +79,10 @@ UIDemo.prototype.initialize = function () {
     this.Bar2.setMidVisible(false);
     this.Bar2.configInterpolation(240,0.025);
     this.Bar2.setTopElemColor([0.4,1,0.4,1]);
-    this.UIButton1 = new UISpriteButton(this.kUIButton, this.barValueDown,this,[300,350],[160,40],"-10",4);
-    this.UIButton2 = new UISpriteButton(this.kUIButton, this.barValueUp,this,[500,350],[160,40],"+10",4);
+    this.UIButton1 = new UISpriteButton(this.kUIButton, this.barValueDown,this,[300,350],[160,40],"-10",3.5);
+    this.UIButton1.setTextColor([1,1,1,1]);
+    this.UIButton2 = new UISpriteButton(this.kUIButton2, this.barValueUp,this,[500,350],[160,40],"+10",3.5);
+    this.UIButton2.setTextColor([1,1,1,1]);
     
     // for Slider Demo
     this.Slider = new UISlider([400, 100],[480,40]);

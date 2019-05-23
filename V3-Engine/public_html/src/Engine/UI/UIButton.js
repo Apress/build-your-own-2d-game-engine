@@ -128,7 +128,7 @@ UIButton.prototype.setTextString = function(text) {
  */
 UIButton.prototype.setTextColor = function(color) {
     this.mTextColor = color;
-    this.mText.setcolor(color);
+    this.mText.setColor(color);
 };
 
 /**
