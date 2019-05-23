@@ -30,7 +30,7 @@ gEngine.AudioClips = (function () {
     // https://developer.mozilla.org/en-US/docs/Web/API/GainNode/gain
     // https://www.html5rocks.com/en/tutorials/webaudio/positional_audio/
     var mBgGainNode = null;         // background volume
-    var mSFXGainNode = null;        // cue/special effects volume
+    var mCueGainNode = null;        // cue/special effects volume
     var mMasterGainNode = null;     // overall/master volume
     var mVolumeMultiplier = 0.05;   // multiplier (a volume of 1 is really loud,
                                     // so multiply this to give illusion of being louder than it is)
@@ -56,11 +56,11 @@ gEngine.AudioClips = (function () {
             // set default Background volume
             mBgGainNode.gain.value = 0.5;
             
-            // connect SFX volume control
-            mSFXGainNode = mAudioContext.createGain();
-            mSFXGainNode.connect(mMasterGainNode);
-            // set default SFX volume
-            mSFXGainNode.gain.value = 0.5;
+            // connect Cuevolume control
+            mCueGainNode = mAudioContext.createGain();
+            mCueGainNode.connect(mMasterGainNode);
+            // set default Cue volume
+            mCueGainNode.gain.value = 0.5;
         } catch (e) {alert("Web Audio Is not supported."); }
     };
 
@@ -130,7 +130,7 @@ gEngine.AudioClips = (function () {
             // volume support for cue
             var gainNode = mAudioContext.createGain();
             sourceNode.connect(gainNode);
-            gainNode.connect(mSFXGainNode);
+            gainNode.connect(mCueGainNode);
             gainNode.gain.value = volume * mVolumeMultiplier;
         }
     };
@@ -216,14 +216,14 @@ gEngine.AudioClips = (function () {
     };
     
     /**
-     * Set the SFX volume
+     * Set the Cue volume
      * @memberOf gEngine.AudioClips
      * @param {type} volume
      * @returns {undefined}
      */
-    var setSFXVolume = function (volume) {
-        if(mSFXGainNode !== null) {
-            mSFXGainNode.gain.value = (volume * mVolumeMultiplier);
+    var setCueVolume = function (volume) {
+        if(mCueGainNode !== null) {
+            mCueGainNode.gain.value = (volume * mVolumeMultiplier);
         }
     };
 
@@ -261,7 +261,7 @@ gEngine.AudioClips = (function () {
         incBackgroundVolume: incBackgroundVolume,
         setMasterVolume: setMasterVolume,
         incMasterVolume: incMasterVolume,
-        setSFXVolume: setSFXVolume,
+        setCueVolume: setCueVolume,
         stopBackgroundAudio: stopBackgroundAudio,
         isBackgroundAudioPlaying: isBackgroundAudioPlaying
     };
