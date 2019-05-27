@@ -47,7 +47,7 @@ FireDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kPillar);
     gEngine.Textures.loadTexture(this.kForest);
     gEngine.Textures.loadTexture(this.kUIButton);
-    document.getElementById("particle").style.display="block";
+    document.getElementById("fire").style.display="block";
 };
 
 FireDemo.prototype.unloadScene = function () {
@@ -58,7 +58,7 @@ FireDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kPillar);
     gEngine.Textures.unloadTexture(this.kForest);
     gEngine.Textures.unloadTexture(this.kUIButton);
-    document.getElementById("particle").style.display="none";
+    document.getElementById("fire").style.display="none";
     if(this.LevelSelect==="Back")
         gEngine.Core.startScene(new ParticleLevel());
     else if(this.LevelSelect==="Main")
@@ -82,24 +82,19 @@ FireDemo.prototype.initialize = function () {
     this.createBounds();
     this.mFirstObject = 0;
     this.mCurrentObj = this.mFirstObject;    
-    //m=new Fire(20,14,0,0,20,0,20,32,1,0,2.5,0);
-    //this.mAllFire.addToSet(m);
-    this.mFire1 = new Fire(20,13,3,40,12,0,20,2,7,0,1.5,5);
+
+    this.mFire1 = new Fire(20,13,3,40,12,0,20,2,7,0,1.5,5,25,75);
     this.mAllFire.addToSet(this.mFire1);
     
-    this.mFire2 = new Fire(50,19,1,0,10,0,3,1,1,0,0.5,1);
+    this.mFire2 = new Fire(50,19,1,0,10,0,3,1,1,0,0.5,1,0,100);
     this.mAllFire.addToSet(this.mFire2);
     
-    this.mFire3 = new Fire(80,19,2,-9,15,20,50,1,1,0,0.5,0);
+    this.mFire3 = new Fire(80,19,1,-20,13,20,50,1,8,0,0.5,0,100,0);
     this.mAllFire.addToSet(this.mFire3);
-    //var fParam = new Fire.FireParams();
-    //m = new Fire(Fire.FireParams());
-    //this.mAllFire.addToSet(m);
-    
-    //m=new Fire(68,7,23,11,20,0,12,4,23,8,3.5,0);
-    //this.mAllFire.addToSet(m);
-    //m=new Fire(10,7,3,2,20,0,20,4,1,0,2.5,0);
-    //this.mAllFire.addToSet(m);
+
+//    var fParam = new FireParams();
+//    var m = new Fire(fParam);
+//    this.mAllFire.addToSet(m);        
     
     var r = new TextureRenderable(this.kTargetTexture);
     this.mTarget = new GameObject(r);
@@ -136,7 +131,7 @@ FireDemo.prototype.draw = function () {
     this.mTorch.draw(this.mCamera);
     this.mVolc.draw(this.mCamera);
     this.mPillar.draw(this.mCamera);
-    //this.mTarget.draw(this.mCamera);
+    this.mTarget.draw(this.mCamera);
     this.mAllFire.draw(this.mCamera);
     this.mPlatforms.draw(this.mCamera);
     this.backButton.draw(this.mCamera);
@@ -160,7 +155,7 @@ FireDemo.prototype.update = function () {
             this.mCurrentObj = this.mFirstObject;
     }
 
-    var obj = this.mAllFire.getObjectAt(0);
+    var obj = this.mAllFire.getObjectAt(this.mCurrentObj);
     //var obj1 = this.mAllFire.getObjectAt(1);
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
@@ -241,6 +236,22 @@ FireDemo.prototype.update = function () {
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         obj.incyOffset(-1);
+        //obj1.incyOffset(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.O)) {
+        obj.incEmberSelection(1);
+        //obj1.incyOffset(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
+        obj.incEmberSelection(-1);
+        //obj1.incyOffset(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.K)) {
+        obj.incTaperSelection(1);
+        //obj1.incyOffset(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
+        obj.incTaperSelection(-1);
         //obj1.incyOffset(-1);
     }
     
@@ -325,10 +336,24 @@ FireDemo.prototype.update = function () {
             obj.incyOffset(-1);
             //obj1.incyOffset(-1);
         }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.O)) {
+        obj.incEmberSelection(1);
+        //obj1.incyOffset(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.P)) {
+            obj.incEmberSelection(-1);
+            //obj1.incyOffset(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.K)) {
+        obj.incTaperSelection(1);
+        //obj1.incyOffset(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.L)) {
+            obj.incTaperSelection(-1);
+            //obj1.incyOffset(-1);
+        }
     }
-    
-    
-
+       
     var p = obj.getPos();
     this.mTarget.getXform().setPosition(p[0], p[1]);
     this.updateValue(obj);
@@ -337,16 +362,18 @@ FireDemo.prototype.update = function () {
 };
 
 FireDemo.prototype.updateValue = function(obj){
-    document.getElementById("value1").innerHTML = obj.getWidth();
-    document.getElementById("value2").innerHTML = obj.getyAcceleration();
-    document.getElementById("value3").innerHTML = obj.getLife();
-    document.getElementById("value4").innerHTML = obj.getxVelocity();
-    document.getElementById("value5").innerHTML = obj.getyVelocity();
-    document.getElementById("value6").innerHTML = obj.getFlicker();
-    document.getElementById("value7").innerHTML = obj.getIntensity();
-    document.getElementById("value8").innerHTML = obj.getxAcceleration();
-    document.getElementById("value9").innerHTML = obj.getParticleSize();
-    document.getElementById("value10").innerHTML = obj.getyOffset();
+    document.getElementById("fvalue1").innerHTML = obj.getWidth();
+    document.getElementById("fvalue2").innerHTML = obj.getyAcceleration();
+    document.getElementById("fvalue3").innerHTML = obj.getLife();
+    document.getElementById("fvalue4").innerHTML = obj.getxVelocity();
+    document.getElementById("fvalue5").innerHTML = obj.getyVelocity();
+    document.getElementById("fvalue6").innerHTML = obj.getFlicker();
+    document.getElementById("fvalue7").innerHTML = obj.getIntensity();
+    document.getElementById("fvalue8").innerHTML = obj.getxAcceleration();
+    document.getElementById("fvalue9").innerHTML = obj.getParticleSize();
+    document.getElementById("fvalue10").innerHTML = obj.getyOffset();
+    document.getElementById("fvalue11").innerHTML = obj.getEmberSelection();
+    document.getElementById("fvalue12").innerHTML = obj.getTaperSelection();
 };
 
 FireDemo.prototype.createBounds = function() {

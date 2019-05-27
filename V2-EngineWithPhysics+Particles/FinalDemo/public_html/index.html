@@ -143,7 +143,78 @@
         </canvas>
         <script type="text/javascript"> gEngine.LoadingIconConfig.setup(); </script>
         </div>
-        <div id="particle" style="display: none">
+        <div id="fire" style="display: none">
+            <div>Use Left/Right buttons to select which object to manipulate, hold M for coarse adjustment</div>
+        <table>
+          <tr>
+            <th>Controls</th>
+            <th>Description</th> 
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>Q/W</td>
+            <td>Width of the object +/-</td>
+            <td><bdi id="fvalue1"></bdi></td>
+          </tr>
+          <tr>
+            <td>A/S</td>
+            <td>Vertical Acceleration of Particles +/-</td>
+            <td><bdi id="fvalue2"></bdi></td>
+          </tr>
+          <tr>
+              <td>Z/X</td>
+              <td>Life of the Particles +/-</td>
+              <td><bdi id="fvalue3"></bdi></td>
+          </tr>
+          <tr>
+            <td>E/R</td>
+            <td>Setting the Horizontal initial boost of the Particles +/-</td>
+            <td><bdi id="fvalue4"></bdi></td>
+          </tr>
+          <tr>
+            <td>D/F</td>
+            <td>Setting the Vertical initial boost of the Particles +/-</td>
+            <td><bdi id="fvalue5"></bdi></td>
+          </tr>
+          <tr>
+            <td>C/V</td>
+            <td>What the particle size is multiplied by every update +/-</td>
+            <td><bdi id="fvalue6"></bdi></td>
+          </tr>
+          <tr>
+            <td>T/Y</td>
+            <td>How many particles are spawned per update cycle +/-</td>
+            <td><bdi id="fvalue7"></bdi></td>
+          </tr>
+          <tr>
+            <td>G/H</td>
+            <td>Horizontal Acceleration of the Particles +/-</td>
+            <td><bdi id="fvalue8"></bdi></td>
+          </tr>
+          <tr>
+            <td>B/N</td>
+            <td>The size of the Particles +/-</td>
+            <td><bdi id="fvalue9"></bdi></td>
+          </tr>
+          <tr>
+            <td>U/I</td>
+            <td>The Maximum Vertical Offset of the Particles +/-</td>
+            <td><bdi id="fvalue10"></bdi></td>
+          </tr>
+          <tr>
+            <td>O/P</td>
+            <td>Percentage of Particles with Ember effect+/-</td>
+            <td><bdi id="fvalue11"></bdi></td>
+          </tr>
+          <tr>
+            <td>K/L</td>
+            <td>Percentage of Particles with Taper effect+/-</td>
+            <td><bdi id="fvalue12"></bdi></td>
+          </tr>
+        </table>            
+        </div>
+        
+        <div id="smoke" style="display: none">
             <div>Use Left/Right buttons to select which object to manipulate</div>
         <table>
           <tr>
@@ -201,6 +272,67 @@
             <td>The Maximum Vertical Offset of the Particles +/-</td>
             <td><bdi id="value10"></bdi></td>
           </tr>
+        </table>
+        </div>
+        
+        <div id="particle" style="display: none">
+            <div>Use Left/Right buttons to select which object to manipulate, hold M for coarse adjustment</div>
+        <table>
+          <tr>
+            <th>Controls</th>
+            <th>Description</th> 
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>Q/W</td>
+            <td>Width of the object +/-</td>
+            <td><bdi id="pvalue1"></bdi></td>
+          </tr>
+          <tr>
+            <td>A/S</td>
+            <td>Vertical Acceleration of Particles +/-</td>
+            <td><bdi id="pvalue2"></bdi></td>
+          </tr>
+          <tr>
+              <td>Z/X</td>
+              <td>Life of the Particles +/-</td>
+              <td><bdi id="pvalue3"></bdi></td>
+          </tr>
+          <tr>
+            <td>E/R</td>
+            <td>Setting the Horizontal initial boost of the Particles +/-</td>
+            <td><bdi id="pvalue4"></bdi></td>
+          </tr>
+          <tr>
+            <td>D/F</td>
+            <td>Setting the Vertical initial boost of the Particles +/-</td>
+            <td><bdi id="pvalue5"></bdi></td>
+          </tr>
+          <tr>
+            <td>C/V</td>
+            <td>What the particle size is multiplied by every update +/-</td>
+            <td><bdi id="pvalue6"></bdi></td>
+          </tr>
+          <tr>
+            <td>T/Y</td>
+            <td>How many particles are spawned per update cycle +/-</td>
+            <td><bdi id="pvalue7"></bdi></td>
+          </tr>
+          <tr>
+            <td>G/H</td>
+            <td>Horizontal Acceleration of the Particles +/-</td>
+            <td><bdi id="pvalue8"></bdi></td>
+          </tr>
+          <tr>
+            <td>B/N</td>
+            <td>The size of the Particles +/-</td>
+            <td><bdi id="pvalue9"></bdi></td>
+          </tr>
+          <tr>
+            <td>U/I</td>
+            <td>The Maximum Vertical Offset of the Particles +/-</td>
+            <td><bdi id="pvalue10"></bdi></td>
+          </tr>          
         </table>
         </div>
         <div id="physics" style="display: none">

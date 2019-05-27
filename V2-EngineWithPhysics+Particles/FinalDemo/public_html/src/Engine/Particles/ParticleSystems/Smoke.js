@@ -22,7 +22,7 @@
  * @class Smoke
  */
 function Smoke(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset){
-    ParticleSystem.call(this, "assets/ParticleSystem/smokeparticle.png", xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, [.1,.1,.1,1], [.1,.1,.1,1], 1);
+    ParticleSystem.call(this, "assets/ParticleSystem/smokeparticle.png", xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, [.5,.5,.5,1], [0,0,0,1], 1);
     this.setSizeBase(3.5);
 }
 
@@ -44,10 +44,6 @@ Smoke.SmokeParams = function(){
     this.xAcceleration=0;
     this.size=1;
     this.yOffset=0;
-    //this.startColor=[1,0,0,1];
-    //this.finalColor=[0,0,0,1];
-    //this.yMultiplier=1;
-    //this.sizeBase=1;
 }
 
 Smoke.prototype.update = function(){

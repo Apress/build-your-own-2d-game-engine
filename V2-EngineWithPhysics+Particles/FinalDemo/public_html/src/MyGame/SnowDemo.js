@@ -190,16 +190,16 @@ SnowDemo.prototype.update = function () {
 };
 
 SnowDemo.prototype.updateValue = function(){
-    document.getElementById("value1").innerHTML = this.mSnow.getWidth();
-    document.getElementById("value2").innerHTML = this.mSnow.getyAcceleration();
-    document.getElementById("value3").innerHTML = this.mSnow.getLife();
-    document.getElementById("value4").innerHTML = this.mSnow.getxVelocity();
-    document.getElementById("value5").innerHTML = this.mSnow.getyVelocity();
-    document.getElementById("value6").innerHTML = this.mSnow.getFlicker();
-    document.getElementById("value7").innerHTML = this.mSnow.getIntensity();
-    document.getElementById("value8").innerHTML = this.mSnow.getxAcceleration();
-    document.getElementById("value9").innerHTML = this.mSnow.getParticleSize();
-    document.getElementById("value10").innerHTML = this.mSnow.getyOffset();
+    document.getElementById("pvalue1").innerHTML = this.mSnow.getWidth();
+    document.getElementById("pvalue2").innerHTML = this.mSnow.getyAcceleration();
+    document.getElementById("pvalue3").innerHTML = this.mSnow.getLife();
+    document.getElementById("pvalue4").innerHTML = this.mSnow.getxVelocity();
+    document.getElementById("pvalue5").innerHTML = this.mSnow.getyVelocity();
+    document.getElementById("pvalue6").innerHTML = this.mSnow.getFlicker();
+    document.getElementById("pvalue7").innerHTML = this.mSnow.getIntensity();
+    document.getElementById("pvalue8").innerHTML = this.mSnow.getxAcceleration();
+    document.getElementById("pvalue9").innerHTML = this.mSnow.getParticleSize();
+    document.getElementById("pvalue10").innerHTML = this.mSnow.getyOffset();
 };
 
 SnowDemo.prototype.createBounds = function() {
