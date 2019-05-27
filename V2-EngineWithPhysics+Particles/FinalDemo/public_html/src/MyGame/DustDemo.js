@@ -20,6 +20,7 @@ function DustDemo() {
     
     this.mAllObjs = null;
     this.mPlatforms = null;
+    this.mCurrentObj = 0;
     
     this.mAllDust = null;    
     this.mDust1 = null;
@@ -30,22 +31,24 @@ function DustDemo() {
     
     this.backButton = null;
     this.MainMenuButton = null;
+    
+    this.mHolder = [25,25];
+    this.mAngle = 0;
+    this.mTimer = 90;
     this.mDrawRigidShape = true;
     this.r = null;
+    
 }
 gEngine.Core.inheritPrototype(DustDemo, Scene);
 
-
 DustDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kUIButton);
-
-    document.getElementById("particle").style.display="block";
+    document.getElementById("dust").style.display="block";
 };
 
 DustDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kUIButton);
-
-    document.getElementById("particle").style.display="none";
+    document.getElementById("dust").style.display="none";
     if(this.LevelSelect==="Back")
         gEngine.Core.startScene(new ParticleLevel());
     else if(this.LevelSelect==="Main")
@@ -60,12 +63,17 @@ DustDemo.prototype.initialize = function () {
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0, 0, 0, 1]);
-            // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+    this.mFirstObject = 0;
+    this.mCurrentObj = this.mFirstObject;
     
     this.mAllDust = new GameObjectSet();
-    this.mDust1 = new Dust(50,0,50,-.5,100,0,0,1,1,0,1,80);
-    this.mAllDust.addToSet(this.mDust1);    
+    this.mDust1 = new Dust(50,40,50,-.5,100,0,0,1,1,0,1,40);
+    this.mAllDust.addToSet(this.mDust1);
+    
+    this.mDust2 = new Dust(0,0,50,5,150,0,0,1,4,5,1,10);
+    this.mAllDust.addToSet(this.mDust2);
+    
     this.mXParticles = new ParticleGameObjectSet();  
     
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
@@ -77,14 +85,8 @@ DustDemo.prototype.initialize = function () {
 DustDemo.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0, 0, 0, 1.0]); // clear to med gray
-
     this.mCamera.setupViewProjection();
-    
-    // for now draw these ...
-    /*for (var i = 0; i<this.mCollisionInfos.length; i++) 
-        this.mCollisionInfos[i].draw(this.mCamera); */
-    this.mCollisionInfos = [];    
-    
+       
     this.mAllDust.draw(this.mCamera);
     this.mXParticles.draw(this.mCamera);
     
@@ -98,88 +100,197 @@ DustDemo.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mAllDust);
     gEngine.ParticleSystem.update(this.mXParticles);
     
-    if (this.mCamera.isMouseInViewport()) {
-      
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
-        this.mDust1.incWidth(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
-        this.mDust1.incWidth(-1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.A)) {
-        this.mDust1.incyAcceleration(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.S)) {
-        this.mDust1.incyAcceleration(-1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Z)) {
-        this.mDust1.incLife(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.X)) {
-        this.mDust1.incLife(-1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.E)) {
-        this.mDust1.incxVelocity(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
-        this.mDust1.incxVelocity(-1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.D)) {
-        this.mDust1.incyVelocity(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.F)) {
-        this.mDust1.incyVelocity(-1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
-        this.mDust1.incFlicker(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
-        this.mDust1.incFlicker(-1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
-        this.mDust1.incIntensity(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Y)) {
-        this.mDust1.incIntensity(-1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.G)) {
-        this.mDust1.incxAcceleration(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
-        this.mDust1.incxAcceleration(-1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
-        this.mDust1.incParticleSize(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
-        this.mDust1.incParticleSize(-1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.U)) {
-        this.mDust1.incyOffset(1);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
-        this.mDust1.incyOffset(-1);
-    }
-    if (gEngine.Input.isButtonPressed(0)){
-        if (this.mCamera.isMouseInViewport()) {
-            this.createDParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());            
-        }
-    if (gEngine.Input.isButtonClicked(0)){
-        if (this.mCamera.isMouseInViewport()) {
-            this.createXParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());            
-        }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
+        this.mCurrentObj -= 1;
+        if (this.mCurrentObj < this.mFirstObject)
+            this.mCurrentObj = this.mAllDust.size() - 1;
+    }            
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Right)) {
+        this.mCurrentObj += 1;
+        if (this.mCurrentObj >= this.mAllDust.size())
+            this.mCurrentObj = this.mFirstObject;
     }
 
-    this.updateValue(this.mDust1);
+    var obj = this.mAllDust.getObjectAt(this.mCurrentObj);
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
+        obj.incWidth(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
+        obj.incWidth(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.A)) {
+        obj.incyAcceleration(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.S)) {
+        obj.incyAcceleration(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Z)) {
+        obj.incLife(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.X)) {
+        obj.incLife(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.E)) {
+        obj.incxVelocity(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
+        obj.incxVelocity(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.D)) {
+        obj.incyVelocity(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.F)) {
+        obj.incyVelocity(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
+        obj.incFlicker(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
+        obj.incFlicker(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
+        obj.incIntensity(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Y)) {
+        obj.incIntensity(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.G)) {
+        obj.incxAcceleration(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
+        obj.incxAcceleration(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
+        obj.incParticleSize(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
+        obj.incParticleSize(-1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.U)) {
+        obj.incyOffset(1);
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
+        obj.incyOffset(-1);
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.M)){
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Q)) {
+            obj.incWidth(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+            obj.incWidth(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+            obj.incyAcceleration(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+            obj.incyAcceleration(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
+            obj.incLife(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
+            obj.incLife(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.E)) {
+            obj.incxVelocity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
+            obj.incxVelocity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+            obj.incyVelocity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.F)) {
+            obj.incyVelocity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+            obj.incFlicker(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.V)) {
+            obj.incFlicker(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.T)) {
+            obj.incIntensity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Y)) {
+            obj.incIntensity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.G)) {
+            obj.incxAcceleration(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.H)) {
+            obj.incxAcceleration(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.B)) {
+            obj.incParticleSize(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.N)) {
+            obj.incParticleSize(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.U)) {
+            obj.incyOffset(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.I)) {
+            obj.incyOffset(-1);
+        }
+    }
+    
+    this.updateValue(obj);
     this.MainMenuButton.update();
     this.backButton.update();
-    
-    //this.wrapParticles();
-    //gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mDust1.getSet());
+    this.updateHolder();
+    this.updateClickEffect();
+    this.killDust();
 };
+
+
+DustDemo.prototype.killDust = function(){
+    var pSet = this.mDust1.getSet().mSet;
+    var setLength = pSet.length;    
+    for (var i = 0; i < setLength; i++){
+        var pPos = pSet[i].getParticle().getPosition();
+        if(pPos[0] > 100 || pPos[0] < 50){
+            pSet[i].mCyclesToLive = 0;
+        }
+        if(pPos[1] > 80 || pPos[1] < 41){
+            pSet[i].mCyclesToLive = 0;
+        }
+    }
+    var pSet = this.mDust2.getSet().mSet;
+    var setLength = pSet.length;    
+    for (var i = 0; i < setLength; i++){
+        var pPos = pSet[i].getParticle().getPosition();
+        if(pPos[0] > 50 || pPos[0] < 0){
+            pSet[i].mCyclesToLive = 0;
+        }
+        if(pPos[1] > 39 || pPos[1] < 0){
+            pSet[i].mCyclesToLive = 0;
+        }
+    }
+};
+
+DustDemo.prototype.updateHolder = function(){
+    this.mHolder[0] = 25 + 10*Math.cos(this.mAngle);
+    this.mHolder[1] = 60 + 10*Math.sin(this.mAngle);
+    this.mAngle += .05;
+    if(this.mAngle > 360){
+        this.mAngle = 0;
+    }
+    this.createDParticle(this.mHolder[0],this.mHolder[1]);
+};
+
+DustDemo.prototype.updateClickEffect = function(){
+    if(this.mTimer === 0){
+        this.createXParticle(75,20);
+        this.createDParticle(75,20);
+        this.mTimer = 90;
+    }else{
+        this.mTimer--;
+    }
+};
+
 DustDemo.prototype.createDParticle = function(atX, atY){
-    var XYPos = new vec2.fromValues(atX,atY);
     if(Math.floor(Math.random()*2)){
         var pTexture = "assets/ParticleSystem/dust.png";
     }else{
@@ -198,14 +309,14 @@ DustDemo.prototype.createDParticle = function(atX, atY){
     p.setSizeDelta(1.0+Math.random()*0.01);
     this.mXParticles.addToSet(p);
             
-    var pSet = this.mDust1.getSet().mSet;
-    var setLength = pSet.length;    
-    for(var i = 0; i < setLength; i++){
-        var particle = pSet[i].getParticle();
-        var pPos = pSet[i].getParticle().getPosition();        
-        var pVec = new vec2.fromValues(pPos[0]-XYPos[0],pPos[1]-XYPos[1]);                
-        particle.setVelocity([pVec[0]*2,pVec[1]*2]);      
-    }
+//    var pSet = this.mDust1.getSet().mSet;
+//    var setLength = pSet.length;    
+//    for(var i = 0; i < setLength; i++){
+//        var particle = pSet[i].getParticle();
+//        var pPos = pSet[i].getParticle().getPosition();        
+//        var pVec = new vec2.fromValues(pPos[0]-XYPos[0],pPos[1]-XYPos[1]);                
+//        particle.setVelocity([pVec[0]*2,pVec[1]*2]);      
+//    }
 };
 
 DustDemo.prototype.createXParticle = function(atX, atY){
@@ -235,16 +346,16 @@ DustDemo.prototype.createXParticle = function(atX, atY){
 };
 
 DustDemo.prototype.updateValue = function(obj){
-    document.getElementById("value1").innerHTML = obj.getWidth();
-    document.getElementById("value2").innerHTML = obj.getyAcceleration();
-    document.getElementById("value3").innerHTML = obj.getLife();
-    document.getElementById("value4").innerHTML = obj.getxVelocity();
-    document.getElementById("value5").innerHTML = obj.getyVelocity();
-    document.getElementById("value6").innerHTML = obj.getFlicker();
-    document.getElementById("value7").innerHTML = obj.getIntensity();
-    document.getElementById("value8").innerHTML = obj.getxAcceleration();
-    document.getElementById("value9").innerHTML = obj.getParticleSize();
-    document.getElementById("value10").innerHTML = obj.getyOffset();
+    document.getElementById("dvalue1").innerHTML = obj.getWidth();
+    document.getElementById("dvalue2").innerHTML = obj.getyAcceleration();
+    document.getElementById("dvalue3").innerHTML = obj.getLife();
+    document.getElementById("dvalue4").innerHTML = obj.getxVelocity();
+    document.getElementById("dvalue5").innerHTML = obj.getyVelocity();
+    document.getElementById("dvalue6").innerHTML = obj.getFlicker();
+    document.getElementById("dvalue7").innerHTML = obj.getIntensity();
+    document.getElementById("dvalue8").innerHTML = obj.getxAcceleration();
+    document.getElementById("dvalue9").innerHTML = obj.getParticleSize();
+    document.getElementById("dvalue10").innerHTML = obj.getyOffset();
 };
 
 DustDemo.prototype.backSelect = function(){
@@ -255,5 +366,4 @@ DustDemo.prototype.backSelect = function(){
 DustDemo.prototype.mainSelect = function(){
     this.LevelSelect="Main";
     gEngine.GameLoop.stop();
-};
 };

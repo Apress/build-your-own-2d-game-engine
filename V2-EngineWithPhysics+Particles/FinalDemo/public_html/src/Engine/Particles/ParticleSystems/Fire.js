@@ -73,6 +73,10 @@ Fire.prototype.update = function(){
     this.applyTaper();
 };
 
+/**
+ * Applies ember effect to selected particles 
+ * @memberOf Fire
+ */
 Fire.prototype.applyEmbers = function(){
     var pSet = this.getSet().mSet;
     var setLength = pSet.length;    
@@ -91,6 +95,10 @@ Fire.prototype.applyEmbers = function(){
     }
 };
 
+/**
+ * Applies taper effect to selected particles 
+ * @memberOf Fire
+ */
 Fire.prototype.applyTaper = function(){
     var pSet = this.getSet().mSet;
     var setLength = pSet.length;    
@@ -113,7 +121,7 @@ Fire.prototype.applyTaper = function(){
 
 
 /**
- * Increase the percentage of particles with ember effect
+ * Adjust the percentage of particles with ember effect
  * @param {float} val inc how much to increment by
  * @memberOf Fire
  */
@@ -128,7 +136,7 @@ Fire.prototype.incEmberSelection = function(val){
 };
 
 /**
- * Increase the percentage of particles with ember effect
+ * Adjust the percentage of particles with ember effect
  * @param {float} val inc how much to increment by
  * @memberOf Fire
  */

@@ -22,16 +22,19 @@
  * @class Smoke
  */
 function Smoke(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset){
-    ParticleSystem.call(this, "assets/ParticleSystem/smokeparticle.png", xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, [.5,.5,.5,1], [0,0,0,1], 1);
+    ParticleSystem.call(this, "assets/ParticleSystem/smokeparticle.png", xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, [0,0,0,1], [1,1,1,1], 1);
     this.setSizeBase(3.5);
-}
+    this.rVal = .05;
+    this.gVal = .05;
+    this.bVal = .05;
+    this.aVal = 1;
+    this.colorShift = 0;
+};
 
-gEngine.Core.inheritPrototype(Smoke,ParticleSystem)
+gEngine.Core.inheritPrototype(Smoke,ParticleSystem);
 
 
-Smoke.SmokeParams = function(){
-    //this.mAllParticles = new ParticleGameObjectSet();
-    //this.texture="assets/ParticleSystem/flameparticle.png";
+SmokeParams = function(){
     this.xPos=50;
     this.yPos=50;
     this.width=5;
@@ -44,7 +47,7 @@ Smoke.SmokeParams = function(){
     this.xAcceleration=0;
     this.size=1;
     this.yOffset=0;
-}
+};
 
 Smoke.prototype.update = function(){
     for(var i=0; i<this.intensity; i++){
@@ -52,59 +55,179 @@ Smoke.prototype.update = function(){
     this.mAllParticles.addToSet(p);
     }
     gEngine.ParticleSystem.update(this.mAllParticles);
-    this.applyEmbers();
-}
-
-Smoke.prototype.applyEmbers = function(){    
     var pSet = this.getSet().mSet;
     var setLength = pSet.length;
-    for (var i = 0; i < setLength; i++){    
-        if(pSet[i].getParticle().mParallaxDir && pSet[i].getParticle().mDriftDir){
-            this.applyDrift(pSet[i]);            
-        }
-        if(pSet[i].getParticle().mParallaxDir && !pSet[i].getParticle().mDriftDir){
-            this.applyColor(pSet[i]);
-        }
-        if(!pSet[i].getParticle().mParallaxDir && !pSet[i].getParticle().mDriftDir){
-            this.applySizeDelta(pSet[i]);
-            this.applyColor(pSet[i]);
-        }
+    for (var i = 0; i < setLength; i++){        
+        this.applyDrift(pSet[i]);
+        this.applySizeDelta(pSet[i]);
+        this.applyColor(pSet[i]);
     }
 };
 
+/**
+ * Applies drift effect to particles
+ * @param {Particle Game Object} pGO Particle object to apply drift effect to
+ * @memberOf Smoke
+ */
 Smoke.prototype.applyDrift = function(pGO){
     var p = pGO.getParticle();
-    //var pPos = p.getPosition();
-    //var xform = pGO.getXform();    
-    pGO.setSizeDelta(.95);
+    var pAccel = p.getAcceleration();
     if(Math.floor(Math.random()*2) === 0){
-        //pPos[0] += 1;
+        p.setAcceleration([pAccel[0]+.1,pAccel[1]]);
     }
     else{
-        //pPos[0] -= 1;
+        p.setAcceleration([pAccel[0]-.1,pAccel[1]]);
     }
 };
 
+/**
+ * Applies new size delta to particles
+ * @param {Particle Game Object} pGO Particle object to apply size delta effect to
+ * @memberOf Smoke
+ */
 Smoke.prototype.applySizeDelta = function(pGO){
     var p = pGO.getParticle();
-    if(Math.floor(Math.random()*2) === 0){
-        pGO.setSizeDelta(1.0125);
-        pGO.getXform().incRotationByDegree(p.mRotationVal*.05);
+    if(p.mSpin1 || p.mSpin2){
+        if(Math.floor(Math.random()*2) === 0){
+            pGO.setSizeDelta(1.0125);
+            pGO.getXform().incRotationByDegree(p.mRotationVal*.05);
+        }
+        else{
+            pGO.setSizeDelta(.99);
+            pGO.getXform().incRotationByDegree(p.mRotationVal*-.05);
+        }    
     }
-    else{
-        pGO.setSizeDelta(.99);
-        pGO.getXform().incRotationByDegree(p.mRotationVal*-.05);
-    }    
 };
 
+/**
+ * Colorizes particles
+ * @param {Particle Game Object} pGO Particle object to apply color effect to
+ * @memberOf Smoke
+ */
 Smoke.prototype.applyColor = function(pGO){
     var p = pGO.getParticle();
-    if(Math.floor(Math.random()*2) === 0){
-        pGO.setFinalColor([0,0,0,1]);
-        p.setVelocity([-3.5,p.getVelocity()[1]+.1]);
+    if(p.mSpin1)
+        pGO.setFinalColor([this.rVal+this.colorShift,this.gVal+this.colorShift,this.bVal+this.colorShift,this.aVal]);
+    if(p.mSpin2)
+        pGO.setFinalColor([this.rVal+this.colorShift,this.gVal+this.colorShift,this.bVal-this.colorShift,this.aVal]);
+    if(!p.mSpin1)
+        pGO.setFinalColor([this.rVal+this.colorShift,this.gVal-this.colorShift,this.bVal-this.colorShift,this.aVal]);
+    if(!p.mSpin2)
+        pGO.setFinalColor([this.rVal-this.colorShift,this.gVal-this.colorShift,this.bVal-this.colorShift,this.aVal]);
+};
+
+/**
+ * Adjust the red value of the system particles
+ * @param {float} val inc how much to increment by
+ * @memberOf Smoke
+ */
+Smoke.prototype.incRVal = function(val){
+    this.rVal += (val);    
+    if(this.rVal < 0){
+        this.rVal = 0;
     }
-    else{
-        pGO.setFinalColor([.1,.1,.1,1]);
-        p.setVelocity([3.5,p.getVelocity()[1]+.1]);
-    }       
+    if(this.rVal > 1){
+        this.rVal = 1;
+    }
+};
+
+/**
+ * Adjust the green value of the system particles
+ * @param {float} val inc how much to increment by
+ * @memberOf Smoke
+ */
+Smoke.prototype.incGVal = function(val){
+    this.gVal += (val);    
+    if(this.gVal < 0){
+        this.gVal = 0;
+    }
+    if(this.gVal > 1){
+        this.gVal = 1;
+    }
+};
+
+/**
+ * Adjust the blue value of the system particles
+ * @param {float} val inc how much to increment by
+ * @memberOf Smoke
+ */
+Smoke.prototype.incBVal = function(val){
+    this.bVal += (val);    
+    if(this.bVal < 0){
+        this.bVal = 0;
+    }
+    if(this.bVal > 1){
+        this.bVal = 1;
+    }
+};
+
+/**
+ * Adjust the alpha value of the system particles
+ * @param {float} val inc how much to increment by
+ * @memberOf Smoke
+ */
+Smoke.prototype.incAVal = function(val){
+    this.aVal += (val);    
+    if(this.aVal < 0){
+        this.aVal = 0;
+    }
+    if(this.aVal > 1){
+        this.aVal = 1;
+    }
+};
+
+/**
+ * Adjust the color shift value of the system
+ * @param {float} val inc how much to increment by
+ * @memberOf Smoke
+ */
+Smoke.prototype.incColorShift = function(val){
+    this.colorShift += (val);    
+    if(this.colorShift < 0){
+        this.colorShift = 0;
+    }
+    if(this.colorShift > 1){
+        this.colorShift = 1;
+    }
+};
+
+/**
+ * Get the R value of Particle Color
+ * @returns {float} this.rVal
+ * @memberOf Smoke
+ */
+Smoke.prototype.getRVal = function(){
+  return this.rVal.toFixed(2);  
+};
+/**
+ * Get the G value of Particle Color
+ * @returns {float} this.gVal
+ * @memberOf Smoke
+ */
+Smoke.prototype.getGVal = function(){
+  return this.gVal.toFixed(2);  
+};
+/**
+ * Get the B value of Particle Color
+ * @returns {float} this.bVal
+ * @memberOf Smoke
+ */
+Smoke.prototype.getBVal = function(){
+  return this.bVal.toFixed(2);  
+};
+/**
+ * Get the A value of Particle Color
+ * @returns {float} this.aVal
+ * @memberOf Smoke
+ */
+Smoke.prototype.getAVal = function(){
+  return this.aVal.toFixed(2);  
+};
+/**
+ * Get the color shifting value of the system
+ * @returns {float} this.colorShift
+ * @memberOf Smoke
+ */
+Smoke.prototype.getColorShift = function(){
+  return this.colorShift.toFixed(2);  
 };

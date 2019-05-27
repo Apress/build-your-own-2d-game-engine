@@ -30,9 +30,7 @@ gEngine.Core.inheritPrototype(Dust,ParticleSystem);
 /**
  * Parameter Struct
  */
-Dust.DustParams = function(){
-    //this.mAllParticles = new ParticleGameObjectSet();
-    //this.texture="assets/ParticleSystem/flameparticle.png";
+DustParams = function(){
     this.xPos=50;
     this.yPos=50;
     this.width=5;
@@ -45,11 +43,7 @@ Dust.DustParams = function(){
     this.xAcceleration=0;
     this.size=1;
     this.yOffset=0;
-    //this.startColor=[1,0,0,1];
-    //this.finalColor=[0,0,0,1];
-    //this.yMultiplier=1;
-    //this.sizeBase=1;
-}
+};
 
 Dust.prototype.update = function(){
     for(var i=0; i<this.intensity; i++){
@@ -57,53 +51,40 @@ Dust.prototype.update = function(){
     this.mAllParticles.addToSet(p);
     }
     gEngine.ParticleSystem.update(this.mAllParticles);
-    
-    this.applyEmbers();
-};
-
-Dust.prototype.applyEmbers = function(){
     var pSet = this.getSet().mSet;
     var setLength = pSet.length;    
     for (var i = 0; i < setLength; i++){
-        var p = pSet[i].getParticle();                
-        if(p.mParallaxDir && p.mDriftDir){
-            this.applyDrift(pSet[i]);
-        }else{        
-            this.applySizeDelta(pSet[i]);
-        }
-        var pPos = p.getPosition();
-        if(pPos[0] > 100 || pPos[0] < 0){
-            pSet[i].mCyclesToLive = 0;
-        }
-        if(pPos[1] > 80 || pPos[1] < 0){
-            pSet[i].mCyclesToLive = 0;
-        }
-    }
-};
-Dust.prototype.applyDrift = function(pGO){
-    var p = pGO.getParticle();
-    //var pPos = p.getPosition();
-    //var xform = pGO.getXform();    
-    pGO.setSizeDelta(.95);
-    var pAccel = p.getAcceleration();
-    if(Math.floor(Math.random()*2) === 0){     
-        p.setAcceleration([pAccel[0]+(Math.random()-.5),pAccel[1]+(Math.random()-.5)]);
-    }
-    else{
-        p.setAcceleration([pAccel[0],pAccel[1]]);
+        this.applyDrift(pSet[i]);
+        this.applySizeDelta(pSet[i]);
     }
 };
 
-Dust.prototype.applySizeDelta = function(pGO){
+/**
+ * Applies drifting floating effect to particles
+ * @param {Particle Game Object} pGO Particle object to apply effect to
+ * @memberOf Dust
+ */
+Dust.prototype.applyDrift = function(pGO){
     var p = pGO.getParticle();
     var pAccel = p.getAcceleration();
     if(Math.floor(Math.random()*2) === 0){
-        pGO.setSizeDelta(1.01);        
         p.setAcceleration([pAccel[0]+(Math.random()-.5),pAccel[1]+(Math.random()-.5)]);
     }
     else{
-        pGO.setSizeDelta(.99);
-        //var v2c = new vec2.fromValues((this.xPos-p.getXPos())*50,pAccel[1]);        
         p.setAcceleration([pAccel[0]+(Math.random()-.5),pAccel[1]+(Math.random()-.5)]);
-    }    
+    }
+};
+
+/**
+ * Applies size delta effect to particles
+ * @param {Particle Game Object} pGO Particle object to apply effect to
+ * @memberOf Dust
+ */
+Dust.prototype.applySizeDelta = function(pGO){
+    if(Math.floor(Math.random()*2) === 0){
+        pGO.setSizeDelta(1.01);
+    }
+    else{
+        pGO.setSizeDelta(.99);
+    }
 };

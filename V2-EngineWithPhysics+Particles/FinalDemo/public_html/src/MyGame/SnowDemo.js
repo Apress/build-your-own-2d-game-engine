@@ -21,6 +21,7 @@ function SnowDemo() {
     this.mCamera = null;
     this.LevelSelect = null;
     this.mAllObjs = null;
+    
     this.mPlatforms = null;
     this.mTrees = null;
     this.mSnow = null;
