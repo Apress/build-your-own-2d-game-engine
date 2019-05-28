@@ -173,7 +173,7 @@ UIButton.prototype.setBGColor = function(color) {
  * @param {float[]} color The desired Color for when the background is hovered over
  * @memberOf UIButton
  */
-UIButton.prototype.setBGHovercolor = function(color) {
+UIButton.prototype.setBGHoverColor = function(color) {
     this.mBgHoverColor = color;
 };
 

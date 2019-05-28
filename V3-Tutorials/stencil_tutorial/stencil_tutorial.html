@@ -1,0 +1,56 @@
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../coding.css">
+		<title>Stencil Tutorial</title>
+	</head>
+
+	<body>
+    	<div id="main-content">
+		<h1> GTCS Game Engine: <br>
+		Stencil Tutorial</h1>
+		
+		
+		<hr>
+		<h2>Introduction</h2>
+		<p>In this tutorial, we will look at how to use a stencil with renderables.</p>
+        
+		
+	<hr>
+		<h2><a id="resolution"></a>Stencil</h2>
+		<p>There are two functions that need to be used in order to stencil: startStenciling and stopStenciling.</p>
+		<p>To start stenciling, we need a renderable that will be used as a stencil and the camera we are drawing to.
+		The stencil can be a regular, texture or sprite renderable.
+		Any draw call to the same camera between startStenciling and stopStenciling will be stenciled.
+		The stencil uses the alpha channel of the given renderable. Any white area in a sprite's alpha channel will be drawn while any black area will not be drawn.</p>
+        
+
+		<figure>
+		<pre>MyGameScene.prototype.draw = function () {
+	// Clear the screen
+	gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
+	
+	this.mCamera.setupViewProjection();
+    
+	<strong>
+	gEngine.Stencil.startStenciling(this.mStencil, this.mCamera);
+	this.mBg.draw(this.mCamera);
+	gEngine.Stencil.stopStenciling();
+};</pre>
+		<figcaption class="codecaption">
+		  <p>Draw Function with Stenciling</p>
+		</figcaption>
+        </figure>
+
+	<hr>
+    <h2>Conclusion</h2>
+        <p>Stenciling allows for having renderables only show within a given area designated by the stencil renderable's alpha channel.
+		The area that is drawn to remains separate from other objects allowing for it to be independently manipulated.
+		This is used in multiple UI elements such as the Button and Bar.</p>
+        
+	</div>
+    <h4><i>5/27/2019</i> - Kyla NeSmith</h4>
+    </body>
+</html>
