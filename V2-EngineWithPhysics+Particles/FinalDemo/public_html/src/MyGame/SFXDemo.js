@@ -23,6 +23,7 @@ function SFXDemo() {
     this.mTiny2 = null;
     this.mTiny3 = null;
     this.mTiny4 = null;
+    this.mAllParticles = null;
     this.mXParticles = null;
     this.mTarget = null;
     this.backButton = null;
@@ -37,14 +38,16 @@ SFXDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kUIButton);
     gEngine.Textures.loadTexture(this.kTargetTexture);
     gEngine.Textures.loadTexture("assets/ParticleSystem/shock2.png");
-    document.getElementById("particle").style.display="block";
+    gEngine.Textures.loadTexture("assets/ParticleSystem/shock.png");
+    gEngine.Textures.loadTexture("assets/ParticleSystem/particle.png");
+    gEngine.Textures.loadTexture("assets/ParticleSystem/bubble.png");
+    gEngine.Textures.loadTexture("assets/ParticleSystem/sparkle.png");
+    document.getElementById("subemitter").style.display="block";
 };
 
 SFXDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kUIButton);
-    gEngine.Textures.unloadTexture(this.kTargetTexture);
-    gEngine.Textures.unloadTexture("assets/ParticleSystem/shock2.png");
-    document.getElementById("particle").style.display="none";
+    document.getElementById("subemitter").style.display="none";
     if(this.LevelSelect==="Back")
         gEngine.Core.startScene(new ParticleLevel());
     else if(this.LevelSelect==="Main")
@@ -60,10 +63,13 @@ SFXDemo.prototype.initialize = function () {
     );
     this.mCamera.setBackgroundColor([0, 0, 0, 1]);
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
-    this.mTiny1=new ParticleSystem(this.kTargetTexture, 50,0,1,4,25,0,0,0,1,0,.1,0,[1,0,0,1], [0,0,1,1], 1);
-    this.mTiny2=new ParticleSystem(this.kTargetTexture, 50,80,1,-4,25,0,0,0,1,0,.1,0,[1,0,0,1], [0,0,1,1], 1);
-    this.mTiny4=new ParticleSystem(this.kTargetTexture, 0,30,0,0,40,0,0,0,2,10,.1,20,[1,0,0,1], [0,0,1,1], 1);
-    this.mTiny3=new ParticleSystem(this.kTargetTexture, 100,30,0,0,40,0,0,0,2,-10,.1,20,[1,0,0,1], [0,0,1,1], 1);
+    this.mAllParticles = new GameObjectSet();
+    this.mTiny1=new SubEmitter("assets/ParticleSystem/particle.png", "assets/ParticleSystem/shock2.png", 95,0,0,-5,15,50,275,0,55,0,.1,0,[1,1,1,1], [1,0,1,1], [1,0,0,1], [1,0,1,1], true, 45, 1.05);
+    this.mAllParticles.addToSet(this.mTiny1);
+    this.mTiny2=new SubEmitter("assets/ParticleSystem/particle.png", "assets/ParticleSystem/sparkle.png", 5,0,0,-10,15,-40,275,0,55,0,.1,0,[1,1,1,1], [1,0,1,1], [1,0,0,1], [1,0,1,1], false, 30, 1.1);
+    this.mAllParticles.addToSet(this.mTiny2);
+    this.mTiny3=new SubEmitter("assets/ParticleSystem/bubble.png", "assets/ParticleSystem/shock.png", 50,0,10,4,50,0,20,0,40,0,1,0,[1,1,1,1], [1,.8,0,1], [1,0,0,0], [1,.8,0,1], false, 6, 1.125);
+    this.mAllParticles.addToSet(this.mTiny3);    
     this.mXParticles = new ParticleGameObjectSet();
     
     this.mTarget = new GameObject(new SpriteRenderable(this.kTargetTexture));
@@ -87,15 +93,10 @@ SFXDemo.prototype.draw = function () {
     this.mCamera.setupViewProjection();
     
     // for now draw these ...
-    /*for (var i = 0; i<this.mCollisionInfos.length; i++) 
-        this.mCollisionInfos[i].draw(this.mCamera); */
     this.mCollisionInfos = []; 
     
     this.mTarget.draw(this.mCamera);
-    this.mTiny1.draw(this.mCamera);
-    this.mTiny2.draw(this.mCamera);
-    this.mTiny3.draw(this.mCamera);
-    this.mTiny4.draw(this.mCamera);
+    this.mAllParticles.draw(this.mCamera);
     this.mXParticles.draw(this.mCamera);
     this.MainMenuButton.draw(this.mCamera);
     this.backButton.draw(this.mCamera);
@@ -103,12 +104,8 @@ SFXDemo.prototype.draw = function () {
 
 // The Update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
-//SnowDemo.kBoundDelta = 0.1;
-SFXDemo.prototype.update = function () {
-    gEngine.ParticleSystem.update(this.mTiny1);
-    gEngine.ParticleSystem.update(this.mTiny2);
-    gEngine.ParticleSystem.update(this.mTiny3);
-    gEngine.ParticleSystem.update(this.mTiny4);
+SFXDemo.prototype.update = function () {    
+    gEngine.ParticleSystem.update(this.mAllParticles);    
     gEngine.ParticleSystem.update(this.mXParticles);
     
     if (this.mCamera.isMouseInViewport()) {
@@ -118,107 +115,177 @@ SFXDemo.prototype.update = function () {
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
         this.mTiny1.incWidth(1);
-        this.mTiny2.incWidth(1);
+        //this.mTiny2.incWidth(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
         this.mTiny1.incWidth(-1);
-        this.mTiny2.incWidth(-1);
+        //this.mTiny2.incWidth(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.A)) {
         this.mTiny1.incyAcceleration(1);
-        this.mTiny2.incyAcceleration(1);
+        //this.mTiny2.incyAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.S)) {
         this.mTiny1.incyAcceleration(-1);
-        this.mTiny2.incyAcceleration(-1);
+        //this.mTiny2.incyAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Z)) {
         this.mTiny1.incLife(1);
-        this.mTiny2.incLife(1);
+        //this.mTiny2.incLife(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.X)) {
         this.mTiny1.incLife(-1);
-        this.mTiny2.incLife(-1);
+        //this.mTiny2.incLife(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.E)) {
         this.mTiny1.incxVelocity(1);
-        this.mTiny2.incxVelocity(1);
+        //this.mTiny2.incxVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
         this.mTiny1.incxVelocity(-1);
-        this.mTiny2.incxVelocity(-1);
+        //this.mTiny2.incxVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.D)) {
         this.mTiny1.incyVelocity(1);
-        this.mTiny2.incyVelocity(1);
+        //this.mTiny2.incyVelocity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.F)) {
         this.mTiny1.incyVelocity(-1);
-        this.mTiny2.incyVelocity(-1);
+        //this.mTiny2.incyVelocity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
         this.mTiny1.incFlicker(1);
-        this.mTiny2.incFlicker(1);
+        //this.mTiny2.incFlicker(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
         this.mTiny1.incFlicker(-1);
-        this.mTiny2.incFlicker(-1);
+        //this.mTiny2.incFlicker(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
         this.mTiny1.incIntensity(1);
-        this.mTiny2.incIntensity(1);
+        //this.mTiny2.incIntensity(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Y)) {
         this.mTiny1.incIntensity(-1);
-        this.mTiny2.incIntensity(-1);
+        //this.mTiny2.incIntensity(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.G)) {
         this.mTiny1.incxAcceleration(1);
-        this.mTiny2.incxAcceleration(1);
+        //this.mTiny2.incxAcceleration(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
         this.mTiny1.incxAcceleration(-1);
-        this.mTiny2.incxAcceleration(-1);
+        //this.mTiny2.incxAcceleration(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
         this.mTiny1.incParticleSize(1);
-        this.mTiny2.incParticleSize(1);
+        //this.mTiny2.incParticleSize(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
         this.mTiny1.incParticleSize(-1);
-        this.mTiny2.incParticleSize(-1);
+        //this.mTiny2.incParticleSize(-1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.U)) {
         this.mTiny1.incyOffset(1);
-        this.mTiny2.incyOffset(1);
+        //this.mTiny2.incyOffset(1);
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         this.mTiny1.incyOffset(-1);
-        this.mTiny2.incyOffset(-1);
+        //this.mTiny2.incyOffset(-1);
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.M)){
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Q)) {
+            this.mTiny1.incWidth(1);
+            //this.mTiny2.incWidth(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+            this.mTiny1.incWidth(-1);
+            //this.mTiny2.incWidth(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+            this.mTiny1.incyAcceleration(1);
+            //this.mTiny2.incyAcceleration(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+            this.mTiny1.incyAcceleration(-1);
+            //this.mTiny2.incyAcceleration(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
+            this.mTiny1.incLife(1);
+            //this.mTiny2.incLife(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
+            this.mTiny1.incLife(-1);
+            //this.mTiny2.incLife(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.E)) {
+            this.mTiny1.incxVelocity(1);
+            //this.mTiny2.incxVelocity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
+            this.mTiny1.incxVelocity(-1);
+            //this.mTiny2.incxVelocity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+            this.mTiny1.incyVelocity(1);
+            //this.mTiny2.incyVelocity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.F)) {
+            this.mTiny1.incyVelocity(-1);
+            //this.mTiny2.incyVelocity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+            this.mTiny1.incFlicker(1);
+            //this.mTiny2.incFlicker(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.V)) {
+            this.mTiny1.incFlicker(-1);
+            //this.mTiny2.incFlicker(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.T)) {
+            this.mTiny1.incIntensity(1);
+            //this.mTiny2.incIntensity(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Y)) {
+            this.mTiny1.incIntensity(-1);
+            //this.mTiny2.incIntensity(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.G)) {
+            this.mTiny1.incxAcceleration(1);
+            //this.mTiny2.incxAcceleration(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.H)) {
+            this.mTiny1.incxAcceleration(-1);
+            //this.mTiny2.incxAcceleration(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.B)) {
+            this.mTiny1.incParticleSize(1);
+            //this.mTiny2.incParticleSize(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.N)) {
+            this.mTiny1.incParticleSize(-1);
+            //this.mTiny2.incParticleSize(-1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.U)) {
+            this.mTiny1.incyOffset(1);
+            //this.mTiny2.incyOffset(1);
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.I)) {
+            this.mTiny1.incyOffset(-1);
+            //this.mTiny2.incyOffset(-1);
+        }
     }
     if (gEngine.Input.isButtonPressed(0)){
         if (this.mCamera.isMouseInViewport()) {
             this.createXParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
         }
-    }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {            
-        //var r = new RigidCircle(this.mTarget.getXform(), this.mTarget.getXform().getSize() + 10);            
-        //this.r.getRadius();
-        //this.mTarget.setRigidBody(r);
-    }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
-        //var r = new RigidCircle(this.mTarget.getXform(), this.mTarget.getXform().getSize() - 10);
-        //this.mTarget.setRigidBody(r);
-    }
+    }    
+    
     this.updateValue();
     this.MainMenuButton.update();
     this.backButton.update();
     
-    this.wrapParticles();
-    gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mTiny1.getSet());
-    gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mTiny2.getSet());
-    gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mTiny3.getSet());
-    gEngine.ParticleSystem.collideWithRigidSet(this.mAllObjs, this.mTiny4.getSet());   
+    this.driftParticles();    
 };
 
 SFXDemo.prototype.createXParticle = function(atX, atY){
@@ -266,80 +333,49 @@ SFXDemo.prototype.createXParticle = function(atX, atY){
     this.mXParticles.addToSet(p);
 };
 
-SFXDemo.prototype.wrapParticles = function(){    
-    var pSet = this.mTiny1.getSet().mSet;
-    var setLength = pSet.length;    
-    for (var i = 0; i < setLength; i++){
-        this.applyDrift(pSet[i]);
-    }
-    var pSet = this.mTiny2.getSet().mSet;
-    var setLength = pSet.length;    
-    for (var i = 0; i < setLength; i++){
-        this.applyDrift(pSet[i]);
-    }
+SFXDemo.prototype.driftParticles = function(){    
     var pSet = this.mTiny3.getSet().mSet;
-    var setLength = pSet.length;
+    var setLength = pSet.length;    
     for (var i = 0; i < setLength; i++){
-        this.applyTaper(pSet[i]);
+        var pGO = pSet[i];
+        var p = pGO.getParticle();
+        var pPos = p.getPosition();
+        var pOPos = p.getOriginalPosition();
+        var pAccel = p.getAcceleration();
+        var dist = Math.abs(pPos[0] - pOPos[0]);    
+        if(dist % (Math.floor(Math.random()*5)) < 0.1){
+            var test = Math.floor(Math.random()*2);
+            if(test)
+                p.mDriftDir = !p.mDriftDir;
+        }    
+        if(p.mDriftDir){
+            p.setAcceleration([10,pAccel[1]]);
+        }
+        else{
+            p.setAcceleration([-10,pAccel[1]]);
+        }
+        if(p.mParallaxDir){
+            pGO.setSizeDelta(1.0005);
+            pGO.getXform().incYPosBy(-.01);        
+        }
+        else{
+            pGO.setSizeDelta(.999);
+            pGO.getXform().incYPosBy(.01);        
+        }
     }
-    var pSet = this.mTiny4.getSet().mSet;
-    var setLength = pSet.length;
-    for (var i = 0; i < setLength; i++){
-        this.applyTaper(pSet[i]);
-    }
-};
-
-SFXDemo.prototype.applyDrift = function(pGO){
-    var p = pGO.getParticle();
-    var pPos = p.getPosition();
-    var pOPos = p.getOriginalPosition();
-    var pAccel = p.getAcceleration();
-    var dist = Math.abs(pPos[0] - pOPos[0]);    
-    if(dist % (Math.floor(Math.random()*5)) < 0.1){
-        var test = Math.floor(Math.random()*2);
-        if(test)
-            p.mDriftDir = !p.mDriftDir;
-    }    
-    if(p.mDriftDir){
-        p.setAcceleration([10,pAccel[1]]);
-    }
-    else{
-        p.setAcceleration([-10,pAccel[1]]);
-    }
-    if(p.mParallaxDir){
-        pGO.setSizeDelta(1.0005);
-        pGO.getXform().incYPosBy(-.01);        
-    }
-    else{
-        pGO.setSizeDelta(.999);
-        pGO.getXform().incYPosBy(.01);        
-    }
-    if (pPos[0] > 100){
-        pPos[0] = 0;
-    }
-    if (pPos[0] < 0){
-        pPos[0] = 100;
-    }
-};
-
-SFXDemo.prototype.applyTaper = function(pGO){
-    var p = pGO.getParticle();    
-    var pAccel = p.getAcceleration();
-    var v2c = new vec2.fromValues(pAccel[0],(40-p.getYPos())*150);      
-    p.setAcceleration(v2c);   
 };
 
 SFXDemo.prototype.updateValue = function(){
-    document.getElementById("value1").innerHTML = this.mTiny1.getWidth();
-    document.getElementById("value2").innerHTML = this.mTiny1.getyAcceleration();
-    document.getElementById("value3").innerHTML = this.mTiny1.getLife();
-    document.getElementById("value4").innerHTML = this.mTiny1.getxVelocity();
-    document.getElementById("value5").innerHTML = this.mTiny1.getyVelocity();
-    document.getElementById("value6").innerHTML = this.mTiny1.getFlicker();
-    document.getElementById("value7").innerHTML = this.mTiny1.getIntensity();
-    document.getElementById("value8").innerHTML = this.mTiny1.getxAcceleration();
-    document.getElementById("value9").innerHTML = this.mTiny1.getParticleSize();
-    document.getElementById("value10").innerHTML = this.mTiny1.getyOffset();
+    document.getElementById("SEvalue1").innerHTML = this.mTiny1.getWidth();
+    document.getElementById("SEvalue2").innerHTML = this.mTiny1.getyAcceleration();
+    document.getElementById("SEvalue3").innerHTML = this.mTiny1.getLife();
+    document.getElementById("SEvalue4").innerHTML = this.mTiny1.getxVelocity();
+    document.getElementById("SEvalue5").innerHTML = this.mTiny1.getyVelocity();
+    document.getElementById("SEvalue6").innerHTML = this.mTiny1.getFlicker();
+    document.getElementById("SEvalue7").innerHTML = this.mTiny1.getIntensity();
+    document.getElementById("SEvalue8").innerHTML = this.mTiny1.getxAcceleration();
+    document.getElementById("SEvalue9").innerHTML = this.mTiny1.getParticleSize();
+    document.getElementById("SEvalue10").innerHTML = this.mTiny1.getyOffset();
 };
 
 SFXDemo.prototype.backSelect = function(){

@@ -69,6 +69,7 @@
         <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Smoke.js"></script>
         <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Snow.js"></script>
         <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Dust.js"></script>        
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/SubEmitter.js"></script>
         <!-- Shaders -->
         <script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
         <script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
@@ -420,6 +421,66 @@
           </tr>          
         </table>
         </div>
+        <div id="subemitter" style="display: none">
+            <div>Use Left/Right buttons to select which object to manipulate, hold M for coarse adjustment</div>
+        <table>
+          <tr>
+            <th>Controls</th>
+            <th>Description</th> 
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>Q/W</td>
+            <td>Width of the object +/-</td>
+            <td><bdi id="SEvalue1"></bdi></td>
+          </tr>
+          <tr>
+            <td>A/S</td>
+            <td>Vertical Acceleration of Particles +/-</td>
+            <td><bdi id="SEvalue2"></bdi></td>
+          </tr>
+          <tr>
+              <td>Z/X</td>
+              <td>Life of the Particles +/-</td>
+              <td><bdi id="SEvalue3"></bdi></td>
+          </tr>
+          <tr>
+            <td>E/R</td>
+            <td>Setting the Horizontal initial boost of the Particles +/-</td>
+            <td><bdi id="SEvalue4"></bdi></td>
+          </tr>
+          <tr>
+            <td>D/F</td>
+            <td>Setting the Vertical initial boost of the Particles +/-</td>
+            <td><bdi id="SEvalue5"></bdi></td>
+          </tr>
+          <tr>
+            <td>C/V</td>
+            <td>What the particle size is multiplied by every update +/-</td>
+            <td><bdi id="SEvalue6"></bdi></td>
+          </tr>
+          <tr>
+            <td>T/Y</td>
+            <td>How many particles are spawned per update cycle +/-</td>
+            <td><bdi id="SEvalue7"></bdi></td>
+          </tr>
+          <tr>
+            <td>G/H</td>
+            <td>Horizontal Acceleration of the Particles +/-</td>
+            <td><bdi id="SEvalue8"></bdi></td>
+          </tr>
+          <tr>
+            <td>B/N</td>
+            <td>The size of the Particles +/-</td>
+            <td><bdi id="SEvalue9"></bdi></td>
+          </tr>
+          <tr>
+            <td>U/I</td>
+            <td>The Maximum Vertical Offset of the Particles +/-</td>
+            <td><bdi id="SEvalue10"></bdi></td>
+          </tr>          
+        </table>
+        </div> 
         <div id="physics" style="display: none">
             <div style="display: table" >
             <div style="float: left; padding-left: 10px">

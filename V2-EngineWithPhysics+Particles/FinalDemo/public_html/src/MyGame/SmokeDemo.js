@@ -136,9 +136,7 @@ SmokeDemo.prototype.draw = function () {
 // anything from this function!
 SmokeDemo.kBoundDelta = 0.1;
 SmokeDemo.prototype.update = function () {
-    gEngine.ParticleSystem.update(this.mAllSmoke);
-    // create particles    
-    
+    gEngine.ParticleSystem.update(this.mAllSmoke);    
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
         this.mCurrentObj -= 1;
         if (this.mCurrentObj < this.mFirstObject)
