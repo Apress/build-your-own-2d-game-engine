@@ -17,18 +17,23 @@
  * @param {float} xAcceleration The horizontal acceleration for the smoke paritcles
  * @param {float} size The size for the smoke paritcles
  * @param {float} yOffset The maximum vertical offset for the smoke paritcles
+ * @param {float} rVal red color value for smoke particle system
+ * @param {float} gVal green color value for smoke particle system
+ * @param {float} bVal blue color value for smoke particle system
+ * @param {float} aVal alpha color value for smoke particle system
+ * @param {float} colorShift value applied to RGB values for multi-colorizing effect
  * @returns {Smoke} New instance of Smoke object
  * @type Smoke
  * @class Smoke
  */
-function Smoke(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset){
+function Smoke(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, rVal, gVal, bVal, aVal, colorShift){
     ParticleSystem.call(this, "assets/ParticleSystem/smokeparticle.png", xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, [0,0,0,1], [1,1,1,1], 1);
     this.setSizeBase(3.5);
-    this.rVal = .05;
-    this.gVal = .05;
-    this.bVal = .05;
-    this.aVal = 1;
-    this.colorShift = 0;
+    this.rVal = rVal;
+    this.gVal = gVal;
+    this.bVal = bVal;
+    this.aVal = aVal;
+    this.colorShift = colorShift;
 };
 
 gEngine.Core.inheritPrototype(Smoke,ParticleSystem);
