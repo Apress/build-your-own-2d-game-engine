@@ -122,5 +122,8 @@ void main(void)  {
     vec3 r = vec3(lgtResults) * (1.0-uPixelColor.a) + vec3(uPixelColor) * uPixelColor.a;
     vec4 result = vec4(r, textureMapColor.a);
 
+     if (result.a < 0.01) // rather tarsparent
+        discard;
+
     gl_FragColor = result;
 }

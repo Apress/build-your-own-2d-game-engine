@@ -66,9 +66,15 @@ UIButton.prototype.getText = function() {
 UIButton.prototype.draw = function (aCamera) {
     if(this.mVisible)
     {
-        gEngine.Stencil.startStenciling(this.mStencil, aCamera);
+        gEngine.Stencil.beginDrawToStencilBuffer();
+        gEngine.Stencil.clearStencilBuffer();
+        this.mStencil.draw(aCamera);
+        gEngine.Stencil.endDrawToStencilBuffer();
+        
+        gEngine.Stencil.beginStencilCulling();
         this.mBg.draw(aCamera);
-        gEngine.Stencil.stopStenciling();
+        gEngine.Stencil.endStencilCulling();
+        
         if(this.mText !== null)
             this.mText.draw(aCamera);
     }
