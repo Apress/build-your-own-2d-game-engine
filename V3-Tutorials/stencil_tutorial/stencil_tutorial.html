@@ -19,28 +19,63 @@
         
 		
 	<hr>
-		<h2><a id="resolution"></a>Stencil</h2>
-		<p>There are two functions that need to be used in order to stencil: startStenciling and stopStenciling.</p>
-		<p>To start stenciling, we need a renderable that will be used as a stencil and the camera we are drawing to.
-		The stencil can be a regular, texture or sprite renderable.
-		Any draw call to the same camera between startStenciling and stopStenciling will be stenciled.
-		The stencil uses the alpha channel of the given renderable. Any white area in a sprite's alpha channel will be drawn while any black area will not be drawn.</p>
-        
-
+		<h2><a id="Stencil"></a>Stencil</h2>
+		<p>There are 4 functions needed in order to stencil.</p>
+		<p>First thing to note is that the stencil uses the alpha channel of the given renderable. Any white area in a sprite's alpha channel will be
+		drawn while any black area will not be drawn.</p>
+		<p>To start, we will need to clear the stencil buffer using clearStencilBuffer. This can be called before or after beginDrawToStencilBuffer.</p>
+		<p>In order to stencil, we need to draw a renderable to the stencil buffer by calling calling beginDrawToStencilBuffer,
+		then calling the renderable's draw function, and then endDrawToStencilBuffer. Any renderable whose draw call is between begin and endDrawToStencilBuffer
+		will <i>only</i> be drawn to the stencil buffer and will <i>not</i> appear on screen.</p>
+		<p>To stencil a renderable, we use beginStencilCulling and endStencilCulling. Any renderable whose draw call is between these two functions will be
+		stenciled based on the renderable(s) drawn into the stencil buffer. In order for a renderable to be stenciled, it <i>must</i> be called between these two functions.</p>
+		<p><b>Important Note:</b> be sure to use the functions beginDrawToStencilBuffer and endDrawToStencilBuffer together as well as beginStencilCulling and
+		endStencilCulling.</p>
+		
+		<p></p>
+		
+		<p><figure>
+        	<img src="images/barWithoutStencil.png" width="492" height="52" alt=""/>
+			<figcaption>UIBar without using a stencil</figcaption>
+            </figure>
+			</p>
+		<p><figure>
+        	<img src="images/BarStencil.png" width="512" height="64" border="1" alt=""/>
+			<figcaption>UIBar's stencil (border added to show full image area)</figcaption>
+            </figure>
+			</p>
+		<p><figure>
+        	<img src="images/barWithStencil.png" width="497" height="51" alt=""/>
+			<figcaption>UIBar using a stencil</figcaption>
+            </figure>
+			</p>
+		
+		<p></p>
+		
 		<figure>
-		<pre>MyGameScene.prototype.draw = function () {
-	// Clear the screen
-	gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
-	
-	this.mCamera.setupViewProjection();
-    
-	<strong>
-	gEngine.Stencil.startStenciling(this.mStencil, this.mCamera);
-	this.mBg.draw(this.mCamera);
-	gEngine.Stencil.stopStenciling();
+		<pre>UIBar.prototype.draw = function(aCamera) {
+    if(this.mVisible) {
+        gEngine.Stencil.beginDrawToStencilBuffer();
+        gEngine.Stencil.clearStencilBuffer();
+        this.mStencil.draw(aCamera);					// a UISprite variable in UIBar
+        gEngine.Stencil.endDrawToStencilBuffer();
+        
+		// any draw call here would not be stenciled,
+		// stenciling is ONLY done between begin and endStencilCulling
+		
+        gEngine.Stencil.beginStencilCulling();
+        if(this.mBgVisible){							
+            this.mBg.draw(aCamera); 					// a UISprite variable in UIBar
+        }
+        if(this.mMidVisible) {
+            this.mMidValElem.draw(aCamera);				// a UISprite variable in UIBar
+        }
+        this.mTopValElem.draw(aCamera);					// a UISprite variable in UIBar
+        gEngine.Stencil.endStencilCulling();
+    }
 };</pre>
 		<figcaption class="codecaption">
-		  <p>Draw Function with Stenciling</p>
+		  <p>Example Draw Function with Stenciling (as used in UIBar)</p>
 		</figcaption>
         </figure>
 
@@ -51,6 +86,6 @@
 		This is used in multiple UI elements such as the Button and Bar.</p>
         
 	</div>
-    <h4><i>5/27/2019</i> - Kyla NeSmith</h4>
+    <h4><i>6/1/2019</i> - Kyla NeSmith</h4>
     </body>
 </html>

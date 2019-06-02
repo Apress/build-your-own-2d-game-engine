@@ -171,7 +171,6 @@ UIDemo.prototype.draw = function () {
 UIDemo.prototype.update = function () {
     if(this.demoSelect===1||this.demoSelect===6){
         this.Slider.update();
-        gEngine.AudioClips.setBackgroundVolume(this.Slider.getCurrentValue());
         this.Bar.update();
         this.Bar2.update();
         this.UIButton1.update();
