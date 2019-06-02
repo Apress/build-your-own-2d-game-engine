@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/linda/Documents/2D_GameEngine/build-your-own-2d-game-engine/V3-Engine/public_html/src/Engine/Core/Engine_Stencil.js</file>
-            <file>file:/C:/Users/linda/Documents/2D_GameEngine/build-your-own-2d-game-engine/V3-Engine/public_html/src/Engine/UI/UIBar.js</file>
-            <file>file:/C:/Users/linda/Documents/2D_GameEngine/build-your-own-2d-game-engine/V3-Engine/public_html/src/GLSLShaders/UnlitTextureFS.glsl</file>
-            <file>file:/C:/Users/linda/Documents/2D_GameEngine/build-your-own-2d-game-engine/V3-Engine/public_html/src/Engine/UI/UIButton.js</file>
+            <file>file:/E:/Linda/Documents/2DGameEngine/build-your-own-2d-game-engine/V3-Engine/public_html/src/Engine/UI/UIBar.js</file>
+            <file>file:/E:/Linda/Documents/2DGameEngine/build-your-own-2d-game-engine/V3-Engine/public_html/src/Engine/Core/Resources/Engine_AudioClips.js</file>
+            <file>file:/E:/Linda/Documents/2DGameEngine/build-your-own-2d-game-engine/V3-Engine/public_html/src/MyGame/UIDemo.js</file>
         </group>
     </open-files>
 </project-private>
