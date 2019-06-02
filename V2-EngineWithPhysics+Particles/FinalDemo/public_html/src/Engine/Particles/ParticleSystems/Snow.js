@@ -59,6 +59,7 @@ Snow.prototype.update = function(){
     this.wrapParticles();
 };
 
+
 Snow.prototype.wrapParticles = function(){    
     var pSet = this.getSet().mSet;
     var setLength = pSet.length;    
