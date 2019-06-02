@@ -30,7 +30,7 @@ function SFXDemo() {
     this.backButton = null;
     this.MainMenuButton = null;
     this.mDrawRigidShape = true;
-    this.r = null;
+    this.flip = true;
 }
 gEngine.Core.inheritPrototype(SFXDemo, Scene);
 
@@ -283,11 +283,14 @@ SFXDemo.prototype.update = function () {
     
     if (gEngine.Input.isButtonPressed(0)){
     if (this.mCamera.isMouseInViewport()) {
-        this.createXParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
+        if(this.flip){
+            this.createXParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
+        }
+        this.flip = !this.flip;
     }}
     
     var p = obj.getPos();
-    p[1] += 20;
+    p[1] += 5;
     this.mTarget.getXform().setPosition(p[0], p[1]);
     this.updateValue(obj);
     this.MainMenuButton.update();

@@ -71,7 +71,7 @@ SmokeDemo.prototype.initialize = function () {
         100,                     // width of camera
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.5, 0.5, 0.5, 1]);
+    this.mCamera.setBackgroundColor([0.2, 0.2, 0.2, 1]);
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
@@ -117,7 +117,7 @@ SmokeDemo.prototype.initialize = function () {
 // importantly, make sure to _NOT_ change any state.
 SmokeDemo.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.5, 0.5, 0.5, 1.0]); // clear to light gray
+    gEngine.Core.clearCanvas([0.2, 0.2, 0.2, 1.0]); // clear to light gray
 
     this.mCamera.setupViewProjection();
     
