@@ -13,7 +13,7 @@
 
 function DustDemo() {
     this.kUIButton = "assets/UI/button.png";
-
+    this.kTargetTexture = "assets/Smoke/target.png";
     // The camera to view the scene
     this.mCamera = null;
     this.LevelSelect = null;
@@ -29,6 +29,7 @@ function DustDemo() {
     
     this.mXParticles = null;
     
+    this.mTarget = null;
     this.backButton = null;
     this.MainMenuButton = null;
     
@@ -43,11 +44,13 @@ gEngine.Core.inheritPrototype(DustDemo, Scene);
 
 DustDemo.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kUIButton);
+    gEngine.Textures.loadTexture(this.kTargetTexture);
     document.getElementById("dust").style.display="block";
 };
 
 DustDemo.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kUIButton);
+    gEngine.Textures.unloadTexture(this.kTargetTexture);
     document.getElementById("dust").style.display="none";
     if(this.LevelSelect==="Back")
         gEngine.Core.startScene(new ParticleLevel());
@@ -76,6 +79,11 @@ DustDemo.prototype.initialize = function () {
     
     this.mXParticles = new ParticleGameObjectSet();  
     
+    var r = new TextureRenderable(this.kTargetTexture);
+    this.mTarget = new GameObject(r);
+    var xf = r.getXform();
+    xf.setZPos(2);
+    xf.setSize(3, 3);
     this.backButton = new UIButton(this.kUIButton,this.backSelect,this,[80,580],[160,40],"Go Back",4,[1,1,1,1],[1,1,1,1]);
     this.MainMenuButton = new UIButton(this.kUIButton,this.mainSelect,this,[700,580],[200,40],"Main Menu",4,[1,1,1,1],[1,1,1,1]);
 };
@@ -89,7 +97,7 @@ DustDemo.prototype.draw = function () {
        
     this.mAllDust.draw(this.mCamera);
     this.mXParticles.draw(this.mCamera);
-    
+    this.mTarget.draw(this.mCamera);
     this.MainMenuButton.draw(this.mCamera);
     this.backButton.draw(this.mCamera);
 };
@@ -235,7 +243,10 @@ DustDemo.prototype.update = function () {
             obj.incyOffset(-1);
         }
     }
-    
+    var p = obj.getPos();
+    p[0] += 25;
+    p[1] += 20;
+    this.mTarget.getXform().setPosition(p[0], p[1]);
     this.updateValue(obj);
     this.MainMenuButton.update();
     this.backButton.update();
@@ -309,14 +320,6 @@ DustDemo.prototype.createDParticle = function(atX, atY){
     p.setSizeDelta(1.0+Math.random()*0.01);
     this.mXParticles.addToSet(p);
             
-//    var pSet = this.mDust1.getSet().mSet;
-//    var setLength = pSet.length;    
-//    for(var i = 0; i < setLength; i++){
-//        var particle = pSet[i].getParticle();
-//        var pPos = pSet[i].getParticle().getPosition();        
-//        var pVec = new vec2.fromValues(pPos[0]-XYPos[0],pPos[1]-XYPos[1]);                
-//        particle.setVelocity([pVec[0]*2,pVec[1]*2]);      
-//    }
 };
 
 DustDemo.prototype.createXParticle = function(atX, atY){

@@ -17,9 +17,8 @@
 		<p>The ParticleSystem will allow to easily create and manipulate a permanent particle emitter of your choosing.</p>
 		<p>Currently, there are 5 Particle presets to choose from. Fire, Smoke, Snow, Dust, and Subemitters.</p>
 		<p>This tutorial will explain how to control the stock ParticleSystem, with specific details for different presets.</p>
-		<p><strong>Flame Exapmles</strong>: <a href="#Torch_Flame">Torch Flame</a> • <a href="#Pillar_Flame">Pillar Flame</a> • <a href="#Volcano_Flame">Volcano Flame</a></p>
-		<p>You can download the source code from here. <a href="FireDemo.zip">Fire</a>, <a href="SmokeDemo.zip">Smoke</a>, and <a href="SnowDemo.zip">Snow</a>.</p>
-		<p>You can try the demo for the ParticleSystems here. <a href="FireDemo/public_html/index.html">Fire</a>, <a href="SmokeDemo/public_html/index.html">Smoke</a>, and <a href="SnowDemo/public_html/index.html">Snow</a>.</p>                       
+		<p><strong>Flame Examples</strong>: <a href="#Torch_Flame">Torch</a> • <a href="#Pillar_Flame">Pillar</a> • <a href="#Volcano_Flame">Volcano</a></p>		
+		<p>You can try the demo for the ParticleSystems <a href="FireDemo/public_html/index.html">here</a>.</p>                       
 	<hr>
 		<h2><a id="Fire_Structure"></a>Structure of Fire class</h2>
 		<pre>MyGame.prototype.initialize = function(){
@@ -137,11 +136,11 @@
 			</tr>
 			<tr>
 				<td>Flicker</td>
-				<td>4</td>
+				<td>3</td>
 			</tr>
 			<tr>
 				<td>Intensity</td>
-				<td>1</td>
+				<td>6</td>
 			</tr>
 			<tr>
 				<td>xAcceleration</td>
@@ -149,7 +148,7 @@
 			</tr>
 			<tr>
 				<td>Size</td>
-				<td>2.5</td>
+				<td>0.5</td>
 			</tr>
 			<tr>
 				<td>yOffset</td>
@@ -157,16 +156,20 @@
 			</tr>
                         <tr>
 				<td>emberSelection</td>
-				<td>25</td>
+				<td>10</td>
 			</tr>
                                                 <tr>
 				<td>taperSelection</td>
-				<td>75</td>
+				<td>0</td>
 			</tr>
 		</table>
 		<figure>
         	<figcaption>The parameter values for a basic fire.</figcaption>
         </figure>
+        <p><figure>
+        	<img src="images/Basic_Flame.png" width="169" height="304" alt=""/>
+				<figcaption>Flame created with the above parameters.</figcaption>
+	</figure>
         <p>Now, let’s get into a bit more detail with these parameters.</p>
 	<hr>
 		<h2><a id="Fire_Width"></a>Width(xOffset)</h2>
@@ -179,7 +182,7 @@
 		<h2><a id="Fire_Life"></a>Life</h2>
 		<p>How long the particles will exist. Useful for giving bigger fire particles more time to naturally fade, or for controlling the size of more intense fires. It is prudent to minimize particle life to ensure maximum frame rates.</p>
 		<p><figure>
-        	<img src="images/Life_Comparison.png" width="401" height="456" alt=""/>
+        	<img src="images/Life_Comparison.png" width="282" height="618" alt=""/>
 				<figcaption>The one on the right has 1/4th the life of the left one. The particles for the right fire don’t pass the screen due to that.</figcaption>
 			</figure>
         </p>
@@ -187,7 +190,7 @@
 		<h2><a id="Fire_Velocity"></a>Velocity</h2>
 		<p>Values governing particle speeds in the X and Y directions. The velocity variables are useful for creating unusual fires. Take this image for example.</p>
 		<p><figure>
-        	<img src="images/xVelocity_Comparison.png" width="520" height="157" alt=""/>
+        	<img src="images/xVelocity_Comparison.png" width="413" height="275" alt=""/>
 				<figcaption>The xVelocity for the left fire is 10.</figcaption>
 			</figure>
         </p>
@@ -198,7 +201,7 @@
 		<h2><a id="Fire_Flicker"></a>Flicker</h2>
 		<p>By increasing this parameter, particles will shrink faster. which means that particles have less of that white center to them. The fire itself will also appear to be shorter due to the particles shrinking faster. The fire to the right is an example of this.</p>
 		<p><figure>
-        	<img src="images/Flicker_Comparison.png" width="373" height="109" alt=""/>
+        	<img src="images/Flicker_Comparison.png" width="358" height="277" alt=""/>
 				<figcaption>The effects that increasing the flicker by 8 will have.</figcaption>
 			</figure>
         </p>
@@ -207,21 +210,17 @@
 		<h2><a id="Fire_Intensity"></a>Intensity</h2>
 		<p>The number of particles created every update cycle. As you increase this parameter the fire becomes denser with particles and thus whiter. It is also prudent to minimize this value to ensure maximum frame rates.</p>
 		<p><figure>
-        	<img src="images/Intensity_Comparison.png" width="380" height="139" alt=""/>
+        	<img src="images/Intensity_Comparison.png" width="355" height="292" alt=""/>
 				<figcaption>The effects of increasing the intensity by 5.</figcaption>
 			</figure>
         </p>
 		<p>This parameter is also very important when increasing the width and height of the fires. Increasing the offset merely increase the horizontal/vertical range where particles can spawn. Without an increase in intensity as well, you lose the fire effect and will instead just look like a bunch of particles spawning at random points. </p>
-		<p><figure>
-        	<img src="images/Width_Comparison.png" width="499" height="120" alt=""/>
-				<figcaption>An example of this effect.</figcaption>
-			</figure>
         </p>
 	<hr>
 		<h2><a id="Fire_Size"></a>Size</h2>
 		<p>Increasing the particle’s size will also cause the base of the flame to be bigger and will make the red part of the flame’s base more apparent.</p>
 		<p><figure>
-        	<img src="images/Size_Comparison.png" width="384" height="144" alt=""/>
+        	<img src="images/Size_Comparison.png" width="351" height="285" alt=""/>
 				<figcaption>The right flame has its size increased by 8.</figcaption>
 			</figure>
         </p>
@@ -229,7 +228,7 @@
 		<h2><a id="Fire_yOffset"></a>yOffset</h2>
 		<p>This is similar to xOffset but instead is for the vertical range. There is a difference in how the vertical offset is calculated per particle. Rather than using a base number, it just takes a random percentage of the yOffset and makes that the vertical offset of that particle. Because of that, the higher the value is, the less consistent the base of the system becomes.</p>
 		<p><figure>
-        	<img src="images/yOffset_Comparison.png" width="380" height="385" alt=""/>
+        	<img src="images/yOffset_Comparison.png" width="338" height="477" alt=""/>
 				<figcaption>The right flame has a larger yOffset.</figcaption>
 			</figure>
         </p>
@@ -577,7 +576,7 @@
         	<figcaption>The parameter values for snow.</figcaption>
         </figure>	
 		<p>The most important variable is life as to have falling particles that don't disappear en mass randomly,
-		the particles need to have a long life. This system in particular wraps the particles from one edge of the screen to the other so you can apply this effect to an entire scene and adjust the horizontal velocity to mimic a gusty storm. The snow system handles particle size adjustment making some smaller over time and some larger over time. Snow particles are assigned z-values 1, 3, or 5 depending on their spin, which can be useful to create layered scenes with some snow falling behind or in front of certain game-objects depending on their z-position. Remember to alter your game object's z-position if you wish to create this effect. Also note the particle behavior change when they hit the platform level. This is done by accessing the system's particle set with the getSet() method (a member of all particle systems).</p>
+		the particles need to have a long life. This system in particular wraps the particles from one edge of the screen to the other so you can apply this effect to an entire scene and adjust the horizontal velocity to mimic a gusty storm. The snow system handles particle size adjustment making some smaller over time and some larger over time. Snow particles are assigned z-values 1, 3, or 5 depending on their spin, which can be useful to create layered scenes with some snow falling behind or in front of certain game-objects depending on their z-position. Remember to alter your game object's z-position if you wish to create this effect. Also note the particle behavior change when they hit the platform level. This is done by accessing the system's particle set with the getSet() method (a member of all particle systems). If you wish to alter the height at which the particles alter their behavior, please examine the Snow.js code for more details.</p>
         <hr>
 	<h2>Dust</h2>
         <pre>MyGame.prototype.initialize = function(){
@@ -587,7 +586,8 @@
             	<figcaption>Constructor header for Dust.</figcaption>
             </figure>
         </p>
-	<p>Info Holder.</p>
+	<p>The dust system functions much like the stock system, with 2 notable exceptions. Particles from this system fade in from no tinting to create the illusion of depth and there is a slight random velocity applied to all to enhance their drift. The system example in the top right mimics dust motes floating in front of a camera for a cinematic feel. This example has an intensity of 1, but for a cleaner look, you could modify the createParticle() function in the system to operate like a SubEmitter system, with less than 1 particle being generated every update. The bottom left example could be used to show dandelion or cotton blossoms rising gently from a breezy field.</p>
+        <p>The other examples cannot be created using the constant emitter system and must be programmed in the scene. The top left effect is created by creating a dust particle on every update at the location of a target object. This could be used if you have an object that kicks up dust as it moves. The bottom right could be used to demonstrate an impact effect of an object falling or exploding (depending on perspective). The effect is created by creating three differently textured particles at the same time at the same spot and tuning each with different size deltas and life values. Please examine the DustDemo.js code for greater detail about these effects. </p>
     <p>Here's the variables for dust.</p>
 	<p>
 		<figure>
@@ -649,7 +649,7 @@
             	<figcaption>Constructor header for SubEmitter.</figcaption>
             </figure>
         </p>
-	<p>The SubEmitter class creates an effect by creating a new particle when a particle from the main emitter has died. The life and size delta of the new particle can be specified in the system constructor.</p>
+	<p>The SubEmitter class creates an effect by creating a new particle when a particle from the main emitter has died. The life and size delta of the new particle can be specified in the system constructor as well as whether or not the subparticle inherits the velocity and acceleration from the main particle. Turning off the physical inheritance is useful for creating explosive effects, but you may want to have the subparticle keep the physics of the main particle for projectile like effects. You can also specify desired colors for both the main and sub particles.</p>
         <p><b>Note: </b> This system does not supply default textures! You must specify textures for the main and sub particles!</p>
     <p>Here's the variables for the firework subemitter.</p>
 	<p>
@@ -731,12 +731,12 @@
 		<figure>
         	<figcaption>The parameter values for fireworks subemitter.</figcaption>
         </figure>	
-		<p></p>
+		<p><p><b>Note: </b> Click (or hold the mouse button at your own risk) in the viewport of this demo for scene based subemitter effect. Please examine the SFXDemo.js code for more details about this effect.</p></p>
 		<hr>
 	<h2>Conclusion</h2>
-        <p>This particle system will allow for the creation of fire, smoke, dust, and snow for the usage in game scenes. With the knowledge you gained from this tutorial, you’re now capable of finding further applications for the ParticleSystem.</p>
+        <p>The particle system will allow for the creation of fire, smoke, dust, snow, fireworks, or any other effects you can think of for your game scenes. With the knowledge gained from this tutorial, you’re now capable of finding further applications for the ParticleSystem.</p>
 	</div>
             <h4><i>6/20/2018</i> - Akilas Mebrahtom</h4>
-            <h4><i>5/29/2018</i> - Donald Hawkins</h4>
+            <h4><i>5/29/2019</i> - Donald Hawkins</h4>
     </body>
 </html>

@@ -83,7 +83,7 @@ SmokeDemo.prototype.initialize = function () {
     this.mCurrentObj = this.mFirstObject;
     
     var m;    
-    m=new Smoke(75,7,20,2,60,0,5,1,9,0,2.5,7,.1,.2,.1,1,.01);
+    m=new Smoke(75,7,20,2,60,0,5,1,9,0,2.5,7,.1,.2,.1,1,.09);
     this.mAllSmoke.addToSet(m);
     
     m=new Smoke(18.5,10,0,10,5,0,5,.9,2,0,-0.5,1,.5,.5,.5,1,0);

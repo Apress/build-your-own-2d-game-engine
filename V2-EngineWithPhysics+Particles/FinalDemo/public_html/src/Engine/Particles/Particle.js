@@ -27,11 +27,11 @@ function Particle(pos) {
     
     this.mPositionMark = new LineRenderable();
     this.mDrawBounds = false;
-    this.mDriftDir = Math.floor(Math.random()*2);
-    this.mSpin1 = Math.floor(Math.random()*2);
-    this.mSpin2 = Math.floor(Math.random()*2);
-    this.mParallaxDir = Math.floor(Math.random()*3);
-    this.mRotationVal = Math.floor(Math.random()*100);
+    this.mDriftDir = Math.floor(Math.random()*2); //bool for selection
+    this.mSpin1 = Math.floor(Math.random()*2);    //bool for selection
+    this.mSpin2 = Math.floor(Math.random()*2);    //bool for selection
+    this.mParallaxDir = Math.floor(Math.random()*3); //range for z positioning
+    this.mRotationVal = Math.floor(Math.random()*100); //used for individual particle rotation & gradient selection of particles
 }
 
 /**

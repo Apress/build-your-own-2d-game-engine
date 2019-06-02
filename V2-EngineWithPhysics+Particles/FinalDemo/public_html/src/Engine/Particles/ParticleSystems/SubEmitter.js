@@ -25,7 +25,7 @@
  * @param (color) subFinalColor Final color of sub emitter particles
  * @param (bool)  physInherit Bool indicating whether or not subparticles inherit velocity/acceleration
  * @param (float) subParticleLife Life value in frames for subparticles
- * * @param (float) subParticleSizeDelta sizeDelta value to be applied to subparticles
+ * @param (float) subParticleSizeDelta sizeDelta value to be applied to subparticles
  * @returns {SubEmitter} New instance of SubEmitter object
  * @type SubEmitter
  * @class SubEmitter
@@ -76,7 +76,7 @@ SubEmitter.prototype.update = function(){
 };
 
 /**
- * Draws the particles on the camera passed in the argument
+ * Draws the particles on the camera passed in the argument for both main and sub particles
  * @param {Camera} aCamera the camera to be viewed on
  * @memberOf ParticleSystem
  */
@@ -85,6 +85,10 @@ SubEmitter.prototype.draw = function(aCamera){
     this.mSubParticles.draw(aCamera);
 };
 
+/**
+ * Checks for main particle death condition 
+ * @memberOf SubEmitter
+ */
 SubEmitter.prototype.handleSubEmissions = function(){
     var pSet = this.getSet().mSet;
     var setLength = pSet.length;
@@ -97,6 +101,13 @@ SubEmitter.prototype.handleSubEmissions = function(){
     }
 };
 
+/**
+ * Instantiates subparticles
+ * @param {float} atX X position of particle to be created
+ * @param {float} atY Y position of particle to be created
+ * @param (particle) mP main particle reference to inherit physics from
+ * @memberOf ParticleSystem
+ */
 SubEmitter.prototype.createSubParticle = function(atX, atY, mP){
     var p = new ParticleGameObject(this.SubParticleTexture, atX, atY, this.subParticleLife);
     p.mDeltaColor = this.subStartColor;
@@ -116,16 +127,58 @@ SubEmitter.prototype.createSubParticle = function(atX, atY, mP){
     }
     // size delta
     p.setSizeDelta(this.subParticleSizeDelta);    
-    this.mSubParticles.addToSet(p);
-        
-//    var p = new ParticleGameObject("assets/ParticleSystem/shock2.png", atX, atY, 10);
-//    p.getRenderable().setColor([1, 1, 1, 1]);    
-//    // size of the particle
-//    var r = 1;
-//    p.getXform().setSize(r, r);    
-//    p.getParticle().setVelocity([0, 0]);
-//    p.getParticle().setAcceleration([0,0]);
-//    // size delta
-//    p.setSizeDelta(.99);
-//    this.mSubParticles.addToSet(p);
+    this.mSubParticles.addToSet(p);        
+};
+
+/**
+ * Adjust whether subparticle inherits main particle's physics
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.setPhysInherit = function(){
+    this.physInherit = !this.physInherit;
+};
+
+/**
+ * Adjust subparticle life value
+ * @param {float} val inc how much to increment by
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.setSubParticleLife = function(val){
+    this.subParticleLife += val;
+};
+
+/**
+ * Adjust subparticle sizeDelta value
+ * @param {float} val inc how much to increment by
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.setSubParticleSizeDelta = function(val){
+    this.subParticleSizeDelta += val;
+};
+
+/**
+ * Get the state of subparticle physical inheritance
+ * @returns {bool} this.physInherit
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.getPhysInherit = function(){
+    return this.physInherit;
+};
+
+/**
+ * Get the subparticle life value
+ * @returns {float} this.subParticleLife
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.getSubParticleLife = function(){
+    return this.subParticleLife;
+};
+
+/**
+ * Get the subparticle size delta value
+ * @returns {float} this.subParticleSizeDelta
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.getSubParticleSizeDelta = function(){
+    return this.subParticleSizeDelta.toFixed(2);
 };
