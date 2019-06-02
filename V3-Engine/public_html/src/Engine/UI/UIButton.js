@@ -66,9 +66,15 @@ UIButton.prototype.getText = function() {
 UIButton.prototype.draw = function (aCamera) {
     if(this.mVisible)
     {
-        gEngine.Stencil.startStenciling(this.mStencil, aCamera);
+        gEngine.Stencil.beginDrawToStencilBuffer();
+        gEngine.Stencil.clearStencilBuffer();
+        this.mStencil.draw(aCamera);
+        gEngine.Stencil.endDrawToStencilBuffer();
+        
+        gEngine.Stencil.beginStencilCulling();
         this.mBg.draw(aCamera);
-        gEngine.Stencil.stopStenciling();
+        gEngine.Stencil.endStencilCulling();
+        
         if(this.mText !== null)
             this.mText.draw(aCamera);
     }
@@ -128,7 +134,7 @@ UIButton.prototype.setTextString = function(text) {
  */
 UIButton.prototype.setTextColor = function(color) {
     this.mTextColor = color;
-    this.mText.setcolor(color);
+    this.mText.setColor(color);
 };
 
 /**
@@ -173,7 +179,7 @@ UIButton.prototype.setBGColor = function(color) {
  * @param {float[]} color The desired Color for when the background is hovered over
  * @memberOf UIButton
  */
-UIButton.prototype.setBGHovercolor = function(color) {
+UIButton.prototype.setBGHoverColor = function(color) {
     this.mBgHoverColor = color;
 };
 
@@ -184,6 +190,15 @@ UIButton.prototype.setBGHovercolor = function(color) {
  */
 UIButton.prototype.setBGClickColor = function(color) {
     this.mBgClickColor = color;
+};
+
+/**
+ * Sets the sprite to be used for the Stencil
+ * @param {String} stencilSprite Location of the Sprite to be used for Stenciling
+ * @memberOf UIButton
+ */
+UIButton.prototype.setStencil = function(stencilSprite) {
+    this.mStencil.setTexture(stencilSprite);
 };
 
 /**

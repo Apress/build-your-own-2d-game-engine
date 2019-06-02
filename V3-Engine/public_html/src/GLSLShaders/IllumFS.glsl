@@ -157,6 +157,8 @@ void main(void)  {
     // tint the textured area, and leave transparent area as defined by the texture
     vec3 tintResult = vec3(shadedResult) * (1.0-uPixelColor.a) + vec3(uPixelColor) * uPixelColor.a;
     vec4 result = vec4(tintResult, textureMapColor.a);
+    if (result.a < 0.01) // rather tarsparent
+        discard;
 
     gl_FragColor = result;
 }

@@ -64,7 +64,12 @@ gEngine.Core.inheritPrototype(UIBar, UIElement);
  */
 UIBar.prototype.draw = function(aCamera) {
     if(this.mVisible) {
-        gEngine.Stencil.startStenciling(this.mStencil, aCamera);
+        gEngine.Stencil.beginDrawToStencilBuffer();
+        gEngine.Stencil.clearStencilBuffer();
+        this.mStencil.draw(aCamera);
+        gEngine.Stencil.endDrawToStencilBuffer();
+        
+        gEngine.Stencil.beginStencilCulling();
         if(this.mBgVisible){
             this.mBg.draw(aCamera);
         }
@@ -72,7 +77,7 @@ UIBar.prototype.draw = function(aCamera) {
             this.mMidValElem.draw(aCamera);
         }
         this.mTopValElem.draw(aCamera);
-        gEngine.Stencil.stopStenciling();
+        gEngine.Stencil.endStencilCulling();
     }
 };
 

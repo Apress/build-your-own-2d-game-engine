@@ -19,11 +19,6 @@ void main(void)  {
     vec4 c = texture2D(uSampler, vec2(vTexCoord.s, vTexCoord.t));
     // 
     
-    // for stenciling: discard any alpha value equal to 0
-    if(c.a == 0.0) {
-        discard;
-    }
-    
     // different options:
     // e.g.  tint the transparent area also
     // vec4 result = c * (1.0-uPixelColor.a) + uPixelColor * uPixelColor.a;
@@ -38,5 +33,7 @@ void main(void)  {
     // or: simply multiply pixel color with texture color
     // vec4 result = c * uPixelColor;
 
+    if (result.a < 0.01) // rather transparent
+            discard;
     gl_FragColor = result;
 }

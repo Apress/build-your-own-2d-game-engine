@@ -207,6 +207,15 @@ UISlider.prototype.setTextColor = function(c) {
 };
 
 /**
+ * Sets the size of the Text
+ * @param {float} val The desired  of the Text
+ * @memberOf UISlider
+ */
+UISlider.prototype.setTextSize = function(val) {
+    this.mText.setTextHeight(val);
+};
+
+/**
  * Sets whether the Text should be visible
  * @param {bool} b Should the Text be shown
  * @memberOf UISlider
