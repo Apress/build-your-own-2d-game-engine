@@ -12,8 +12,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function ParticleLevel() {
-    //this.kUIButton = "assets/UI/button.png";
-    this.kUIButton = "assets/UI/SimpleButton.png";
+    this.kUIButton = "assets/UI/button.png";
     
     // The camera to view the scene
     this.mCamera = null;
@@ -21,6 +20,8 @@ function ParticleLevel() {
     this.FireButton = null;
     this.SmokeButton = null;
     this.SnowButton = null;
+    this.DustButton = null;
+    this.SFXButton = null;
     this.BackButton = null;
     this.UIText = null;
 }
@@ -42,9 +43,15 @@ ParticleLevel.prototype.unloadScene = function () {
     else if(this.LevelSelect==="Snow"){
         gEngine.Core.startScene(new SnowDemo());
     }
+    else if(this.LevelSelect==="Dust"){
+        gEngine.Core.startScene(new DustDemo());
+    }
+    else if(this.LevelSelect==="SFX"){
+        gEngine.Core.startScene(new SFXDemo());
+    }
     else if(this.LevelSelect==="Back"){
         gEngine.Core.startScene(new MyGame());
-    }
+    }    
 };
 
 ParticleLevel.prototype.initialize = function () {
@@ -58,10 +65,13 @@ ParticleLevel.prototype.initialize = function () {
             // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
-    this.FireButton = new UIButton(this.fireSelect,this,[400,400],[450,100],"Fire Demo",8);
-    this.SmokeButton = new UIButton(this.smokeSelect,this,[400,300],[450,100],"Smoke Demo",8);
-    this.SnowButton = new UIButton(this.snowSelect,this,[400,200],[450,100],"Snow Demo",8);
-    this.BackButton = new UIButton(this.backSelect,this,[400,100],[450,100],"Go Back",8);
+   
+    this.FireButton = new UIButton(this.fireSelect,this,[400,450],[450,70],"Fire Demo",8);
+    this.SmokeButton = new UIButton(this.smokeSelect,this,[400,375],[450,70],"Smoke Demo",8);
+    this.SnowButton = new UIButton(this.snowSelect,this,[400,300],[450,70],"Snow Demo",8);
+    this.DustButton = new UIButton(this.dustSelect,this, [400,220],[450,70],"Dust Demo",8);
+    this.SFXButton = new UIButton(this.SFXSelect,this,[400,145],[450,70],"SFX Demo",8);
+    this.BackButton = new UIButton(this.backSelect,this,[400,70],[450,70],"Go Back",8);
     this.UIText = new UIText("Select Particle Demo",[400,600],8,1,0,[0,0,0,1]);
 };
 
@@ -76,6 +86,8 @@ ParticleLevel.prototype.draw = function () {
     this.FireButton.draw(this.mCamera);
     this.SmokeButton.draw(this.mCamera);
     this.SnowButton.draw(this.mCamera);
+    this.DustButton.draw(this.mCamera);
+    this.SFXButton.draw(this.mCamera);
     this.BackButton.draw(this.mCamera);
     this.UIText.draw(this.mCamera);
 };
@@ -84,6 +96,8 @@ ParticleLevel.prototype.update = function () {
     this.FireButton.update();
     this.SmokeButton.update();
     this.SnowButton.update();
+    this.DustButton.update();
+    this.SFXButton.update();
     this.BackButton.update();
 };
 
@@ -101,6 +115,16 @@ ParticleLevel.prototype.snowSelect = function(){
     this.LevelSelect="Snow";
     gEngine.GameLoop.stop();
 };
+
+ParticleLevel.prototype.dustSelect = function(){
+    this.LevelSelect="Dust";
+    gEngine.GameLoop.stop();
+};
+
+ParticleLevel.prototype.SFXSelect = function (){
+    this.LevelSelect="SFX";
+    gEngine.GameLoop.stop();
+}
 
 ParticleLevel.prototype.backSelect = function(){
     this.LevelSelect="Back";

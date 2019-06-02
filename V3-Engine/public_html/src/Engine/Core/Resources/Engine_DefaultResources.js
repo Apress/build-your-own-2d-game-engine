@@ -100,6 +100,15 @@ gEngine.DefaultResources = (function () {
     var fireParticleTexture = "assets/ParticleSystem/flameparticle.png";
     var smokeParticleTexture = "assets/ParticleSystem/smokeparticle.png";
     var snowParticleTexture = "assets/ParticleSystem/snowparticle.png";
+    var tinyParticleTexture = "assets/ParticleSystem/tiny.png";
+    var dustParticleTexture = "assets/ParticleSystem/dust.png";
+    var dust2ParticleTexture = "assets/ParticleSystem/dust2.png";
+    var flareParticleTexture = "assets/ParticleSystem/flare.png";
+    var shockParticleTexture = "assets/ParticleSystem/shock.png";
+    var shock2ParticleTexture = "assets/ParticleSystem/shock2.png";
+    var targetParticleTexture = "assets/Fire/target.png";
+    var sparkleParticleTexture = "assets/ParticleSystem/sparkle.png";
+    var bubbleParticleTexture = "assets/ParticleSystem/bubble.png";
     
     // UI
     var UIRadarButtonTexture = "assets/UI/radarbutton.png";
@@ -265,7 +274,15 @@ gEngine.DefaultResources = (function () {
         gEngine.Textures.loadTexture(fireParticleTexture);
         gEngine.Textures.loadTexture(smokeParticleTexture);
         gEngine.Textures.loadTexture(snowParticleTexture);
-        
+        gEngine.Textures.loadTexture(tinyParticleTexture);
+        gEngine.Textures.loadTexture(dustParticleTexture);
+        gEngine.Textures.loadTexture(dust2ParticleTexture);
+        gEngine.Textures.loadTexture(flareParticleTexture);
+        gEngine.Textures.loadTexture(shockParticleTexture);
+        gEngine.Textures.loadTexture(shock2ParticleTexture);
+        gEngine.Textures.loadTexture(targetParticleTexture);
+        gEngine.Textures.loadTexture(bubbleParticleTexture);
+        gEngine.Textures.loadTexture(sparkleParticleTexture);
         gEngine.Textures.loadTexture(UIRadarButtonTexture);
         gEngine.Textures.loadTexture(UIDropDownArrow);
         gEngine.Textures.loadTexture(BarStencil);
@@ -337,7 +354,15 @@ gEngine.DefaultResources = (function () {
         gEngine.Textures.unloadTexture(fireParticleTexture);
         gEngine.Textures.unloadTexture(smokeParticleTexture);
         gEngine.Textures.unloadTexture(snowParticleTexture);
-        
+        gEngine.Textures.unloadTexture(tinyParticleTexture);
+        gEngine.Textures.unloadTexture(dustParticleTexture);
+        gEngine.Textures.unloadTexture(dust2ParticleTexture);
+        gEngine.Textures.unloadTexture(flareParticleTexture);
+        gEngine.Textures.unloadTexture(shockParticleTexture);
+        gEngine.Textures.unloadTexture(shock2ParticleTexture);
+        gEngine.Textures.unloadTexture(targetParticleTexture);
+        gEngine.Textures.unloadTexture(bubbleParticleTexture);
+        gEngine.Textures.unloadTexture(sparkleParticleTexture);
         gEngine.Textures.unloadTexture(UIRadarButtonTexture);
         gEngine.Textures.unloadTexture(UIDropDownArrow);
         gEngine.Textures.unloadTexture(BarStencil);

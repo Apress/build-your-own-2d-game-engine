@@ -43,7 +43,7 @@ function ParticleSystem(texture, xPos, yPos, width, yAcceleration, life, xVeloci
     this.startColor=startColor;
     this.finalColor=finalColor;
     this.yMultiplier=yMultiplier;
-    this.sizeBase=3.5;
+    this.sizeBase=1;
 }
 
 /**
@@ -135,6 +135,16 @@ ParticleSystem.prototype.incIntensity = function(inc){
  */
 ParticleSystem.prototype.incxAcceleration = function(inc){
     this.xAcceleration+=inc;
+};
+
+
+/**
+ * Get reference to the particle set
+ * @returns {float} this.mAllParticles
+ * @memberOf ParticleSystem
+ */
+ParticleSystem.prototype.getSet = function(){
+    return this.mAllParticles;
 };
 
 /**
