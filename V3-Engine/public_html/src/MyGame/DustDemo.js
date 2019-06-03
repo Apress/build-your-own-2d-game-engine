@@ -71,10 +71,13 @@ DustDemo.prototype.initialize = function () {
     this.mCurrentObj = this.mFirstObject;
     
     this.mAllDust = new GameObjectSet();
-    this.mDust1 = new Dust(50,40,50,-.5,100,0,0,1,1,0,1,40);
+    
+    var dustParams = new DustParams(50,40,50,-.5,300,0,0,1,1,0,1,40);
+    this.mDust1 = new Dust(dustParams);
     this.mAllDust.addToSet(this.mDust1);
     
-    this.mDust2 = new Dust(0,0,50,5,150,0,0,1,4,5,1,10);
+    dustParams = new DustParams(1,1,50,5,150,0,0,1,4,5,1,10);
+    this.mDust2 = new Dust(dustParams);
     this.mAllDust.addToSet(this.mDust2);
     
     this.mXParticles = new ParticleGameObjectSet();  

@@ -5,6 +5,35 @@
 
 /**
  * Default Constructor
+ * @param {SmokeParams} SmokeParams struct with xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, rVal, gVal, bVal, aVal, colorShift
+ * @returns {Smoke} New instance of Smoke object
+ * @type Smoke
+ * @class Smoke
+ */
+function Smoke(SmokeParams){
+    this.xPos=SmokeParams.xPos;
+    this.yPos=SmokeParams.yPos;
+    this.width=SmokeParams.width;
+    this.yAcceleration=SmokeParams.yAcceleration;
+    this.life=SmokeParams.life;
+    this.xVelocity=SmokeParams.xVelocity;
+    this.yVelocity=SmokeParams.yVelocity;
+    this.flicker=SmokeParams.flicker;
+    this.intensity=SmokeParams.intensity;
+    this.xAcceleration=SmokeParams.xAcceleration;
+    this.size=SmokeParams.size;
+    this.yOffset=SmokeParams.yOffset;
+    this.rVal=SmokeParams.rVal;
+    this.gVal=SmokeParams.gVal;
+    this.bVal=SmokeParams.bVal;
+    this.aVal=SmokeParams.aVal;
+    this.colorShift=SmokeParams.colorShift;
+    ParticleSystem.call(this, "assets/ParticleSystem/smokeparticle.png", this.xPos, this.yPos, this.width, this.yAcceleration, this.life, this.xVelocity, this.yVelocity, this.flicker, this.intensity, this.xAcceleration, this.size, this.yOffset, [0,0,0,1], [1,1,1,1], 1);    
+};
+gEngine.Core.inheritPrototype(Smoke,ParticleSystem);
+
+
+/**Smoke Parameter Struct
  * @param {float} xPos The x position for the smoke
  * @param {float} yPos The y position for the smoke
  * @param {float} width The maximum horizontal offset for the smoke particles
@@ -22,36 +51,27 @@
  * @param {float} bVal blue color value for smoke particle system
  * @param {float} aVal alpha color value for smoke particle system
  * @param {float} colorShift value applied to RGB values for multi-colorizing effect
- * @returns {Smoke} New instance of Smoke object
- * @type Smoke
- * @class Smoke
+ * @returns {SmokeParams} new instance of struct, with defaults for non-specified values
+ * @type struct
  */
-function Smoke(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, rVal, gVal, bVal, aVal, colorShift){
-    ParticleSystem.call(this, "assets/ParticleSystem/smokeparticle.png", xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, [0,0,0,1], [1,1,1,1], 1);
-    this.setSizeBase(3.5);
-    this.rVal = rVal;
-    this.gVal = gVal;
-    this.bVal = bVal;
-    this.aVal = aVal;
-    this.colorShift = colorShift;
-};
-
-gEngine.Core.inheritPrototype(Smoke,ParticleSystem);
-
-
-SmokeParams = function(){
-    this.xPos=50;
-    this.yPos=50;
-    this.width=5;
-    this.yAcceleration=1;
-    this.life=140;
-    this.xVelocity=0;
-    this.yVelocity=0;
-    this.flicker=0;
-    this.intensity=1;
-    this.xAcceleration=0;
-    this.size=1;
-    this.yOffset=0;
+SmokeParams = function(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, rVal, gVal, bVal, aVal, colorShift){
+    this.xPos=xPos||50;
+    this.yPos=yPos||50;
+    this.width=width||0;
+    this.yAcceleration=yAcceleration||1;
+    this.life=life||140;
+    this.xVelocity=xVelocity||0;
+    this.yVelocity=yVelocity||0;
+    this.flicker=flicker||0;
+    this.intensity=intensity||1;
+    this.xAcceleration=xAcceleration||0;
+    this.size=size||1;
+    this.yOffset=yOffset||0;
+    this.rVal=rVal||.1;
+    this.gVal=gVal||.1;
+    this.bVal=bVal||.1;
+    this.aVal=aVal||1;
+    this.colorShift=colorShift||0;
 };
 
 Smoke.prototype.update = function(){
@@ -69,11 +89,6 @@ Smoke.prototype.update = function(){
     }
 };
 
-/**
- * Applies drift effect to particles
- * @param {Particle Game Object} pGO Particle object to apply drift effect to
- * @memberOf Smoke
- */
 Smoke.prototype.applyDrift = function(pGO){
     var p = pGO.getParticle();
     var pAccel = p.getAcceleration();
@@ -85,11 +100,7 @@ Smoke.prototype.applyDrift = function(pGO){
     }
 };
 
-/**
- * Applies new size delta to particles
- * @param {Particle Game Object} pGO Particle object to apply size delta effect to
- * @memberOf Smoke
- */
+
 Smoke.prototype.applySizeDelta = function(pGO){
     var p = pGO.getParticle();
     if(p.mSpin1 || p.mSpin2){
@@ -104,11 +115,6 @@ Smoke.prototype.applySizeDelta = function(pGO){
     }
 };
 
-/**
- * Colorizes particles
- * @param {Particle Game Object} pGO Particle object to apply color effect to
- * @memberOf Smoke
- */
 Smoke.prototype.applyColor = function(pGO){
     var p = pGO.getParticle();
     if(p.mSpin1)

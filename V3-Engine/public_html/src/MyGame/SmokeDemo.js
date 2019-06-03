@@ -82,14 +82,16 @@ SmokeDemo.prototype.initialize = function () {
     this.mFirstObject = 0;
     this.mCurrentObj = this.mFirstObject;
     
-    var m;    
-    m=new Smoke(75,7,20,2,60,0,5,1,9,0,2.5,7,.1,.2,.1,1,.09);
+    var sp = new SmokeParams(75,7,20,2,60,0,5,1,9,0,3.5,7,.1,.2,.1,1,.09);
+    var m=new Smoke(sp);
     this.mAllSmoke.addToSet(m);
     
-    m=new Smoke(18.5,10,0,10,5,0,5,.9,2,0,-0.5,1,.5,.5,.5,1,0);
+    sp = new SmokeParams(18.5,10,0,10,5,0,5,.9,2,0,1,1,.5,.5,.5,1,0);
+    m=new Smoke(sp);
     this.mAllSmoke.addToSet(m);
     
-    m=new Smoke(25,60,20,-.5,100,0,0,1,2,0,10,10,.1,.1,.1,1,.05);
+    sp = new SmokeParams(25,60,20,-.5,125,0,0,1,2,0,10,10,.1,.1,.1,1,.05);
+    m=new Smoke(sp);
     this.mAllSmoke.addToSet(m);
     
     var r = new TextureRenderable(this.kTargetTexture);

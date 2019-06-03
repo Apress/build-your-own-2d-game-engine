@@ -68,11 +68,15 @@ SFXDemo.prototype.initialize = function () {
     this.mFirstObject = 0;
     this.mCurrentObj = this.mFirstObject;
     this.mAllParticles = new GameObjectSet();
-    this.mTiny1=new SubEmitter("assets/ParticleSystem/particle.png", "assets/ParticleSystem/shock2.png", 95,0,0,-5,15,50,275,0,55,0,.1,0,[1,1,1,1], [1,0,1,1], [1,0,0,1], [1,0,1,1], true, 45, 1.05);
+    var SEP = new SubEmitterParams("assets/ParticleSystem/particle.png", "assets/ParticleSystem/shock2.png", 95,1,0,-5,15,50,275,0,55,0,.1,0,[1,1,1,1], [1,0,1,1], [1,0,0,1], [1,0,1,1], true, 45, 1.05);
+    this.mTiny1=new SubEmitter(SEP);
     this.mAllParticles.addToSet(this.mTiny1);
-    this.mTiny2=new SubEmitter("assets/ParticleSystem/particle.png", "assets/ParticleSystem/sparkle.png", 5,0,0,-10,15,-40,275,0,55,0,.1,0,[1,1,1,1], [1,0,1,1], [1,0,0,1], [1,0,1,1], false, 30, 1.1);
+    SEP = new SubEmitterParams("assets/ParticleSystem/particle.png", "assets/ParticleSystem/sparkle.png", 5,1,0,-10,15,-40,275,0,55,0,.1,0,[1,1,1,1], [1,0,1,1], [1,0,0,1], [1,0,1,1], false, 30, 1.1);
+    this.mTiny2=new SubEmitter(SEP);
     this.mAllParticles.addToSet(this.mTiny2);
-    this.mTiny3=new SubEmitter("assets/ParticleSystem/bubble.png", "assets/ParticleSystem/shock.png", 50,0,10,4,50,0,20,0,40,0,1,0,[1,1,1,1], [1,.8,0,1], [1,0,0,0], [1,.8,0,1], false, 6, 1.125);
+    SEP = new SubEmitterParams("assets/ParticleSystem/bubble.png", "assets/ParticleSystem/shock.png", 50,1,10,4,50,0,20,0,40,0,1,0,[1,1,1,1], [1,.8,0,1], [1,0,0,0], [1,.8,0,1], false, 6, 1.125);
+    console.log(SEP);
+    this.mTiny3=new SubEmitter(SEP);
     this.mAllParticles.addToSet(this.mTiny3);    
     this.mXParticles = new ParticleGameObjectSet();
     this.mXSubParticles = new ParticleGameObjectSet();
@@ -382,7 +386,7 @@ SFXDemo.prototype.handleSubEmissions = function(){
     var pSet = this.mXParticles.mSet;
     var setLength = pSet.length;
     for (var i = 0; i < setLength; i++){        
-        if (pSet[i].mCyclesToLive < 1)
+        if (pSet[i].mCyclesToLive === 1)
             var p = pSet[i].getParticle();
             if (p !== undefined){
                 this.createSubParticle(p.mPosition[0],p.mPosition[1]);

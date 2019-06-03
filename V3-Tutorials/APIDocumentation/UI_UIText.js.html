@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/UIText.js</title>
+
+    <script src="scripts/prettify.js"> </script>
+    <script src="scripts/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/tomorrow.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/UIText.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* File: UIText
+ * A UI Element that renders a FontRenderable
+ */
+
+"use strict";
+/**
+ * The horiziontal alignment of the UIText
+ * @memberOf UIText
+ * @type enum | eHAlignment
+ */
+UIText.eHAlignment = Object.freeze({
+    eLeft: 0,
+    eCenter: 1,
+    eRight: 2
+});
+
+/**
+ * The vertical alignment of the UIText
+ * @memberOf UIText
+ * @type enum | eVAlignment
+ */
+UIText.eVAlignment = Object.freeze({
+   eTop: 0,
+   eCenter: 1,
+   eBottom: 2
+});
+
+/**
+ * Creates text used for UI
+ * @class UIText
+ * @param {String} text The text that the font will be based on
+ * @param {Array[]} position The base position of the UIText
+ * @param {int} size The size of the UIText
+ * @param {int} hAlign The horizontal align of the UIText
+ * @param {int} vAlign The vertical align of the UIText
+ * @param {Array[]} color The color of the text
+ * @returns {UIText}
+ */
+function UIText(text, position, size, hAlign, vAlign, color) {
+    this.mFontRenderable = new UITextBoxFont(text);
+    this.mFontRenderable.setColor(color);
+    this.mFontRenderable.setTextHeight(size);
+    
+    if(hAlign === null)
+        this.mHorizAlignment = UIText.eHAlignment.eLeft;
+    else
+        this.mHorizAlignment = hAlign;
+    
+    if(vAlign === null)
+        this.mVertAlignment = UIText.eVAlignment.eBottom;
+    else
+        this.mVertAlignment = vAlign;
+    
+    this.mFontRenderable.getXform().setZPos(3);
+    UIElement.call(this, position, null);
+};
+gEngine.Core.inheritPrototype(UIText, UIElement);
+
+/**
+ * Sets the color of the text
+ * @param {Array[]} c The color to set the text to
+ * @memberOf UIText
+ */
+UIText.prototype.setColor = function (c) {
+    this.mFontRenderable.setColor(c);
+};
+
+/**
+ * Gets the color of the text
+ * @memberOf UIText
+ */
+UIText.prototype.getColor = function() {
+    return this.mFontRenderable.getColor();
+};
+
+/**
+ * Sets the text of the UIText
+ * @param {String} t The text to change it to
+ * @memberOf UIText
+ */
+UIText.prototype.setText = function (t) {
+    this.mFontRenderable.setText(t);
+};
+
+/**
+ * Get the text of the UIText
+ * @memberOf UIText
+ */
+UIText.prototype.getText = function () {
+    return this.mFontRenderable.getText();
+};
+
+UIText.prototype.getXform = function () {
+    return this.mFontRenderable.getXform();
+};
+
+/**
+ * Set the height of the text
+ * @param {int} h The new height to change it to
+ * @memberOf UIText
+ */
+UIText.prototype.setTextHeight = function (h) {
+    this.mFontRenderable.setTextHeight(h);
+};
+
+/**
+ * Converts the pixel position to a WC position that the camera to use
+ * @param {Camera} aCamera The camera the the conversion will be based off of
+ * @memberOf UIText
+ */
+UIText.prototype._applyUIXform = function(aCamera) {
+    var rendXform = this.mFontRenderable.getXform();
+    var alignOff = this._getAlignmentOffset();  // takes allignment into consideration
+    
+    var WCPos = aCamera.VPpixelPosToWC(this.mUIXform.getPosition());
+    rendXform.setPosition(WCPos[0] + alignOff[0], WCPos[1] + alignOff[1]);
+};
+
+UIText.prototype.draw = function(aCamera){
+    if(this.mVisible) {
+        this._applyUIXform(aCamera);
+        this.mFontRenderable.draw(aCamera,0);
+    }
+};
+
+/**
+ * Calculates the position changes needed to match the allignment
+ * @memberOf UIText
+ */
+UIText.prototype._getAlignmentOffset = function() {
+    var alignOff = vec2.fromValues(0, 0);
+    var symbolSize = this.mFontRenderable.getSymbolSize();
+    var halfWidth = this.mFontRenderable.getXform().getWidth() / 2;
+    switch(this.mHorizAlignment)
+    {
+        case UIText.eHAlignment.eLeft:
+            alignOff[0] += symbolSize[0] / 2;
+            break;
+        case UIText.eHAlignment.eCenter:
+            alignOff[0] -= (halfWidth - symbolSize[0] / 2);
+            break;
+        case UIText.eHAlignment.eRight:
+            alignOff[0] -= (halfWidth * 2 - symbolSize[0] / 2);
+            break;
+    }
+    
+    switch(this.mVertAlignment)
+    {
+        case UIText.eVAlignment.eTop:
+            alignOff[1] -= symbolSize[1] / 2;
+            break;
+        case UIText.eVAlignment.eCenter:
+            break;
+        case UIText.eVAlignment.eBottom:
+            alignOff[1] += symbolSize[1] / 2;
+            break;
+    }
+    
+    return alignOff;
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Dust.html">Dust</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.Stencil.html">Stencil</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="ParticleSystem.html">ParticleSystem</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="Smoke.html">Smoke</a></li><li><a href="Snow.html">Snow</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="SubEmitter.html">SubEmitter</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li><li><a href="UIBar.html">UIBar</a></li><li><a href="UIButton.html">UIButton</a></li><li><a href="UIDDButton.html">UIDDButton</a></li><li><a href="UIDropDown.html">UIDropDown</a></li><li><a href="UIElement.html">UIElement</a></li><li><a href="UIRadio.html">UIRadio</a></li><li><a href="UIRButton.html">UIRButton</a></li><li><a href="UISlider.html">UISlider</a></li><li><a href="UISprite.html">UISprite</a></li><li><a href="UISpriteButton.html">UISpriteButton</a></li><li><a href="UISwitchTogglee.html">UISwitchTogglee</a></li><li><a href="UIText.html">UIText</a></li><li><a href="UITextBox.html">UITextBox</a></li><li><a href="UITextBoxFont.html">UITextBoxFont</a></li><li><a href="UITexture.html">UITexture</a></li><li><a href="UIToggle.html">UIToggle</a></li><li><a href="UnlitSpriteShader.html">UnlitSpriteShader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DustParams">DustParams</a></li><li><a href="global.html#gEngine">gEngine</a></li><li><a href="global.html#SmokeParams">SmokeParams</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0-dev</a> on Mon Jun 03 2019 03:58:58 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -10,24 +10,36 @@
 	<body>
     	<div id="main-content">
 		<h1> GTCS Game Engine: <br>
-		ParticleSystem Tutorial</h1>						
+		ParticleSystem Tutorial</h1>
+                <p><a href="../index.html">Back to V3 Documentation Page</a><p>
 		<hr>
 		<p><b>Note: </b>To use the ParticleSystem, you must have the newest version of the game engine.</p>
 		<h2>Introduction</h2>
 		<p>The ParticleSystem will allow to easily create and manipulate a permanent particle emitter of your choosing.</p>
-		<p>Currently, there are 5 Particle presets to choose from. Fire, Smoke, Snow, Dust, and Subemitters.</p>
+		<p>Currently, there are 5 Particle presets to choose from. Fire, Smoke, Snow, Dust, and SubEmitters.</p>
 		<p>This tutorial will explain how to control the stock ParticleSystem, with specific details for different presets.</p>
 		<p><strong>Flame Examples</strong>: <a href="#Torch_Flame">Torch</a> • <a href="#Pillar_Flame">Pillar</a> • <a href="#Volcano_Flame">Volcano</a></p>		
-		<p>You can try the demo for the ParticleSystems <a href="">here</a>.</p>                       
+		<p>You can try the demo for the ParticleSystems <a href="../../V3-Engine/public_html/index.html">here</a>.</p>                       
 	<hr>
 		<h2><a id="Fire_Structure"></a>Structure of Fire class</h2>
+                <p>The preset particle systems use corresponding struct holding the values the particle system will be instantiated with. If no values are specified in the parameter struct, the system will be instantiated with default values. Default struct values can be changed in the system specific files, where the struct constructors are located.</p>
 		<pre>MyGame.prototype.initialize = function(){
-	this.mFire = Fire(xPos, yPos, width, height, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, emberSelection, taperSelection);
+        var fireParams = new FireParams(xPos, yPos, width, height, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, emberSelection, taperSelection);
+	this.mFire = Fire(fireParams);
 };</pre>
         <p><figure>
-            	<figcaption>Constructor header for Fire.</figcaption>
+            	<figcaption>Constructor header for Fire with values specified in the parameter struct.</figcaption>
             </figure>
         </p>
+        <pre>MyGame.prototype.initialize = function(){
+        var fireParams = new FireParams();
+	this.mFire = Fire(fireParams);
+};</pre>
+        <p><figure>
+            	<figcaption>Fire constructor with default values.</figcaption>
+            </figure>
+        </p>
+                
         <p>Let's look at what each of these parameters mean.</p>
 		<table>
 			<tr>
@@ -148,7 +160,7 @@
 			</tr>
 			<tr>
 				<td>Size</td>
-				<td>0.5</td>
+				<td>3.5</td>
 			</tr>
 			<tr>
 				<td>yOffset</td>
@@ -649,8 +661,7 @@
             	<figcaption>Constructor header for SubEmitter.</figcaption>
             </figure>
         </p>
-	<p>The SubEmitter class creates an effect by creating a new particle when a particle from the main emitter has died. The life and size delta of the new particle can be specified in the system constructor as well as whether or not the subparticle inherits the velocity and acceleration from the main particle. Turning off the physical inheritance is useful for creating explosive effects, but you may want to have the subparticle keep the physics of the main particle for projectile like effects. You can also specify desired colors for both the main and sub particles.</p>
-        <p><b>Note: </b> This system does not supply default textures! You must specify textures for the main and sub particles!</p>
+	<p>The SubEmitter class creates an effect by creating a new particle when a particle from the main emitter has died. The life and size delta of the new particle can be specified in the system constructor as well as whether or not the subparticle inherits the velocity and acceleration from the main particle. Turning off the physical inheritance is useful for creating explosive effects, but you may want to have the subparticle keep the physics of the main particle for projectile like effects. You can also specify desired colors for both the main and sub particles.</p>        
     <p>Here's the variables for the firework subemitter.</p>
 	<p>
 		<figure>
@@ -736,6 +747,7 @@
 	<h2>Conclusion</h2>
         <p>The particle system will allow for the creation of fire, smoke, dust, snow, fireworks, or any other effects you can think of for your game scenes. With the knowledge gained from this tutorial, you’re now capable of finding further applications for the ParticleSystem.</p>
 	</div>
+        <p><a href="../index.html">Back to V3 Documentation Page</a><p>
             <h4><i>6/20/2018</i> - Akilas Mebrahtom</h4>
             <h4><i>5/29/2019</i> - Donald Hawkins</h4>
     </body>

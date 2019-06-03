@@ -5,6 +5,31 @@
 
 /**
  * Default Constructor
+ * @param {SnowParams} SnowParams with xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset
+ * @returns {Snow} New instance of Snow object
+ * @type Snow
+ * @class Snow
+ */
+function Snow(SnowParams){
+    this.xPos=SnowParams.xPos;
+    this.yPos=SnowParams.yPos;
+    this.width=SnowParams.width;
+    this.yAcceleration=SnowParams.yAcceleration;
+    this.life=SnowParams.life;
+    this.xVelocity=SnowParams.xVelocity;
+    this.yVelocity=SnowParams.yVelocity;
+    this.flicker=SnowParams.flicker;
+    this.intensity=SnowParams.intensity;
+    this.xAcceleration=SnowParams.xAcceleration;
+    this.size=SnowParams.size;
+    this.yOffset=SnowParams.yOffset;   
+    ParticleSystem.call(this, "assets/ParticleSystem/snowparticle.png", this.xPos, this.yPos, this.width, this.yAcceleration, this.life, this.xVelocity, this.yVelocity, this.flicker, this.intensity, this.xAcceleration, this.size, this.yOffset, [.6,.6,.6,1], [.6,.6,.6,1], -1);    
+}
+
+gEngine.Core.inheritPrototype(Snow,ParticleSystem);
+
+/*
+ * Parameter Struct
  * @param {float} xPos The x position for the snow
  * @param {float} yPos The y position for the snow
  * @param {float} width The maximum horizontal offset for the snow particles
@@ -14,40 +39,26 @@
  * @param {float} yVelocity The initial vertical boost for the snow particles
  * @param {float} flicker How quickly particles shrink
  * @param {float} intensity The # of snow particles created per update cycle
- * @param {float} xAcceleration The horizontal acceleration for the snow paritcles
+ * @param {float} xAcceleration The horizontal acceleration for the snow particles
  * @param {float} size The size for the snow paritcles
- * @param {float} yOffset The maximum vertical offset for the snow paritcles
- * @returns {Snow} New instance of Snow object
- * @type Snow
- * @class Snow
+ * @param {float} yOffset The maximum vertical offset for the snow particles
+ * @returns {SnowParams} New instance of snow parameters struct, with defaults for non-specified values
+ * @type struct
  */
-function Snow(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset){
-    ParticleSystem.call(this, "assets/ParticleSystem/snowparticle.png", xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, [.6,.6,.6,1], [.6,.6,.6,1], -1);
-    this.setSizeBase(1);
-}
-
-gEngine.Core.inheritPrototype(Snow,ParticleSystem);
-
-Snow.SnowParams = function(){
-    //this.mAllParticles = new ParticleGameObjectSet();
-    //this.texture="assets/ParticleSystem/snowparticle.png";
-    this.xPos=50;
-    this.yPos=50;
-    this.width=5;
-    this.yAcceleration=1;
-    this.life=140;
-    this.xVelocity=0;
-    this.yVelocity=0;
-    this.flicker=0;
-    this.intensity=1;
-    this.xAcceleration=0;
-    this.size=1;
-    this.yOffset=0;
-    //this.startColor=[1,0,0,1];
-    //this.finalColor=[0,0,0,1];
-    //this.yMultiplier=1;
-    //this.sizeBase=1;
-}
+SnowParams = function(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset){
+    this.xPos=xPos||50;
+    this.yPos=yPos||80;
+    this.width=width||50;
+    this.yAcceleration=yAcceleration||5;
+    this.life=life||140;
+    this.xVelocity=xVelocity||0;
+    this.yVelocity=yVelocity||0;
+    this.flicker=flicker||0;
+    this.intensity=intensity||3;
+    this.xAcceleration=xAcceleration||0;
+    this.size=size||-0.5;
+    this.yOffset=yOffset||0;
+};
 
 Snow.prototype.update = function(){
     for(var i=0; i<this.intensity; i++){

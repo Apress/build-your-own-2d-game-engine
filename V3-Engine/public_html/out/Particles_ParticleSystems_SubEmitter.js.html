@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Particles/ParticleSystems/SubEmitter.js</title>
+
+    <script src="scripts/prettify.js"> </script>
+    <script src="scripts/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/tomorrow.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Particles/ParticleSystems/SubEmitter.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//File: SubEmitter.js
+/*jslint node: true, vars: true */
+/*global gEngine, vec2, ParticleGameObjectSet */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+/**
+ * Default Constructor
+ * @param {SubEmitterParams} SubEmitterParams struct
+ * @returns {SubEmitter} New instance of SubEmitter object
+ * @type SubEmitter
+ * @class SubEmitter
+ */
+function SubEmitter(SubEmitterParams){
+    this.MainParticleTexture = SubEmitterParams.MainParticleTexture;
+    this.SubParticleTexture = SubEmitterParams.SubParticleTexture;
+    this.xPos=SubEmitterParams.xPos;
+    this.yPos=SubEmitterParams.yPos;
+    this.width=SubEmitterParams.width;
+    this.yAcceleration=SubEmitterParams.yAcceleration;
+    this.life=SubEmitterParams.life;
+    this.xVelocity=SubEmitterParams.xVelocity;
+    this.yVelocity=SubEmitterParams.yVelocity;
+    this.flicker=SubEmitterParams.flicker;
+    this.intensity=SubEmitterParams.intensity;
+    this.xAcceleration=SubEmitterParams.xAcceleration;
+    this.size=SubEmitterParams.size;
+    this.yOffset=SubEmitterParams.yOffset;
+    this.startColor=SubEmitterParams.startColor;
+    this.finalColor=SubEmitterParams.finalColor;
+    this.subStartColor=SubEmitterParams.subStartColor;
+    this.subFinalColor=SubEmitterParams.subFinalColor;
+    this.physInherit=SubEmitterParams.physInherit;
+    this.subParticleLife=SubEmitterParams.subParticleLife;
+    this.subParticleSizeDelta=SubEmitterParams.subParticleSizeDelta;
+    ParticleSystem.call(this, this.MainParticleTexture, this.xPos, this.yPos, this.width, this.yAcceleration, this.life, this.xVelocity, this.yVelocity, this.flicker, this.intensity, this.xAcceleration, this.size, this.yOffset, this.startColor, this.finalColor, 1);
+    this.mSubParticles = new ParticleGameObjectSet();    
+    this.mTimer = 60;
+    
+};
+gEngine.Core.inheritPrototype(SubEmitter,ParticleSystem);
+
+/*
+ * Parameter Struct
+ * @param {png}   MainParticleTexture texture for main emitter particles
+ * @param {png}   SubParticleTexture texture for sub emitter particles
+ * @param {float} xPos The x position for the main emitter
+ * @param {float} yPos The y position for the main emitter
+ * @param {float} width The maximum horizontal offset for the main emitter particles
+ * @param {float} yAcceleration The vertical acceleration for the main emitter paritcles
+ * @param {float} life The life for the main emitter particles
+ * @param {float} xVelocity The initial horizontal boost for the main emitter particles
+ * @param {float} yVelocity The initial vertical boost for the main emitter particles
+ * @param {float} flicker How quickly particles shrink
+ * @param {float} intensity The # of main emitter particles created per update cycle
+ * @param {float} xAcceleration The horizontal acceleration for the main emitter paritcles
+ * @param {float} size The size for the main emitter paritcles
+ * @param {float} yOffset The maximum vertical offset for the main emitter paritcles
+ * @param {color} startColor Starting color of main emitter particles
+ * @param {color} finalColor Final color of main emitter particles
+ * @param {color} subStartColor Starting color of sub emitter particles
+ * @param {color} subFinalColor Final color of sub emitter particles
+ * @param {bool}  physInherit Bool indicating whether or not subparticles inherit velocity/acceleration
+ * @param {float} subParticleLife Life value in frames for subparticles
+ * @param {float} subParticleSizeDelta sizeDelta value to be applied to subparticles
+ * @returns {SubEmitterParams} New instance of SubEmitter struct object
+ */
+SubEmitterParams = function(MainParticleTexture, SubParticleTexture, xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, startColor, finalColor, subStartColor, subFinalColor, physInherit, subParticleLife, subParticleSizeDelta){
+    this.MainParticleTexture = MainParticleTexture||"assets/Smoke/target.png";
+    this.SubParticleTexture = SubParticleTexture||"assets/ParticleSystem/shock2.png";
+    this.xPos=xPos||50;
+    this.yPos=yPos||5;
+    this.width=width||0;
+    this.yAcceleration=yAcceleration||1;
+    this.life=life||100;
+    this.xVelocity=xVelocity||0;
+    this.yVelocity=yVelocity||0;
+    this.flicker=flicker||0;
+    this.intensity=intensity||60;
+    this.xAcceleration=xAcceleration||0;
+    this.size=size||1;
+    this.yOffset=yOffset||0;
+    this.startColor=startColor||[1,1,1,1];
+    this.finalColor=finalColor||[1,1,1,1];
+    this.subStartColor=subStartColor||[1,1,1,1];
+    this.subFinalColor=subFinalColor||[1,1,1,1];
+    this.physInherit=physInherit||false;
+    this.subParticleLife=subParticleLife||100;
+    this.subParticleSizeDelta=subParticleSizeDelta||1.01;
+};
+
+SubEmitter.prototype.update = function(){
+    this.mTimer--;
+    if(this.mTimer &lt; this.intensity ){
+    var p = this.createParticle(this.xPos, this.yPos);
+    this.mAllParticles.addToSet(p);
+    this.mTimer = 60;
+    }
+    gEngine.ParticleSystem.update(this.mAllParticles);
+    gEngine.ParticleSystem.update(this.mSubParticles);
+    this.handleSubEmissions();
+};
+
+/**
+ * Draws the particles on the camera passed in the argument for both main and sub particles
+ * @param {Camera} aCamera the camera to be viewed on
+ * @memberOf ParticleSystem
+ */
+SubEmitter.prototype.draw = function(aCamera){
+    this.mAllParticles.draw(aCamera);
+    this.mSubParticles.draw(aCamera);
+};
+
+/**
+ * Checks for main particle death condition 
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.handleSubEmissions = function(){
+    var pSet = this.getSet().mSet;
+    var setLength = pSet.length;
+    for (var i = 0; i &lt; setLength; i++){        
+        if (pSet[i].mCyclesToLive &lt; 1)
+            var p = pSet[i].getParticle();
+            if (p !== undefined){
+                this.createSubParticle(p.mPosition[0],p.mPosition[1],p);
+        }
+    }
+};
+
+/**
+ * Instantiates subparticles
+ * @param {float} atX X position of particle to be created
+ * @param {float} atY Y position of particle to be created
+ * @param (particle) mP main particle reference to inherit physics from
+ * @memberOf ParticleSystem
+ */
+SubEmitter.prototype.createSubParticle = function(atX, atY, mP){
+    var p = new ParticleGameObject(this.SubParticleTexture, atX, atY, this.subParticleLife);
+    p.mDeltaColor = this.subStartColor;
+    p.setFinalColor(this.subFinalColor);
+    
+    // size of the particle
+    var r = 1;
+    p.getXform().setSize(r, r);
+    p.getXform().incRotationByDegree(Math.random()*360);        
+    p.getParticle().setVelocity([0, 0]);
+    p.getParticle().setAcceleration([0,0]);
+    if(this.physInherit){
+        var inheritedVel = mP.getVelocity();
+        var inheritedAcc = mP.getAcceleration();
+        p.getParticle().setVelocity(inheritedVel);
+        p.getParticle().setAcceleration(inheritedAcc);
+    }
+    // size delta
+    p.setSizeDelta(this.subParticleSizeDelta);    
+    this.mSubParticles.addToSet(p);        
+};
+
+/**
+ * Adjust whether subparticle inherits main particle's physics
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.setPhysInherit = function(){
+    this.physInherit = !this.physInherit;
+};
+
+/**
+ * Adjust subparticle life value
+ * @param {float} val inc how much to increment by
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.setSubParticleLife = function(val){
+    this.subParticleLife += val;
+};
+
+/**
+ * Adjust subparticle sizeDelta value
+ * @param {float} val inc how much to increment by
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.setSubParticleSizeDelta = function(val){
+    this.subParticleSizeDelta += val;
+};
+
+/**
+ * Get the state of subparticle physical inheritance
+ * @returns {bool} this.physInherit
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.getPhysInherit = function(){
+    return this.physInherit;
+};
+
+/**
+ * Get the subparticle life value
+ * @returns {float} this.subParticleLife
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.getSubParticleLife = function(){
+    return this.subParticleLife;
+};
+
+/**
+ * Get the subparticle size delta value
+ * @returns {float} this.subParticleSizeDelta
+ * @memberOf SubEmitter
+ */
+SubEmitter.prototype.getSubParticleSizeDelta = function(){
+    return this.subParticleSizeDelta.toFixed(2);
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Dust.html">Dust</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.Stencil.html">Stencil</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="ParticleSystem.html">ParticleSystem</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="Smoke.html">Smoke</a></li><li><a href="Snow.html">Snow</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="SubEmitter.html">SubEmitter</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li><li><a href="UIBar.html">UIBar</a></li><li><a href="UIButton.html">UIButton</a></li><li><a href="UIDDButton.html">UIDDButton</a></li><li><a href="UIDropDown.html">UIDropDown</a></li><li><a href="UIElement.html">UIElement</a></li><li><a href="UIRadio.html">UIRadio</a></li><li><a href="UIRButton.html">UIRButton</a></li><li><a href="UISlider.html">UISlider</a></li><li><a href="UISprite.html">UISprite</a></li><li><a href="UISpriteButton.html">UISpriteButton</a></li><li><a href="UISwitchTogglee.html">UISwitchTogglee</a></li><li><a href="UIText.html">UIText</a></li><li><a href="UITextBox.html">UITextBox</a></li><li><a href="UITextBoxFont.html">UITextBoxFont</a></li><li><a href="UITexture.html">UITexture</a></li><li><a href="UIToggle.html">UIToggle</a></li><li><a href="UnlitSpriteShader.html">UnlitSpriteShader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DustParams">DustParams</a></li><li><a href="global.html#gEngine">gEngine</a></li><li><a href="global.html#SmokeParams">SmokeParams</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0-dev</a> on Mon Jun 03 2019 03:54:05 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

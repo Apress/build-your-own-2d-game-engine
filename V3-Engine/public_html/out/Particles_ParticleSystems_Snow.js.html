@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Particles/ParticleSystems/Snow.js</title>
+
+    <script src="scripts/prettify.js"> </script>
+    <script src="scripts/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/tomorrow.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Particles/ParticleSystems/Snow.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//File: Snow.js
+/*jslint node: true, vars: true */
+/*global gEngine, vec2, ParticleGameObjectSet */
+/* find out more about jslint: http://www.jslint.com/help.html */
+
+/**
+ * Default Constructor
+ * @param {SnowParams} SnowParams with xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset
+ * @returns {Snow} New instance of Snow object
+ * @type Snow
+ * @class Snow
+ */
+function Snow(SnowParams){
+    this.xPos=SnowParams.xPos;
+    this.yPos=SnowParams.yPos;
+    this.width=SnowParams.width;
+    this.yAcceleration=SnowParams.yAcceleration;
+    this.life=SnowParams.life;
+    this.xVelocity=SnowParams.xVelocity;
+    this.yVelocity=SnowParams.yVelocity;
+    this.flicker=SnowParams.flicker;
+    this.intensity=SnowParams.intensity;
+    this.xAcceleration=SnowParams.xAcceleration;
+    this.size=SnowParams.size;
+    this.yOffset=SnowParams.yOffset;   
+    ParticleSystem.call(this, "assets/ParticleSystem/snowparticle.png", this.xPos, this.yPos, this.width, this.yAcceleration, this.life, this.xVelocity, this.yVelocity, this.flicker, this.intensity, this.xAcceleration, this.size, this.yOffset, [.6,.6,.6,1], [.6,.6,.6,1], -1);    
+}
+
+gEngine.Core.inheritPrototype(Snow,ParticleSystem);
+
+/*
+ * Parameter Struct
+ * @param {float} xPos The x position for the snow
+ * @param {float} yPos The y position for the snow
+ * @param {float} width The maximum horizontal offset for the snow particles
+ * @param {float} yAcceleration The vertical acceleration for the snow paritcles
+ * @param {float} life The life for the snow particles
+ * @param {float} xVelocity The initial horizontal boost for the snow particles
+ * @param {float} yVelocity The initial vertical boost for the snow particles
+ * @param {float} flicker How quickly particles shrink
+ * @param {float} intensity The # of snow particles created per update cycle
+ * @param {float} xAcceleration The horizontal acceleration for the snow particles
+ * @param {float} size The size for the snow paritcles
+ * @param {float} yOffset The maximum vertical offset for the snow particles
+ * @returns {SnowParams} New instance of snow parameters struct, with defaults for non-specified values
+ * @type struct
+ */
+SnowParams = function(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset){
+    this.xPos=xPos||50;
+    this.yPos=yPos||80;
+    this.width=width||50;
+    this.yAcceleration=yAcceleration||5;
+    this.life=life||140;
+    this.xVelocity=xVelocity||0;
+    this.yVelocity=yVelocity||0;
+    this.flicker=flicker||0;
+    this.intensity=intensity||3;
+    this.xAcceleration=xAcceleration||0;
+    this.size=size||-0.5;
+    this.yOffset=yOffset||0;
+};
+
+Snow.prototype.update = function(){
+    for(var i=0; i&lt;this.intensity; i++){
+    var p = this.createParticle(this.xPos, this.yPos);
+    this.mAllParticles.addToSet(p);
+    p.xf.setZPos(3);
+    }
+    gEngine.ParticleSystem.update(this.mAllParticles);
+    this.wrapParticles();
+};
+
+
+Snow.prototype.wrapParticles = function(){    
+    var pSet = this.getSet().mSet;
+    var setLength = pSet.length;    
+    for (var i = 0; i &lt; setLength; i++){        
+        this.applyDrift(pSet[i]);
+    }
+};
+
+Snow.prototype.applyDrift = function(pGO){    
+    var p = pGO.getParticle();    
+    var pPos = p.getPosition();
+    var pAccel = p.getAcceleration();
+    if(pPos[1] &lt; 6){        
+        p.setAcceleration([0,0]);
+        p.setVelocity([0,0]);
+        p.mRotationVal = 0;        
+    }
+    if(pPos[1] &lt; 0){
+        pGO.mCyclesToLive = 0;
+    }
+    var pOPos = p.getOriginalPosition();
+    var dist = Math.abs(pPos[0] - pOPos[0]);
+    if(dist % (Math.floor(Math.random()*5)) &lt; 0.1){
+        var test = Math.floor(Math.random()*2);
+        if(test)
+            p.mDriftDir = !p.mDriftDir;
+    }
+    if(p.mDriftDir){        
+        p.setAcceleration([pAccel[0]+.025,pAccel[1]]);
+    }
+    else{        
+        p.setAcceleration([pAccel[0]-.025,pAccel[1]]);
+    }
+    if(p.mParallaxDir === 0){
+        pGO.setSizeDelta(1.0005);
+        p.setAcceleration([p.getAcceleration()[0],pAccel[1]-0.01]);
+        pGO.getXform().setZPos(5);
+    }
+    if(p.mParrallaxDir === 2){
+        pGO.setSizeDelta(.999);
+        p.setAcceleration([p.getAcceleration()[0],pAccel[1]+.01]);
+        pGO.getXform().setZPos(1);
+    }
+    if (pPos[0] > 100){
+        pPos[0] = 0;
+    }
+    if (pPos[0] &lt; 0){
+        pPos[0] = 100;
+    }    
+    pGO.getXform().incRotationByDegree(p.mRotationVal*.05);
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Dust.html">Dust</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.Stencil.html">Stencil</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="ParticleSystem.html">ParticleSystem</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="Smoke.html">Smoke</a></li><li><a href="Snow.html">Snow</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="SubEmitter.html">SubEmitter</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li><li><a href="UIBar.html">UIBar</a></li><li><a href="UIButton.html">UIButton</a></li><li><a href="UIDDButton.html">UIDDButton</a></li><li><a href="UIDropDown.html">UIDropDown</a></li><li><a href="UIElement.html">UIElement</a></li><li><a href="UIRadio.html">UIRadio</a></li><li><a href="UIRButton.html">UIRButton</a></li><li><a href="UISlider.html">UISlider</a></li><li><a href="UISprite.html">UISprite</a></li><li><a href="UISpriteButton.html">UISpriteButton</a></li><li><a href="UISwitchTogglee.html">UISwitchTogglee</a></li><li><a href="UIText.html">UIText</a></li><li><a href="UITextBox.html">UITextBox</a></li><li><a href="UITextBoxFont.html">UITextBoxFont</a></li><li><a href="UITexture.html">UITexture</a></li><li><a href="UIToggle.html">UIToggle</a></li><li><a href="UnlitSpriteShader.html">UnlitSpriteShader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DustParams">DustParams</a></li><li><a href="global.html#gEngine">gEngine</a></li><li><a href="global.html#SmokeParams">SmokeParams</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0-dev</a> on Mon Jun 03 2019 03:54:05 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

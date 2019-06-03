@@ -5,8 +5,44 @@
 
 /**
  * Default Constructor
- * @param (png)   MainParticleTexture texture for main emitter particles
- * @param (png)   SubParticleTexture texture for sub emitter particles
+ * @param {SubEmitterParams} SubEmitterParams struct
+ * @returns {SubEmitter} New instance of SubEmitter object
+ * @type SubEmitter
+ * @class SubEmitter
+ */
+function SubEmitter(SubEmitterParams){
+    this.MainParticleTexture = SubEmitterParams.MainParticleTexture;
+    this.SubParticleTexture = SubEmitterParams.SubParticleTexture;
+    this.xPos=SubEmitterParams.xPos;
+    this.yPos=SubEmitterParams.yPos;
+    this.width=SubEmitterParams.width;
+    this.yAcceleration=SubEmitterParams.yAcceleration;
+    this.life=SubEmitterParams.life;
+    this.xVelocity=SubEmitterParams.xVelocity;
+    this.yVelocity=SubEmitterParams.yVelocity;
+    this.flicker=SubEmitterParams.flicker;
+    this.intensity=SubEmitterParams.intensity;
+    this.xAcceleration=SubEmitterParams.xAcceleration;
+    this.size=SubEmitterParams.size;
+    this.yOffset=SubEmitterParams.yOffset;
+    this.startColor=SubEmitterParams.startColor;
+    this.finalColor=SubEmitterParams.finalColor;
+    this.subStartColor=SubEmitterParams.subStartColor;
+    this.subFinalColor=SubEmitterParams.subFinalColor;
+    this.physInherit=SubEmitterParams.physInherit;
+    this.subParticleLife=SubEmitterParams.subParticleLife;
+    this.subParticleSizeDelta=SubEmitterParams.subParticleSizeDelta;
+    ParticleSystem.call(this, this.MainParticleTexture, this.xPos, this.yPos, this.width, this.yAcceleration, this.life, this.xVelocity, this.yVelocity, this.flicker, this.intensity, this.xAcceleration, this.size, this.yOffset, this.startColor, this.finalColor, 1);
+    this.mSubParticles = new ParticleGameObjectSet();    
+    this.mTimer = 60;
+    
+};
+gEngine.Core.inheritPrototype(SubEmitter,ParticleSystem);
+
+/*
+ * Parameter Struct
+ * @param {png}   MainParticleTexture texture for main emitter particles
+ * @param {png}   SubParticleTexture texture for sub emitter particles
  * @param {float} xPos The x position for the main emitter
  * @param {float} yPos The y position for the main emitter
  * @param {float} width The maximum horizontal offset for the main emitter particles
@@ -19,53 +55,42 @@
  * @param {float} xAcceleration The horizontal acceleration for the main emitter paritcles
  * @param {float} size The size for the main emitter paritcles
  * @param {float} yOffset The maximum vertical offset for the main emitter paritcles
- * @param (color) startColor Starting color of main emitter particles
- * @param (color) finalColor Final color of main emitter particles
- * @param (color) subStartColor Starting color of sub emitter particles
- * @param (color) subFinalColor Final color of sub emitter particles
- * @param (bool)  physInherit Bool indicating whether or not subparticles inherit velocity/acceleration
- * @param (float) subParticleLife Life value in frames for subparticles
- * @param (float) subParticleSizeDelta sizeDelta value to be applied to subparticles
- * @returns {SubEmitter} New instance of SubEmitter object
- * @type SubEmitter
- * @class SubEmitter
+ * @param {color} startColor Starting color of main emitter particles
+ * @param {color} finalColor Final color of main emitter particles
+ * @param {color} subStartColor Starting color of sub emitter particles
+ * @param {color} subFinalColor Final color of sub emitter particles
+ * @param {bool}  physInherit Bool indicating whether or not subparticles inherit velocity/acceleration
+ * @param {float} subParticleLife Life value in frames for subparticles
+ * @param {float} subParticleSizeDelta sizeDelta value to be applied to subparticles
+ * @returns {SubEmitterParams} New instance of SubEmitter struct object
  */
-function SubEmitter(MainParticleTexture, SubParticleTexture, xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, startColor, finalColor, subStartColor, subFinalColor, physInherit, subParticleLife, subParticleSizeDelta){
-    ParticleSystem.call(this, MainParticleTexture, xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, startColor, finalColor, 1);
-    this.mSubParticles = new ParticleGameObjectSet();
-    this.SubParticleTexture = SubParticleTexture;
-    this.subStartColor = subStartColor;
-    this.subFinalColor = subFinalColor;
-    this.physInherit = physInherit;
-    this.subParticleLife = subParticleLife;
-    this.subParticleSizeDelta = subParticleSizeDelta;
-    this.mTimer = 60;
-    
-};
-gEngine.Core.inheritPrototype(SubEmitter,ParticleSystem);
-
-/*
- * Parameter Struct
- */
-SubEmitterParams = function(){
-    this.xPos=50;
-    this.yPos=50;
-    this.width=5;
-    this.yAcceleration=1;
-    this.life=140;
-    this.xVelocity=0;
-    this.yVelocity=0;
-    this.flicker=0;
-    this.intensity=1;
-    this.xAcceleration=0;
-    this.size=1;
-    this.yOffset=0;
+SubEmitterParams = function(MainParticleTexture, SubParticleTexture, xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, startColor, finalColor, subStartColor, subFinalColor, physInherit, subParticleLife, subParticleSizeDelta){
+    this.MainParticleTexture = MainParticleTexture||"assets/Smoke/target.png";
+    this.SubParticleTexture = SubParticleTexture||"assets/ParticleSystem/shock2.png";
+    this.xPos=xPos||50;
+    this.yPos=yPos||5;
+    this.width=width||0;
+    this.yAcceleration=yAcceleration||1;
+    this.life=life||100;
+    this.xVelocity=xVelocity||0;
+    this.yVelocity=yVelocity||0;
+    this.flicker=flicker||0;
+    this.intensity=intensity||60;
+    this.xAcceleration=xAcceleration||0;
+    this.size=size||1;
+    this.yOffset=yOffset||0;
+    this.startColor=startColor||[1,1,1,1];
+    this.finalColor=finalColor||[1,1,1,1];
+    this.subStartColor=subStartColor||[1,1,1,1];
+    this.subFinalColor=subFinalColor||[1,1,1,1];
+    this.physInherit=physInherit||false;
+    this.subParticleLife=subParticleLife||100;
+    this.subParticleSizeDelta=subParticleSizeDelta||1.01;
 };
 
 SubEmitter.prototype.update = function(){
     this.mTimer--;
     if(this.mTimer < this.intensity ){
-    //for(var i=0; i<this.intensity; i++){
     var p = this.createParticle(this.xPos, this.yPos);
     this.mAllParticles.addToSet(p);
     this.mTimer = 60;

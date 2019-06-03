@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/UIToggle.js</title>
+
+    <script src="scripts/prettify.js"> </script>
+    <script src="scripts/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/tomorrow.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/UIToggle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* UIToggle.js
+ * 
+ */
+
+"use strict";
+
+/**
+ * A Toggle to be used for UIs
+ * @param {Array[]} position Base position for the UIToggle
+ * @param {Array[]} size The size for the UIToggle
+ * @param {String[]} optionTexts The text for the different options
+ * @param {float} textSize The size of the Text
+ * @class UIToggle
+ * @returns {UIToggle}
+ */
+function UIToggle(position, size, optionTexts, textSize) {
+    // for supporting vertical toggles
+    this.mVertical = size[0]&lt;size[1];
+    
+    // default BG color = black
+    this.mBg = new UIRenderable([0,0,0,1], position, size);
+    
+    var amtOptions = optionTexts.length;
+    var fgSize = [size[0]/amtOptions,size[1]];
+    var nextPos = [(position[0]-(size[0]/2)+(fgSize[0]/2)),position[1]];
+    
+    if(this.mVertical)
+    {
+        fgSize = [size[0],size[1]/amtOptions];
+        nextPos = [position[0], (position[1]+(size[1]/2)-(fgSize[1]/2))];
+    }
+    
+    
+    // to show which option is selected
+    // default FG color = purple
+    this.mFg = new UIRenderable([0.5,0,1,1], nextPos, fgSize);
+
+    // 2d array for holding the options and the bbox relating to each optionn
+    this.mText = [];
+    
+    // to allow for having text color change upon selection
+    //default Text color = white
+    this.mNormalTextColor = [1,1,1,1];
+    this.mSelectedTextColor = this.mNormalTextColor;
+    
+    for(var i = 0; i &lt; optionTexts.length; i++) {
+        var newText = new UIText(optionTexts[i], 
+                            nextPos, 
+                            textSize, 
+                            UIText.eHAlignment.eCenter, 
+                            UIText.eVAlignment.eCenter,
+                            this.mNormalTextColor);
+        var newBBox = new BoundingBox(nextPos, fgSize[0], fgSize[1]);
+        this.mText.push([newText, newBBox]);
+        if(this.mVertical) {
+            nextPos = [nextPos[0],nextPos[1]-fgSize[1]];
+        }
+        else {
+            nextPos = [nextPos[0]+fgSize[0],nextPos[1]];
+        }
+    }                       
+    
+    // starts by having the first option selected
+    this.mCurValue = 0;
+    this.mClick = false;
+    
+    var startPos = this.mText[0][0].getUIXform().getXPos();
+    if(this.mVertical) {
+        startPos = this.mText[0][0].getUIXform().getYPos();
+    }
+    // set defualt interpolation
+    this.mInterpolation = new Interpolate(startPos, 60, 0.25);
+    
+    UIElement.call(this, position, size);
+};
+gEngine.Core.inheritPrototype(UIToggle, UIElement);
+
+/**
+ * Draws the UIToggle to the given Camera
+ * @param {Camera} aCamera The Camera to draw the Toggle to
+ * @memberOf UIToggle
+ */
+UIToggle.prototype.draw = function(aCamera) {
+    if(this.mVisible) {
+        this.mBg.draw(aCamera);
+        this.mFg.draw(aCamera);
+        for(var i = 0; i &lt; this.mText.length; i++) {
+            this.mText[i][0].draw(aCamera);
+        }   
+    }
+};
+
+/**
+ * Updates the UIToggle
+ * @memberOf UIToggle
+ */
+UIToggle.prototype.update = function() {
+    UIElement.prototype.update.call(this);
+    
+    // update the interpolation
+    this.mInterpolation.updateInterpolation();
+    
+    // get the mouse position
+    var mousePos = vec2.fromValues(gEngine.Input.getMousePosX(),
+                                gEngine.Input.getMousePosY());
+    
+    // local variables for determining which option is chosen
+    var mouseOption = 0;
+    var mouseOver = false;
+    
+    // check if the mouse is over an option
+    for(var i = 0; i &lt; this.mText.length; i++)
+    {
+        if(this.mText[i][1].containsPoint(mousePos[0], mousePos[1])) {
+            mouseOption = i;
+            mouseOver = true;
+        }
+    }
+    
+    // check for if the mouse is clicked
+    if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
+        if(mouseOver){
+            this.mClick = true;
+        }
+    }
+    
+    var fgXform = this.mFg.getUIXform();
+    // upon release of mouse button, make selection
+    if(gEngine.Input.isButtonReleased(gEngine.Input.mouseButton.Left)){
+        if(this.mClick) {
+            // reset click's status for next update
+            this.mClick = false;
+            
+            if(mouseOver){
+                // set the previous selection's text color to the normal text color
+                this.mText[this.mCurValue][0].setColor(this.mNormalTextColor);
+                
+                this.mCurValue = mouseOption;
+
+                // set interpolation
+                var pos = this.mText[mouseOption][0].getUIXform().getXPos();
+                if(this.mVertical) {
+                    pos = this.mText[mouseOption][0].getUIXform().getYPos();
+                }
+                this.mInterpolation.setFinalValue(pos);
+                
+                this.mText[this.mCurValue][0].setColor(this.mSelectedTextColor);
+            }
+        }
+    }
+    
+    // update the foreground element's position
+    if(this.mVertical) {
+        fgXform.setYPos(this.mInterpolation.getValue());
+    }
+    else {
+        fgXform.setXPos(this.mInterpolation.getValue());
+    }
+};
+
+/**
+ * Function to return which option is currently selected
+ * @returns {int} The index of the currently selected option
+ * @memberOf UIToggle
+ */
+UIToggle.prototype.getCurValue = function() {
+    return this.mCurValue;
+};
+
+/**
+ * Sets the background's Color
+ * @param {float[]} c The desired Color for the background
+ * @memberOf UIToggle
+ */
+UIToggle.prototype.setBGColor = function(c) {
+    this.mBg.setColor(c);
+};
+
+/**
+ * Sets the foreground's Color
+ * @param {float[]} c The desired Color for the foreground indicating the selected option
+ * @memberOf UIToggle
+ */
+UIToggle.prototype.setSelectionColor = function(c) {
+    this.mFg.setColor(c);
+};
+
+/**
+ * Sets the Color of the selected option
+ * @param {float[]} c The desired Color of the Text of the option currently selected
+ * @memberOf UIToggle
+ */
+UIToggle.prototype.setSelectedTextColor = function(c) {
+    this.mSelectedTextColor = c;
+    
+    // so is immediately used
+    this.mText[this.mCurValue][0].setColor(this.mSelectedTextColor);
+};
+
+/**
+ * Sets the normal Color of the options
+ * @param {float[]} c The desired normal Color of the Text
+ * @memberOf UIToggle
+ */
+UIToggle.prototype.setNormalTextColor = function(c) {
+    this.mNormalTextColor = c;
+    
+    // so is immediately used
+    for(var i = 0; i &lt; this.mText.length; i++) {
+            if(i !== this.mCurValue) {
+                this.mText[i][0].setColor(this.mNormalTextColor);
+            }
+        }   
+};
+
+/**
+ * Configures the Interpolation
+ * @param {int} cycles Over how many frames should the Interpolation happen, 1 turns off Interpolation
+ * @param {float} rate How much the Interpolation should change over a frame
+ * @memberOf UIToggle
+ */
+UIToggle.prototype.configInterpolation = function(cycles, rate) { 
+    this.mInterpolation.configInterpolation(rate, cycles);
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Dust.html">Dust</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.Stencil.html">Stencil</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="ParticleSystem.html">ParticleSystem</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="Smoke.html">Smoke</a></li><li><a href="Snow.html">Snow</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="SubEmitter.html">SubEmitter</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li><li><a href="UIBar.html">UIBar</a></li><li><a href="UIButton.html">UIButton</a></li><li><a href="UIDDButton.html">UIDDButton</a></li><li><a href="UIDropDown.html">UIDropDown</a></li><li><a href="UIElement.html">UIElement</a></li><li><a href="UIRadio.html">UIRadio</a></li><li><a href="UIRButton.html">UIRButton</a></li><li><a href="UISlider.html">UISlider</a></li><li><a href="UISprite.html">UISprite</a></li><li><a href="UISpriteButton.html">UISpriteButton</a></li><li><a href="UISwitchTogglee.html">UISwitchTogglee</a></li><li><a href="UIText.html">UIText</a></li><li><a href="UITextBox.html">UITextBox</a></li><li><a href="UITextBoxFont.html">UITextBoxFont</a></li><li><a href="UITexture.html">UITexture</a></li><li><a href="UIToggle.html">UIToggle</a></li><li><a href="UnlitSpriteShader.html">UnlitSpriteShader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DustParams">DustParams</a></li><li><a href="global.html#gEngine">gEngine</a></li><li><a href="global.html#SmokeParams">SmokeParams</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0-dev</a> on Mon Jun 03 2019 03:54:05 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

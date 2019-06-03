@@ -82,20 +82,19 @@ FireDemo.prototype.initialize = function () {
     this.createBounds();
     this.mFirstObject = 0;
     this.mCurrentObj = this.mFirstObject;    
-
-    this.mFire1 = new Fire(20,13,3,40,12,0,20,2,7,0,1.5,5,25,75);
-    this.mAllFire.addToSet(this.mFire1);
     
-    this.mFire2 = new Fire(50,19,1,0,10,0,3,1,1,0,0.5,1,0,100);
+    var fParams = new FireParams(20,13,3,40,12,0,20,2,7,0,3.5,5,25,75)
+    this.mFire1 = new Fire(fParams);
+    this.mAllFire.addToSet(this.mFire1);
+//   
+    fParams = new FireParams(50,19,1,0,10,0,3,1,1,0,3.5,1,0,100);
+    this.mFire2 = new Fire(fParams);
     this.mAllFire.addToSet(this.mFire2);
     
-    this.mFire3 = new Fire(80,19,1,-20,13,20,50,1,8,0,0.5,0,100,0);
-    this.mAllFire.addToSet(this.mFire3);
-
-//    var fParam = new FireParams();
-//    var m = new Fire(fParam);
-//    this.mAllFire.addToSet(m);        
-    
+    fParams = new FireParams(80,19,1,-20,13,20,50,1,8,0,3.5,0,100,0);
+    this.mFire3 = new Fire(fParams);
+    this.mAllFire.addToSet(this.mFire3);    
+                
     var r = new TextureRenderable(this.kTargetTexture);
     this.mTarget = new GameObject(r);
     var xf = r.getXform();

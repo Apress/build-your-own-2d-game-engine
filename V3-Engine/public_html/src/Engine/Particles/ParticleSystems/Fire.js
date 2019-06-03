@@ -5,6 +5,32 @@
 
 /**
  * Default Constructor
+ * @param {struct} FireParams with xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, emberSelection, taperSelection FireParams struct holding specified parameter values
+ * @returns {Fire} New instance of Fire object
+ * @type Fire
+ * @class Fire
+ */
+function Fire(FireParams){    
+    this.xPos=FireParams.xPos;
+    this.yPos=FireParams.yPos;
+    this.width=FireParams.width;
+    this.yAcceleration=FireParams.yAcceleration;
+    this.life=FireParams.life;
+    this.xVelocity=FireParams.xVelocity;
+    this.yVelocity=FireParams.yVelocity;
+    this.flicker=FireParams.flicker;
+    this.intensity=FireParams.intensity;
+    this.xAcceleration=FireParams.xAcceleration;
+    this.size=FireParams.size;
+    this.yOffset=FireParams.yOffset;   
+    this.emberSelection = FireParams.emberSelection;
+    this.taperSelection = FireParams.taperSelection;
+    ParticleSystem.call(this, "assets/ParticleSystem/flameparticle.png", this.xPos, this.yPos, this.width, this.yAcceleration, this.life, this.xVelocity, this.yVelocity, this.flicker, this.intensity, this.xAcceleration, this.size, this.yOffset, [1,0,0,1], [3.5,.4,.3,.6], 1);
+}
+gEngine.Core.inheritPrototype(Fire,ParticleSystem);
+
+/*
+ * Parameter Struct
  * @param {float} xPos The x position for the fire
  * @param {float} yPos The y position for the fire
  * @param {float} width The maximum horizontal offset for the fire particles
@@ -14,53 +40,29 @@
  * @param {float} yVelocity The initial vertical boost for the fire particles
  * @param {float} flicker How quickly particles shrink
  * @param {float} intensity The # of fire particles created per update cycle
- * @param {float} xAcceleration The horizontal acceleration for the fire paritcles
+ * @param {float} xAcceleration The horizontal acceleration for the fire particles
  * @param {float} size The size for the fire paritcles
- * @param {float} yOffset The maximum vertical offset for the fire paritcles
+ * @param {float} yOffset The maximum vertical offset for the fire particles
  * @param {float} emberSelection Percentage of particles to apply ember effect to
  * @param {float} taperSelection Percentage of particles to apply taper effect to
- * @returns {Fire} New instance of Fire object
- * @type Fire
- * @class Fire
+ * @returns {FireParams} New instance of FireParams struct, with defaults for non-specified values
+ * @type struct
  */
-function Fire(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, emberSelection, taperSelection){
-    ParticleSystem.call(this, "assets/ParticleSystem/flameparticle.png", xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, [1,0,0,1], [3.5,.4,.3,.6], 1);
-    this.setSizeBase(3.5);
-    this.xPos=xPos;
-    this.yPos=yPos;
-    this.width=width;
-    this.yAcceleration=yAcceleration;
-    this.life=life;
-    this.xVelocity=xVelocity;
-    this.yVelocity=yVelocity;
-    this.flicker=flicker;
-    this.intensity=intensity;
-    this.xAcceleration=xAcceleration;
-    this.size=size;
-    this.yOffset=yOffset;   
-    this.emberSelection = emberSelection;
-    this.taperSelection = taperSelection;
-}
-gEngine.Core.inheritPrototype(Fire,ParticleSystem);
-
-/*
- * Parameter Struct
- */
-FireParams = function(){
-    this.xPos=50;
-    this.yPos=50;
-    this.width=5;
-    this.yAcceleration=1;
-    this.life=140;
-    this.xVelocity=0;
-    this.yVelocity=0;
-    this.flicker=0;
-    this.intensity=1;
-    this.xAcceleration=0;
-    this.size=1;
-    this.yOffset=0;
-    this.emberSelection = 25;
-    this.taperSelection = 25;
+FireParams = function(xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset, emberSelection, taperSelection){
+    this.xPos=xPos || 50;
+    this.yPos=yPos || 10;
+    this.width=width || 3;
+    this.yAcceleration=yAcceleration || 2;
+    this.life=life || 20;
+    this.xVelocity=xVelocity || 0;
+    this.yVelocity=yVelocity || 20;
+    this.flicker=flicker || 3;
+    this.intensity=intensity || 6;
+    this.xAcceleration= xAcceleration || 0;
+    this.size=size || 3.5;
+    this.yOffset=yOffset || 0;
+    this.emberSelection = emberSelection || 10;
+    this.taperSelection = taperSelection || 0;
 };
 
 Fire.prototype.update = function(){

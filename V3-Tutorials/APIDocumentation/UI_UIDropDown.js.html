@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/UIDropDown.js</title>
+
+    <script src="scripts/prettify.js"> </script>
+    <script src="scripts/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/tomorrow.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/UIDropDown.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+"use strict";
+/**
+ * A UI class use to assosiate DropDown buttons with each ohter
+ * @param {Array[]} position The base location for the list
+ * @param {String} text The initial text for the head button
+ * @param {int} textSize the size of the text
+ * @param {Array[]} textColor the color for the text
+ * @param {Array[]} boxColor the color for the box
+ * @class UIDropDown
+ * @returns {UIDropDown}
+ */
+function UIDropDown(position,text,textSize,textColor,boxColor){
+    GameObjectSet.call(this);
+    this.basePosition=position;
+    this.size=textSize;
+    this.color=textColor;
+    this.click = -1;
+    this.visible = false;
+    this.headButton = new UIDDButton(position, text, textSize, textColor, boxColor, this.flipVisible, this);
+    this.arrow = new TextureRenderable("assets/UI/ddarrow.png",position,this.size,this.size);
+    this.arrow._setShader(gEngine.DefaultResources.getUnlitTextureShader());
+    this.arrow.getXform().setSize(this.size,this.size);
+    this.arrow.getXform().setZPos(3);
+    this.maxWidth = this.headButton.getWidth();
+    this.headButton.setWidth(this.maxWidth+textSize);
+}
+
+gEngine.Core.inheritPrototype(UIDropDown, GameObjectSet);
+
+/**
+ * Updates all the DropDown buttons assigned to an instance of this class
+ * @param {Camera} aCamera The camera that is drawing the list 
+ * @memberOf UIDropDown
+ */
+UIDropDown.prototype.update = function(aCamera){
+    this.headButton.update(aCamera);
+    if(this.visible===true){
+        var i;
+        for (i = 0; i &lt; this.mSet.length; i++) {
+            this.mSet[i].update(aCamera);
+        }
+        for (i = 0; i &lt; this.mSet.length; i++) {
+            if(this.mSet[i].getClick()===true){this.click=i;}
+        }
+    if(this.click>=0){
+        this.headButton.setText(this.mSet[this.click].getText());
+        this.headButton.setBoxColor(this.mSet[this.click].getBoxColor());
+        this.visible=false;
+        this.click=-1;
+        this.arrow.getXform().incRotationByDegree(180); 
+    }
+    else{
+        if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)&amp;&amp;this.headButton.getClick()===false){
+            this.visible=false;
+            this.arrow.getXform().incRotationByDegree(180); 
+        }
+    }
+    }
+};
+
+/**
+ * Adds an entry to the list
+ * @param {String} text The text for the new button
+ * @param {Array[]} textColor The color for the text
+ * @param {Array[]} boxColor The color for the box
+ * @param {function} callback The function that is called when this button is clicked
+ * @param {object} context The object that is calling the callback function
+ * @param {Camera} aCamera The camera that is drawing the list
+ * @memberOf UIDropDown
+ */
+UIDropDown.prototype.addToSet = function (text, textColor, boxColor, callback, context, aCamera){
+    var ypos=this.basePosition[1];
+    var pixSize=this.size*(aCamera.getViewport()[2]/aCamera.getWCWidth());
+    ypos=ypos-(pixSize*(this.mSet.length+1));
+    var pos=[this.basePosition[0],ypos];
+    var u = new UIDDButton(pos,text,this.size,textColor,boxColor,callback,context);
+    this.mSet.push(u);
+    if(u.getWidth()>this.maxWidth){
+        var uWidth=u.getWidth();
+        this.headButton.setWidth(uWidth+this.size);
+        for (var i = 0; i &lt; this.mSet.length; i++) {
+            this.mSet[i].setWidth(uWidth);
+        }
+        this.maxWidth=uWidth;
+    }
+    else{
+        u.setWidth(this.maxWidth);
+    }
+};
+/**
+ * Flips the visibility of all buttons in the list except the head button
+ * @memberOf UIDropDown
+ */
+UIDropDown.prototype.flipVisible = function(){
+    this.visible=!this.visible;
+    this.arrow.getXform().incRotationByDegree(180);  
+};
+
+/**
+ * Draws the DropDownList
+ * @param {Camera} aCamera The camera the list will be drawon on
+ * @memberOf UIDropDown
+ */
+UIDropDown.prototype.draw = function(aCamera){
+    this.headButton.draw(aCamera);
+    var pos = this.headButton.getBoxPos();
+    var tmp=pos[0]+(this.maxWidth/2);
+    this.arrow.getXform().setPosition(tmp,pos[1]);
+    this.arrow.draw(aCamera);
+    if(this.visible===true){
+        var i;
+        for (i = 0; i &lt; this.mSet.length; i++) {
+            this.mSet[i].draw(aCamera);
+        }
+    }
+};
+
+/**
+ * Gets the head button of the list
+ * @returns {UIDDButton}
+ * @memberOf UIDropDown
+ * 
+ */
+UIDropDown.prototype.getHeadButton = function(){
+    return this.headButton;
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a></li><li><a href="CameraShake.html">CameraShake</a></li><li><a href="CameraState.html">CameraState</a></li><li><a href="CharacterInfo.html">CharacterInfo</a></li><li><a href="Dust.html">Dust</a></li><li><a href="Fire.html">Fire</a></li><li><a href="FontRenderable.html">FontRenderable</a></li><li><a href="GameObject.GameObject.html">GameObject</a></li><li><a href="GameObjectSet.html">GameObjectSet</a></li><li><a href="gEngine.AudioClips.html">AudioClips</a></li><li><a href="gEngine.Core.html">Core</a></li><li><a href="gEngine.DefaultResources.html">DefaultResources</a></li><li><a href="gEngine.eLayer.html">eLayer</a></li><li><a href="gEngine.Fonts.html">Fonts</a></li><li><a href="gEngine.GameLoop.html">GameLoop</a></li><li><a href="gEngine.Input.html">Input</a></li><li><a href="gEngine.ParticleSystem.html">ParticleSystem</a></li><li><a href="gEngine.Physics.html">Physics</a></li><li><a href="gEngine.ResourceMap.html">ResourceMap</a></li><li><a href="gEngine.Stencil.html">Stencil</a></li><li><a href="gEngine.TextFileLoader.html">TextFileLoader</a></li><li><a href="gEngine.Textures.html">Textures</a></li><li><a href="gEngine.VertexBuffer.html">VertexBuffer</a></li><li><a href="IllumRenderable.html">IllumRenderable</a></li><li><a href="IllumShader.html">IllumShader</a></li><li><a href="Light.html">Light</a></li><li><a href="LightRenderable.html">LightRenderable</a></li><li><a href="LightSet.html">LightSet</a></li><li><a href="LightShader.html">LightShader</a></li><li><a href="LineRenderable.html">LineRenderable</a></li><li><a href="LineShader.html">LineShader</a></li><li><a href="ParallaxGameObject.html">ParallaxGameObject</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleEmitter.html">ParticleEmitter</a></li><li><a href="ParticleGameObject.html">ParticleGameObject</a></li><li><a href="ParticleGameObjectSet.html">ParticleGameObjectSet</a></li><li><a href="ParticleRenderable.html">ParticleRenderable</a></li><li><a href="ParticleSystem.html">ParticleSystem</a></li><li><a href="PerRenderCache.html">PerRenderCache</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="RigidCircle.html">RigidCircle</a></li><li><a href="RigidRectangle.html">RigidRectangle</a></li><li><a href="RigidShape.html">RigidShape</a></li><li><a href="ShaderLightAtIndex.html">ShaderLightAtIndex</a></li><li><a href="ShaderMaterial.html">ShaderMaterial</a></li><li><a href="ShadowCaster.html">ShadowCaster</a></li><li><a href="ShadowCasterShader.html">ShadowCasterShader</a></li><li><a href="ShadowReceiver.html">ShadowReceiver</a></li><li><a href="SimpleShader.html">SimpleShader</a></li><li><a href="Smoke.html">Smoke</a></li><li><a href="Snow.html">Snow</a></li><li><a href="SpriteAnimateRenderable.html">SpriteAnimateRenderable</a></li><li><a href="SpriteRenderable.html">SpriteRenderable</a></li><li><a href="SpriteShader.html">SpriteShader</a></li><li><a href="SubEmitter.html">SubEmitter</a></li><li><a href="TextureInfo.html">TextureInfo</a></li><li><a href="TextureRenderable.html">TextureRenderable</a></li><li><a href="TextureShader.html">TextureShader</a></li><li><a href="TiledGameObject.html">TiledGameObject</a></li><li><a href="UIBar.html">UIBar</a></li><li><a href="UIButton.html">UIButton</a></li><li><a href="UIDDButton.html">UIDDButton</a></li><li><a href="UIDropDown.html">UIDropDown</a></li><li><a href="UIElement.html">UIElement</a></li><li><a href="UIRadio.html">UIRadio</a></li><li><a href="UIRButton.html">UIRButton</a></li><li><a href="UISlider.html">UISlider</a></li><li><a href="UISprite.html">UISprite</a></li><li><a href="UISpriteButton.html">UISpriteButton</a></li><li><a href="UISwitchTogglee.html">UISwitchTogglee</a></li><li><a href="UIText.html">UIText</a></li><li><a href="UITextBox.html">UITextBox</a></li><li><a href="UITextBoxFont.html">UITextBoxFont</a></li><li><a href="UITexture.html">UITexture</a></li><li><a href="UIToggle.html">UIToggle</a></li><li><a href="UnlitSpriteShader.html">UnlitSpriteShader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DustParams">DustParams</a></li><li><a href="global.html#gEngine">gEngine</a></li><li><a href="global.html#SmokeParams">SmokeParams</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0-dev</a> on Mon Jun 03 2019 03:58:58 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

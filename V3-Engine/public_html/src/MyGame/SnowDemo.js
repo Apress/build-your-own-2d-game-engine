@@ -91,8 +91,10 @@ SnowDemo.prototype.initialize = function () {
     xf3.setPosition(85, 25);
     xf3.setZPos(4);
     this.mTrees.addToSet(tree3);
+        
+    var snowParams = new SnowParams();
+    this.mSnow = new Snow(snowParams);
     
-    this.mSnow=new Snow(50,80,50,5,150,0,0,0,3,0,-0.5,0);
     this.mAllObjs = new GameObjectSet();
     this.mAllObjs.addToSet(this.mTarget);
     this.backButton = new UIButton(this.backSelect,this,[80,580],[160,40],"Go Back",4);
