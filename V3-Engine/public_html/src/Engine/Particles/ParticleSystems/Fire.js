@@ -29,7 +29,7 @@ function Fire(FireParams){
 }
 gEngine.Core.inheritPrototype(Fire,ParticleSystem);
 
-/*
+/**
  * Parameter Struct
  * @param {float} xPos The x position for the fire
  * @param {float} yPos The y position for the fire

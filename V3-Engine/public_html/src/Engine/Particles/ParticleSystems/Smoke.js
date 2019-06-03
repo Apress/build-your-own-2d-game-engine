@@ -33,7 +33,8 @@ function Smoke(SmokeParams){
 gEngine.Core.inheritPrototype(Smoke,ParticleSystem);
 
 
-/**Smoke Parameter Struct
+/**
+ * Smoke Parameter Struct
  * @param {float} xPos The x position for the smoke
  * @param {float} yPos The y position for the smoke
  * @param {float} width The maximum horizontal offset for the smoke particles

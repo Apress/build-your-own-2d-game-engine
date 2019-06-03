@@ -28,7 +28,7 @@ function Snow(SnowParams){
 
 gEngine.Core.inheritPrototype(Snow,ParticleSystem);
 
-/*
+/**
  * Parameter Struct
  * @param {float} xPos The x position for the snow
  * @param {float} yPos The y position for the snow
