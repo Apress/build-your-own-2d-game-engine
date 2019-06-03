@@ -39,7 +39,7 @@ function SubEmitter(SubEmitterParams){
 };
 gEngine.Core.inheritPrototype(SubEmitter,ParticleSystem);
 
-/*
+/**
  * Parameter Struct
  * @param {png}   MainParticleTexture texture for main emitter particles
  * @param {png}   SubParticleTexture texture for sub emitter particles
