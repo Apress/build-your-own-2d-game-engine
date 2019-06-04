@@ -94,9 +94,11 @@ UIBar.prototype.update = function() {
     var p = this.getUIXform().getPosition();
     var topValue = this.mInterValue;
     
-    // due to using stencil when drawing, can just move elements (no need to resize)
+    // due to using stencil when drawing, can just move elements
+    // (no need to resize)
     if(this.mMidVisible) {
-        // switch which interpolation to use for which element so as to show trace of value change
+        // switch which interpolation to use for which element so as to show
+        // trace of value change
         var midValue = this.mIncreasing ? this.mCurValue : this.mInterValue;
         topValue = this.mIncreasing ? this.mInterValue : this.mCurValue;
         
