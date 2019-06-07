@@ -4,6 +4,7 @@
 
 # ignore .bak files
 *.bak
+private.xml
 BookSourceCode/Chapter8/8.4.NormalMapsAndIlluminationShaders/nbproject/private/private.xml
 AdditionalMaterials/2018.3.EngineWithRigidPhysics/nbproject/private/private.xml
 BookSourceCode/Chapter10/10.3.LayerManager/nbproject/private/private.xml

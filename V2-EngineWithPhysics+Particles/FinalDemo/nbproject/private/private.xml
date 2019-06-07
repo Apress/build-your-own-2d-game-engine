@@ -21,5 +21,9 @@
             <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/GLSLShaders/IllumFS.glsl</file>
             <file>file:/C:/Users/Kelvin/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Shaders/LightShader.js</file>
         </group>
+        <group name="BookSourceCode">
+            <file>file:/C:/Users/ksungAD/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Core/Resources/Engine_Textures.js</file>
+            <file>file:/C:/Users/ksungAD/Desktop/GitHub/build-your-own-2d-game-engine/V2-EngineWithPhysics+Particles/FinalDemo/public_html/src/Engine/Particles/ParticleSystems/Fire.js</file>
+        </group>
     </open-files>
 </project-private>
