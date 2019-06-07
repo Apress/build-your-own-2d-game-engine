@@ -2,6 +2,9 @@
 
 This repository accompanies [*Build your own 2D Game Engine and Create Great Web Games*](http://www.apress.com/9781484209530) by Kelvin Sung, Jebediah Pavleas, Fernando Arnez, and Jason Pace (Apress, 2015).
 
+## Book Website
+You can access information in repo as a web-site by [*following this link*](https://gamethemedgroup.github.io/GTCS-GameEngine/index.html).
+
 ![Cover image](9781484209530.jpg)
 
 Download the files as a zip using the green button, or clone the repository to your machine using Git.

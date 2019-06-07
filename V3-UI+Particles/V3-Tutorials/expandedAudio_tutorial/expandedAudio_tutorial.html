@@ -1,0 +1,90 @@
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../coding.css">
+		<title>Expanded Audio Functionality Tutorial</title>
+	</head>
+
+	<body>
+    	<div id="main-content">
+		<h1> GTCS Game Engine: <br>
+		Expanded Audio Functionality Tutorial</h1>
+                <p><a href="../../index.html">Back to V3 Documentation Page</a><p>
+		
+		<hr>
+		<h2>Introduction</h2>
+		<p>In this tutorial, we will look at extra support added to the audio part of the engine.</p>
+		<p>Important notes:</p>
+		<p>-recommend that when working with volume, don't use any form of headphones/headset</p>
+		<p>-recommend <i>not</i> using with a value over 100 when starting to figure out what volume is desired for the game</p>
+		<p>-to use audio functions start with gEngine.AudioClips.(insert function name here)</p>
+		<p>-in audio terms "gain" means "volume"</p>
+		<p><strong>Audio Info:</strong> 
+			<a href="#Master_Volume">Master Volume</a> •
+			<a href="#BG_Audio">Background Audio</a> •
+			<a href="#Cue">Cue</a>
+        
+		
+	<hr>
+		<h2><a id="Master_Volume"></a>Master Volume</h2>
+		<p>All audio goes through a master gain (volume) node. Any adjustements made to the master volume will affect <i>all</i>
+		audio in the game. (e.g. master volume set to 0 mutes the game)</p>
+		<p><b>Functions:</b></p>
+		<p>setMasterVolume - sets the master volume to a given value</p>
+		<p>incMasterVolume - increments the master volume by a given value (positive or negative)</p>
+		
+		<figure>
+		<pre>MyGame.prototype.initialize = function() {
+    gEngine.AudioClips.setMasterVolume(10);
+};</pre>
+		<figcaption class="codecaption">
+		  <p>Example of setting master volume</p>
+		</figcaption>
+        </figure>
+	
+		<figure>
+		<pre>MyGame.prototype.update = function() {
+	if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Right)){
+            gEngine.AudioClips.incMasterVolume(10);
+        }
+	if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)){
+            gEngine.AudioClips.incMasterVolume(-10);
+        }
+};</pre>
+		<figcaption class="codecaption">
+		  <p>Example of incrementing master volume</p>
+		</figcaption>
+        </figure>
+
+	<hr>
+		<h2><a id="BG_Audio"></a>Background Audio</h2>
+		<p>This section looks at how to use background audio in a game (such as background music). Any volume adjustments here <i>only</i> affect the background audio.</p>
+		<p>Note: there can only be one background audio playing at a time</p>
+		<p><b>Functions:</b></p>
+		<p>playBackgroundAudio - this function takes in a string indicating the location of the background audio file and then starts playing it</p>
+		<p>stopBackgroundAudio - this function stops the background audio</p>
+		<p>isBackgroundAudioPlaying - returns whether or not there is currently background audio being played</p>
+		<p>setBackgroundVolume - sets the background audio volume to a given value</p>
+		<p>incBackgroundVolume - increments the background audio volume by a given value (positive or negative)</p>
+		
+		<hr>
+		<h2><a id="Cue"></a>Cue</h2>
+		<p>This section looks at how to play an audio cue. An audio cue is a sound played only once (like a sound to accompany an item pick-up).
+		Each cue is played with its own volume. However, there is an overall cue volume too which allows for manipulation of all cues' volumes at once.</p>
+		<p><b>Functions:</b></p>
+		<p>playACue - this function takes in a string indicating the location of the cue audio file and a volume value</p>
+		<p>setCueVolume - sets the overall cue volume to a given value</p>
+
+	<hr>
+    <h2>Conclusion</h2>
+        <p>With these expanded audio funtionalities, we can make adjustments (and allow for user adjuments) to the in-game volumes.
+		This means the user does not have to adjust the volume of the computer they are using to play the game. Also, the different volumes
+		(master, background, and cue) can be adjusted individually allowing us to balance out different audios.</p>
+        
+	</div>
+	<p><a href="../../index.html">Back to V3 Documentation Page</a><p>
+    <h4><i>6/1/2019</i> - Kyla NeSmith</h4>
+    </body>
+</html>

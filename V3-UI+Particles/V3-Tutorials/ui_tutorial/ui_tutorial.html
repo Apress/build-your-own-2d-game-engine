@@ -1,0 +1,227 @@
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../coding.css">
+		<title>UI Tutorial</title>
+	</head>
+
+	<body>
+    	<div id="main-content">
+		<h1> GTCS Game Engine: <br>
+		UI Tutorial</h1>
+                <p><a href="../../index.html">Back to V3 Documentation Page</a><p>
+		
+		
+		<hr>
+		<p><b>Note: </b>These UI Objects are enhancements and in addition to the 
+		<a href="../../../V2-EngineWithPhysics+Particles/V2-Tutorials/TutorialForUI/UI_Tutorial.html">V2 UI Objects</a>.</p>
+		</p>
+		<p>You can try the demo for the UI objects <a href="../../V3-Engine/public_html/index.html">here</a>.</p>                       
+		<h2>Introduction</h2>
+		<p>This tutorial will cover the new UI Objects added. It will explain how to set up and use
+		each of the UI Objects.</p>
+		<p><strong>UI Objects:</strong> 
+			<a href="#UI_Button">UI Button</a> •
+			<a href="#UI_SpriteButton">UI Sprite Button</a> •
+			<a href="#UI_Bar">UI Bar</a> •
+			<a href="#UI_Slider">UI Slider</a> •
+			<a href="#UI_Toggle">UI Toggle</a> •
+			<a href="#UI_SwitchToggle">UI Switch Toggle</a></p>
+
+		<hr>
+		<h2>Common Variables</h2>
+		<p>position - a 2 entry array that takes the PIXEL position of the object</p>
+		<p>size - a 2 entry array that takes the PIXEL position of the object</p>
+		<p>color - a 4 entry array that controls the color of the object.</p>
+		<p>text - string for the object to display</p>
+		<p>textSize - a single number that controls the height of text</p>
+		<p>stencil - a renderable that is used in the draw call of several UI objects for stenciling</p>
+		
+		<hr>
+		<h2><a id="UI_Button"></a>UI Text</h2>
+		<p>This form of button uses solid colors and a stencil.
+		To have more customized buttons, <a href="#UI_SpriteButton">sprite buttons</a> should be used.</p>
+		<p><figure>
+        	<img src="images/button.png" width="324" height="103" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UIButton = new UIButton(callback, context, position, size, text, textSize);
+};</pre>
+        <p><figure>
+            	<figcaption>Constructor header for UI Button.</figcaption>
+            </figure>
+        </p>
+		<p>callback - sets the function to be called when the button is clicked</p>
+		<p>context - is which object the callback belongs to
+		(e.g. if we want to call this.backSelect(), then backSelect is the callback and this is the context</p>
+		<p></p>
+		<p><b>Useful functions:</b></p>
+		<p>setTextColor - sets the normal color of the text</p>
+		<p>setHoverTextColor - sets the text color for when the button is hovered over</p>
+		<p>setClickTextColor - sets the color of the text for when the button is clicked</p>
+		<p>setBGColor - sets the normal color of the button's background</p>
+		<p>setBGHoverColor - sets the background's color for when the button is hovered over</p>
+		<p>setBGClickColor - sets the color of the background for when the button is clicked</p>
+		<p>setStencil sets - the stencil to be used when drawing</p>
+		
+		<hr>
+		<h2><a id="UI_SpriteButton"></a>UI Sprite Button</h2>
+		<p>This form of button uses a sprite image to allow for more customized buttons. It does not use a stencil.</p>
+		<p><figure>
+        	<img src="images/spriteButton.png" width="371" height="58" alt=""/>
+            </figure>
+        </p>
+		<p><figure>
+        	<img src="images/ElectricButton.png" width="256" height="256" border="1" alt=""/>
+			<figcaption>Example sprite sheet for sprite button (border added to show full sheet)</figcaption>
+            </figure>
+			</p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UISpriteButton = new UISpriteButton(buttonSprite, callback, context, position, size, text, textSize);
+};</pre>
+		<p><figure>
+            	<figcaption>Constructor header for UI Sprite Button.</figcaption>
+            </figure>
+        </p>
+		<p>buttonSprite - the sprite to be used for the button. There are four parts to the sprite: normal button sprite, hovered over button sprite, clicked button sprite, and an empty slot
+		(since the sprite needs to be a power of 2 and it's easier to devide the UV by 4 than by 3).</p>
+		<p>callback and context are same as in UI Button</p>
+		<p></p>
+		<p><b>Useful functions:</b></p>
+		<p>setTextColor - sets the normal color of the text</p>
+		<p>setHoverTextColor - sets the text color for when the button is hovered over</p>
+		<p>setClickTextColor - sets the color of the text for when the button is clicked</p>
+		<p>setBGNormalUVs - sets the UVs of the buttonSprite that will be used when there is no interaction between the button and mouse</p>
+		<p>setBGHoverUVs - sets the UVs to be used for when the button is hovered over</p>
+		<p>setBGClickUVs - sets the UVs to be used when the button is clicked</p>
+		
+		<hr>
+		<h2><a id="UI_Bar"></a>UI Bar</h2>
+		<p>Bars primarily consist of three elements: background (bg), middle (mid), and top.
+		These element names refer to which element is drawn before another.
+		Bars also use solid colors and a stencil for drawing.
+		Basic on the given size, a bar will function horizontally or vertically.</p>
+		<p><figure>
+        	<img src="images/bar.png" width="503" height="55" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UIBar = new UIBar(position, size);
+};</pre>
+		<p><figure>
+            	<figcaption>Constructor header for UI Bar.</figcaption>
+            </figure>
+        </p>
+		<p><b>Useful functions:</b></p>
+		<p>setMaxValue - sets the maximum value of the bar (note: the minimum of the bar is always 0)</p>
+		<p>getMaxValue - returns the maximum value</p>
+		<p>setCurrentValue - sets the current value of the bar</p>
+		<p>getCurrentValue - returns the current value of the bar</p>
+		<p>incCurrentValue - increments the current value of the bar by a given value (positive or negative)</p>
+		<p>setBGVisible - sets whether the bar's background should be drawn</p>
+		<p>setMidVisible - sets whether the bar's middle element should be drawn</p>
+		<p>setBGColor - sets the background's color</p>
+		<p>setMidElemColor - sets the middle elements's color</p>
+		<p>setTopElemColor - sets the top elements's color</p>
+		<p>setStencil - sets the stencil to be used when drawing</p>
+		<p>setStencilUV - sets the UVs of the stencil</p>
+		<p>setSnapIncrease - sets whether or not the top element should jump when the bar's value is increasing</p>
+		<p>configInterpolation - sets the cycles and rate of the interpolated movement. Setting the cycles to 1 will turn off interpollation.</p>
+
+		<hr>
+		<h2><a id="UI_Slider"></a>UI Slider</h2>
+		<p>Sliders share some variables and functions as bars but add a handle for user input.</p>
+		<p><figure>
+        	<img src="images/slider.png" width="592" height="70" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UISlider = new UISlider(position, size);
+};</pre>
+		<p><figure>
+            	<figcaption>Constructor header for UI Slider.</figcaption>
+            </figure>
+        </p>
+		<p><b>Useful functions:</b></p>
+		<p>setMaxValue - sets the maximum value of the bar (note: the minimum of the bar is always 0)</p>
+		<p>getMaxValue - returns the maximum value</p>
+		<p>setCurrentValue - sets the current value of the bar</p>
+		<p>getCurrentValue - returns the current value of the bar</p>
+		<p>setHandleTexture - sets the image to be used for the handle</p>
+		<p>setHandleSize - sets the size of the handle</p>
+		<p>setHandleColor - sets the handles's color</p>
+		<p>setBGColor - sets the background's color</p>
+		<p>setColor - sets the color of the slider's top element</p>
+		<p>setTextXOffset - sets how far the text should be from the slider on the x axis</p>
+		<p>setTextColor - sets the color of the Text</p>
+		<p>setTextSize - sets the size of the text</p>
+		<p>setTextVisible - sets whether or not to show the text</p>
+		<p>setToFixedValue - sets how many decimal places should be shown when showing text
+		(e.g. to fixed value of 2 shows to the tenths place, to fixed value of 0 does not show any decimal places)</p>
+		<p>setSnap - sets whether or not the slider handle should snap to certain increments</p>
+		<p>setSnapBy - sets the value by which the slider should snap
+		(e.g. if snap by is to 0.5, slider will snap to nearest half so 1.2 would snap to 1 and 1.7 would snap to 1.5)</p>
+		<p>setMultiplier - sets a multiplier to be used for when displaying text
+		(e.g. if the max value of the slider is 1 and it should appear to the user that the max is 100, the multiplier needs to be set to 100)</p>
+		
+		<hr>
+		<h2><a id="UI_Toggle"></a>UI Toggle</h2>
+		<p>Toggles let a user select from a list of options.</p>
+		<p><figure>
+        	<img src="images/toggle.png" width="314" height="51" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UIToggle = new UIToggle(position, size, optionTexts, textSize);
+};</pre>
+		<p><figure>
+            	<figcaption>Constructor header for UI Toggle.</figcaption>
+            </figure>
+        </p>
+		<p>optionTexts - an array of strings to be displayed as the options for which the user can pick from</p>
+		<p></p>
+		<p><b>Useful functions:</b></p>
+		<p>getCurValue - returns the index of the currently selected option (note: keep in mind the first option has an index of 0)</p>
+		<p>setBGColor - sets the color of the toggle's background</p>
+		<p>setSelectionColor - sets the color to be used to show which option in selected</p>
+		<p>setNormalTextColor - sets the color for the text to be used for non-selected options</p>
+		<p>setSelectedTextColor - sets the color for the text to be used by the selected option</p>
+		<p>configInterpolation - sets the cycles and rate of the interpolated movement. Setting the cycles to 1 will turn off interpollation.</p>
+		
+		<hr>
+		<h2><a id="UI_SwitchToggle"></a>UI Switch Toggle</h2>
+		<p>Switch toggles are a two state UI object (like a light switch).</p>
+		<p><figure>
+        	<img src="images/switchToggle.png" width="114" height="54" alt=""/>
+            </figure>
+        </p>
+		<pre>MyGame.prototype.initialize = function(){
+	this.UISwitchToggle = new UISwitchToggle(position, size);
+};</pre>
+		<p><figure>
+            	<figcaption>Constructor header for UI Switch Toggle.</figcaption>
+            </figure>
+        </p>
+		<p><b>Useful functions:</b></p>
+		<p>setHandleTexture - sets the image to be used for the handle</p>
+		<p>setHandleSize - sets the size of the handle</p>
+		<p>setHandleColor - sets the handles's color</p>
+		<p>setBGColor - sets the background's color</p>
+		<p>setColor - sets the color of the switch toggles's top element</p>
+		<p>setState - sets the current state of the switch toggle</p>
+		<p>getState - returns the current state of the toggle (note: this is a boolean value)</p>
+		
+		
+	<hr>
+    <h2>Conclusion</h2>
+        <p>These UI objects allow for a variety of ways for your user to interact with your game.
+		They are customizable to fit the style of your game be it just through a color scheme or custom spites.</p>
+		<p>For more information on UI objects, look at the <a href="../../../V2-EngineWithPhysics+Particles/V2-Tutorials/TutorialForUI/UI_Tutorial.html">V2 engine's UI Tutorial</a>.</p>
+	</div>
+	<p><a href="../../index.html">Back to V3 Documentation Page</a><p>
+    <h4><i>6/1/2019</i> - Kyla NeSmith</h4>
+    </body>
+</html>
