@@ -61,9 +61,9 @@ MyGame.prototype.loadScene = function () {
     this.kSBGM = "assets/sounds/SadBackgroundMusic.mp3";
     this.kHBGM = "assets/sounds/HappyBackgroundMusic.mp3";
     
-    this.k_Dzy = "assets/_dzy.png";
-    this.k_Wyh = "assets/_wyh.png";
-    this.k_Zyc = "assets/_zyc.png";
+    this.k_Dzy = "assets/dzy.png";
+    this.k_Wyh = "assets/wyh.png";
+    this.k_Zyc = "assets/zyc.png";
     this.mAllImages = new GameObjectSet();
     
     gEngine.Textures.loadTexture(this.k_Dzy);
