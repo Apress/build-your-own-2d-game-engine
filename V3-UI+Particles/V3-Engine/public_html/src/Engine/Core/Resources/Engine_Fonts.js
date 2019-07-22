@@ -33,9 +33,6 @@ function CharacterInfo() {
     this.mCharHeight = 1;
     this.mCharWidthOffset = 0;
     this.mCharHeightOffset = 0;
-
-    // reference of char width/height ratio
-    this.mCharAspectRatio = 1;
 }
 
 /**
@@ -111,7 +108,7 @@ gEngine.Fonts = (function () {
         if (commonInfo === null) {
             return returnInfo;
         }
-        var charHeight = commonInfo.getAttribute("base");
+        var charSize = commonInfo.getAttribute("base");
 
         var charPath = "font/chars/char[@id=" + aChar + "]";
         var charInfo = fontInfo.evaluate(charPath, fontInfo, null, XPathResult.ANY_TYPE, null);
@@ -135,13 +132,16 @@ gEngine.Fonts = (function () {
         returnInfo.mTexCoordBottom = bottomPixel / (texInfo.mHeight - 1);
 
         // relative character size
-        var charWidth = charInfo.getAttribute("xadvance");
-        returnInfo.mCharWidth = charInfo.getAttribute("width") / charWidth;
-        returnInfo.mCharHeight = charInfo.getAttribute("height") / charHeight;
-        returnInfo.mCharWidthOffset = charInfo.getAttribute("xoffset") / charWidth;
-        returnInfo.mCharHeightOffset = charInfo.getAttribute("yoffset") / charHeight;
-        returnInfo.mCharAspectRatio = charWidth / charHeight;
-
+        returnInfo.mCharWidth = charInfo.getAttribute("width") / charSize;
+        returnInfo.mCharHeight = charInfo.getAttribute("height") / charSize;
+        if (returnInfo.mCharWidth > 0) {
+            returnInfo.mCharWidthOffset = charInfo.getAttribute("xoffset") / charInfo.getAttribute("width");
+            returnInfo.mXAdvance = charInfo.getAttribute("xadvance") / charInfo.getAttribute("width");      
+        } else {
+            returnInfo.mCharWidth = charInfo.getAttribute("xadvance") / charSize; 
+            returnInfo.mXAdvance = 1.0;
+        }
+        returnInfo.mCharHeightOffset = charInfo.getAttribute("yoffset") / charSize;
         return returnInfo;
     };
 

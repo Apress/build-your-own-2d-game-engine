@@ -150,6 +150,7 @@ UIText.prototype._getAlignmentOffset = function() {
             alignOff[1] -= symbolSize[1] / 2;
             break;
         case UIText.eVAlignment.eCenter:
+            alignOff[1] = symbolSize[1] * 0.2;
             break;
         case UIText.eVAlignment.eBottom:
             alignOff[1] += symbolSize[1] / 2;

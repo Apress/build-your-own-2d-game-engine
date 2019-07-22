@@ -36,37 +36,42 @@ function FontRenderable(aString) {
 FontRenderable.prototype.draw = function (aCamera) {
     // we will draw the text string by calling to mOneChar for each of the
     // chars in the mText string.
-    var widthOfOneChar = this.mXform.getWidth() / this.mText.length;
-    var heightOfOneChar = this.mXform.getHeight();
+    var charSize = this.mXform.getHeight();
     // this.mOneChar.getXform().setRotationInRad(this.mXform.getRotationInRad());
     var yPos = this.mXform.getYPos();
 
     // center position of the first char
-    var xPos = this.mXform.getXPos() - (widthOfOneChar / 2) + (widthOfOneChar * 0.5);
+    var xPos = this.mXform.getXPos(); 
     var charIndex, aChar, charInfo, xSize, ySize, xOffset, yOffset;
     for (charIndex = 0; charIndex < this.mText.length; charIndex++) {
         aChar = this.mText.charCodeAt(charIndex);
         charInfo = gEngine.Fonts.getCharInfo(this.mFont, aChar);
-
+        
         // set the texture coordinate
         this.mOneChar.setElementUVCoordinate(charInfo.mTexCoordLeft, charInfo.mTexCoordRight,
             charInfo.mTexCoordBottom, charInfo.mTexCoordTop);
 
         // now the size of the char
-        xSize = widthOfOneChar * charInfo.mCharWidth;
-        ySize = heightOfOneChar * charInfo.mCharHeight;
+        var charWidth = charSize * charInfo.mCharWidth;
+        xSize = charWidth;
+        ySize = charSize * charInfo.mCharHeight;
         this.mOneChar.getXform().setSize(xSize, ySize);
 
         // how much to offset from the center
-        xOffset = widthOfOneChar * charInfo.mCharWidthOffset * 0.5;
-        yOffset = heightOfOneChar * charInfo.mCharHeightOffset * 0.5;
+        xOffset = 0.5 * charWidth * charInfo.mCharWidthOffset;
+        yOffset = 0.5 * charSize * charInfo.mCharHeightOffset;
 
-        this.mOneChar.getXform().setPosition(xPos - xOffset, yPos - yOffset);
+        if (charIndex !== 0) {
+            xPos += 0.5 * charWidth * charInfo.mXAdvance;
+        }
+        
+        this.mOneChar.getXform().setPosition(xPos + xOffset, yPos - yOffset);
         // allows for zPos to affect FontRenderables
         this.mOneChar.getXform().setZPos(this.mXform.getZPos());
         this.mOneChar.draw(aCamera);
 
-        xPos += widthOfOneChar;
+        // Advance to the middle of this char
+        xPos += 0.5 * charWidth * charInfo.mXAdvance;
     }
 };
 
@@ -102,9 +107,7 @@ FontRenderable.prototype.setText = function (t) {
  * @returns {void}
  */
 FontRenderable.prototype.setTextHeight = function (h) {
-    var charInfo = gEngine.Fonts.getCharInfo(this.mFont, "A".charCodeAt(0)); // this is for "A"
-    var w = h * charInfo.mCharAspectRatio;
-    this.getXform().setSize(w * this.mText.length, h);
+    this.getXform().setSize(this.getStringWidth(h), h);
 };
 
 /**
@@ -161,6 +164,18 @@ FontRenderable.prototype.getColor = function () { return this.mOneChar.getColor(
  * @returns {void}
  */
 FontRenderable.prototype.update = function () {};
+
+FontRenderable.prototype.getStringWidth = function (h) {
+    var stringWidth = 0;
+    var charSize = h;
+    var charIndex, aChar, charInfo;
+    for (charIndex = 0; charIndex < this.mText.length; charIndex++) {
+        aChar = this.mText.charCodeAt(charIndex);
+        charInfo = gEngine.Fonts.getCharInfo(this.mFont, aChar);
+        stringWidth += charSize * charInfo.mCharWidth * charInfo.mXAdvance;
+    }
+    return stringWidth;
+};
 
 //--- end of Public Methods
 //</editor-fold>

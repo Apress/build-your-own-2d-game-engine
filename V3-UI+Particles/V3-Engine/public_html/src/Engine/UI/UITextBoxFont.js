@@ -22,6 +22,7 @@ gEngine.Core.inheritPrototype(UITextBoxFont, FontRenderable);
  * @param {type} startPos How far into the string to start drawing
  * @memberOf UITextBoxFont
  */
+/*
 UITextBoxFont.prototype.draw = function(aCamera, startPos){
     // we will draw the text string by calling to mOneChar for each of the
     // chars in the mText string.
@@ -67,4 +68,4 @@ UITextBoxFont.prototype.draw = function(aCamera, startPos){
         xPos += widthOfOneChar;
         widthOfOneChar = this.mXform.getWidth() / this.mText.length;
     }
-};
+}; */
