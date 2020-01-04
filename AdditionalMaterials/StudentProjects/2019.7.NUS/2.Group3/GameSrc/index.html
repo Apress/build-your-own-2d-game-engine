@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Haha & Coco</title>
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+        <link rel ="icon" type ="image/x-icon" href="./assets/favicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> 
+
+
+        <!-- the following says there are javascript source code contained in 
+             the external source files
+        -->
+        <!-- external library -->
+        <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
+
+        <!-- Engine code -->
+        <!-- Core of Engine --> 
+        <script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_ParticleSystem.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_LayerManager.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Engine_Stencil.js"></script>
+        <!-- Resource support -->
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_AudioClips.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Textures.js"></script>
+        <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Fonts.js"></script>
+        <script type="text/javascript" src="src/Engine/Scene.js"></script>
+        <script type="text/javascript" src="src/Engine/Material.js"></script>
+        <!--Lights -->
+        <script type="text/javascript" src="src/Engine/Lights/Light.js"></script>
+        <script type="text/javascript" src="src/Engine/Lights/LightSet.js"></script>
+        <!-- Utilities -->
+        <script type="text/javascript" src="src/Engine/Utils/Transform.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/BoundingBox.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/Interpolate.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/InterpolateVec2.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/LoadingIconConfig.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/ShakePosition.js"></script>
+        <!-- Renderables -->
+        <script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/SpriteAnimateRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/FontRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/LineRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/LightRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/IllumRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/ParticleRenderable.js"></script>
+        <!-- Shadows -->
+        <script type="text/javascript" src="src/Engine/Shadows/ShadowCaster.js"></script>
+        <script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver.js"></script>
+        <script type="text/javascript" src="src/Engine/Shadows/ShadowReceiver_Stencil.js"></script>
+        <!-- GameObject -->
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObject_PixelCollision.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/GameObjectSet.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/TiledGameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/GameObjects/ParallaxGameObject.js"></script>
+        <!-- Particles -->
+        <script type="text/javascript" src="src/Engine/Particles/Particle.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleGameObject.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleGameObjectSet.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleEmitter.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/ParticleSystem.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Fire.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Smoke.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Snow.js"></script>
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/Dust.js"></script>        
+        <script type="text/javascript" src="src/Engine/Particles/ParticleSystems/SubEmitter.js"></script>
+        <!-- Shaders -->
+        <script type="text/javascript" src="src/Engine/Shaders/UnlitShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/UnlitTextureShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/UnlitSpriteShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/SpriteShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/LineShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/LightShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShaderLightAtIndex.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/IllumShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShaderMaterial.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShadowCasterShader.js"></script>
+        <!-- Camera -->
+        <script type="text/javascript" src="src/Engine/Cameras/Camera.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Manipulation.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Input.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Xform.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraState.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraShake.js"></script>
+        
+        <!-- Physics support -->
+        <script type="text/javascript" src="src/Engine/Core/Engine_Physics.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidShape.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidCircle.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangle.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/CollisionInfo.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidCircle_Collision.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangleCircle_Collision.js"></script>
+        <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangle_Collision.js"></script>
+        
+        <!-- UI -->
+        <script type="text/javascript" src="src/Engine/UI/UIElement.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIText.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UITexture.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UISprite.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIButton.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UISpriteButton.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIRadio.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIRButton.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIBar.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UISlider.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIToggle.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UISwitchToggle.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UITextBoxFont.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UITextBox.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIDropDown.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/UIDDButton.js"></script>
+        <script type="text/javascript" src="src/Engine/UI/SelfAdapt.js"></script>
+        
+        <!-- Client game code -->
+        <script type="text/javascript" src="src/MyGame/PlayScene.js"></script>
+        <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
+        <script type="text/javascript" src="src/MyGame/EndlessPlayingScene.js"></script>
+        
+        <script type="text/javascript" src="src/MyGame/Objects/Coco.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Grass.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/IceCream.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/IceCreamManager.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/MapManager.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Player.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Sand.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Shadow.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/ShadowManager.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Fire.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/FireManager.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/IceCreamArrow.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Kunkun.js"></script>
+        
+        <script type="text/javascript" src="src/MyGame/UI/Thermometer.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/PowerBar.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/PowerBarPointer.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/ThermometerPointer.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/GeneralUI.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/PlayUI.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/FinishUI.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/PlayerDirectionUI.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/EventUI.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/HealthUI.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/HealthUIManager.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/StateUI.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/SelectUI.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/NiceButton.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/TutorialUI.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/AboutUI.js"></script>
+        
+
+        
+        
+        
+           
+<link rel="stylesheet" type="text/css" href="LoadingIcons.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+        
+    </head>
+
+    <body id="body" onload="
+        var myGame = new MyGame();
+        gEngine.Core.initializeEngineCore('GLCanvas', myGame);
+     ">
+        
+        <div id="LoadingIconParent" style="width: 1500px; height:900px;float:left;">
+                <canvas id="GLCanvas">
+        <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
+        Your browser does not support the HTML5 canvas.
+        <!-- this message will show only if WebGL clearing failed -->
+        </canvas>
+        <script type="text/javascript"> gEngine.LoadingIconConfig.setup(); 
+        selfAdapt();
+        window.onresize = function(){
+            selfAdapt();
+        }
+        document.body.parentNode.style.overflow = "hidden";
+
+        </script>
+        </div>
+<!--            <div id="rule" style="width:200px;margin:3%;float:left;">     
+            <span class="title">Introduction</span><br />
+                The global temperature is getting higher and higher, Haha, a dinosaur need to eat icecreams to decrease his body temperature, please help him!<br /><br />
+                <span class="title">Rule</span><br />
+                Try your best to eat icecreams to survive! Keep your body temperature low!
+                <br /><br />
+                <span class="title">Operation</span><br />
+                WSAD: change the direction and move<br />SPACE: hold to jump<br />J: shoot the fireballs (if you get fire buff)
+            <ul>
+        <li id="st1">hello</li>
+        <li id="st2"></li>
+        <li id="st3"></li>
+        <li id="st4"></li>
+        <li id="st5"></li>
+        <li id="st6"></li>
+        <li id="st7"></li>
+        <li id="st8"></li>
+        <li id="st9"></li>
+        <li id="st10"></li>
+            </ul>
+        </div>-->
+    </body>
+</html>
