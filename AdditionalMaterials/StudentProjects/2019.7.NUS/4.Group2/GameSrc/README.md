@@ -1,2 +1,0 @@
-# ArrowOfLove
-# TheArrowOfLove-V3
