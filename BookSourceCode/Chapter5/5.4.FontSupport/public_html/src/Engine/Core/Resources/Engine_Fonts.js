@@ -25,6 +25,9 @@ function CharacterInfo() {
     this.mCharHeight = 1;
     this.mCharWidthOffset = 0;
     this.mCharHeightOffset = 0;
+
+    // reference of char width/height ratio
+    this.mCharAspectRatio = 1;
 }
 
 // Note: font name is the path to the fnt file. (without the fnt extension!)
@@ -75,7 +78,7 @@ gEngine.Fonts = (function () {
         if (commonInfo === null) {
             return returnInfo;
         }
-        var charSize = commonInfo.getAttribute("base");
+        var charHeight = commonInfo.getAttribute("base");
 
         var charPath = "font/chars/char[@id=" + aChar + "]";
         var charInfo = fontInfo.evaluate(charPath, fontInfo, null, XPathResult.ANY_TYPE, null);
@@ -98,20 +101,14 @@ gEngine.Fonts = (function () {
         returnInfo.mTexCoordRight = rightPixel / (texInfo.mWidth - 1);
         returnInfo.mTexCoordBottom = bottomPixel / (texInfo.mHeight - 1);
 
-        returnInfo.mCharWidthOffset = 0;
-        returnInfo.mXAdvance = 0;
-        
         // relative character size
-        returnInfo.mCharWidth = charInfo.getAttribute("width") / charSize;
-        returnInfo.mCharHeight = charInfo.getAttribute("height") / charSize;
-        if (returnInfo.mCharWidth > 0) {
-            returnInfo.mCharWidthOffset = charInfo.getAttribute("xoffset") / charInfo.getAttribute("width");
-            returnInfo.mXAdvance = charInfo.getAttribute("xadvance") / charInfo.getAttribute("width");      
-        } else {
-            returnInfo.mCharWidth = charInfo.getAttribute("xadvance") / charSize; 
-            returnInfo.mXAdvance = 1.0;
-        }
-        returnInfo.mCharHeightOffset = charInfo.getAttribute("yoffset") / charSize;
+        var charWidth = charInfo.getAttribute("xadvance");
+        returnInfo.mCharWidth = charInfo.getAttribute("width") / charWidth;
+        returnInfo.mCharHeight = charInfo.getAttribute("height") / charHeight;
+        returnInfo.mCharWidthOffset = charInfo.getAttribute("xoffset") / charWidth;
+        returnInfo.mCharHeightOffset = charInfo.getAttribute("yoffset") / charHeight;
+        returnInfo.mCharAspectRatio = charWidth / charHeight;
+
         return returnInfo;
     };
 
