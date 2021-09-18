@@ -63,6 +63,6 @@ AdventuresOfDye.prototype.update = function () {
 AdventuresOfDye.prototype.unloadScene = function() {
     // Step B: starts the next level
     // starts the next level
-    var nextLevel = new GameLevel_01("Level1");  // next level to be loaded
+    var nextLevel = new GameLevel_02("Level2");  // next level to be loaded
     gEngine.Core.startScene(nextLevel);
 };

@@ -242,7 +242,7 @@ GameLevel_01.prototype.update = function () {
         collided = this.mIllumHero.getPhysicsComponent().collided(minionBox, collisionInfo);
         if (collided) {
             this.mRestart = true;
-            gEngine.GameLoop.stop();
+            // gEngine.GameLoop.stop();
         }
     }
 
@@ -255,7 +255,7 @@ GameLevel_01.prototype.update = function () {
             collided = this.mIllumHero.getPhysicsComponent().collided(pBox, collisionInfo);
             if (collided) {
                 this.mRestart = true;
-                gEngine.GameLoop.stop();
+                //gEngine.GameLoop.stop();
             }
         }
     }
